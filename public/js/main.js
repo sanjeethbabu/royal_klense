@@ -286,14 +286,17 @@ function setupNavbar() {
   });
 
   navToggle.addEventListener('click', () => {
+    const isActive = navMenu.classList.contains('active');
     navToggle.classList.toggle('active');
     navMenu.classList.toggle('active');
+    document.body.style.overflow = isActive ? '' : 'hidden';
   });
 
   navLinks.forEach(link => {
     link.addEventListener('click', () => {
       navToggle.classList.remove('active');
       navMenu.classList.remove('active');
+      document.body.style.overflow = '';
     });
   });
 }
@@ -633,7 +636,7 @@ function init() {
       openContactModal();
     });
 
-  }, 1200);
+  }, 3000);
 }
 
 document.addEventListener('DOMContentLoaded', init);

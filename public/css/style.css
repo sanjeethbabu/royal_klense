@@ -159,7 +159,10 @@ body {
 
 .loader {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -176,9 +179,7 @@ body {
 .loader-bg {
   position: absolute;
   inset: -50%;
-  background: linear-gradient(135deg, #0B1D3A, #071227, #122d52, #0B1D3A);
-  background-size: 400% 400%;
-  animation: loaderBgShift 8s ease infinite;
+  background: var(--white);
 }
 
 @keyframes loaderBgShift {
@@ -223,13 +224,14 @@ body {
   text-align: center;
   position: relative;
   z-index: 2;
+  max-width: 90vw;
 }
 
 .loader-logo-wrapper {
   position: relative;
-  width: 120px;
-  height: 120px;
-  margin: 0 auto 28px;
+  width: 300px;
+  height: 300px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -251,7 +253,8 @@ body {
 }
 
 .loader-ring-2 {
-  inset: 10px;
+  inset: 24px;
+  border-width: 3px;
   border-top-color: transparent;
   border-right-color: var(--gold-light);
   border-bottom-color: transparent;
@@ -260,7 +263,8 @@ body {
 }
 
 .loader-ring-3 {
-  inset: 20px;
+  inset: 48px;
+  border-width: 3px;
   border-top-color: var(--gold-dark);
   border-right-color: var(--gold-dark);
   border-bottom-color: transparent;
@@ -274,17 +278,13 @@ body {
 }
 
 .loader-brand-icon {
-  width: 56px;
-  height: 56px;
-  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-  border-radius: 16px;
+  width: 220px;
+  height: 220px;
+  background: transparent;
+  border-radius: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-heading);
-  font-weight: 800;
-  font-size: 1.3rem;
-  color: var(--white);
   position: relative;
   z-index: 2;
   animation: iconGlow 2s ease-in-out infinite;
@@ -296,15 +296,13 @@ body {
   50% { box-shadow: 0 0 50px rgba(201, 162, 39, 0.5), 0 0 100px rgba(201, 162, 39, 0.2); }
 }
 
-.loader-brand-text {
-  margin-bottom: 28px;
-}
+
 
 .loader-brand-name {
   font-family: var(--font-heading);
   font-size: 2.4rem;
   font-weight: 700;
-  color: var(--white);
+  color: var(--royal-blue);
   line-height: 1.2;
   letter-spacing: 4px;
 }
@@ -348,13 +346,7 @@ body {
 }
 
 .loader-bar {
-  width: 240px;
-  height: 4px;
-  background: rgba(255, 255, 255, 0.06);
-  border-radius: 4px;
-  overflow: hidden;
-  margin: 0 auto 16px;
-  position: relative;
+  display: none;
 }
 
 .loader-bar-glow {
@@ -2181,12 +2173,46 @@ body {
 }
 
 @media (max-width: 768px) {
+  .navbar {
+    padding: 12px 0;
+  }
+
+  .navbar.scrolled {
+    padding: 8px 0;
+  }
+
+  .nav-logo .logo-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 0.85rem;
+  }
+
+  .nav-logo .logo-title {
+    font-size: 1.1rem;
+  }
+
+  .nav-logo .logo-subtitle {
+    font-size: 0.55rem;
+  }
+
+  .hero-container {
+    padding: 60px 16px 60px;
+  }
+
   .section {
-    padding: 80px 0;
+    padding: 60px 0;
   }
 
   .section-header {
-    margin-bottom: 40px;
+    margin-bottom: 32px;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .container {
+    padding: 0 16px;
   }
 
   .nav-menu {
@@ -2195,13 +2221,17 @@ body {
     right: -100%;
     width: 280px;
     height: 100vh;
+    height: 100dvh;
     background: rgba(0, 42, 107, 0.98);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     flex-direction: column;
-    padding: 100px 32px 32px;
-    gap: 20px;
+    padding: 80px 24px 32px;
+    gap: 8px;
     transition: var(--transition);
+    z-index: 1001;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .nav-menu.active {
@@ -2220,53 +2250,193 @@ body {
     color: var(--text-dark);
   }
 
+  .loader-brand-name {
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+  }
+
+  .loader-logo-wrapper {
+    width: 220px;
+    height: 220px;
+  }
+
+  .loader-brand-icon {
+    width: 160px;
+    height: 160px;
+  }
+
+  .loader-ring-2 {
+    inset: 18px;
+    border-width: 2px;
+  }
+
+  .loader-ring-3 {
+    inset: 36px;
+    border-width: 2px;
+  }
+
+  .loader-bar {
+    display: none;
+  }
+
+  .loader-bar {
+    width: 160px;
+  }
+
   .hero-title {
-    font-size: 2.2rem;
+    font-size: 2rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-actions .btn {
+    justify-content: center;
+  }
+
+  .hero-scroll {
+    bottom: 100px;
+  }
+
+  .hero-wave {
+    height: 60px;
+  }
+
+  .hero-geometric {
+    display: none;
+  }
+
+  .hero-geometric-2 {
+    display: none;
   }
 
   .hero-stats {
     grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
+    gap: 10px;
   }
 
   .hero-stat {
-    padding: 20px 12px;
+    padding: 16px 10px;
   }
 
   .hero-stat-num {
-    font-size: 2rem;
+    font-size: 1.6rem;
   }
 
   .hero-stat-label {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
+  }
+
+  .about-badge {
+    right: 10px;
+    bottom: -15px;
+    padding: 12px 20px;
+    font-size: 0.85rem;
+  }
+
+  .about-features {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .about-feature {
+    font-size: 0.85rem;
   }
 
   .products-grid {
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 16px;
+  }
+
+  .product-card {
+    padding: 24px 16px;
   }
 
   .industries-grid {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
 
+  .industry-filter-btns {
+    gap: 8px;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .industry-filter-btns::-webkit-scrollbar {
+    display: none;
+  }
+
+  .industry-filter-btn {
+    flex-shrink: 0;
+    padding: 8px 18px;
+    font-size: 0.8rem;
+  }
+
   .features-grid {
     grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .feature-card {
+    padding: 24px 20px;
   }
 
   .manufacturing-grid {
     grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .manufacturing-card {
+    padding: 24px 20px;
   }
 
   .cert-grid {
     grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .cert-card {
+    padding: 24px 20px;
   }
 
   .cta-title {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
+  }
+
+  .cta-text {
+    font-size: 1rem;
+  }
+
+  .cta-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cta-actions .btn {
+    justify-content: center;
+  }
+
+  .testimonial-card {
+    padding: 32px 24px;
   }
 
   .footer-grid {
     grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .footer-social {
+    justify-content: center;
   }
 
   .top-products-grid {
@@ -2281,39 +2451,136 @@ body {
     grid-template-columns: 1fr;
   }
 
+  .modal {
+    max-width: 100%;
+    margin: 0 8px;
+  }
+
   .modal-body {
-    padding: 24px;
+    padding: 24px 20px;
+  }
+
+  .toast {
+    right: 16px;
+    left: 16px;
+    bottom: 16px;
+    text-align: center;
+  }
+
+  .page-hero {
+    padding: 120px 0 40px;
+  }
+
+  .page-hero .section-title {
+    font-size: 2rem;
   }
 }
 
 @media (max-width: 480px) {
+  .section-title {
+    font-size: 1.6rem;
+  }
+
+  .hero {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
   .hero-title {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .hero-badge {
+    font-size: 0.65rem;
+    padding: 6px 14px;
+  }
+
+  .hero-actions {
+    gap: 12px;
+  }
+
+  .hero-actions .btn {
+    padding: 14px 24px;
+    font-size: 0.85rem;
+  }
+
+  .hero-container {
+    padding: 60px 16px 60px;
   }
 
   .hero-stats {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 8px;
+  }
+
+  .hero-stat {
+    padding: 12px 8px;
+  }
+
+  .hero-stat-num {
+    font-size: 1.4rem;
+  }
+
+  .hero-stat-label {
+    font-size: 0.6rem;
+  }
+
+  .hero-scroll {
+    bottom: 80px;
+  }
+
+  .loader-brand-name {
+    font-size: 1.3rem;
+  }
+
+  .loader-brand-sub {
+    font-size: 0.6rem;
+    letter-spacing: 4px;
+  }
+
+  .nav-menu {
+    width: 260px;
+    padding: 70px 20px 24px;
+  }
+
+  .about-badge {
+    padding: 10px 16px;
+    font-size: 0.75rem;
+    right: 5px;
+    bottom: -12px;
+  }
+
+  .about-features {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .about-feature {
+    font-size: 0.8rem;
   }
 
   .products-grid {
     grid-template-columns: 1fr 1fr;
-  }
-
-  .industries-grid {
-    grid-template-columns: 1fr;
+    gap: 12px;
   }
 
   .features-grid {
     grid-template-columns: 1fr;
+    gap: 12px;
   }
 
   .manufacturing-grid {
     grid-template-columns: 1fr;
+    gap: 12px;
   }
 
   .cert-grid {
     grid-template-columns: 1fr;
+    gap: 12px;
   }
 
   .btn-lg {
@@ -2321,7 +2588,131 @@ body {
     font-size: 0.9rem;
   }
 
-  .about-features {
-    grid-template-columns: 1fr;
+  .footer-brand p {
+    font-size: 0.85rem;
+  }
+
+  .footer-col h4 {
+    font-size: 1rem;
+  }
+
+  .footer-contact p {
+    font-size: 0.85rem;
+  }
+
+  .modal-body {
+    padding: 20px 16px;
+  }
+
+  .modal-body h2 {
+    font-size: 1.3rem;
+  }
+
+  .page-hero {
+    padding: 100px 0 32px;
+  }
+
+  .page-hero .section-title {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .container {
+    padding: 0 12px;
+  }
+
+  .hero-title {
+    font-size: 1.4rem;
+  }
+
+  .hero-stats {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 6px;
+  }
+
+  .hero-stat {
+    padding: 10px 6px;
+  }
+
+  .hero-stat-num {
+    font-size: 1.2rem;
+  }
+
+  .hero-stat-label {
+    font-size: 0.55rem;
+  }
+
+  .hero-badge {
+    font-size: 0.6rem;
+    padding: 5px 12px;
+  }
+
+  .products-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .product-card {
+    padding: 20px 12px;
+  }
+
+  .loader-brand-name {
+    font-size: 1.1rem;
+  }
+
+  .loader-bar {
+    width: 140px;
+  }
+
+  .nav-menu {
+    width: 240px;
+    padding: 60px 16px 20px;
+  }
+
+  .section {
+    padding: 40px 0;
+  }
+
+  .section-title {
+    font-size: 1.4rem;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .nav-link::after {
+    display: none;
+  }
+
+  .hero-stat:hover {
+    transform: none;
+  }
+
+  .product-card:hover {
+    transform: none;
+  }
+
+  .industry-card:hover {
+    transform: none;
+  }
+
+  .feature-card:hover {
+    transform: none;
+  }
+
+  .manufacturing-card:hover {
+    transform: none;
+  }
+
+  .cert-card:hover {
+    transform: none;
+  }
+
+  .about-image-frame:hover .about-image-placeholder img {
+    transform: none;
+  }
+
+  .top-product-card:hover {
+    transform: none;
   }
 }
