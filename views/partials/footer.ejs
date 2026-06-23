@@ -1,0 +1,82 @@
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-brand">
+          <a href="/" class="footer-logo">
+            <span class="logo-icon">RK</span>
+            <div class="logo-text">
+              <span class="logo-title">Royal Klense</span>
+              <span class="logo-subtitle">Hygiene Solutions</span>
+            </div>
+          </a>
+          <p>India's premier manufacturer of premium cleaning chemicals, hygiene solutions, and housekeeping products. Committed to excellence, quality, and customer satisfaction.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/products">Products</a></li>
+            <li><a href="/industries">Industries</a></li>
+            <li><a href="/contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Product Categories</h4>
+          <ul>
+            <li><a href="/products">Soap Oils & Cleaners</a></li>
+            <li><a href="/products">Laundry Essentials</a></li>
+            <li><a href="/products">Kitchen Care</a></li>
+            <li><a href="/products">Floor Care</a></li>
+            <li><a href="/products">Bathroom Solutions</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact Info</h4>
+          <div class="footer-contact">
+            <p><i class="fas fa-map-marker-alt"></i> Mumbai, Maharashtra, India</p>
+            <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+            <p><i class="fas fa-envelope"></i> info@royalklense.com</p>
+            <p><i class="fas fa-clock"></i> Mon - Sat: 9:00 AM - 6:00 PM</p>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Inquiry</h4>
+          <form class="footer-form" id="footerForm" onsubmit="handleFooterContact(event)">
+            <div class="form-group">
+              <input type="text" id="ff_name" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+              <input type="email" id="ff_email" placeholder="Email Address" required>
+            </div>
+            <div class="form-group">
+              <textarea id="ff_message" placeholder="Your Message" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-paper-plane"></i> Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 Royal Klense. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="modal">
+      <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

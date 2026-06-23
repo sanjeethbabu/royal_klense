@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title ? title + ' | Royal Klense' : 'Royal Klense | Premium Hygiene & Cleaning Solutions' %></title>
+  <meta name="description" content="<%= description || 'Royal Klense - India\'s leading manufacturer of premium cleaning chemicals, hygiene solutions, and housekeeping products.' %>">
+  <meta name="keywords" content="cleaning chemicals, hygiene solutions, housekeeping products, industrial cleaners, hotel cleaning supplies, hospital hygiene, Royal Klense">
+  <meta name="author" content="Royal Klense">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <div id="loader" class="loader">
+    <div class="loader-content">
+      <div class="loader-brand">
+        <div class="loader-brand-icon">RK</div>
+        <div class="loader-brand-text">
+          <div class="loader-brand-name">Royal Klense</div>
+          <div class="loader-brand-sub">Hygiene Solutions</div>
+        </div>
+      </div>
+      <div class="loader-bar">
+        <div class="loader-fill"></div>
+        <div class="loader-glow"></div>
+      </div>
+    </div>
+  </div>
+
+  <nav class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="/" class="nav-logo">
+        <span class="logo-icon">RK</span>
+        <div class="logo-text">
+          <span class="logo-title">Royal Klense</span>
+          <span class="logo-subtitle">Hygiene Solutions</span>
+        </div>
+      </a>
+      <div class="nav-toggle" id="navToggle">
+        <span></span><span></span><span></span>
+      </div>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="/" class="nav-link <%= currentPage === 'home' ? 'active' : '' %>">Home</a></li>
+        <li><a href="/about" class="nav-link <%= currentPage === 'about' ? 'active' : '' %>">About</a></li>
+        <li><a href="/products" class="nav-link <%= currentPage === 'products' ? 'active' : '' %>">Products</a></li>
+        <li><a href="/industries" class="nav-link <%= currentPage === 'industries' ? 'active' : '' %>">Industries</a></li>
+        <li><a href="/why-us" class="nav-link <%= currentPage === 'why-us' ? 'active' : '' %>">Why Us</a></li>
+        <li><a href="/contact" class="nav-link nav-cta">Enquire Now</a></li>
+        <li><a href="/contact" class="nav-link nav-cta nav-cta-secondary">Join Our Team</a></li>
+      </ul>
+    </div>
+  </nav>

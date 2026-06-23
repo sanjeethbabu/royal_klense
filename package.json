@@ -1,0 +1,20 @@
+{
+  "name": "royal-klense",
+  "version": "1.0.0",
+  "description": "Premium Hygiene & Cleaning Solutions Manufacturer - Official Website",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "ejs": "^6.0.1",
+    "express": "^4.18.2",
+    "nodemailer": "^6.9.7"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
