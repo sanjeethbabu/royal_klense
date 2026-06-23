@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= title ? title + ' | Royal Klense' : 'Royal Klense | Premium Hygiene & Cleaning Solutions' %></title>
-  <meta name="description" content="<%= description || 'Royal Klense - India\'s leading manufacturer of premium cleaning chemicals, hygiene solutions, and housekeeping products.' %>">
+  <title><%= typeof title !== 'undefined' ? title + ' | Royal Klense' : 'Royal Klense | Premium Hygiene & Cleaning Solutions' %></title>
+  <meta name="description" content="<%= typeof description !== 'undefined' ? description : 'Royal Klense - India\'s leading manufacturer of premium cleaning chemicals, hygiene solutions, and housekeeping products.' %>">
   <meta name="keywords" content="cleaning chemicals, hygiene solutions, housekeeping products, industrial cleaners, hotel cleaning supplies, hospital hygiene, Royal Klense">
   <meta name="author" content="Royal Klense">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="/css/style.css">
 </head>
@@ -19,7 +19,7 @@
     <div class="loader-content">
       <div class="loader-brand">
         <div class="loader-brand-icon">
-          <img src="/images/loader-logo.png" alt="Royal Klense" style="width:100%;height:100%;object-fit:contain;border-radius:20px;">
+          <img src="/images/logo.png" alt="Royal Klense" style="width:100%;height:100%;object-fit:contain;border-radius:24px;">
         </div>
       </div>
       <div class="loader-bar">
@@ -32,11 +32,7 @@
   <nav class="navbar" id="navbar">
     <div class="container nav-container">
       <a href="/" class="nav-logo">
-        <span class="logo-icon">RK</span>
-        <div class="logo-text">
-          <span class="logo-title">Royal Klense</span>
-          <span class="logo-subtitle">Hygiene Solutions</span>
-        </div>
+        <img src="/images/logo.png" alt="Royal Klense" class="logo-icon-img">
       </a>
       <div class="nav-toggle" id="navToggle">
         <span></span><span></span><span></span>

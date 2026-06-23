@@ -299,6 +299,16 @@ function setupNavbar() {
       document.body.style.overflow = '';
     });
   });
+
+  document.addEventListener('click', (e) => {
+    if (navMenu.classList.contains('active') &&
+        !navMenu.contains(e.target) &&
+        !navToggle.contains(e.target)) {
+      navToggle.classList.remove('active');
+      navMenu.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  });
 }
 
 function setupModal() {

@@ -186,7 +186,7 @@ app.get('/api/health', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.render('index');
+  res.render('index', { title: 'Home', description: 'Royal Klense - Premium hygiene and cleaning solutions manufacturer.' });
 });
 
 app.get('/about', (req, res) => {
@@ -210,7 +210,7 @@ app.get('/contact', (req, res) => {
 });
 
 app.get('*', (req, res) => {
-  res.status(404).render('index');
+  res.status(404).render('index', { title: 'Home', description: 'Royal Klense - Premium hygiene and cleaning solutions manufacturer.' });
 });
 
 app.use((err, req, res, next) => {
