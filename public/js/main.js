@@ -1,3 +1,8 @@
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+window.scrollTo(0, 0);
+
 const siteData = {
   products: [
     { icon: 'fas fa-soap', name: 'Soap Oils & Cleaners', desc: 'Premium hand washes, body soaps, and multipurpose liquid cleaners for professional use.' },
@@ -108,14 +113,26 @@ function openProductModal(name, desc) {
 }
 
 function loadIndustries() {
-  const grid = document.getElementById('industriesGrid');
-  grid.innerHTML = siteData.industries.map((ind, i) => `
-    <div class="industry-card reveal" data-delay="${i * 100}">
-      <div class="industry-icon"><i class="${ind.icon}"></i></div>
-      <h3>${ind.name}</h3>
-      <p>${ind.desc}</p>
-    </div>
-  `).join('');
+  const topGrid = document.getElementById('industriesGridTop');
+  const bottomGrid = document.getElementById('industriesGridBottom');
+  if (topGrid) {
+    topGrid.innerHTML = siteData.industries.slice(0, 4).map((ind, i) => `
+      <div class="industry-card reveal" data-delay="${i * 100}">
+        <div class="industry-icon"><i class="${ind.icon}"></i></div>
+        <h3>${ind.name}</h3>
+        <p>${ind.desc}</p>
+      </div>
+    `).join('');
+  }
+  if (bottomGrid) {
+    bottomGrid.innerHTML = siteData.industries.slice(4).map((ind, i) => `
+      <div class="industry-card reveal" data-delay="${i * 100}">
+        <div class="industry-icon"><i class="${ind.icon}"></i></div>
+        <h3>${ind.name}</h3>
+        <p>${ind.desc}</p>
+      </div>
+    `).join('');
+  }
 }
 
 function loadFeatures() {
@@ -170,16 +187,13 @@ function setupScrollReveal() {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        const delay = entry.target.dataset.delay || 0;
-        setTimeout(() => {
-          entry.target.classList.add('visible');
-        }, parseInt(delay));
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
       }
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
 
-  document.querySelectorAll('.reveal').forEach((el, i) => {
-    el.dataset.delay = el.dataset.delay || (i % 4) * 100;
+  document.querySelectorAll('.reveal').forEach(el => {
     observer.observe(el);
   });
 }
@@ -270,19 +284,15 @@ function setupNavbar() {
   const navMenu = document.getElementById('navMenu');
   const navLinks = document.querySelectorAll('.nav-link');
 
+  let tickingNav = false;
   window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 80);
-
-    const sections = document.querySelectorAll('section[id]');
-    let current = 'home';
-    sections.forEach(section => {
-      const top = section.offsetTop - 150;
-      if (window.scrollY >= top) current = section.id;
-    });
-
-    navLinks.forEach(link => {
-      link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
-    });
+    if (!tickingNav) {
+      window.requestAnimationFrame(() => {
+        navbar.classList.toggle('scrolled', window.scrollY > 80);
+        tickingNav = false;
+      });
+      tickingNav = true;
+    }
   });
 
   navToggle.addEventListener('click', () => {
@@ -618,6 +628,7 @@ function init() {
   setTimeout(() => {
     document.getElementById('loader').classList.add('hidden');
     document.body.style.overflow = '';
+    window.scrollTo({ top: 0, behavior: 'instant' });
 
     loadProducts();
     loadIndustries();

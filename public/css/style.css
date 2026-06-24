@@ -56,14 +56,14 @@ body {
 }
 
 .section {
-  padding: 80px 0;
+  padding: 36px 0;
   position: relative;
 }
 
 .section-header {
   text-align: center;
   max-width: 700px;
-  margin: 0 auto 48px;
+  margin: 0 auto 24px;
 }
 
 .section-header.light {
@@ -193,8 +193,9 @@ body {
   align-items: center;
   justify-content: center;
   z-index: 99999;
-  transition: opacity 0.8s ease, visibility 0.8s ease;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
   overflow: hidden;
+  will-change: opacity;
 }
 
 .loader.hidden {
@@ -378,11 +379,27 @@ body {
   }
 }
 
+@keyframes logoSlideIn {
+  0% {
+    transform: translate(-60vw, -40vh) scale(0.6);
+    opacity: 0.3;
+  }
+  60% {
+    transform: translate(10vw, 0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+}
+
 .loader-brand-icon {
   width: 220px;
   height: 220px;
   background: transparent;
   border-radius: 50%;
+  animation: logoSlideIn 2.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -987,7 +1004,7 @@ body {
 }
 
 .page-hero {
-  padding: 160px 0 60px;
+  padding: 160px 0 36px;
   background: var(--off-white);
   position: relative;
   overflow: hidden;
@@ -1675,8 +1692,9 @@ body {
 .clients-track {
   display: flex;
   gap: 40px;
-  animation: scrollClients 25s linear infinite;
+  animation: scrollClients 30s linear infinite;
   width: max-content;
+  will-change: transform;
 }
 
 .client-logo {
@@ -1984,12 +2002,13 @@ body {
   box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
   text-decoration: none;
   z-index: 9999;
-  transition: var(--transition);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  will-change: transform;
 }
 
 .whatsapp-float:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 30px rgba(37, 211, 102, 0.5);
+  transform: scale(1.12);
+  box-shadow: 0 8px 32px rgba(37, 211, 102, 0.55);
   color: #fff;
 }
 
@@ -2100,8 +2119,9 @@ body {
 
 .reveal {
   opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transform: translateY(30px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  will-change: transform, opacity;
 }
 
 .reveal.visible {
@@ -2458,11 +2478,11 @@ body {
   }
 
   .section {
-    padding: 60px 0;
+    padding: 28px 0;
   }
 
   .section-header {
-    margin-bottom: 32px;
+    margin-bottom: 16px;
   }
 
   .section-title {
@@ -2985,7 +3005,7 @@ body {
   }
 
   .section {
-    padding: 40px 0;
+    padding: 24px 0;
   }
 
   .section-title {

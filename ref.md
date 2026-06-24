@@ -1,92 +1,38 @@
-The easiest and most professional way is:
+Our Partners
+Trusted by Industry Leaders
+All
+Healthcare
+Hospitality
+Institutions
+Corporates
+Facility Management
+Hotel Grand
+City Hospital
+Elite Facilities
+Prestige Hotels
+MediCare Group
+Royal Hospitalit
 
-Architecture
-Website Form
-    ↓
-API / Backend
-    ↓
-1. Save to Database
-2. Send Email
-3. Send WhatsApp Notification
-    ↓
-Success Message
-If you're using Next.js (recommended)
-Step 1: Create Database Table
-CREATE TABLE enquiries (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255),
-    company VARCHAR(255),
-    phone VARCHAR(20),
-    email VARCHAR(255),
-    message TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-Step 2: Frontend Form
-<form>
-    <input name="name" />
-    <input name="company" />
-    <input name="phone" />
-    <input name="email" />
-    <textarea name="message"></textarea>
+i need this same conttent with same running brnad names/all should imediaate after this 
+Hotels & Resorts
+Complete hygiene solutions for housekeeping, laundry, kitchen, and public areas.
 
-    <button type="submit">
-        Get Quote
-    </button>
-</form>
-Step 3: Backend API
+Hospitals & Healthcare
+Medical-grade disinfectants and infection control products for healthcare facilities.
 
-When user clicks Submit:
+Restaurants & Catering
+Professional kitchen cleaning and sanitation solutions for food service.
 
-POST /api/enquiry
+Educational Institutions
+Safe and effective cleaning solutions for schools, colleges, and universities. andafter this our partners then remaing 
+Corporate Offices
+Professional cleaning and hygiene products for workplace environments.
 
-Data sent:
+Manufacturing Industries
+Heavy-duty industrial cleaners and specialized maintenance chemicals.
 
-{
-  "name":"John",
-  "company":"ABC Hospital",
-  "phone":"9876543210",
-  "email":"john@gmail.com",
-  "message":"Need quotation"
-}
-Step 4: Save to Database
-await db.query(
-  "INSERT INTO enquiries (...) VALUES (...)"
-);
+Commercial Buildings
+Complete facility management cleaning solutions for commercial properties.
 
-Now every enquiry is permanently stored.
-
-Step 5: Send Email
-
-Use:
-
-SMTP (Hostinger, Zoho, Google Workspace)
-Or better: Resend
-
-Email sent to:
-
-sales@royalcleanse.com
-
-Example:
-
-New Website Enquiry
-
-Name: John
-Company: ABC Hospital
-Phone: 9876543210
-Email: john@gmail.com
-
-Message:
-Need quotation
-Step 6: WhatsApp Notification
-
-There are 2 ways.
-
-Method A (Free)
-
-After submission:
-
-window.open(
-  `https://wa.me/919876543210?text=New enquiry received`
-)
-
-This requires manual sending.
+Facility Management
+Comprehensive cleaning programs tailored for facility management companies.
