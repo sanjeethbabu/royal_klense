@@ -382,7 +382,7 @@ body {
   width: 220px;
   height: 220px;
   background: transparent;
-  border-radius: 24px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;

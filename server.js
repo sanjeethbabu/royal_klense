@@ -18,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use('/image2', express.static(path.join(__dirname, 'image2')));
 
 app.post('/api/contact', (req, res) => {
   const { name, email, phone, company, message } = req.body;
