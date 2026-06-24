@@ -938,7 +938,6 @@ body {
 
 .hero-stat:hover {
   background: rgba(255, 255, 255, 0.12);
-  transform: translateY(-4px);
 }
 
 .hero-stat-num {
@@ -1230,7 +1229,7 @@ body {
 
 .product-card:hover {
   transform: translateY(-8px);
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
   border-color: transparent;
 }
 
@@ -1246,12 +1245,11 @@ body {
   font-size: 1.5rem;
   color: var(--gold);
   transition: var(--transition);
+  transform-style: preserve-3d;
 }
 
 .product-card:hover .product-icon {
-  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-  color: var(--white);
-  transform: scale(1.1);
+  transform: scale(1.1) translateZ(20px);
 }
 
 .product-card h3 {
@@ -1327,7 +1325,7 @@ body {
 
 .industry-card:hover {
   transform: translateY(-6px);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
   border-color: transparent;
 }
 
@@ -1343,11 +1341,11 @@ body {
   font-size: 1.3rem;
   color: var(--gold);
   transition: var(--transition);
+  transform-style: preserve-3d;
 }
 
 .industry-card:hover .industry-icon {
-  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-  color: var(--white);
+  transform: scale(1.15) translateZ(20px) rotate(5deg);
 }
 
 .industry-card h3 {
@@ -1400,7 +1398,6 @@ body {
 .feature-card:hover {
   background: rgba(255, 255, 255, 0.08);
   transform: translateY(-6px);
-  border-color: rgba(201, 162, 39, 0.3);
 }
 
 .feature-icon {
@@ -1418,7 +1415,7 @@ body {
 }
 
 .feature-card:hover .feature-icon {
-  background: rgba(201, 162, 39, 0.2);
+  transform: scale(1.1) translateZ(15px);
 }
 
 .feature-card h3 {
@@ -1456,7 +1453,7 @@ body {
 
 .manufacturing-card:hover {
   transform: translateY(-8px);
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
   border-color: transparent;
 }
 
@@ -1512,9 +1509,8 @@ body {
 }
 
 .cert-card:hover {
-  border-color: var(--gold);
   transform: translateY(-6px);
-  box-shadow: var(--shadow-gold);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
 }
 
 .cert-icon {
@@ -1532,8 +1528,8 @@ body {
 }
 
 .cert-card:hover .cert-icon {
-  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-  color: var(--white);
+  transform: scale(1.15) translateZ(20px);
+  border-color: rgba(201, 162, 39, 0.3);
 }
 
 .cert-card h3 {
@@ -1654,9 +1650,7 @@ body {
 }
 
 .testimonial-btn:hover {
-  border-color: var(--gold);
-  color: var(--gold);
-  background: rgba(201, 162, 39, 0.05);
+  transform: scale(1.1);
 }
 
 .testimonial-dots {
@@ -1716,9 +1710,8 @@ body {
 }
 
 .client-logo:hover {
-  border-color: var(--gold);
-  color: var(--gold);
-  box-shadow: var(--shadow-gold);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
 }
 
 @keyframes scrollClients {
@@ -2248,8 +2241,8 @@ body {
 }
 
 .cred-logo:hover {
-  border-color: var(--gold);
-  color: var(--gold);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
 .featured-products {
@@ -2272,7 +2265,7 @@ body {
 
 .top-product-card:hover {
   transform: translateY(-8px);
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
 }
 
 .top-product-image {
@@ -2348,9 +2341,7 @@ body {
 
 .industry-filter-btn:hover,
 .industry-filter-btn.active {
-  border-color: var(--gold);
-  color: var(--gold);
-  background: rgba(201, 162, 39, 0.05);
+  transform: translateY(-2px);
 }
 
 .industry-filter-btn.active {
@@ -2388,7 +2379,7 @@ body {
 
 .industry-card:hover {
   transform: translateY(-6px) scale(1.02);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
   border-color: transparent;
 }
 
@@ -2411,9 +2402,8 @@ body {
 }
 
 .video-card:hover {
-  border-color: var(--gold);
   transform: translateY(-4px);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
 }
 
 .video-thumb {
@@ -3137,5 +3127,859 @@ body {
 
   .top-product-card:hover {
     transform: none;
+  }
+}
+
+/* =============================================
+   3D EFFECTS & PREMIUM ANIMATIONS
+   ============================================= */
+
+:root {
+  --perspective-3d: 1000px;
+  --tilt-max: 12deg;
+  --depth-z: 60px;
+}
+
+/* --- 3D Tilt Cards --- */
+.tilt-3d {
+  transform-style: preserve-3d;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.tilt-3d-content {
+  transform: translateZ(30px);
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  pointer-events: none;
+}
+
+.tilt-3d-content-close {
+  transform: translateZ(15px);
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  pointer-events: none;
+}
+
+.tilt-3d-content-far {
+  transform: translateZ(50px);
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  pointer-events: none;
+}
+
+.tilt-3d-icon,
+.tilt-3d-badge {
+  transform: translateZ(40px);
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  pointer-events: none;
+}
+
+/* --- 3D Floating Elements --- */
+@keyframes float3d {
+  0%, 100% {
+    transform: translateZ(0) translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateZ(20px) translateY(-10px) rotate(3deg);
+  }
+  50% {
+    transform: translateZ(35px) translateY(-20px) rotate(0deg);
+  }
+  75% {
+    transform: translateZ(15px) translateY(-10px) rotate(-3deg);
+  }
+}
+
+@keyframes float3d-slow {
+  0%, 100% {
+    transform: translateZ(0) translateY(0) rotate(0deg);
+  }
+  33% {
+    transform: translateZ(25px) translateY(-15px) rotate(4deg);
+  }
+  66% {
+    transform: translateZ(10px) translateY(-8px) rotate(-3deg);
+  }
+}
+
+.float-3d {
+  animation: float3d 6s ease-in-out infinite;
+  transform-style: preserve-3d;
+}
+
+.float-3d-slow {
+  animation: float3d-slow 8s ease-in-out infinite;
+  transform-style: preserve-3d;
+}
+
+.float-3d-delayed {
+  animation: float3d 7s ease-in-out infinite;
+  animation-delay: -3s;
+  transform-style: preserve-3d;
+}
+
+/* --- 3D Scroll Reveal --- */
+.reveal-3d {
+  opacity: 0;
+  transform: perspective(var(--perspective-3d)) rotateX(15deg) translateY(60px) translateZ(-20px);
+  transform-origin: top center;
+  transition: opacity 0.9s cubic-bezier(0.23, 1, 0.32, 1),
+              transform 0.9s cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: transform, opacity;
+}
+
+.reveal-3d.visible {
+  opacity: 1;
+  transform: perspective(var(--perspective-3d)) rotateX(0deg) translateY(0) translateZ(0);
+}
+
+.reveal-3d-left {
+  opacity: 0;
+  transform: perspective(var(--perspective-3d)) rotateY(20deg) translateX(-50px) translateZ(-20px);
+  transform-origin: left center;
+  transition: opacity 0.9s cubic-bezier(0.23, 1, 0.32, 1),
+              transform 0.9s cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: transform, opacity;
+}
+
+.reveal-3d-left.visible {
+  opacity: 1;
+  transform: perspective(var(--perspective-3d)) rotateY(0deg) translateX(0) translateZ(0);
+}
+
+.reveal-3d-right {
+  opacity: 0;
+  transform: perspective(var(--perspective-3d)) rotateY(-20deg) translateX(50px) translateZ(-20px);
+  transform-origin: right center;
+  transition: opacity 0.9s cubic-bezier(0.23, 1, 0.32, 1),
+              transform 0.9s cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: transform, opacity;
+}
+
+.reveal-3d-right.visible {
+  opacity: 1;
+  transform: perspective(var(--perspective-3d)) rotateY(0deg) translateX(0) translateZ(0);
+}
+
+.reveal-3d-scale {
+  opacity: 0;
+  transform: perspective(var(--perspective-3d)) scale3d(0.8, 0.8, 0.8) translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1),
+              transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: transform, opacity;
+}
+
+.reveal-3d-scale.visible {
+  opacity: 1;
+  transform: perspective(var(--perspective-3d)) scale3d(1, 1, 1) translateY(0);
+}
+
+/* --- 3D Glassmorphism --- */
+.glass-3d {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transform-style: preserve-3d;
+}
+
+.glass-3d-gold {
+  background: rgba(201, 162, 39, 0.05);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(201, 162, 39, 0.12);
+  box-shadow:
+    0 8px 32px rgba(201, 162, 39, 0.08),
+    inset 0 1px 0 rgba(201, 162, 39, 0.06);
+  transform-style: preserve-3d;
+}
+
+/* --- 3D Buttons --- */
+.btn-3d {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.4s ease;
+}
+
+.btn-3d::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: inherit;
+  filter: brightness(0.7);
+  transform: translateZ(-12px);
+  opacity: 0.5;
+  z-index: -1;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.btn-3d::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: inherit;
+  background: inherit;
+  filter: brightness(1.2) blur(12px);
+  opacity: 0;
+  z-index: -2;
+  transition: opacity 0.4s ease;
+}
+
+.btn-3d:hover {
+  transform: translateY(-4px) translateZ(12px);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-3d:hover::after {
+  transform: translateZ(-18px);
+  opacity: 0.7;
+}
+
+.btn-3d:hover::before {
+  opacity: 0.3;
+}
+
+.btn-3d:active {
+  transform: translateY(0) translateZ(0);
+}
+
+.btn-3d:active::after {
+  transform: translateZ(-6px);
+  opacity: 0.6;
+}
+
+/* --- 3D Hero Depth Layers --- */
+.hero-depth-1 { transform: translateZ(10px); }
+.hero-depth-2 { transform: translateZ(30px); }
+.hero-depth-3 { transform: translateZ(55px); }
+.hero-depth-4 { transform: translateZ(80px); }
+
+.hero-content {
+  transform-style: preserve-3d;
+}
+
+.hero-title {
+  text-shadow: 0 4px 30px rgba(201, 162, 39, 0.15);
+}
+
+.hero-badge {
+  backface-visibility: hidden;
+}
+
+/* --- 3D Geometric Decorations --- */
+.geo-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid rgba(201, 162, 39, 0.08);
+  pointer-events: none;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.geo-ring-pulse {
+  animation: ringPulse 5s ease-in-out infinite;
+}
+
+@keyframes ringPulse {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.2;
+  }
+  50% {
+    transform: scale(1.12) rotate(180deg);
+    opacity: 0.5;
+  }
+}
+
+.geo-ring-spin {
+  animation: ringSpin3d 8s linear infinite;
+}
+
+@keyframes ringSpin3d {
+  from {
+    transform: perspective(800px) rotateX(20deg) rotateY(0deg);
+  }
+  to {
+    transform: perspective(800px) rotateX(20deg) rotateY(360deg);
+  }
+}
+
+/* --- 3D Cube Decorations --- */
+.geo-cube {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  border: 2px solid rgba(201, 162, 39, 0.08);
+  border-radius: 16px;
+  pointer-events: none;
+  transform-style: preserve-3d;
+  animation: cubeFloat 15s ease-in-out infinite;
+  background: rgba(201, 162, 39, 0.02);
+  box-shadow: 0 0 40px rgba(201, 162, 39, 0.03);
+}
+
+@keyframes cubeFloat {
+  0%, 100% {
+    transform: perspective(800px) rotateX(20deg) rotateY(30deg) translateY(0) translateZ(0);
+    box-shadow: 0 0 40px rgba(201, 162, 39, 0.03);
+  }
+  25% {
+    transform: perspective(800px) rotateX(30deg) rotateY(50deg) translateY(-15px) translateZ(10px);
+  }
+  50% {
+    transform: perspective(800px) rotateX(25deg) rotateY(60deg) translateY(-25px) translateZ(20px);
+    box-shadow: 0 0 60px rgba(201, 162, 39, 0.06);
+  }
+  75% {
+    transform: perspective(800px) rotateX(35deg) rotateY(40deg) translateY(-10px) translateZ(5px);
+  }
+}
+
+/* --- 3D Glow Lines --- */
+.glow-line {
+  position: absolute;
+  pointer-events: none;
+  transform-style: preserve-3d;
+}
+
+.glow-line-h {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 162, 39, 0.15), transparent);
+  animation: glowLineH 5s ease-in-out infinite;
+}
+
+@keyframes glowLineH {
+  0%, 100% { opacity: 0.15; transform: scaleX(0.7); }
+  50% { opacity: 0.5; transform: scaleX(1); }
+}
+
+/* --- 3D Shine Overlay --- */
+.shine-3d {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(255, 255, 255, 0.04) 0%, transparent 60%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  border-radius: inherit;
+}
+
+/* =============================================
+   PREMIUM 3D EFFECTS ENGINE
+   ============================================= */
+
+/* --- Page-level 3D Perspective --- */
+.page-3d-wrap {
+  perspective: var(--perspective-3d);
+  transform-style: preserve-3d;
+}
+
+/* --- 3D Layer Depth System --- */
+.layer-3d-1 { transform: translateZ(5px); }
+.layer-3d-2 { transform: translateZ(15px); }
+.layer-3d-3 { transform: translateZ(30px); }
+.layer-3d-4 { transform: translateZ(50px); }
+
+/* --- 3D Image Depth --- */
+.img-depth {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.5s ease;
+}
+
+.img-depth:hover {
+  transform: perspective(var(--perspective-3d)) rotateY(-5deg) rotateX(3deg) translateZ(15px);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.18);
+}
+
+.img-depth::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.img-depth:hover::before {
+  opacity: 1;
+}
+
+/* --- 3D Stats Tilt --- */
+.stat-tilt {
+  transform-style: preserve-3d;
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  backface-visibility: hidden;
+}
+
+/* --- Enhanced Product/Industry/Feature/Cert Cards 3D --- */
+.product-card,
+.industry-card,
+.feature-card,
+.manufacturing-card,
+.cert-card {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.product-card:hover,
+.industry-card:hover,
+.feature-card:hover,
+.manufacturing-card:hover,
+.cert-card:hover {
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.12),
+    0 8px 20px rgba(201, 162, 39, 0.08);
+}
+
+.product-icon,
+.industry-icon,
+.feature-icon,
+.manufacturing-icon,
+.cert-icon {
+  transform-style: preserve-3d;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* --- 3D Tilt Card System --- */
+.tilt-3d {
+  transform-style: preserve-3d;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.tilt-3d-content {
+  transform: translateZ(25px);
+  pointer-events: none;
+  display: inline-block;
+}
+
+.tilt-3d-content-close {
+  transform: translateZ(12px);
+  pointer-events: none;
+  display: inline-block;
+}
+
+.tilt-3d-content-far {
+  transform: translateZ(40px);
+  pointer-events: none;
+  display: inline-block;
+}
+
+/* --- 3D Scroll Reveal System --- */
+.reveal-3d {
+  opacity: 0;
+  transform: perspective(var(--perspective-3d)) rotateX(12deg) translateY(50px);
+  transform-origin: top center;
+  transition: opacity 0.8s cubic-bezier(0.19, 1, 0.22, 1),
+              transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+  will-change: transform, opacity;
+}
+
+.reveal-3d.visible {
+  opacity: 1;
+  transform: perspective(var(--perspective-3d)) rotateX(0deg) translateY(0);
+}
+
+.reveal-3d-left {
+  opacity: 0;
+  transform: perspective(var(--perspective-3d)) rotateY(15deg) translateX(-50px);
+  transform-origin: left center;
+  transition: opacity 0.8s cubic-bezier(0.19, 1, 0.22, 1),
+              transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+  will-change: transform, opacity;
+}
+
+.reveal-3d-left.visible {
+  opacity: 1;
+  transform: perspective(var(--perspective-3d)) rotateY(0deg) translateX(0);
+}
+
+.reveal-3d-right {
+  opacity: 0;
+  transform: perspective(var(--perspective-3d)) rotateY(-15deg) translateX(50px);
+  transform-origin: right center;
+  transition: opacity 0.8s cubic-bezier(0.19, 1, 0.22, 1),
+              transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+  will-change: transform, opacity;
+}
+
+.reveal-3d-right.visible {
+  opacity: 1;
+  transform: perspective(var(--perspective-3d)) rotateY(0deg) translateX(0);
+}
+
+.reveal-3d-scale {
+  opacity: 0;
+  transform: perspective(var(--perspective-3d)) scale3d(0.85, 0.85, 0.85) translateY(40px);
+  transition: opacity 0.7s cubic-bezier(0.19, 1, 0.22, 1),
+              transform 0.7s cubic-bezier(0.19, 1, 0.22, 1);
+  will-change: transform, opacity;
+}
+
+.reveal-3d-scale.visible {
+  opacity: 1;
+  transform: perspective(var(--perspective-3d)) scale3d(1, 1, 1) translateY(0);
+}
+
+/* --- 3D Floating Animations --- */
+@keyframes float3d {
+  0%, 100% {
+    transform: translateZ(0) translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateZ(15px) translateY(-10px) rotate(2deg);
+  }
+  50% {
+    transform: translateZ(30px) translateY(-18px) rotate(0deg);
+  }
+  75% {
+    transform: translateZ(10px) translateY(-8px) rotate(-2deg);
+  }
+}
+
+@keyframes float3d-slow {
+  0%, 100% { transform: translateZ(0) translateY(0); }
+  33% { transform: translateZ(20px) translateY(-12px); }
+  66% { transform: translateZ(10px) translateY(-6px); }
+}
+
+.float-3d {
+  animation: float3d 6s ease-in-out infinite;
+  transform-style: preserve-3d;
+}
+
+.float-3d-slow {
+  animation: float3d-slow 8s ease-in-out infinite;
+  transform-style: preserve-3d;
+}
+
+/* --- 3D Glassmorphism --- */
+.glass-3d {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transform-style: preserve-3d;
+}
+
+.glass-3d-gold {
+  background: rgba(201, 162, 39, 0.05);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(201, 162, 39, 0.12);
+  box-shadow:
+    0 8px 32px rgba(201, 162, 39, 0.08),
+    inset 0 1px 0 rgba(201, 162, 39, 0.06);
+  transform-style: preserve-3d;
+}
+
+/* --- 3D Button System --- */
+.btn {
+  transform-style: preserve-3d;
+}
+
+.btn-3d {
+  position: relative;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+}
+
+.btn-3d::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: inherit;
+  filter: brightness(0.65);
+  transform: translateZ(-8px);
+  opacity: 0.5;
+  z-index: -1;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.btn-3d:hover {
+  transform: translateY(-3px) translateZ(10px);
+  box-shadow: 0 12px 40px rgba(201, 162, 39, 0.3);
+}
+
+.btn-3d:hover::after {
+  transform: translateZ(-14px);
+  opacity: 0.7;
+}
+
+.btn-3d:active {
+  transform: translateY(0) translateZ(0);
+}
+
+.btn-3d:active::after {
+  transform: translateZ(-4px);
+}
+
+.btn-outline.btn-3d::after {
+  background: rgba(255, 255, 255, 0.1);
+  border: inherit;
+}
+
+/* --- 3D Hero Depth System --- */
+.hero-depth-layer {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.hero-depth-1 { transform: translateZ(5px); }
+.hero-depth-2 { transform: translateZ(20px); }
+.hero-depth-3 { transform: translateZ(40px); }
+.hero-depth-4 { transform: translateZ(60px); }
+
+/* --- 3D Geometric Decoration Rings --- */
+.geo-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(201, 162, 39, 0.08);
+  pointer-events: none;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.geo-ring-pulse {
+  animation: ringPulse 4s ease-in-out infinite;
+}
+
+@keyframes ringPulse {
+  0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.2; }
+  50% { transform: scale(1.1) rotate(180deg); opacity: 0.5; }
+}
+
+/* --- 3D Floating Particles --- */
+.particle-3d {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: var(--gold);
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(201, 162, 39, 0.3);
+  pointer-events: none;
+  transform-style: preserve-3d;
+}
+
+@keyframes particleRise {
+  0% { transform: translateY(0) translateZ(0) scale(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-100vh) translateZ(40px) scale(1); opacity: 0; }
+}
+
+/* --- 3D Navbar Enhancement --- */
+.navbar {
+  backface-visibility: hidden;
+}
+
+.nav-link::after {
+  height: 2px;
+  bottom: -2px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  border-radius: 2px;
+  transition: width 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: 0 0 8px rgba(201, 162, 39, 0.2);
+}
+
+/* --- 3D Footer Enhancement --- */
+.footer {
+  transform-style: preserve-3d;
+}
+
+.footer-col h4::after {
+  transition: width 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.footer-col:hover h4::after {
+  width: 50px;
+}
+
+.footer-social a {
+  backface-visibility: hidden;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+              background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.footer-social a:hover {
+  transform: translateY(-3px) scale(1.1);
+}
+
+/* --- 3D Modal Enhancement --- */
+.modal {
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+/* --- 3D Section Divider Glow --- */
+.section::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 162, 39, 0.08), transparent);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.section:hover::before {
+  opacity: 1;
+}
+
+.about::before,
+.products::before,
+.industries::before,
+.testimonials::before {
+  display: none;
+}
+
+/* --- Perspective Row (cards that react to each other) --- */
+.perspective-row {
+  perspective: 1200px;
+  perspective-origin: center top;
+}
+
+.perspective-row > * {
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1),
+              filter 0.5s ease, opacity 0.5s ease;
+}
+
+.perspective-row:hover > *:not(:hover) {
+  transform: translateZ(-10px) scale(0.97);
+  filter: brightness(0.92);
+  opacity: 0.85;
+}
+
+.perspective-row > *:hover {
+  transform: translateZ(25px) scale(1.03);
+  z-index: 2;
+}
+
+/* --- 3D Scroll Progress Bar --- */
+.scroll-progress-3d {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-light));
+  z-index: 10001;
+  width: 0%;
+  transition: width 0.1s linear;
+  box-shadow: 0 0 15px rgba(201, 162, 39, 0.4);
+  transform-style: preserve-3d;
+}
+
+/* --- 3D Text Effect --- */
+.text-glow-3d {
+  text-shadow:
+    0 1px 0 rgba(201, 162, 39, 0.2),
+    0 2px 4px rgba(0, 0, 0, 0.1),
+    0 4px 15px rgba(201, 162, 39, 0.15);
+}
+
+/* --- 3D Depth Shadow Utilities --- */
+.shadow-depth-1 { box-shadow: 0 5px 20px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04); }
+.shadow-depth-2 { box-shadow: 0 10px 40px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.06); }
+.shadow-depth-3 { box-shadow: 0 20px 60px rgba(0,0,0,0.15), 0 8px 20px rgba(0,0,0,0.08); }
+
+/* --- 3D Gradient Border Animation --- */
+.border-glow-3d {
+  position: relative;
+  isolation: isolate;
+}
+
+.border-glow-3d::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    transparent 0deg,
+    rgba(201, 162, 39, 0.3) 90deg,
+    transparent 180deg,
+    rgba(201, 162, 39, 0.3) 270deg,
+    transparent 360deg
+  );
+  z-index: -1;
+  animation: borderSpin 4s linear infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  padding: 1px;
+}
+
+@keyframes borderSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* --- 3D Hero Geometric Cube --- */
+.geo-cube-3d {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border: 1px solid rgba(201, 162, 39, 0.1);
+  border-radius: 10px;
+  pointer-events: none;
+  transform-style: preserve-3d;
+  animation: cubeFloat3d 12s ease-in-out infinite;
+}
+
+@keyframes cubeFloat3d {
+  0%, 100% {
+    transform: perspective(800px) rotateX(15deg) rotateY(20deg) translateY(0);
+  }
+  50% {
+    transform: perspective(800px) rotateX(25deg) rotateY(40deg) translateY(-25px);
+  }
+}
+
+/* --- 3D Loader Enhancement --- */
+.loader-ring {
+  backface-visibility: hidden;
+}
+
+/* --- 3D WhatsApp Float --- */
+.whatsapp-float {
+  backface-visibility: hidden;
+}
+
+/* --- Touch Device Safeguards --- */
+@media (hover: none) and (pointer: coarse) {
+  .tilt-3d,
+  .stat-tilt,
+  .img-depth,
+  .btn-3d {
+    transform: none !important;
+  }
+  .img-depth:hover,
+  .btn-3d:hover,
+  .perspective-row > *:hover {
+    transform: none !important;
+  }
+  .perspective-row:hover > *:not(:hover) {
+    transform: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+  }
+  .geo-ring,
+  .geo-cube-3d,
+  .particle-3d {
+    display: none;
   }
 }

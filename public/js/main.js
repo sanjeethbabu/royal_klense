@@ -229,24 +229,6 @@ function setupParallax() {
   });
 }
 
-function setupHoverEffects() {
-  document.querySelectorAll('.product-card, .industry-card, .feature-card, .manufacturing-card, .cert-card').forEach(card => {
-    card.addEventListener('mouseenter', function() {
-      const icon = this.querySelector('.product-icon, .industry-icon, .feature-icon, .manufacturing-icon, .cert-icon');
-      if (icon) {
-        icon.style.transition = 'transform 0.3s ease';
-        icon.style.transform = 'scale(1.15) rotate(5deg)';
-      }
-    });
-    card.addEventListener('mouseleave', function() {
-      const icon = this.querySelector('.product-icon, .industry-icon, .feature-icon, .manufacturing-icon, .cert-icon');
-      if (icon) {
-        icon.style.transform = 'scale(1) rotate(0deg)';
-      }
-    });
-  });
-}
-
 function animateCounters() {
   const counters = document.querySelectorAll('[data-count]');
   if (!counters.length) return;
@@ -625,6 +607,222 @@ async function handleFooterContact(e) {
   btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
 }
 
+function setupTilt3D() {
+  const cards = document.querySelectorAll('.tilt-3d:not(.product-card):not(.industry-card):not(.feature-card):not(.manufacturing-card):not(.cert-card):not(.top-product-card)');
+  const autoCards = document.querySelectorAll('.product-card, .industry-card, .feature-card, .manufacturing-card, .cert-card, .top-product-card, .stat-tilt, .hero-stat');
+
+  autoCards.forEach(card => {
+    card.classList.add('tilt-3d');
+    card.style.transition = 'transform 0.4s cubic-bezier(0.03, 0.98, 0.53, 0.99)';
+  });
+
+  const allTilt = document.querySelectorAll('.tilt-3d');
+
+  allTilt.forEach(card => {
+    let shine = card.querySelector('.shine-3d');
+    if (!shine) {
+      shine = document.createElement('div');
+      shine.className = 'shine-3d';
+      card.appendChild(shine);
+    }
+
+    card.addEventListener('mouseenter', function(e) {
+      if (window.innerWidth < 768) return;
+      this._isTilting = true;
+    });
+
+    card.addEventListener('mousemove', function(e) {
+      if (!this._isTilting || window.innerWidth < 768) return;
+      const rect = this.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      const rotateX = ((y - centerY) / centerY) * -10;
+      const rotateY = ((x - centerX) / centerX) * 10;
+      const translateZ = 8;
+
+      const s = this.querySelector('.shine-3d');
+      if (s) {
+        s.style.setProperty('--shine-x', `${(x / rect.width) * 100}%`);
+        s.style.setProperty('--shine-y', `${(y / rect.height) * 100}%`);
+        s.style.transform = 'translateX(0)';
+        s.style.opacity = '1';
+      }
+
+      this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(${translateZ}px)`;
+    });
+
+    card.addEventListener('mouseleave', function() {
+      this._isTilting = false;
+      this.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0)';
+      const s = this.querySelector('.shine-3d');
+      if (s) {
+        s.style.opacity = '0';
+        s.style.background = 'none';
+      }
+    });
+  });
+}
+
+function setup3DGeometrics() {
+  const containers = document.querySelectorAll('.hero, .page-hero, .cta, .why-us');
+  if (window.innerWidth < 768) return;
+
+  containers.forEach(container => {
+    const existing = container.querySelectorAll('.geo-ring, .geo-cube');
+    if (existing.length > 0) return;
+
+    for (let i = 0; i < 3; i++) {
+      const ring = document.createElement('div');
+      ring.className = 'geo-ring geo-ring-pulse';
+      const size = 200 + i * 100;
+      ring.style.width = size + 'px';
+      ring.style.height = size + 'px';
+      ring.style.top = (10 + Math.random() * 70) + '%';
+      ring.style.left = (5 + Math.random() * 80) + '%';
+      ring.style.animationDelay = (-i * 1.5) + 's';
+      ring.style.borderWidth = (1 + i * 0.5) + 'px';
+      container.appendChild(ring);
+    }
+  });
+}
+
+function setupHeroParticles() {
+  const hero = document.querySelector('.hero');
+  if (!hero || window.innerWidth < 768) return;
+
+  const particleField = document.createElement('div');
+  particleField.className = 'hero-particle-field';
+  particleField.style.cssText = 'position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1;';
+  hero.insertBefore(particleField, hero.firstChild);
+
+  for (let i = 0; i < 20; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle-3d';
+    p.style.left = (5 + Math.random() * 90) + '%';
+    p.style.bottom = '0';
+    p.style.width = (2 + Math.random() * 4) + 'px';
+    p.style.height = p.style.width;
+    p.style.animation = `particleRise ${6 + Math.random() * 8}s ease-in-out ${Math.random() * 6}s infinite`;
+    p.style.opacity = 0.3 + Math.random() * 0.5;
+    particleField.appendChild(p);
+  }
+}
+
+function setup3DCubes() {
+  const heroes = document.querySelectorAll('.hero, .page-hero');
+  if (window.innerWidth < 768) return;
+
+  heroes.forEach(hero => {
+    for (let i = 0; i < 3; i++) {
+      const cube = document.createElement('div');
+      cube.className = 'geo-cube-3d';
+      const size = 30 + i * 15;
+      cube.style.width = size + 'px';
+      cube.style.height = size + 'px';
+      cube.style.top = (15 + Math.random() * 60) + '%';
+      cube.style.left = (80 + Math.random() * 15) + '%';
+      cube.style.animationDelay = (-i * 3) + 's';
+      cube.style.borderColor = `rgba(201, 162, 39, ${0.05 + i * 0.03})`;
+      hero.appendChild(cube);
+    }
+  });
+}
+
+function setupScrollProgress() {
+  const bar = document.createElement('div');
+  bar.className = 'scroll-progress-3d';
+  document.body.appendChild(bar);
+
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    const scrollTop = h.scrollTop || document.body.scrollTop;
+    const scrollHeight = h.scrollHeight - h.clientHeight;
+    const progress = (scrollTop / scrollHeight) * 100;
+    bar.style.width = progress + '%';
+  }, { passive: true });
+}
+
+function enhance3DScrollReveal() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.08,
+    rootMargin: '0px 0px -40px 0px'
+  });
+
+  document.querySelectorAll('.reveal-3d, .reveal-3d-left, .reveal-3d-right, .reveal-3d-scale').forEach(el => {
+    observer.observe(el);
+  });
+}
+
+function setupHero3DDepth() {
+  const heroContent = document.querySelector('.hero-content');
+  const heroStats = document.querySelector('.hero-stats');
+  const heroGeometric = document.querySelector('.hero-geometric');
+  const heroTitle = document.querySelector('.hero-title');
+  const heroSubtitle = document.querySelector('.hero-subtitle');
+  const heroBadge = document.querySelector('.hero-badge');
+
+  if (heroContent) heroContent.classList.add('hero-depth-layer');
+  if (heroStats) heroStats.classList.add('hero-depth-layer');
+  if (heroGeometric) heroGeometric.classList.add('hero-depth-layer');
+
+  const depthGroups = [
+    { el: heroGeometric, depth: 0 },
+    { el: heroBadge, depth: 1 },
+    { el: heroSubtitle, depth: 2 },
+    { el: heroTitle, depth: 3 },
+    { el: heroStats, depth: 1 }
+  ];
+
+  depthGroups.forEach(({ el, depth }) => {
+    if (!el) return;
+    el.style.transformStyle = 'preserve-3d';
+    el.classList.add('hero-depth-layer');
+  });
+}
+
+function setupScroll3DParallax() {
+  let ticking = false;
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        const sy = window.scrollY;
+
+        document.querySelectorAll('.hero-geometric, .geo-ring, .geo-cube').forEach(el => {
+          const rate = 0.05;
+          el.style.transform = `translateY(${sy * rate}px) rotate(${sy * 0.015}deg) scale(${1 + sy * 0.0003})`;
+        });
+
+        document.querySelectorAll('.hero-stats .hero-stat').forEach((stat, i) => {
+          const rate = 0.03 + (i * 0.01);
+          stat.style.transform = `translateY(${sy * rate}px)`;
+        });
+
+        document.querySelectorAll('.footer').forEach(footer => {
+          const rect = footer.getBoundingClientRect();
+          if (rect.top < window.innerHeight) {
+            const progress = 1 - (rect.top / window.innerHeight);
+            footer.style.transform = `translateZ(${progress * -10}px)`;
+          }
+        });
+
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+}
+
 function init() {
   setTimeout(() => {
     document.getElementById('loader').classList.add('hidden');
@@ -641,8 +839,16 @@ function init() {
     setupModal();
     setupScrollReveal();
     setupParallax();
-    setupHoverEffects();
     animateCounters();
+
+    setupTilt3D();
+    setup3DGeometrics();
+    setupHeroParticles();
+    setup3DCubes();
+    setupScrollProgress();
+    enhance3DScrollReveal();
+    setupHero3DDepth();
+    setupScroll3DParallax();
 
     const autoTimer = startAutoTestimonial();
 
