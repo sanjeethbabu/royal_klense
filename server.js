@@ -4,6 +4,8 @@ const path = require('path');
 const fs = require('fs');
 require('dotenv').config();
 
+const { getWaMeLink } = require('./whatsapp');
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -15,7 +17,6 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.post('/api/contact', (req, res) => {
@@ -41,7 +42,6 @@ app.post('/api/contact', (req, res) => {
 
   const filename = `contact-${Date.now()}.json`;
   fs.writeFileSync(path.join(logDir, filename), JSON.stringify(data, null, 2));
-
   console.log(`Contact inquiry saved: ${filename}`);
 
   let transporter = null;
@@ -83,7 +83,13 @@ app.post('/api/contact', (req, res) => {
     });
   }
 
-  res.json({ success: true, message: 'Thank you for your inquiry. Our team will contact you shortly.' });
+  const waLink = getWaMeLink({ ...data, type: 'contact' });
+
+  res.json({
+    success: true,
+    message: 'Thank you for your inquiry. Our team will contact you shortly.',
+    waLink,
+  });
 });
 
 app.post('/api/quote', (req, res) => {
@@ -111,7 +117,6 @@ app.post('/api/quote', (req, res) => {
 
   const filename = `quote-${Date.now()}.json`;
   fs.writeFileSync(path.join(logDir, filename), JSON.stringify(data, null, 2));
-
   console.log(`Quote request saved: ${filename}`);
 
   let transporter = null;
@@ -154,7 +159,13 @@ app.post('/api/quote', (req, res) => {
     });
   }
 
-  res.json({ success: true, message: 'Your quote request has been submitted. Our sales team will respond within 24 hours.' });
+  const waLink = getWaMeLink({ ...data, type: 'quote' });
+
+  res.json({
+    success: true,
+    message: 'Your quote request has been submitted. Our sales team will respond within 24 hours.',
+    waLink,
+  });
 });
 
 app.post('/api/subscribe', (req, res) => {

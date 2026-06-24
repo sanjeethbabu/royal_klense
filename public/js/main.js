@@ -426,12 +426,16 @@ async function handleContact(e) {
     });
     const result = await res.json();
     if (result.success) {
+      const waBtn = result.waLink ? `<a href="${result.waLink}" target="_blank" class="btn btn-whatsapp" style="margin-top:12px;width:100%;justify-content:center">
+        <i class="fab fa-whatsapp"></i> Notify Us on WhatsApp
+      </a>` : '';
       document.getElementById('modalBody').innerHTML = `
         <div class="form-success">
           <i class="fas fa-check-circle"></i>
           <h3>Thank You!</h3>
           <p>${result.message}</p>
-          <button class="btn btn-primary" onclick="closeModal()" style="margin-top:16px">Close</button>
+          ${waBtn}
+          <button class="btn btn-primary" onclick="closeModal()" style="margin-top:12px">Close</button>
         </div>
       `;
       showToast('Message sent successfully!', 'success');
@@ -471,12 +475,16 @@ async function handleQuote(e) {
     });
     const result = await res.json();
     if (result.success) {
+      const waBtn = result.waLink ? `<a href="${result.waLink}" target="_blank" class="btn btn-whatsapp" style="margin-top:12px;width:100%;justify-content:center">
+        <i class="fab fa-whatsapp"></i> Notify Us on WhatsApp
+      </a>` : '';
       document.getElementById('modalBody').innerHTML = `
         <div class="form-success">
           <i class="fas fa-file-invoice"></i>
           <h3>Quote Requested!</h3>
           <p>${result.message}</p>
-          <button class="btn btn-primary" onclick="closeModal()" style="margin-top:16px">Close</button>
+          ${waBtn}
+          <button class="btn btn-primary" onclick="closeModal()" style="margin-top:12px">Close</button>
         </div>
       `;
       showToast('Quote request submitted!', 'success');
@@ -588,6 +596,13 @@ async function handleFooterContact(e) {
     if (result.success) {
       showToast('Message sent successfully!', 'success');
       e.target.reset();
+      if (result.waLink) {
+        setTimeout(() => {
+          if (confirm('Open WhatsApp to notify the team about your enquiry?')) {
+            window.open(result.waLink, '_blank');
+          }
+        }, 1000);
+      }
     } else {
       showToast(result.error || 'Something went wrong.', 'error');
     }
