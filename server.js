@@ -16,7 +16,16 @@ app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use((req, res, next) => {
+  if (req.method === 'GET' && !req.path.startsWith('/api')) {
+    res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    res.set('Pragma', 'no-cache');
+    res.set('Expires', '0');
+  }
+  next();
+});
+
+app.use(express.static(path.join(__dirname, 'public'), { index: false }));
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/image2', express.static(path.join(__dirname, 'image2')));
 
@@ -197,32 +206,54 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-app.get('/', (req, res) => {
-  res.render('index', { title: 'Home', description: 'Royal Klense - Premium hygiene and cleaning solutions manufacturer.' });
-});
+const pageMeta = {
+  home: {
+    title: 'Home',
+    description: 'Royal Klense — premium hygiene and cleaning solutions for hotels, hospitals, industries, and institutions. Learn about us, our credentials, and sectors we serve.',
+    canonical: '/'
+  },
+  about: {
+    title: 'About Us',
+    description: 'Learn about Royal Klense — India\'s trusted manufacturer of premium cleaning chemicals and hygiene solutions with ISO-certified production.',
+    canonical: '/about'
+  },
+  products: {
+    title: 'Products',
+    description: 'Explore 300+ cleaning and hygiene products across 12 categories — from industrial cleaners to premium hygiene essentials by Royal Klense.',
+    canonical: '/products'
+  },
+  industries: {
+    title: 'Industries We Serve',
+    description: 'Royal Klense provides tailored cleaning and hygiene solutions for hotels, hospitals, restaurants, institutions, and more.',
+    canonical: '/industries'
+  },
+  'why-us': {
+    title: 'Why Choose Us',
+    description: 'Discover why businesses trust Royal Klense — ISO-certified quality, reliable supply chain, competitive pricing, and expert technical support.',
+    canonical: '/why-us'
+  },
+  contact: {
+    title: 'Contact Us',
+    description: 'Get in touch with Royal Klense for product enquiries, quotes, and partnership opportunities. We respond within 24 hours.',
+    canonical: '/contact'
+  }
+};
 
-app.get('/about', (req, res) => {
-  res.render('about');
-});
+function renderPage(res, page, view) {
+  res.render(view, { ...pageMeta[page], currentPage: page });
+}
 
-app.get('/products', (req, res) => {
-  res.render('products');
-});
+app.get('/', (req, res) => renderPage(res, 'home', 'index'));
+app.get('/home', (req, res) => renderPage(res, 'home', 'index'));
 
-app.get('/industries', (req, res) => {
-  res.render('industries');
-});
-
-app.get('/why-us', (req, res) => {
-  res.render('why-us');
-});
-
-app.get('/contact', (req, res) => {
-  res.render('contact');
-});
+app.get('/about', (req, res) => res.redirect('/#about'));
+app.get('/products', (req, res) => renderPage(res, 'products', 'products'));
+app.get('/industries', (req, res) => res.redirect('/#industries'));
+app.get('/why-us', (req, res) => renderPage(res, 'why-us', 'why-us'));
+app.get('/contact', (req, res) => renderPage(res, 'contact', 'contact'));
 
 app.get('*', (req, res) => {
-  res.status(404).render('index', { title: 'Home', description: 'Royal Klense - Premium hygiene and cleaning solutions manufacturer.' });
+  res.status(404).redirect('/');
 });
 
 app.use((err, req, res, next) => {
