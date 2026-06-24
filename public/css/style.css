@@ -2004,12 +2004,26 @@ body {
   z-index: 9999;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
   will-change: transform;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
 }
 
-.whatsapp-float:hover {
+.whatsapp-float:hover,
+.whatsapp-float:active {
   transform: scale(1.12);
   box-shadow: 0 8px 32px rgba(37, 211, 102, 0.55);
   color: #fff;
+}
+
+@media (max-width: 768px) {
+  .whatsapp-float {
+    bottom: 16px;
+    right: 16px;
+    width: 54px;
+    height: 54px;
+    font-size: 1.6rem;
+  }
 }
 
 .modal-body p {
