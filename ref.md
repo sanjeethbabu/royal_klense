@@ -1,15 +1,24 @@
+Issues Identified:
+1. Fixed Heights & Overflow
 
-Est. 2023
-Premium Hygiene & Cleaning Solutions for Modern Businesses
-Delivering high-performance cleaning chemicals, housekeeping products, and hygiene solutions trusted by hotels, hospitals, industries, and institutions.
+Cards have fixed height that doesn't adapt to phone size
+Content below collides with the cards section
+No proper spacing/gap between sections
 
-Explore Products
-Request Quote
-300+
-Products
-1000+
-Customers
-12+
-Categories
+2. Scroll Indicator Problem
 
-remove the mouse movving effect in page like if mouse moving it should have to avoid
+The down arrow (scroll) suggests content is cut off
+Content is hidden behind or under the cards
+Not enough vertical space allocated
+
+3. No Responsive Spacing
+
+Padding/margin not adjusting for different mobile heights
+Cards taking too much vertical real estate on smaller phones
+No flexibility in layout
+
+4. Improper Mobile Optimization
+
+Content not wrapping or stacking properly
+No CSS media queries for different screen sizes
+Fixed pixel values instead of flexible units

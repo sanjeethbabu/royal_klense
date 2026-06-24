@@ -10,7 +10,7 @@
   --light-gray: #eef1f6;
   --gray: #6b7280;
   --dark-gray: #1a1a2e;
-  --text-dark: #1a1a2e;
+  --text-dark: #0a1e42;
   --text-light: #6b7280;
   --font-heading: 'Montserrat', 'Poppins', sans-serif;
   --font-body: 'Open Sans', 'Inter', sans-serif;
@@ -32,6 +32,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html {
@@ -770,6 +771,8 @@ body {
   gap: 5px;
   cursor: pointer;
   padding: 4px;
+  position: relative;
+  z-index: 1002;
 }
 
 .nav-toggle span {
@@ -2001,6 +2004,18 @@ body {
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
   cursor: pointer;
+  animation: whatsappPulse 2s ease-in-out infinite;
+}
+
+@keyframes whatsappPulse {
+  0%, 100% {
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 4px 30px rgba(37, 211, 102, 0.6);
+    transform: scale(1.05);
+  }
 }
 
 .whatsapp-float:hover,
@@ -2012,11 +2027,13 @@ body {
 
 @media (max-width: 768px) {
   .whatsapp-float {
-    bottom: 16px;
-    right: 16px;
+    bottom: 20px;
+    right: 20px;
     width: 54px;
     height: 54px;
     font-size: 1.6rem;
+    animation: none;
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.5);
   }
 }
 
@@ -2552,8 +2569,14 @@ body {
     height: 60px;
   }
 
+  .hero {
+    padding-top: 88px;
+    align-items: flex-start;
+  }
+
   .hero-container {
-    padding: 20px 16px 60px;
+    padding: 20px 16px 40px;
+    gap: 32px;
   }
 
   .section {
@@ -2572,22 +2595,41 @@ body {
     padding: 0 16px;
   }
 
+  .nav-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 1000;
+  }
+
+  .nav-backdrop.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
   .nav-menu {
     position: fixed;
-    top: 0;
-    right: -100%;
-    width: 280px;
-    height: 100vh;
-    height: 100dvh;
+    top: 76px;
+    right: -110%;
+    width: 300px;
+    max-width: 85vw;
+    height: auto;
+    max-height: calc(100dvh - 88px);
     background: var(--white);
     flex-direction: column;
-    padding: 80px 24px 24px;
-    gap: 4px;
-    transition: var(--transition);
+    padding: 20px;
+    gap: 6px;
+    transition: right 0.35s cubic-bezier(0.22, 1, 0.36, 1);
     z-index: 1001;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    box-shadow: -4px 0 40px rgba(0, 0, 0, 0.08);
+    box-shadow: -8px 0 50px rgba(0, 0, 0, 0.15);
+    border-radius: 16px 0 0 16px;
   }
 
   .nav-menu.active {
@@ -2696,7 +2738,7 @@ body {
   }
 
   .hero-scroll {
-    bottom: 100px;
+    bottom: 85px;
   }
 
   .hero-wave {
@@ -2879,6 +2921,8 @@ body {
   .hero {
     min-height: 100vh;
     min-height: 100dvh;
+    padding-top: 84px;
+    align-items: flex-start;
   }
 
   .hero-title {
@@ -2904,7 +2948,8 @@ body {
   }
 
   .hero-container {
-    padding: 20px 16px 60px;
+    padding: 16px 16px 32px;
+    gap: 24px;
   }
 
   .hero-stats {
@@ -2913,19 +2958,19 @@ body {
   }
 
   .hero-stat {
-    padding: 12px 8px;
+    padding: 10px 8px;
   }
 
   .hero-stat-num {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
   }
 
   .hero-stat-label {
-    font-size: 0.6rem;
+    font-size: 0.55rem;
   }
 
   .hero-scroll {
-    bottom: 80px;
+    bottom: 85px;
   }
 
   .loader-brand-name {
@@ -3017,6 +3062,10 @@ body {
     padding: 0 12px;
   }
 
+  .hero {
+    padding-top: 80px;
+  }
+
   .hero-title {
     font-size: 1.4rem;
   }
@@ -3036,6 +3085,27 @@ body {
 
   .hero-stat-label {
     font-size: 0.55rem;
+  }
+
+  .hero-container {
+    padding: 12px 12px 24px;
+    gap: 16px;
+  }
+
+  .hero-stat {
+    padding: 8px 6px;
+  }
+
+  .hero-stat-num {
+    font-size: 1.1rem;
+  }
+
+  .hero-stat-label {
+    font-size: 0.5rem;
+  }
+
+  .hero-scroll {
+    bottom: 85px;
   }
 
   .hero-badge {
@@ -3080,7 +3150,7 @@ body {
 
   .nav-menu {
     width: 240px;
-    padding: 60px 16px 20px;
+    padding: 16px;
   }
 
   .section {
@@ -3129,6 +3199,7 @@ body {
     transform: none;
   }
 }
+
 
 /* =============================================
    3D EFFECTS & PREMIUM ANIMATIONS
@@ -3983,3 +4054,4 @@ body {
     display: none;
   }
 }
+

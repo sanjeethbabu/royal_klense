@@ -278,29 +278,43 @@ function setupNavbar() {
     }
   });
 
+  const navBackdrop = document.getElementById('navBackdrop');
+  let scrollPos = 0;
+
+  function lockScroll(lock) {
+    if (lock) {
+      scrollPos = window.scrollY;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollPos}px`;
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.overflow = '';
+      window.scrollTo(0, scrollPos);
+    }
+  }
+
+  function toggleNav(open) {
+    const isActive = open !== undefined ? open : !navMenu.classList.contains('active');
+    navToggle.classList.toggle('active', isActive);
+    navMenu.classList.toggle('active', isActive);
+    navBackdrop.classList.toggle('active', isActive);
+    lockScroll(isActive);
+  }
+
   navToggle.addEventListener('click', () => {
-    const isActive = navMenu.classList.contains('active');
-    navToggle.classList.toggle('active');
-    navMenu.classList.toggle('active');
-    document.body.style.overflow = isActive ? '' : 'hidden';
+    toggleNav();
   });
 
   navLinks.forEach(link => {
     link.addEventListener('click', () => {
-      navToggle.classList.remove('active');
-      navMenu.classList.remove('active');
-      document.body.style.overflow = '';
+      toggleNav(false);
     });
-  });
-
-  document.addEventListener('click', (e) => {
-    if (navMenu.classList.contains('active') &&
-        !navMenu.contains(e.target) &&
-        !navToggle.contains(e.target)) {
-      navToggle.classList.remove('active');
-      navMenu.classList.remove('active');
-      document.body.style.overflow = '';
-    }
   });
 }
 
@@ -667,8 +681,8 @@ function setupTilt3D() {
 }
 
 function setup3DGeometrics() {
-  const containers = document.querySelectorAll('.hero, .page-hero, .cta, .why-us');
   if (window.innerWidth < 768) return;
+  const containers = document.querySelectorAll('.hero, .page-hero, .cta, .why-us');
 
   containers.forEach(container => {
     const existing = container.querySelectorAll('.geo-ring, .geo-cube');
@@ -712,8 +726,8 @@ function setupHeroParticles() {
 }
 
 function setup3DCubes() {
-  const heroes = document.querySelectorAll('.hero, .page-hero');
   if (window.innerWidth < 768) return;
+  const heroes = document.querySelectorAll('.hero, .page-hero');
 
   heroes.forEach(hero => {
     for (let i = 0; i < 3; i++) {
