@@ -2026,6 +2026,80 @@ body {
   }
 }
 
+.social-float {
+  position: fixed;
+  left: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 999;
+}
+
+.social-float a {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  background: rgba(11, 29, 58, 0.85);
+  text-decoration: none;
+  font-size: 1rem;
+  transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+  will-change: transform;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.social-float a:hover,
+.social-float a:active {
+  transform: scale(1.15);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.25);
+}
+
+.social-float a[aria-label="Facebook"]:hover,
+.social-float a[aria-label="Facebook"]:active {
+  background: #1877F2;
+}
+
+.social-float a[aria-label="Instagram"]:hover,
+.social-float a[aria-label="Instagram"]:active {
+  background: #E4405F;
+}
+
+.social-float a[aria-label="LinkedIn"]:hover,
+.social-float a[aria-label="LinkedIn"]:active {
+  background: #0A66C2;
+}
+
+.social-float a[aria-label="YouTube"]:hover,
+.social-float a[aria-label="YouTube"]:active {
+  background: #FF0000;
+}
+
+@media (max-width: 768px) {
+  .social-float {
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    gap: 6px;
+  }
+
+  .social-float a {
+    width: 38px;
+    height: 38px;
+    font-size: 0.85rem;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
 .modal-body p {
   color: var(--text-light);
   font-size: 0.95rem;

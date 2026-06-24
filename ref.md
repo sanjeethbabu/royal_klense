@@ -1,38 +1,30 @@
-Our Partners
-Trusted by Industry Leaders
-All
-Healthcare
-Hospitality
-Institutions
-Corporates
-Facility Management
-Hotel Grand
-City Hospital
-Elite Facilities
-Prestige Hotels
-MediCare Group
-Royal Hospitalit
+Design Prompt: Floating Social Media Bar
+Create a modern, compact floating sidebar with social media icons. The design should include:
+Floating Bar Features:
 
-i need this same conttent with same running brnad names/all should imediaate after this 
-Hotels & Resorts
-Complete hygiene solutions for housekeeping, laundry, kitchen, and public areas.
+Fixed position on the left or right side of the viewport
+Narrow, compact width (50-80px)
+Dark navy/dark blue background (#001F3F or #0B1929)
+White social media icons (Facebook, Instagram, LinkedIn, Twitter, YouTube)
+Icons vertically stacked with spacing
+Smooth shadow/elevation effect for floating appearance
+Rounded corners (optional subtle rounding)
+Centered vertically on the screen or positioned at desired height
 
-Hospitals & Healthcare
-Medical-grade disinfectants and infection control products for healthcare facilities.
+Icon Styling:
 
-Restaurants & Catering
-Professional kitchen cleaning and sanitation solutions for food service.
+White color with hover effects (glow, scale, or color change)
+Proper padding around each icon
+Smooth transitions on hover (200-300ms)
+Cursor pointer indication
+Icons sized appropriately (20-30px)
 
-Educational Institutions
-Safe and effective cleaning solutions for schools, colleges, and universities. andafter this our partners then remaing 
-Corporate Offices
-Professional cleaning and hygiene products for workplace environments.
+Behavior:
 
-Manufacturing Industries
-Heavy-duty industrial cleaners and specialized maintenance chemicals.
+Stays visible while scrolling
+Smooth transitions and animations
+Optional: tooltip showing platform name on hover
+Responsive: hides or repositions on mobile devices
+Clickable links to social profiles
 
-Commercial Buildings
-Complete facility management cleaning solutions for commercial properties.
 
-Facility Management
-Comprehensive cleaning programs tailored for facility management companies.

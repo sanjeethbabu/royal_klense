@@ -199,6 +199,7 @@ function setupScrollReveal() {
 }
 
 function setupParallax() {
+  if (window.innerWidth < 768) return;
   const hero = document.querySelector('.hero');
   let ticking = false;
 
