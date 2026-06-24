@@ -1,5 +1,9 @@
 <%- include('partials/header', { title: 'Industries', currentPage: 'industries' }) %>
 
+<style>
+  .clients .section-tag::after { margin: 4px auto 0; }
+</style>
+
   <section class="section page-hero">
     <div class="container" style="text-align:center">
       <span class="section-tag">Industries We Serve</span>
@@ -8,16 +12,16 @@
     </div>
   </section>
 
-  <section class="section industries" style="padding-top:0">
+  <section class="section industries" style="padding-top:0;padding-bottom:0">
     <div class="container">
       <div class="industries-grid" id="industriesGridTop"></div>
     </div>
   </section>
 
-  <section class="section clients">
+  <section class="section clients" style="padding-top:0;padding-bottom:0">
     <div class="container">
-      <div class="section-header">
-        <span class="section-tag">Our Partners</span>
+      <div class="section-header" style="margin-bottom:0">
+        <span class="section-tag" style="margin-bottom:0;font-weight:900">Our Partners</span>
       </div>
       <div class="clients-wall">
         <div class="clients-track" id="clientsTrack">
