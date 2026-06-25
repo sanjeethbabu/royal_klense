@@ -599,6 +599,30 @@ function scrollToHash() {
   }, 100);
 }
 
+function setupHeroVideo() {
+  const video = document.getElementById('heroVideo');
+  if (!video) return;
+  const source = video.querySelector('source');
+  if (source) {
+    const base = source.src.split('?')[0];
+    source.src = base + '?v=' + Date.now();
+  }
+  video.load();
+  video.addEventListener('loadedmetadata', function() {
+    video.currentTime = 0;
+    video.play();
+  }, { once: true });
+  const heroScroll = document.getElementById('heroScroll');
+  const about = document.querySelector('#about');
+  if (!about) return;
+  setTimeout(function() {
+    const navHeight = document.getElementById('navbar')?.offsetHeight || 80;
+    const top = about.getBoundingClientRect().top + window.scrollY - navHeight - 16;
+    window.scrollTo({ top, behavior: 'smooth' });
+    if (heroScroll) heroScroll.style.display = 'none';
+  }, 12000);
+}
+
 function setupHeroCarousel() {
   const slides = document.querySelectorAll('.hero-slide');
   const dots = document.querySelectorAll('.hero-carousel-dot');
@@ -787,6 +811,38 @@ function setup3DGeometrics() {
   });
 }
 
+// Debug helper: highlight elements wider than the viewport (run in dev only)
+function highlightOverflowElements() {
+  try {
+    const overflows = [];
+    const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+    document.querySelectorAll('*').forEach(el => {
+      if (!(el instanceof HTMLElement)) return;
+      const rect = el.getBoundingClientRect();
+      const w = Math.round(rect.width);
+      if (w > vw) {
+        overflows.push({ el, w });
+        el.style.outline = '2px dashed rgba(255,0,0,0.85)';
+        el.style.zIndex = '9999';
+      }
+    });
+    if (overflows.length) {
+      console.warn('Overflowing elements (> viewport width):', overflows.map(o => ({ tag: o.el.tagName, width: o.w, selector: o.el.className || o.el.id }))); 
+    } else {
+      console.info('No overflowing elements detected.');
+    }
+  } catch (e) {
+    console.error('Overflow checker error', e);
+  }
+}
+
+window.addEventListener('load', () => {
+  // run once on load and again after a short delay to catch late layout changes
+  highlightOverflowElements();
+  setTimeout(highlightOverflowElements, 800);
+});
+window.addEventListener('resize', () => setTimeout(highlightOverflowElements, 120));
+
 function setupHeroParticles() {
   const hero = document.querySelector('.hero');
   if (!hero || window.innerWidth < 768) return;
@@ -972,8 +1028,8 @@ function runDeferredEffects() {
   }, 80);
 }
 
-const LOADER_MIN_MS = 3000;
-const LOADER_MAX_MS = 5000;
+const LOADER_MIN_MS = 4000;
+const LOADER_MAX_MS = 4000;
 
 function bindCtaButtons() {
   document.querySelector('.cta .btn-primary')?.addEventListener('click', (e) => {
@@ -1013,7 +1069,7 @@ function hideLoader() {
       runDeferredEffects();
       scrollToHash();
     });
-  }, 320);
+  }, 600);
 }
 
 let loaderFinished = false;
@@ -1058,6 +1114,7 @@ function init() {
     loadPageContent();
     setupNavbar();
     setupModal();
+    setupHeroVideo();
     bindCtaButtons();
     animateTextReveal();
     setupScrollTextReveal();
@@ -1068,7 +1125,7 @@ function init() {
     setTimeout(function() {
       document.body.classList.remove('is-loading');
       document.body.style.overflow = '';
-    }, 600);
+    }, 480);
     return;
   }
 
@@ -1080,6 +1137,7 @@ function init() {
   loadPageContent();
   setupNavbar();
   setupModal();
+  setupHeroVideo();
   bindCtaButtons();
 
   if (document.readyState === 'complete') {
