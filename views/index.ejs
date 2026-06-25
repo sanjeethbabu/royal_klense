@@ -1,37 +1,25 @@
 <%- include('partials/header') %>
 
-  <section id="home" class="hero">
-    <div class="hero-overlay"></div>
-    <div class="hero-waves">
-      <div class="wave wave-1"></div>
-      <div class="wave wave-2"></div>
-      <div class="wave wave-3"></div>
+  <section id="home" class="hero hero-video-section">
+    <div class="hero-video-wrap">
+      <video class="hero-video" autoplay muted playsinline loop id="heroVideo">
+        <source src="/video/surface-clean.mp4" type="video/mp4">
+      </video>
     </div>
     <div class="hero-geometric hero-depth-layer"></div>
     <div class="hero-geometric hero-geometric-2 hero-depth-layer"></div>
     <div class="container hero-container">
-      <div class="hero-content hero-depth-layer">
-        <h1 class="hero-title hero-depth-3">Premium Hygiene & Cleaning Solutions for Modern Businesses</h1>
-        <p class="hero-subtitle hero-depth-2">Delivering high-performance cleaning chemicals, housekeeping products, and hygiene solutions trusted by hotels, hospitals, industries, and institutions.</p>
-        <div class="hero-actions hero-depth-1">
-          <a href="/products" class="btn btn-primary btn-3d">Explore Products <i class="fas fa-arrow-right"></i></a>
-          <a href="#" class="btn btn-outline btn-3d" onclick="openQuoteModal();return false">Request Quote</a>
-        </div>
+      <div class="hero-content">
+        <h1 class="hero-title hero-title-gold">Pure Royal Care</h1>
+        <p class="hero-subtitle">Delivering high-performance cleaning chemicals, housekeeping products, and
+          hygiene solutions trusted by hotels, hospitals, industries, and institutions.</p>
+
       </div>
-      <div class="hero-stats hero-depth-layer">
-        <div class="hero-stat stat-tilt">
-          <span class="hero-stat-num tilt-3d-content" data-count="300">0</span>
-          <span class="hero-stat-label tilt-3d-content-close">Products</span>
-        </div>
-        <div class="hero-stat stat-tilt">
-          <span class="hero-stat-num tilt-3d-content" data-count="1000">0</span>
-          <span class="hero-stat-label tilt-3d-content-close">Customers</span>
-        </div>
-        <div class="hero-stat stat-tilt">
-          <span class="hero-stat-num tilt-3d-content" data-count="12">0</span>
-          <span class="hero-stat-label tilt-3d-content-close">Categories</span>
-        </div>
-      </div>
+
+    </div>
+    <div class="hero-scroll" id="heroScroll">
+      <span>Scroll</span>
+      <i class="fas fa-chevron-down"></i>
     </div>
   </section>
 
@@ -41,7 +29,8 @@
         <div class="about-image reveal" data-delay="0">
           <div class="about-image-frame img-depth">
             <div class="about-image-placeholder">
-              <img src="/images/WhatsApp%20Image%202026-06-23%20at%206.15.56%20PM.jpeg" alt="Royal Klense Manufacturing Facility">
+              <img src="/images/WhatsApp%20Image%202026-06-23%20at%206.15.56%20PM.jpeg"
+                alt="Royal Klense Manufacturing Facility">
             </div>
           </div>
           <div class="about-badge tilt-3d-content">3+ Years of Expertise</div>
@@ -49,26 +38,12 @@
         <div class="about-content reveal" data-delay="150">
           <span class="section-tag">Who We Are</span>
           <h2 class="section-title">India's Trusted Manufacturer of Premium Cleaning Solutions</h2>
-          <p class="about-text">Royal Klense is a premier manufacturer of high-quality cleaning chemicals and hygiene solutions. With state-of-the-art manufacturing facilities and a commitment to excellence, we serve thousands of businesses across India.</p>
-          <p class="about-text">Our ISO-certified production processes ensure consistent quality, while our R&D team continuously innovates to meet evolving industry standards. We take pride in being the preferred partner for hotels, hospitals, industries, and institutions.</p>
-          <div class="about-features">
-            <div class="about-feature tilt-3d-content-close">
-              <i class="fas fa-certificate"></i>
-              <span>ISO Certified</span>
-            </div>
-            <div class="about-feature tilt-3d-content-close">
-              <i class="fas fa-flask"></i>
-              <span>R&D Driven</span>
-            </div>
-            <div class="about-feature tilt-3d-content-close">
-              <i class="fas fa-truck"></i>
-              <span>Pan India Supply</span>
-            </div>
-            <div class="about-feature tilt-3d-content-close">
-              <i class="fas fa-leaf"></i>
-              <span>Eco-Friendly</span>
-            </div>
-          </div>
+          <p class="about-text">Royal Klense is a premier manufacturer of high-quality cleaning chemicals and hygiene
+            solutions. With state-of-the-art manufacturing facilities and a commitment to excellence, we serve thousands
+            of businesses across India.</p>
+          <p class="about-text">Our ISO-certified production processes ensure consistent quality, while our R&D team
+            continuously innovates to meet evolving industry standards. We take pride in being the preferred partner for
+            hotels, hospitals, industries, and institutions.</p>
         </div>
       </div>
     </div>
@@ -92,20 +67,7 @@
 
   <section id="industries" class="section industries">
     <div class="container">
-      <div class="section-header reveal" data-delay="0">
-        <span class="section-tag">Industries We Serve</span>
-        <h2 class="section-title">Trusted Across Sectors</h2>
-        <p class="section-desc">Our solutions are tailored to meet the unique requirements of various industries.</p>
-      </div>
-      <div class="industries-grid" id="industriesGridTop"></div>
-    </div>
-  </section>
-
-  <section class="section clients">
-    <div class="container">
-      <div class="section-header" style="margin-bottom:0">
-        <span class="section-tag" style="margin-bottom:0;font-weight:900">Our Partners</span>
-      </div>
+      <span class="section-tag">Our Business Associates</span>
       <div class="clients-wall">
         <div class="clients-track" id="clientsTrack">
           <div class="client-logo"><span>Hotel Grand</span></div>
@@ -122,6 +84,9 @@
           <div class="client-logo"><span>Prestige Hotels</span></div>
         </div>
       </div>
+      <h2 class="section-title">Trusted Across Sectors</h2>
+      <p class="section-desc">Our solutions are tailored to meet the unique requirements of various industries.</p>
+      <div class="industries-grid" id="industriesGridTop"></div>
     </div>
   </section>
 
@@ -140,9 +105,11 @@
       </div>
       <div class="testimonials-carousel" id="testimonialsCarousel"></div>
       <div class="testimonial-controls">
-        <button class="testimonial-btn prev-btn" id="prevTestimonial" aria-label="Previous testimonial"><i class="fas fa-arrow-left"></i></button>
+        <button class="testimonial-btn prev-btn" id="prevTestimonial" aria-label="Previous testimonial"><i
+            class="fas fa-arrow-left"></i></button>
         <div class="testimonial-dots" id="testimonialDots"></div>
-        <button class="testimonial-btn next-btn" id="nextTestimonial" aria-label="Next testimonial"><i class="fas fa-arrow-right"></i></button>
+        <button class="testimonial-btn next-btn" id="nextTestimonial" aria-label="Next testimonial"><i
+            class="fas fa-arrow-right"></i></button>
       </div>
     </div>
   </section>
@@ -162,12 +129,14 @@
     <div class="cta-overlay"></div>
     <div class="container cta-container">
       <h2 class="cta-title">Let's Build Cleaner, Safer Spaces Together</h2>
-      <p class="cta-text">Partner with Royal Klense for premium cleaning solutions that elevate hygiene standards and build trust.</p>
+      <p class="cta-text">Partner with Royal Klense for premium cleaning solutions that elevate hygiene standards and
+        build trust.</p>
       <div class="cta-actions">
-        <a href="#" class="btn btn-primary btn-lg btn-3d" onclick="openQuoteModal();return false">Get a Quote <i class="fas fa-arrow-right"></i></a>
+        <a href="#" class="btn btn-primary btn-lg btn-3d" onclick="openQuoteModal();return false">Get a Quote <i
+            class="fas fa-arrow-right"></i></a>
         <a href="#" class="btn btn-outline btn-lg btn-3d" onclick="openContactModal();return false">Contact Us</a>
       </div>
     </div>
   </section>
 
-<%- include('partials/footer') %>
+  <%- include('partials/footer') %>

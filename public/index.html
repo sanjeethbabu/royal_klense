@@ -17,7 +17,7 @@
     rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="icon" type="image/png" href="/image2/web.png">
+  <link rel="icon" type="image/png" href="/images/web.png">
 </head>
 
 <body>
@@ -42,7 +42,16 @@
         <div class="loader-brand-icon">
           <img src="/images/logo.png" alt="Royal Klense"
             style="width:100%;height:100%;object-fit:contain;border-radius:24px;">
+          <div class="loader-shimmer"></div>
         </div>
+        <div class="star s1">★</div>
+        <div class="star s2">★</div>
+        <div class="star s3">★</div>
+        <div class="star s4">★</div>
+        <div class="star s5">★</div>
+        <div class="star s6">★</div>
+        <div class="star s7">★</div>
+        <div class="star s8">★</div>
       </div>
 
       <div class="loader-bar">
@@ -75,8 +84,12 @@
     </div>
   </nav>
 
-  <section id="home" class="hero">
-    <div class="hero-overlay"></div>
+  <section id="home" class="hero hero-video-section">
+    <div class="hero-video-wrap">
+      <video class="hero-video" autoplay muted playsinline loop id="heroVideo">
+        <source src="/video/surface-clean.mp4" type="video/mp4">
+      </video>
+    </div>
     <div class="hero-wave">
       <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
         <path fill="#eef2f7" d="M0,40 C240,120 480,0 720,40 C960,80 1200,0 1440,40 L1440,120 L0,120 Z" />
@@ -86,7 +99,8 @@
     <div class="hero-geometric hero-geometric-2"></div>
     <div class="container hero-container">
       <div class="hero-content">
-        <h1 class="hero-title">Premium Hygiene & Cleaning Solutions for Modern Businesses</h1>
+        <span class="hero-badge">Royal Klense</span>
+        <h1 class="hero-title hero-title-gold">Pure Royal Care</h1>
         <p class="hero-subtitle">Delivering high-performance cleaning chemicals, housekeeping products, and hygiene
           solutions trusted by hotels, hospitals, industries, and institutions.</p>
         <div class="hero-actions">
@@ -108,8 +122,11 @@
           <span class="hero-stat-label">Categories</span>
         </div>
       </div>
+      <div class="hero-visual">
+        <img src="/image2/bb14f957-e9a6-4904-9e99-ba158dc6abdf.png" alt="Luxury hotel bedroom with elegant modern interior, white upholstered bed with multiple pillows, neutral bedding, side tables with warm-toned lamps, and sophisticated design in whites, grays, and beige tones — representing the quality Royal Klense cleaning products help maintain" class="hero-product-img">
+      </div>
     </div>
-    <div class="hero-scroll">
+    <div class="hero-scroll" id="heroScroll">
       <span>Scroll</span>
       <i class="fas fa-chevron-down"></i>
     </div>
@@ -136,24 +153,6 @@
           <p class="about-text">Our ISO-certified production processes ensure consistent quality, while our R&D team
             continuously innovates to meet evolving industry standards. We take pride in being the preferred partner for
             hotels, hospitals, industries, and institutions.</p>
-          <div class="about-features">
-            <div class="about-feature">
-              <i class="fas fa-certificate"></i>
-              <span>ISO Certified</span>
-            </div>
-            <div class="about-feature">
-              <i class="fas fa-flask"></i>
-              <span>R&D Driven</span>
-            </div>
-            <div class="about-feature">
-              <i class="fas fa-truck"></i>
-              <span>Pan India Supply</span>
-            </div>
-            <div class="about-feature">
-              <i class="fas fa-leaf"></i>
-              <span>Eco-Friendly</span>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -196,20 +195,7 @@
 
   <section id="industries" class="section industries">
     <div class="container">
-      <div class="section-header reveal" data-delay="0">
-        <span class="section-tag">Industries We Serve</span>
-        <h2 class="section-title">Trusted Across Sectors</h2>
-        <p class="section-desc">Our solutions are tailored to meet the unique requirements of various industries.</p>
-      </div>
-      <div class="industries-grid" id="industriesGridTop"></div>
-    </div>
-  </section>
-
-  <section class="section clients">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">Our Partners</span>
-      </div>
+      <span class="section-tag">Our Business Associates</span>
       <div class="clients-wall">
         <div class="clients-track" id="clientsTrack">
           <div class="client-logo"><span>Hotel Grand</span></div>
@@ -226,6 +212,9 @@
           <div class="client-logo"><span>Prestige Hotels</span></div>
         </div>
       </div>
+      <h2 class="section-title">Trusted Across Sectors</h2>
+      <p class="section-desc">Our solutions are tailored to meet the unique requirements of various industries.</p>
+      <div class="industries-grid" id="industriesGridTop"></div>
     </div>
   </section>
 
@@ -355,59 +344,38 @@
   </section>
 
   <footer class="footer">
-    <div class="container">
+    <div class="container footer-grid-container">
       <div class="footer-grid">
         <div class="footer-col footer-brand">
-          <a href="#" class="footer-logo">
-            <div class="logo-text">
-              <span class="logo-title">Royal Klense</span>
-              <span class="logo-subtitle">Hygiene Solutions</span>
-            </div>
-          </a>
-          <p>India's premier manufacturer of premium cleaning chemicals, hygiene solutions, and housekeeping products.
-            Committed to excellence, quality, and customer satisfaction.</p>
-          <div class="footer-social">
-            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <div class="footer-brand-text">
+            <h3 style="font-family:var(--font-heading);font-size:1.4rem;font-weight:700;color:var(--white);margin-bottom:4px">Royal Klense</h3>
+            <p style="color:rgba(255,255,255,0.5);font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;margin-bottom:12px">Hygiene Solutions</p>
           </div>
-        </div>
-        <div class="footer-col">
-          <h4>Quick Links</h4>
-          <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About Us</a></li>
-            <li><a href="#products">Products</a></li>
-            <li><a href="#industries">Industries</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
+          <p>India's premier manufacturer of premium cleaning chemicals, hygiene solutions, and housekeeping products. Committed to excellence, quality, and customer satisfaction.</p>
         </div>
         <div class="footer-col">
           <h4>Product Categories</h4>
           <ul>
-            <li><a href="#products">Soap Oils & Cleaners</a></li>
-            <li><a href="#products">Laundry Essentials</a></li>
-            <li><a href="#products">Kitchen Care</a></li>
-            <li><a href="#products">Floor Care</a></li>
-            <li><a href="#products">Bathroom Solutions</a></li>
+            <li><a href="/products">Soap Oils & Cleaners</a></li>
+            <li><a href="/products">Laundry Essentials</a></li>
+            <li><a href="/products">Kitchen Care</a></li>
+            <li><a href="/products">Floor Care</a></li>
+            <li><a href="/products">Bathroom Solutions</a></li>
           </ul>
         </div>
         <div class="footer-col">
           <h4>Contact Info</h4>
           <div class="footer-contact">
-            <p><i class="fas fa-map-marker-alt"></i> 87/17, Saravana Complex, Meenakshinayakanpatti, Dindigul - 624001,
-              Tamil Nadu</p>
+            <p><i class="fas fa-map-marker-alt"></i> 87/17, Saravana Complex, Meenakshinayakanpatti, Dindigul - 624001, Tamil Nadu</p>
             <p><i class="fas fa-phone"></i> <a href="tel:+919042324286" class="contact-link">+91 9042324286</a></p>
-            <p><i class="fas fa-envelope"></i> <a href="mailto:vedhaschem.info@gmail.com"
-                class="contact-link">vedhaschem.info@gmail.com</a></p>
+            <p><i class="fas fa-envelope"></i> <a href="mailto:vedhaschem.info@gmail.com" class="contact-link">vedhaschem.info@gmail.com</a></p>
             <p><i class="fas fa-clock"></i> Mon - Sat: 9:00 AM - 6:00 PM</p>
           </div>
         </div>
       </div>
-      <div class="footer-bottom">
-        <p>&copy; 2024 Royal Klense. All rights reserved.</p>
-      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 Royal Klense. All rights reserved.</p>
     </div>
   </footer>
 
@@ -418,11 +386,6 @@
     </div>
   </div>
 
-  <a href="https://wa.me/919876543210" target="_blank" class="whatsapp-float" aria-label="Chat on WhatsApp">
-    <i class="fab fa-whatsapp"></i>
-  </a>
-
-  <script src="js/main.js"></script>
 </body>
 
 </html>
