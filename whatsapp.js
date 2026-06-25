@@ -67,7 +67,7 @@ function sendWhatsApp(data) {
 }
 
 function getWaMeLink(data) {
-  const phone = process.env.WHATSAPP_PHONE || '919876543210';
+  const phone = process.env.WHATSAPP_PHONE || '919042324286';
   const lines = [
     `New ${data.type === 'quote' ? 'Quote Request' : 'Enquiry'} - Royal Klense`,
     `Name: ${data.name}`,

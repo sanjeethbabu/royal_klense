@@ -89,6 +89,7 @@ function closeModal() {
 
 function loadProducts() {
   const grid = document.getElementById('productsGrid');
+  if (!grid) return;
   grid.innerHTML = siteData.products.map((p, i) => `
     <div class="product-card reveal" data-delay="${i * 80}" onclick="openProductModal('${p.name}', '${p.desc}')">
       <div class="product-icon"><i class="${p.icon}"></i></div>
@@ -137,6 +138,7 @@ function loadIndustries() {
 
 function loadFeatures() {
   const grid = document.getElementById('featuresGrid');
+  if (!grid) return;
   grid.innerHTML = siteData.features.map((f, i) => `
     <div class="feature-card reveal" data-delay="${i * 80}">
       <div class="feature-icon"><i class="${f.icon}"></i></div>
@@ -149,6 +151,7 @@ function loadFeatures() {
 function loadTestimonials() {
   const carousel = document.getElementById('testimonialsCarousel');
   const dots = document.getElementById('testimonialDots');
+  if (!carousel || !dots) return;
 
   carousel.innerHTML = siteData.testimonials.map((t, i) => `
     <div class="testimonial-card ${i === 0 ? 'active' : ''}" data-index="${i}">
@@ -181,6 +184,32 @@ function showTestimonial(index) {
 
 function startAutoTestimonial() {
   return setInterval(() => showTestimonial(currentTestimonial + 1), 5000);
+}
+
+function setupTestimonialControls() {
+  const prevBtn = document.getElementById('prevTestimonial');
+  const nextBtn = document.getElementById('nextTestimonial');
+  const dotsContainer = document.getElementById('testimonialDots');
+  if (!prevBtn || !nextBtn || !dotsContainer) return;
+
+  const autoTimer = startAutoTestimonial();
+
+  prevBtn.addEventListener('click', () => {
+    clearInterval(autoTimer);
+    showTestimonial(currentTestimonial - 1);
+  });
+
+  nextBtn.addEventListener('click', () => {
+    clearInterval(autoTimer);
+    showTestimonial(currentTestimonial + 1);
+  });
+
+  dotsContainer.addEventListener('click', (e) => {
+    if (e.target.classList.contains('testimonial-dot')) {
+      clearInterval(autoTimer);
+      showTestimonial(parseInt(e.target.dataset.index, 10));
+    }
+  });
 }
 
 function setupScrollReveal() {
@@ -261,59 +290,62 @@ function animateCounters() {
   counters.forEach(c => observer.observe(c));
 }
 
+let navbarInitialized = false;
+
 function setupNavbar() {
+  if (navbarInitialized) return;
+  navbarInitialized = true;
+
   const navbar = document.getElementById('navbar');
   const navToggle = document.getElementById('navToggle');
   const navMenu = document.getElementById('navMenu');
+  const navBackdrop = document.getElementById('navBackdrop');
   const navLinks = document.querySelectorAll('.nav-link');
+
+  if (!navToggle || !navMenu) return;
 
   let tickingNav = false;
   window.addEventListener('scroll', () => {
     if (!tickingNav) {
       window.requestAnimationFrame(() => {
-        navbar.classList.toggle('scrolled', window.scrollY > 80);
+        navbar?.classList.toggle('scrolled', window.scrollY > 80);
         tickingNav = false;
       });
       tickingNav = true;
     }
+  }, { passive: true });
+
+  function setNavOpen(open) {
+    requestAnimationFrame(() => {
+      navToggle.classList.toggle('active', open);
+      navMenu.classList.toggle('active', open);
+      navBackdrop?.classList.toggle('active', open);
+      document.documentElement.classList.toggle('nav-open', open);
+      navToggle.setAttribute('aria-expanded', String(open));
+      navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      navMenu.setAttribute('aria-hidden', String(!open));
+    });
+  }
+
+  navToggle.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setNavOpen(!navMenu.classList.contains('active'));
   });
 
-  const navBackdrop = document.getElementById('navBackdrop');
-  let scrollPos = 0;
+  navBackdrop?.addEventListener('click', () => setNavOpen(false));
 
-  function lockScroll(lock) {
-    if (lock) {
-      scrollPos = window.scrollY;
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollPos}px`;
-      document.body.style.left = '0';
-      document.body.style.right = '0';
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.left = '';
-      document.body.style.right = '';
-      document.body.style.overflow = '';
-      window.scrollTo(0, scrollPos);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+      setNavOpen(false);
     }
-  }
-
-  function toggleNav(open) {
-    const isActive = open !== undefined ? open : !navMenu.classList.contains('active');
-    navToggle.classList.toggle('active', isActive);
-    navMenu.classList.toggle('active', isActive);
-    navBackdrop.classList.toggle('active', isActive);
-    lockScroll(isActive);
-  }
-
-  navToggle.addEventListener('click', () => {
-    toggleNav();
   });
 
   navLinks.forEach(link => {
     link.addEventListener('click', () => {
-      toggleNav(false);
+      if (navMenu.classList.contains('active')) {
+        setNavOpen(false);
+      }
     });
   });
 }
@@ -346,7 +378,7 @@ function getContactForm() {
       <div class="form-row">
         <div class="form-group">
           <label for="cf_phone">Phone Number</label>
-          <input type="tel" id="cf_phone" placeholder="+91 98765 43210">
+          <input type="tel" id="cf_phone" placeholder="+91 90423 24286">
         </div>
         <div class="form-group">
           <label for="cf_company">Company Name</label>
@@ -382,7 +414,7 @@ function getQuoteForm() {
       <div class="form-row">
         <div class="form-group">
           <label for="qf_phone">Phone Number</label>
-          <input type="tel" id="qf_phone" placeholder="+91 98765 43210">
+          <input type="tel" id="qf_phone" placeholder="+91 90423 24286">
         </div>
         <div class="form-group">
           <label for="qf_company">Company Name</label>
@@ -513,6 +545,58 @@ function openContactModal() {
 
 function openQuoteModal() {
   openModal(getQuoteForm());
+}
+
+function getJoinTeamForm() {
+  return `
+    <h2>Join Our Team</h2>
+    <p>Interested in building a career with Royal Klense? Share your details and our HR team will reach out.</p>
+    <form id="contactForm" onsubmit="handleContact(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="cf_name">Full Name *</label>
+          <input type="text" id="cf_name" required placeholder="Your full name">
+        </div>
+        <div class="form-group">
+          <label for="cf_email">Email Address *</label>
+          <input type="email" id="cf_email" required placeholder="your@email.com">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="cf_phone">Phone Number</label>
+          <input type="tel" id="cf_phone" placeholder="+91 90423 24286">
+        </div>
+        <div class="form-group">
+          <label for="cf_company">Position Applied For</label>
+          <input type="text" id="cf_company" placeholder="e.g. Sales Executive, Production">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="cf_message">Tell Us About Yourself *</label>
+        <textarea id="cf_message" required placeholder="Your experience, skills, and why you'd like to join Royal Klense..."></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">
+        <i class="fas fa-paper-plane"></i> Submit Application
+      </button>
+    </form>
+  `;
+}
+
+function openJoinTeamModal() {
+  openModal(getJoinTeamForm());
+}
+
+function scrollToHash() {
+  const hash = window.location.hash;
+  if (!hash) return;
+  const target = document.querySelector(hash);
+  if (!target) return;
+  setTimeout(() => {
+    const navHeight = document.getElementById('navbar')?.offsetHeight || 80;
+    const top = target.getBoundingClientRect().top + window.scrollY - navHeight - 16;
+    window.scrollTo({ top, behavior: 'smooth' });
+  }, 100);
 }
 
 function setupHeroCarousel() {
@@ -837,63 +921,174 @@ function setupScroll3DParallax() {
   });
 }
 
-function init() {
-  setTimeout(() => {
-    document.getElementById('loader').classList.add('hidden');
-    document.body.style.overflow = '';
-    window.scrollTo({ top: 0, behavior: 'instant' });
+function loadPageContent() {
+  if (document.getElementById('productsGrid')) loadProducts();
+  if (document.getElementById('industriesGridTop') || document.getElementById('industriesGridBottom')) loadIndustries();
+  if (document.getElementById('featuresGrid')) loadFeatures();
+  if (document.getElementById('topProductsGrid')) loadFeaturedProducts();
+  if (document.getElementById('videoGrid')) loadVideoTestimonials();
+  if (document.getElementById('testimonialsCarousel')) loadTestimonials();
+}
 
-    loadProducts();
-    loadIndustries();
-    loadFeatures();
-    loadFeaturedProducts();
-    loadVideoTestimonials();
-    loadTestimonials();
+function triggerInViewReveals() {
+  document.querySelectorAll('.reveal-3d, .reveal-3d-left, .reveal-3d-right, .reveal-3d-scale, .reveal').forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.92 && rect.bottom > 0) {
+      el.classList.add('visible');
+    }
+  });
+}
+
+function runDeferredEffects() {
+  const page = document.body.dataset.page || 'home';
+  const isHome = page === 'home';
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  setupScrollReveal();
+  enhance3DScrollReveal();
+  triggerInViewReveals();
+  animateCounters();
+  setupScrollProgress();
+
+  if (document.getElementById('testimonialsCarousel')) {
+    setupTestimonialControls();
+  }
+
+  if (reduceMotion || window.innerWidth < 768) {
+    triggerInViewReveals();
+    return;
+  }
+
+  setTimeout(() => {
+    setupTilt3D();
+    if (isHome) {
+      setupParallax();
+      setupHeroParticles();
+      setup3DCubes();
+      setupHero3DDepth();
+      setupScroll3DParallax();
+      setup3DGeometrics();
+    }
+  }, 80);
+}
+
+const LOADER_MIN_MS = 3000;
+const LOADER_MAX_MS = 5000;
+
+function bindCtaButtons() {
+  document.querySelector('.cta .btn-primary')?.addEventListener('click', (e) => {
+    if (e.currentTarget.getAttribute('onclick')) return;
+    e.preventDefault();
+    openQuoteModal();
+  });
+
+  document.querySelector('.cta .btn-outline')?.addEventListener('click', (e) => {
+    if (e.currentTarget.getAttribute('onclick')) return;
+    e.preventDefault();
+    openContactModal();
+  });
+}
+
+function hideLoader() {
+  const loader = document.getElementById('loader');
+  if (!loader || loader.classList.contains('hidden')) return;
+
+  loader.classList.add('exiting');
+  loader.setAttribute('aria-hidden', 'true');
+
+  animateTextReveal();
+  setupScrollTextReveal();
+  setTimeout(() => {
+    loader.classList.add('hidden');
+    document.body.classList.add('rk-reveal');
+    document.body.classList.remove('is-loading');
+    document.body.style.overflow = '';
+    setTimeout(function() {
+      document.body.classList.remove('rk-reveal');
+    }, 550);
+    if (!window.location.hash) {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+    requestAnimationFrame(() => {
+      runDeferredEffects();
+      scrollToHash();
+    });
+  }, 320);
+}
+
+let loaderFinished = false;
+
+function finishLoading() {
+  if (loaderFinished) return;
+  loaderFinished = true;
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const minMs = reduceMotion ? 200 : LOADER_MIN_MS;
+  const elapsed = performance.now() - (window.__pageLoadStart || 0);
+  const remaining = Math.max(0, minMs - elapsed);
+  setTimeout(hideLoader, remaining);
+}
+
+var rkTextIdx = 0;
+
+function revealText(el, idx) {
+  if (el.classList.contains('rk-revealed')) return;
+  el.classList.add('rk-revealed');
+  var isShort = (el.textContent || '').trim().length < 60;
+  el.classList.add(isShort ? 'rk-text-reveal' : 'rk-text-fade');
+  el.style.animationDelay = ((idx || rkTextIdx++) * 20) + 'ms';
+}
+
+function animateTextReveal() {
+  rkTextIdx = 0;
+  document.querySelectorAll(
+    '.hero-title, .hero-subtitle, .section-title, .section-tag, .section-desc, ' +
+    '.nav-link, .nav-logo, .cta-title, .cta-text, ' +
+    '.page-hero .section-title, .page-hero .section-tag, .page-hero .section-desc, ' +
+    '.about-text'
+  ).forEach(function(el) { revealText(el); });
+}
+
+function setupScrollTextReveal() {}
+
+function init() {
+  var isFast = document.documentElement.classList.contains('rk-fast');
+
+  if (isFast) {
+    loadPageContent();
     setupNavbar();
     setupModal();
-    setupScrollReveal();
-    setupParallax();
-    animateCounters();
-
-    setupTilt3D();
-    setup3DGeometrics();
-    setupHeroParticles();
-    setup3DCubes();
-    setupScrollProgress();
-    enhance3DScrollReveal();
-    setupHero3DDepth();
-    setupScroll3DParallax();
-
-    const autoTimer = startAutoTestimonial();
-
-    document.getElementById('prevTestimonial').addEventListener('click', () => {
-      clearInterval(autoTimer);
-      showTestimonial(currentTestimonial - 1);
+    bindCtaButtons();
+    animateTextReveal();
+    setupScrollTextReveal();
+    requestAnimationFrame(function() {
+      runDeferredEffects();
+      scrollToHash();
     });
+    setTimeout(function() {
+      document.body.classList.remove('is-loading');
+      document.body.style.overflow = '';
+    }, 600);
+    return;
+  }
 
-    document.getElementById('nextTestimonial').addEventListener('click', () => {
-      clearInterval(autoTimer);
-      showTestimonial(currentTestimonial + 1);
-    });
+  window.__pageLoadStart = performance.now();
 
-    document.getElementById('testimonialDots').addEventListener('click', (e) => {
-      if (e.target.classList.contains('testimonial-dot')) {
-        clearInterval(autoTimer);
-        showTestimonial(parseInt(e.target.dataset.index));
-      }
-    });
+  document.body.classList.add('is-loading');
+  document.body.style.overflow = 'hidden';
 
-    document.querySelector('.cta .btn-primary')?.addEventListener('click', (e) => {
-      e.preventDefault();
-      openQuoteModal();
-    });
+  loadPageContent();
+  setupNavbar();
+  setupModal();
+  bindCtaButtons();
 
-    document.querySelector('.cta .btn-outline')?.addEventListener('click', (e) => {
-      e.preventDefault();
-      openContactModal();
-    });
+  if (document.readyState === 'complete') {
+    finishLoading();
+  } else {
+    window.addEventListener('load', finishLoading, { once: true });
+  }
 
-  }, 3000);
+  setTimeout(finishLoading, LOADER_MAX_MS);
 }
 
 document.addEventListener('DOMContentLoaded', init);

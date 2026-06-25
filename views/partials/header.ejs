@@ -3,30 +3,114 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= typeof title !== 'undefined' ? title + ' | Royal Klense--Premium Hygiene' : 'Royal Klense--Premium Hygiene' %></title>
+  <title><%= typeof title !== 'undefined' ? title + ' | Royal Klense - Premium Hygiene' : 'Royal Klense - Premium Hygiene' %></title>
   <meta name="description" content="<%= typeof description !== 'undefined' ? description : 'Royal Klense - India\'s leading manufacturer of premium cleaning chemicals, hygiene solutions, and housekeeping products.' %>">
+  <link rel="canonical" href="<%= typeof canonical !== 'undefined' ? canonical : '/' %>">
   <meta name="keywords" content="cleaning chemicals, hygiene solutions, housekeeping products, industrial cleaners, hotel cleaning supplies, hospital hygiene, Royal Klense">
   <meta name="author" content="Royal Klense">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="preload" href="/image2/logo.png" as="image">
+  <link rel="stylesheet" href="/css/style.css?v=4">
   <link rel="icon" type="image/png" href="/image2/web.png">
+  <style>
+    body.is-loading { overflow: hidden; height: 100vh; }
+    body.is-loading > *:not(#loader) { opacity: 0; visibility: hidden; }
+    #loader { background: #fff; }
+    html.rk-fast body.is-loading { overflow: auto; height: auto; perspective: 1100px; perspective-origin: 50% 35%; }
+    html.rk-fast body.is-loading > *:not(#loader) {
+      visibility: visible;
+      opacity: 1;
+    }
+    html.rk-fast #loader { display: none !important; }
+    body.rk-reveal {
+      perspective: 1100px;
+      perspective-origin: 50% 35%;
+    }
+    body.rk-reveal > *:not(#loader) {
+      animation: pageReveal 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+    body.rk-leaving {
+      perspective: 1100px;
+      perspective-origin: 50% 30%;
+    }
+    body.rk-leaving > *:not(#loader) {
+      opacity: 0 !important;
+      visibility: visible !important;
+      transform: scale(0.7);
+      transition: all 0.2s cubic-bezier(0.65, 0, 0.35, 1);
+    }
+    body.rk-leaving #loader { display: none !important; }
+    @keyframes pageReveal {
+      from {
+        opacity: 0;
+        transform: rotateX(-6deg) scale(0.93) translateY(25px);
+        filter: blur(4px);
+      }
+      to {
+        opacity: 1;
+        transform: rotateX(0deg) scale(1) translateY(0);
+        filter: blur(0);
+      }
+    }
+  </style>
+  <script>
+    (function() {
+      try {
+        var nav = performance.getEntriesByType('navigation')[0];
+        var isReload = nav && nav.type === 'reload';
+        var hasNavFlag = sessionStorage.getItem('rk-nav') === '1';
+        if (hasNavFlag && !isReload) {
+          document.documentElement.classList.add('rk-fast');
+        }
+      } catch(e) {}
+      try { sessionStorage.removeItem('rk-nav'); } catch(e) {}
+      document.addEventListener('click', function(e) {
+        var link = e.target.closest('a');
+        if (!link) return;
+        var href = link.getAttribute('href');
+        if (!href || href === '#' || href.startsWith('#') || href.startsWith('javascript:') || link.getAttribute('onclick')) return;
+        if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey) return;
+        if ((link.hostname === window.location.hostname || href.startsWith('/')) && !link.hasAttribute('download')) {
+          e.preventDefault();
+          document.body.classList.remove('is-loading');
+          void document.body.offsetHeight;
+          document.body.classList.add('rk-leaving');
+          try { sessionStorage.setItem('rk-nav', '1'); } catch(e) {}
+          var target = href;
+          setTimeout(function() { window.location.href = target; }, 230);
+        }
+      }, true);
+    })();
+  </script>
 </head>
-<body class="page-3d-wrap">
+<body class="page-3d-wrap is-loading" data-page="<%= typeof currentPage !== 'undefined' ? currentPage : 'home' %>">
 
-  <div id="loader" class="loader">
+  <div id="loader" class="loader" aria-hidden="false" aria-label="Loading">
+    <div class="loader-bg"></div>
+    <div class="loader-particles">
+      <div class="particle p1"></div>
+      <div class="particle p2"></div>
+      <div class="particle p3"></div>
+      <div class="particle p4"></div>
+      <div class="particle p5"></div>
+      <div class="particle p6"></div>
+      <div class="particle p7"></div>
+      <div class="particle p8"></div>
+    </div>
+    <div class="loader-shine"></div>
     <div class="loader-content">
-      <div class="loader-brand">
+      <div class="loader-logo-wrapper">
+        <div class="loader-ring loader-ring-1"></div>
+        <div class="loader-ring loader-ring-2"></div>
+        <div class="loader-ring loader-ring-3"></div>
         <div class="loader-brand-icon">
-          <img src="/image2/logo.png" alt="Royal Klense" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+          <img src="/image2/logo.png" alt="Royal Klense">
         </div>
       </div>
-      <div class="loader-bar">
-        <div class="loader-fill"></div>
-        <div class="loader-glow"></div>
-      </div>
+
     </div>
   </div>
 
@@ -36,17 +120,16 @@
         <img src="/images/logo.png" alt="Royal Klense" class="logo-icon-img">
       </a>
       <div class="nav-backdrop" id="navBackdrop"></div>
-      <div class="nav-toggle" id="navToggle">
+      <a href="/" class="nav-home-icon" aria-label="Home"><i class="fas fa-home"></i></a>
+      <div class="nav-toggle" id="navToggle" role="button" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
         <span></span><span></span><span></span>
       </div>
-      <ul class="nav-menu" id="navMenu">
-        <li><a href="/" class="nav-link <%= currentPage === 'home' ? 'active' : '' %>">Home</a></li>
-        <li><a href="/about" class="nav-link <%= currentPage === 'about' ? 'active' : '' %>">About</a></li>
+      <ul class="nav-menu" id="navMenu" aria-hidden="true">
+        <li class="nav-home-item"><a href="/" class="nav-link <%= currentPage === 'home' ? 'active' : '' %>"><i class="fas fa-home"></i></a></li>
         <li><a href="/products" class="nav-link <%= currentPage === 'products' ? 'active' : '' %>">Products</a></li>
-        <li><a href="/industries" class="nav-link <%= currentPage === 'industries' ? 'active' : '' %>">Industries</a></li>
         <li><a href="/why-us" class="nav-link <%= currentPage === 'why-us' ? 'active' : '' %>">Why Us</a></li>
-        <li><a href="/contact" class="nav-link nav-cta btn-3d">Enquire Now</a></li>
-        <li><a href="/contact" class="nav-link nav-cta nav-cta-secondary btn-3d">Join Our Team</a></li>
+        <li><a href="#" class="nav-link nav-cta" onclick="openQuoteModal();return false">Enquire Quote</a></li>
+        <li><a href="#" class="nav-link nav-cta nav-cta-secondary" onclick="openJoinTeamModal();return false">Join Our Team</a></li>
       </ul>
     </div>
   </nav>
