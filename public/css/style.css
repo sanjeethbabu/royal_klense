@@ -1192,6 +1192,7 @@ html.nav-open body {
 
   .nav-home-icon {
     display: flex;
+    width: auto;
   }
 }
 
@@ -3430,6 +3431,20 @@ html.nav-open body {
     padding: 2px 0;
   }
 
+  .nav-home-icon {
+    margin-left: auto;
+    width: 40px;
+    height: 40px;
+    margin-right: 5px;
+  }
+
+  .nav-toggle {
+    margin: 0;
+    padding: 8px;
+    width: 40px;
+    height: 40px;
+  }
+
   .logo-icon-img {
     height: 60px;
   }
@@ -3596,7 +3611,6 @@ html.nav-open body {
 
   .nav-toggle {
     display: flex;
-    margin-left: 3px;
   }
 
   .navbar.scrolled {
