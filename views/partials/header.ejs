@@ -13,26 +13,31 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="preload" href="/images/logo.png" as="image">
-  <link rel="stylesheet" href="/css/style.css?v=5">
+  <link rel="stylesheet" href="/css/style.css?v=52">
   <link rel="icon" type="image/png" href="/images/web.png">
   <style>
     body.is-loading { overflow: hidden; height: 100vh; }
     body.is-loading > *:not(#loader) { opacity: 0; visibility: hidden; }
     #loader { background: #fff; }
-    html.rk-fast body.is-loading { overflow: auto; height: auto; perspective: 1100px; perspective-origin: 50% 35%; }
+    html.rk-fast body.is-loading { overflow: auto; height: auto; }
+    html.rk-fast body.is-loading .page-3d-wrap { perspective: 1100px; perspective-origin: 50% 35%; }
     html.rk-fast body.is-loading > *:not(#loader) {
       visibility: visible;
       opacity: 1;
     }
     html.rk-fast #loader { display: none !important; }
-    body.rk-reveal {
+    body.rk-reveal .page-3d-wrap {
       perspective: 1100px;
       perspective-origin: 50% 35%;
     }
     body.rk-reveal > *:not(#loader) {
       animation: pageReveal 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
     }
-    body.rk-leaving {
+    body.rk-reveal > #navMenu,
+    body.rk-reveal > #navBackdrop {
+      animation: none;
+    }
+    body.rk-leaving .page-3d-wrap {
       perspective: 1100px;
       perspective-origin: 50% 30%;
     }
@@ -41,6 +46,10 @@
       visibility: visible !important;
       transform: scale(0.7);
       transition: all 0.2s cubic-bezier(0.65, 0, 0.35, 1);
+    }
+    body.rk-leaving > #navMenu,
+    body.rk-leaving > #navBackdrop {
+      transform: none !important;
     }
     body.rk-leaving #loader { display: none !important; }
     @keyframes pageReveal {
@@ -86,7 +95,7 @@
     })();
   </script>
 </head>
-<body class="page-3d-wrap is-loading" data-page="<%= typeof currentPage !== 'undefined' ? currentPage : 'home' %>">
+<body class="is-loading" data-page="<%= typeof currentPage !== 'undefined' ? currentPage : 'home' %>">
 
   <div id="loader" class="loader" aria-hidden="false" aria-label="Loading">
     <div class="loader-bg"></div>
@@ -119,17 +128,20 @@
       <a href="/" class="nav-logo">
         <img src="/images/logo.png" alt="Royal Klense" class="logo-icon-img">
       </a>
-      <div class="nav-backdrop" id="navBackdrop"></div>
       <a href="/" class="nav-home-icon" aria-label="Home"><i class="fas fa-home"></i></a>
       <div class="nav-toggle" id="navToggle" role="button" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
         <span></span><span></span><span></span>
       </div>
-      <ul class="nav-menu" id="navMenu" aria-hidden="true">
-        <li class="nav-home-item"><a href="/" class="nav-link <%= currentPage === 'home' ? 'active' : '' %>"><i class="fas fa-home"></i></a></li>
-        <li><a href="/products" class="nav-link <%= currentPage === 'products' ? 'active' : '' %>">Products</a></li>
-        <li><a href="/why-us" class="nav-link <%= currentPage === 'why-us' ? 'active' : '' %>">FAQ | Feedback</a></li>
-        <li><a href="#" class="nav-link nav-cta" onclick="openQuoteModal();return false">Enquire Quote</a></li>
-        <li><a href="#" class="nav-link nav-cta nav-cta-secondary" onclick="openJoinTeamModal();return false">Join Our Team</a></li>
-      </ul>
     </div>
   </nav>
+
+  <div class="nav-backdrop" id="navBackdrop"></div>
+  <ul class="nav-menu" id="navMenu" aria-hidden="true">
+    <li class="nav-home-item"><a href="/" class="nav-link <%= currentPage === 'home' ? 'active' : '' %>"><i class="fas fa-home"></i></a></li>
+    <li><a href="/products" class="nav-link <%= currentPage === 'products' ? 'active' : '' %>">Products</a></li>
+    <li><a href="/why-us" class="nav-link <%= currentPage === 'why-us' ? 'active' : '' %>">FAQ | Feedback</a></li>
+    <li><a href="#" class="nav-link nav-cta" onclick="openQuoteModal();return false">Enquire Quote</a></li>
+    <li><a href="#" class="nav-link nav-cta nav-cta-secondary" onclick="openJoinTeamModal();return false">Join Our Team</a></li>
+  </ul>
+
+  <div class="page-3d-wrap">

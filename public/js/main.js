@@ -333,8 +333,6 @@ function setupNavbar() {
     setNavOpen(!navMenu.classList.contains('active'));
   });
 
-  navBackdrop?.addEventListener('click', () => setNavOpen(false));
-
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && navMenu.classList.contains('active')) {
       setNavOpen(false);
@@ -609,9 +607,15 @@ function setupHeroVideo() {
   }
   video.load();
   video.addEventListener('loadedmetadata', function() {
-    video.currentTime = 0;
+    video.currentTime = 0.9;
+  }, { once: true });
+  video.addEventListener('seeked', function() {
     video.play();
   }, { once: true });
+  video.addEventListener('ended', function() {
+    video.currentTime = 0.9;
+    video.play();
+  });
   const heroScroll = document.getElementById('heroScroll');
   const about = document.querySelector('#about');
   if (!about) return;
