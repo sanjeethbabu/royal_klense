@@ -1199,6 +1199,18 @@ html.nav-open body {
   .nav-home-icon {
     display: none;
   }
+
+  .nav-backdrop {
+    display: none;
+  }
+
+  .nav-menu {
+    position: fixed;
+    top: 57px;
+    right: max(24px, calc((100vw - 1280px) / 2 + 24px));
+    transform: translateY(-50%);
+    z-index: 1000;
+  }
 }
 
 .nav-home-icon {
@@ -3454,9 +3466,9 @@ html.nav-open body {
   .nav-backdrop {
     position: fixed;
     inset: 0;
-    background: rgba(11, 29, 58, 0.5);
     opacity: 0;
     visibility: hidden;
+    pointer-events: none;
     transition: opacity 0.32s cubic-bezier(0.32, 0.72, 0, 1),
       visibility 0.32s cubic-bezier(0.32, 0.72, 0, 1);
     z-index: 1000;
@@ -3466,6 +3478,8 @@ html.nav-open body {
   .nav-backdrop.active {
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
+    background: rgba(11, 29, 58, 0.5);
   }
 
   .nav-menu {
@@ -3582,7 +3596,7 @@ html.nav-open body {
 
   .nav-toggle {
     display: flex;
-    padding-left: 5px;
+    margin-left: 3px;
   }
 
   .navbar.scrolled {
@@ -3838,9 +3852,9 @@ html.nav-open body {
 
   .hero-video-wrap {
     top: 70px;
-    left: 6px;
-    right: 6px;
-    bottom: 6px;
+    left: 0;
+    right: 0;
+    bottom: 0;
   }
 
   .hero-video-wrap::before {
