@@ -812,36 +812,9 @@ function setup3DGeometrics() {
 }
 
 // Debug helper: highlight elements wider than the viewport (run in dev only)
-function highlightOverflowElements() {
-  try {
-    const overflows = [];
-    const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
-    document.querySelectorAll('*').forEach(el => {
-      if (!(el instanceof HTMLElement)) return;
-      const rect = el.getBoundingClientRect();
-      const w = Math.round(rect.width);
-      if (w > vw) {
-        overflows.push({ el, w });
-        el.style.outline = '2px dashed rgba(255,0,0,0.85)';
-        el.style.zIndex = '9999';
-      }
-    });
-    if (overflows.length) {
-      console.warn('Overflowing elements (> viewport width):', overflows.map(o => ({ tag: o.el.tagName, width: o.w, selector: o.el.className || o.el.id }))); 
-    } else {
-      console.info('No overflowing elements detected.');
-    }
-  } catch (e) {
-    console.error('Overflow checker error', e);
-  }
-}
-
 window.addEventListener('load', () => {
-  // run once on load and again after a short delay to catch late layout changes
-  highlightOverflowElements();
-  setTimeout(highlightOverflowElements, 800);
+  // No debug overflow highlight on production pages.
 });
-window.addEventListener('resize', () => setTimeout(highlightOverflowElements, 120));
 
 function setupHeroParticles() {
   const hero = document.querySelector('.hero');
@@ -962,14 +935,6 @@ function setupScroll3DParallax() {
           stat.style.transform = `translateY(${sy * rate}px)`;
         });
 
-        document.querySelectorAll('.footer').forEach(footer => {
-          const rect = footer.getBoundingClientRect();
-          if (rect.top < window.innerHeight) {
-            const progress = 1 - (rect.top / window.innerHeight);
-            footer.style.transform = `translateZ(${progress * -10}px)`;
-          }
-        });
-
         ticking = false;
       });
       ticking = true;
@@ -1028,8 +993,8 @@ function runDeferredEffects() {
   }, 80);
 }
 
-const LOADER_MIN_MS = 4000;
-const LOADER_MAX_MS = 4000;
+const LOADER_MIN_MS = 2500;
+const LOADER_MAX_MS = 2500;
 
 function bindCtaButtons() {
   document.querySelector('.cta .btn-primary')?.addEventListener('click', (e) => {
