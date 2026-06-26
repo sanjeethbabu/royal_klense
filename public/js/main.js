@@ -607,9 +607,15 @@ function setupHeroVideo() {
   }
   video.load();
   video.addEventListener('loadedmetadata', function() {
-    video.currentTime = 0;
+    video.currentTime = 0.6;
+  }, { once: true });
+  video.addEventListener('seeked', function() {
     video.play();
   }, { once: true });
+  video.addEventListener('ended', function() {
+    video.currentTime = 0.6;
+    video.play();
+  });
   const heroScroll = document.getElementById('heroScroll');
   const about = document.querySelector('#about');
   if (!about) return;
