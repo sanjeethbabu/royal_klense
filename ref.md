@@ -1,3 +1,2 @@
-se this description:
-
-Remove the outer frame around the hero video section. The hero video should sit directly inside a single rounded container with no secondary border, wrapper background, padding, shadow, or inset effect visible around it. Keep the rounded corners, but eliminate the extra space between the video and the container edges so that the video extends flush to the rounded boundaries. The result should be one clean card-like hero section where the curved corners belong directly to the video container itself, with no double-border or outer-edge appearance. Maintain only the desired spacing from the viewport edges, while ensuring the video fills the entire rounded container.
+navToggle clicked, opening: true active class present: false
+main.js?v=5:334 navToggle clicked, opening: false active class present: true
