@@ -1321,7 +1321,7 @@ html.nav-open body {
   height: 100%;
   object-fit: cover;
   object-position: center bottom;
-  opacity: 0.8;
+  opacity: 1;
 }
 
 .hero-title-gold {
@@ -1499,7 +1499,7 @@ html.nav-open body {
 }
 
 .hero.hero-video-section {
-  background: rgb(120, 165, 210);
+  background: #000;
 }
 
 .hero-video-section .hero-container {
@@ -3511,25 +3511,28 @@ html.nav-open body {
 
   .nav-menu {
     position: fixed;
-    top: 0;
+    top: 62px;
     right: 0;
     width: min(300px, 80vw);
-    max-height: 100dvh;
-    max-height: 100vh;
+    max-height: calc(100dvh - 80px);
+    max-height: calc(100vh - 80px);
     background: var(--white);
     flex-direction: column;
-    padding: 88px 24px 88px;
+    padding: 40px 24px 40px;
     gap: 6px;
     transform: translate3d(100%, 0, 0);
     transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
     z-index: 1001;
-    box-shadow: -8px 0 32px rgba(0, 0, 0, 0.1);
-    border-radius: 24px 0 0 24px;
+    box-shadow: -12px 0 40px rgba(0, 0, 0, 0.08);
+    border-radius: 80px 0 0 80px;
+    border-left: 4px solid var(--gold);
     overflow-y: auto;
+    pointer-events: none;
   }
 
   .nav-menu.active {
     transform: translate3d(0, 0, 0);
+    pointer-events: auto;
   }
 
   .nav-menu .nav-link {
@@ -3612,7 +3615,14 @@ html.nav-open body {
   }
 
   .hero-scroll {
-    bottom: 85px;
+    bottom: 15px;
+    right: 15px;
+    gap: 4px;
+    font-size: 0.75rem;
+  }
+
+  .hero-scroll i {
+    font-size: 0.85rem;
   }
 
   .hero-wave {
@@ -3826,7 +3836,7 @@ html.nav-open body {
   .about-text {
     overflow-wrap: break-word;
     word-break: break-word;
-    text-align: justify;
+    text-align: left;
   }
 
   .btn {
@@ -3840,7 +3850,7 @@ html.nav-open body {
   }
 
   .hero-video-wrap {
-    top: 70px;
+    top: 0;
     left: 0;
     right: 0;
     bottom: 0;
@@ -3895,6 +3905,7 @@ html.nav-open body {
 
   .hero-video-section .hero-subtitle {
     font-size: 15px;
+    line-height: 1.6;
   }
 }
 
@@ -3958,12 +3969,19 @@ html.nav-open body {
   }
 
   .hero-scroll {
-    bottom: 85px;
+    bottom: 12px;
+    right: 12px;
+    gap: 4px;
+    font-size: 0.7rem;
+  }
+
+  .hero-scroll i {
+    font-size: 0.8rem;
   }
 
   .nav-menu {
     width: min(280px, 85vw);
-    padding: 80px 20px 80px;
+    padding: 36px 20px 36px;
   }
 
   .about-badge {
@@ -4146,7 +4164,14 @@ html.nav-open body {
   }
 
   .hero-scroll {
-    bottom: 85px;
+    bottom: 10px;
+    right: 10px;
+    gap: 3px;
+    font-size: 0.65rem;
+  }
+
+  .hero-scroll i {
+    font-size: 0.75rem;
   }
 
   .hero-badge {
@@ -4197,7 +4222,7 @@ html.nav-open body {
 
   .about-text {
     font-size: 0.9rem;
-    text-align: justify;
+    text-align: left;
   }
 
   .about-feature {
@@ -4234,7 +4259,7 @@ html.nav-open body {
 
   .nav-menu {
     width: 240px;
-    padding: 76px 16px 76px;
+    padding: 32px 16px 32px;
   }
 
   .section {
@@ -5291,10 +5316,12 @@ html.nav-open body {
   .nav-menu {
     transform: translate3d(100%, 0, 0) !important;
     transition: none !important;
+    pointer-events: none !important;
   }
 
   .nav-menu.active {
     transform: translate3d(0, 0, 0) !important;
+    pointer-events: auto !important;
   }
 
   .nav-backdrop {

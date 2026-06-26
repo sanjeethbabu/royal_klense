@@ -333,8 +333,6 @@ function setupNavbar() {
     setNavOpen(!navMenu.classList.contains('active'));
   });
 
-  navBackdrop?.addEventListener('click', () => setNavOpen(false));
-
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && navMenu.classList.contains('active')) {
       setNavOpen(false);
