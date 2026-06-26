@@ -607,13 +607,13 @@ function setupHeroVideo() {
   }
   video.load();
   video.addEventListener('loadedmetadata', function() {
-    video.currentTime = 0.6;
+    video.currentTime = 0.9;
   }, { once: true });
   video.addEventListener('seeked', function() {
     video.play();
   }, { once: true });
   video.addEventListener('ended', function() {
-    video.currentTime = 0.6;
+    video.currentTime = 0.9;
     video.play();
   });
   const heroScroll = document.getElementById('heroScroll');

@@ -1141,7 +1141,26 @@ body:not(.rk-leaving):not(.rk-reveal)>*:not(#loader):not(script) {
 .nav-cta {
   background: linear-gradient(135deg, var(--gold), var(--gold-dark));
   color: var(--white) !important;
-  padding: 10px 24px !important;
+  padding: 14px 28px !important;
+  border-radius: 50px;
+  border: none;
+  box-shadow: 0 4px 15px rgba(201, 162, 39, 0.3);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.3px;
+}
+
+.nav-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--gold-light), var(--gold));
+  opacity: 0;
+  transition: opacity 0.3s ease;
   border-radius: 50px;
 }
 
@@ -1150,24 +1169,38 @@ body:not(.rk-leaving):not(.rk-reveal)>*:not(#loader):not(script) {
 }
 
 .nav-cta:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-gold);
+  transform: perspective(400px) rotateX(4deg) translateY(-2px);
+  box-shadow: 0 8px 25px rgba(201, 162, 39, 0.4);
+}
+
+.nav-cta:active {
+  transform: perspective(400px) rotateX(-2deg) translateY(1px);
+  box-shadow: 0 2px 10px rgba(201, 162, 39, 0.3);
 }
 
 .nav-cta-secondary {
-  background: transparent;
+  background: transparent !important;
   border: 2px solid var(--royal-blue);
+  color: var(--royal-blue) !important;
+  padding: 13px 28px !important;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.3px;
+}
+
+.nav-cta-secondary:hover {
+  border-color: var(--royal-blue);
+  background: rgba(11, 29, 58, 0.06);
+  transform: perspective(400px) rotateX(4deg) translateY(-2px);
+  box-shadow: 0 8px 25px rgba(11, 29, 58, 0.12);
   color: var(--royal-blue) !important;
 }
 
-.nav-cta-secondary:hover {
-  border-color: var(--gold);
-  color: var(--gold) !important;
-}
-
-.nav-cta-secondary:hover {
-  border-color: var(--gold);
-  background: rgba(201, 162, 39, 0.1);
+.nav-cta-secondary:active {
+  transform: perspective(400px) rotateX(-2deg) translateY(1px);
 }
 
 html.nav-open,
@@ -3560,35 +3593,56 @@ html.nav-open body {
   .nav-menu .nav-cta {
     margin-top: 12px;
     text-align: center;
-    background: linear-gradient(135deg, #1a1a2e, #16213e);
-    color: var(--gold) !important;
-    padding: 14px 24px !important;
+    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+    color: var(--white) !important;
+    padding: 14px 28px !important;
     border-radius: 50px;
-    border: 1.5px solid rgba(201, 162, 39, 0.3);
-    box-shadow: 0 0 20px rgba(201, 162, 39, 0.08);
+    border: none;
+    box-shadow: 0 4px 15px rgba(201, 162, 39, 0.3);
     transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .nav-menu .nav-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 50px;
   }
 
   .nav-menu .nav-cta:hover {
-    background: linear-gradient(135deg, #16213e, #1a1a2e);
-    border-color: var(--gold);
-    box-shadow: 0 0 30px rgba(201, 162, 39, 0.2);
-    color: var(--gold) !important;
+    transform: perspective(400px) rotateX(4deg) translateY(-2px);
+    box-shadow: 0 8px 25px rgba(201, 162, 39, 0.4);
+    color: var(--white) !important;
+  }
+
+  .nav-menu .nav-cta:active {
+    transform: perspective(400px) rotateX(-2deg) translateY(1px);
+    box-shadow: 0 2px 10px rgba(201, 162, 39, 0.3);
   }
 
   .nav-menu .nav-cta-secondary {
-    background: linear-gradient(135deg, #0f0f1a, #1a1a2e);
-    border: 1.5px solid rgba(201, 162, 39, 0.15);
-    color: rgba(255, 255, 255, 0.7) !important;
-    box-shadow: 0 0 15px rgba(201, 162, 39, 0.04);
+    background: transparent;
+    border: 2px solid var(--royal-blue);
+    color: var(--royal-blue) !important;
+    padding: 13px 28px !important;
+    border-radius: 50px;
+    box-shadow: none;
     transition: all 0.3s ease;
   }
 
   .nav-menu .nav-cta-secondary:hover {
-    border-color: rgba(201, 162, 39, 0.5);
-    box-shadow: 0 0 25px rgba(201, 162, 39, 0.12);
-    color: var(--gold) !important;
-    background: linear-gradient(135deg, #1a1a2e, #0f0f1a);
+    background: rgba(11, 29, 58, 0.06);
+    transform: perspective(400px) rotateX(4deg) translateY(-2px);
+    box-shadow: 0 8px 25px rgba(11, 29, 58, 0.12);
+  }
+
+  .nav-menu .nav-cta-secondary:active {
+    transform: perspective(400px) rotateX(-2deg) translateY(1px);
   }
 
   .nav-home-item {
@@ -3867,7 +3921,7 @@ html.nav-open body {
 
   .hero-video {
     object-fit: cover;
-    object-position: calc(50% - 4px) 20%;
+    object-position: calc(50% + 7%) center;
   }
 
   .hero-video-wrap::before {
