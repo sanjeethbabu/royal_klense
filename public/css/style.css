@@ -837,7 +837,7 @@ body:not(.rk-leaving):not(.rk-reveal)>*:not(#loader):not(script) {
 }
 
 .loader-footer-logo {
-  height: 28px;
+  height: 50px;
   width: auto;
   opacity: 0.8;
 }
