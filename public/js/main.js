@@ -51,6 +51,18 @@ const siteData = {
     { text: 'The quality of their disinfectants and hygiene products is exceptional. Our infection control ratings have improved significantly since switching to Royal Klense.', author: 'Dr. Priya Sharma', role: 'Chief of Operations, City Healthcare Group' },
     { text: 'Their customized cleaning solutions have transformed our facility management operations. Highly professional team with excellent product knowledge.', author: 'Amit Verma', role: 'Director, Elite Facility Management' },
     { text: 'We have been sourcing laundry and kitchen chemicals from Royal Klense for our restaurant chain. Consistent quality and reliable supply chain.', author: 'Vikram Singh', role: 'Owner, Royal Hospitality Group' }
+  ],
+  catalog: [
+    { code: 'F01', name: 'Lemon Fresh Scent', category: 'fragrances', image: '/images/lemon_fc.png', desc: 'A crisp and refreshing lemon fragrance that leaves spaces feeling clean and invigorated with a long-lasting fresh aroma.' },
+    { code: 'F02', name: 'Lavender Bliss', category: 'fragrances', image: '/images/lemon_fc.png', desc: 'A calming lavender aroma that creates a relaxing and soothing atmosphere in any environment.' },
+    { code: 'F03', name: 'Ocean Breeze', category: 'fragrances', image: '/images/lemon_fc.png', desc: 'A fresh marine scent that brings the invigorating feel of the ocean into indoor spaces.' },
+    { code: 'F04', name: 'Citrus Burst', category: 'fragrances', image: '/images/lemon_fc.png', desc: 'A zesty citrus blend that energizes and revitalizes the senses with bright notes.' },
+    { code: 'F05', name: 'Rose Elegance', category: 'fragrances', image: '/images/lemon_fc.png', desc: 'A delicate and elegant rose fragrance that adds a touch of sophistication to any space.' },
+    { code: 'C01', name: 'Multipurpose Cleaner', category: 'cleaners', image: '/images/lemon_fc.png', desc: 'A versatile cleaning solution effective on all surfaces for daily professional cleaning needs.' },
+    { code: 'C02', name: 'Glass & Surface Cleaner', category: 'cleaners', image: '/images/lemon_fc.png', desc: 'Streak-free formula that delivers brilliant shine on glass, mirrors, and reflective surfaces.' },
+    { code: 'C03', name: 'Floor Cleaner', category: 'cleaners', image: '/images/lemon_fc.png', desc: 'Heavy-duty floor cleaning solution suitable for all types of flooring materials and surfaces.' },
+    { code: 'C04', name: 'Bathroom Cleaner', category: 'cleaners', image: '/images/lemon_fc.png', desc: 'Anti-bacterial formula that ensures complete hygiene and cleanliness in bathroom spaces.' },
+    { code: 'C05', name: 'Kitchen Degreaser', category: 'cleaners', image: '/images/lemon_fc.png', desc: 'Powerful grease-cutting formula for commercial and domestic kitchen surface cleaning.' }
   ]
 };
 
@@ -148,6 +160,253 @@ function loadProducts() {
       <div class="product-card-edge" style="background: linear-gradient(90deg, ${gradColors[i][0]}, ${gradColors[i][1]})"></div>
     </div>
   `).join('');
+}
+
+function loadProductCatalog() {
+  const grid = document.getElementById('productsCatalog');
+  if (!grid) return;
+
+  grid.innerHTML = `
+    <div class="carousel-container">
+      <button class="carousel-arrow carousel-prev" id="carouselPrev"><i class="fas fa-chevron-left"></i></button>
+      <div class="carousel-stage" id="carouselStage">
+        <div class="carousel-track" id="carouselTrack">
+          ${siteData.catalog.map((p, i) => `
+            <div class="catalog-card" data-index="${i}" data-category="${p.category}">
+              <div class="catalog-card-inner">
+                <div class="catalog-card-image-section">
+                  <img class="catalog-card-img" src="${p.image}" alt="${p.name}" loading="lazy">
+                </div>
+                <div class="catalog-card-body">
+                  <span class="catalog-card-code">${p.code}</span>
+                  <h3 class="catalog-card-name">${p.name}</h3>
+                  <button class="catalog-card-btn" onclick="openCatalogModal('${p.code}', '${p.name}', '${p.category}', \`${p.desc}\`)">
+                    Get Info <i class="fas fa-arrow-right"></i>
+                  </button>
+                </div>
+              </div>
+            </div>`).join('')}
+        </div>
+      </div>
+      <button class="carousel-arrow carousel-next" id="carouselNext"><i class="fas fa-chevron-right"></i></button>
+      <div class="carousel-dots" id="carouselDots"></div>
+    </div>
+  `;
+
+  setupCarousel();
+  setupProductFilters();
+}
+
+let carouselIndex = 0;
+let carouselTotal = 0;
+let carouselCards = [];
+let carouselInitialized = false;
+let autoRotateTimer = null;
+
+function positionCarouselCards() {
+  const track = document.getElementById('carouselTrack');
+  if (!track) return;
+  const stage = document.getElementById('carouselStage');
+  if (!stage) return;
+
+  const visible = carouselCards.filter(c => !c.classList.contains('card-hidden'));
+  const count = visible.length;
+  if (!count) return;
+
+  const curVisibleIdx = visible.indexOf(carouselCards[carouselIndex]);
+
+  const cardW = visible[0].offsetWidth;
+  const gap = parseFloat(getComputedStyle(track).gap) || 24;
+  const slideW = cardW + gap;
+  const stageW = stage.offsetWidth;
+
+  const offsetX = (stageW / 2) - (curVisibleIdx * slideW + cardW / 2);
+
+  track.style.transform = `translateX(${offsetX}px)`;
+
+  visible.forEach((card, i) => {
+    card.classList.toggle('card-dimmed', i !== curVisibleIdx);
+  });
+
+  carouselCards.forEach(c => {
+    if (c.classList.contains('card-hidden')) {
+      c.classList.remove('card-dimmed');
+    }
+  });
+
+  updateDots();
+}
+
+function updateDots() {
+  const container = document.getElementById('carouselDots');
+  if (!container) return;
+  const visible = carouselCards.filter(c => !c.classList.contains('card-hidden'));
+  const count = visible.length;
+  if (count <= 1) { container.innerHTML = ''; return; }
+
+  const curVisibleIdx = visible.indexOf(carouselCards[carouselIndex]);
+
+  container.innerHTML = visible.map((_, i) =>
+    `<span class="carousel-dot${i === curVisibleIdx ? ' active' : ''}" data-idx="${i}"></span>`
+  ).join('');
+
+  container.querySelectorAll('.carousel-dot').forEach(dot => {
+    dot.addEventListener('click', () => {
+      const idx = parseInt(dot.dataset.idx);
+      const v = carouselCards.filter(c => !c.classList.contains('card-hidden'));
+      if (idx >= 0 && idx < v.length) {
+        stopAutoRotate();
+        carouselIndex = carouselCards.indexOf(v[idx]);
+        positionCarouselCards();
+        startAutoRotate();
+      }
+    });
+  });
+}
+
+function startAutoRotate() {
+  stopAutoRotate();
+  autoRotateTimer = setInterval(() => {
+    const btn = document.getElementById('carouselNext');
+    if (btn) btn.click();
+  }, 3500);
+}
+
+function stopAutoRotate() {
+  if (autoRotateTimer) {
+    clearInterval(autoRotateTimer);
+    autoRotateTimer = null;
+  }
+}
+
+function setupCarousel() {
+  const track = document.getElementById('carouselTrack');
+  if (!track) return;
+
+  carouselCards = [...track.querySelectorAll('.catalog-card')];
+  carouselTotal = carouselCards.length;
+
+  carouselCards.forEach((card) => {
+    card.addEventListener('click', () => {
+      const visible = carouselCards.filter(c => !c.classList.contains('card-hidden'));
+      const idx = visible.indexOf(card);
+      if (idx === -1) return;
+      const curVisibleIdx = visible.indexOf(carouselCards[carouselIndex]);
+      stopAutoRotate();
+      if (idx !== curVisibleIdx) {
+        carouselIndex = carouselCards.indexOf(visible[idx]);
+        positionCarouselCards();
+      } else {
+        card.querySelector('.catalog-card-btn')?.click();
+      }
+      startAutoRotate();
+    });
+  });
+
+  document.getElementById('carouselPrev')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const visible = carouselCards.filter(c => !c.classList.contains('card-hidden'));
+    const curIdx = visible.indexOf(carouselCards[carouselIndex]);
+    const prevIdx = Math.max(0, curIdx - 1);
+    if (prevIdx !== curIdx) {
+      stopAutoRotate();
+      carouselIndex = carouselCards.indexOf(visible[prevIdx]);
+      positionCarouselCards();
+      startAutoRotate();
+    }
+  });
+
+  document.getElementById('carouselNext')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const visible = carouselCards.filter(c => !c.classList.contains('card-hidden'));
+    const curIdx = visible.indexOf(carouselCards[carouselIndex]);
+    const nextIdx = Math.min(visible.length - 1, curIdx + 1);
+    if (nextIdx !== curIdx) {
+      stopAutoRotate();
+      carouselIndex = carouselCards.indexOf(visible[nextIdx]);
+      positionCarouselCards();
+      startAutoRotate();
+    }
+  });
+
+  positionCarouselCards();
+  startAutoRotate();
+  window.addEventListener('resize', positionCarouselCards);
+
+  const container = document.querySelector('.carousel-container');
+  if (container) {
+    container.addEventListener('mouseenter', stopAutoRotate);
+    container.addEventListener('mouseleave', startAutoRotate);
+  }
+
+  carouselInitialized = true;
+}
+
+function setupProductFilters() {
+  const tabs = document.querySelector('.filter-tabs');
+  if (!tabs) return;
+
+  tabs.addEventListener('click', e => {
+    const tab = e.target.closest('.filter-tab');
+    if (!tab) return;
+
+    tabs.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+
+    const productsPage = document.querySelector('.products-page');
+    if (productsPage) {
+      productsPage.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    const filter = tab.dataset.filter;
+    carouselIndex = 0;
+    stopAutoRotate();
+    document.querySelectorAll('.catalog-card').forEach(card => {
+      const match = filter === 'all' || card.dataset.category === filter;
+      card.classList.toggle('card-hidden', !match);
+    });
+    positionCarouselCards();
+    startAutoRotate();
+  });
+}
+
+function openCatalogModal(code, name, category, desc) {
+  const catLabel = category === 'fragrances' ? 'Fragrance' : 'Cleaner';
+  const applications = category === 'fragrances'
+    ? 'Ideal for use in hotels, offices, restrooms, lobbies, hospitals, and commercial spaces to maintain a pleasant and inviting atmosphere.'
+    : 'Suitable for daily use in kitchens, bathrooms, floors, glass surfaces, industrial areas, and institutional facilities.';
+
+  openModal(`
+    <div class="catalog-modal-content">
+      <span class="catalog-modal-badge">${catLabel}</span>
+      <h2 style="font-size:1.3rem;margin:4px 0 8px">${name}</h2>
+      <p style="font-size:0.92rem;color:var(--text-dark);line-height:1.6;margin-bottom:14px">${desc}</p>
+      <div style="background:var(--off-white);border-radius:10px;padding:14px 16px;margin-bottom:18px;text-align:left">
+        <strong style="font-size:0.75rem;color:var(--gold-dark);text-transform:uppercase;letter-spacing:1px">Application of Use</strong>
+        <p style="font-size:0.85rem;color:var(--text-light);margin:6px 0 0;line-height:1.5">${applications}</p>
+      </div>
+      <form id="quickQuoteForm" onsubmit="handleQuickQuote(event)">
+        <input type="hidden" id="qq_product" value="${name}">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="qq_name">Full Name *</label>
+            <input type="text" id="qq_name" required placeholder="Your full name">
+          </div>
+          <div class="form-group">
+            <label for="qq_phone">Mobile Number *</label>
+            <input type="tel" id="qq_phone" required placeholder="+91 90423 24286">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="qq_email">Email Address <span style="font-weight:400;color:var(--text-light)">(optional)</span></label>
+          <input type="email" id="qq_email" placeholder="your@email.com">
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:8px">
+          <i class="fas fa-paper-plane"></i> Submit Inquiry
+        </button>
+      </form>
+    </div>
+  `);
 }
 
 function openProductModal(name, desc) {
@@ -447,45 +706,24 @@ function getContactForm() {
 function getQuoteForm() {
   return `
     <h2>Request a Quote</h2>
-    <p>Tell us what you need and our sales team will provide a customized quote.</p>
-    <form id="quoteForm" onsubmit="handleQuote(event)">
+    <p>Share your details and our sales team will get back to you.</p>
+    <form id="quickQuoteForm" onsubmit="handleQuickQuote(event)">
       <div class="form-row">
         <div class="form-group">
-          <label for="qf_name">Full Name *</label>
-          <input type="text" id="qf_name" required placeholder="Your full name">
+          <label for="qq_name">Full Name *</label>
+          <input type="text" id="qq_name" required placeholder="Your full name">
         </div>
         <div class="form-group">
-          <label for="qf_email">Email Address *</label>
-          <input type="email" id="qf_email" required placeholder="your@email.com">
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label for="qf_phone">Phone Number</label>
-          <input type="tel" id="qf_phone" placeholder="+91 90423 24286">
-        </div>
-        <div class="form-group">
-          <label for="qf_company">Company Name</label>
-          <input type="text" id="qf_company" placeholder="Your company">
+          <label for="qq_phone">Phone Number *</label>
+          <input type="tel" id="qq_phone" required placeholder="+91 90423 24286">
         </div>
       </div>
       <div class="form-group">
-        <label for="qf_product">Product Interested In *</label>
-        <select id="qf_product" required>
-          <option value="">Select a category...</option>
-          ${siteData.products.map(p => `<option value="${p.name}">${p.name}</option>`).join('')}
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="qf_quantity">Estimated Quantity</label>
-        <input type="text" id="qf_quantity" placeholder="e.g., 100 litres, 50 kgs">
-      </div>
-      <div class="form-group">
-        <label for="qf_message">Additional Details</label>
-        <textarea id="qf_message" placeholder="Any specific requirements..."></textarea>
+        <label for="qq_email">Email Address <span style="font-weight:400;color:var(--text-light)">(optional)</span></label>
+        <input type="email" id="qq_email" placeholder="your@email.com">
       </div>
       <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">
-        <i class="fas fa-file-invoice"></i> Request Quote
+        <i class="fas fa-paper-plane"></i> Submit Inquiry
       </button>
     </form>
   `;
@@ -535,6 +773,52 @@ async function handleContact(e) {
     showToast('Network error. Please try again.', 'error');
     btn.disabled = false;
     btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+  }
+}
+
+async function handleQuickQuote(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('button[type="submit"]');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+
+  const data = {
+    name: document.getElementById('qq_name').value,
+    phone: document.getElementById('qq_phone').value,
+    email: document.getElementById('qq_email').value || '',
+    product: document.getElementById('qq_product')?.value || ''
+  };
+
+  try {
+    const res = await fetch(`${API_BASE}/api/quote`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    const result = await res.json();
+    if (result.success) {
+      const waBtn = result.waLink ? `<a href="${result.waLink}" target="_blank" class="btn btn-whatsapp" style="margin-top:12px;width:100%;justify-content:center">
+        <i class="fab fa-whatsapp"></i> Notify Us on WhatsApp
+      </a>` : '';
+      document.getElementById('modalBody').innerHTML = `
+        <div class="form-success">
+          <i class="fas fa-check-circle"></i>
+          <h3>Inquiry Submitted!</h3>
+          <p>${result.message}</p>
+          ${waBtn}
+          <button class="btn btn-primary" onclick="closeModal()" style="margin-top:12px">Close</button>
+        </div>
+      `;
+      showToast('Inquiry submitted!', 'success');
+    } else {
+      showToast(result.error || 'Something went wrong.', 'error');
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Inquiry';
+    }
+  } catch (err) {
+    showToast('Network error. Please try again.', 'error');
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Inquiry';
   }
 }
 
@@ -998,6 +1282,7 @@ function setupScroll3DParallax() {
 
 function loadPageContent() {
   if (document.getElementById('productsGrid')) loadProducts();
+  if (document.getElementById('productsCatalog')) loadProductCatalog();
   if (document.getElementById('industriesGridTop') || document.getElementById('industriesGridBottom')) loadIndustries();
   if (document.getElementById('featuresGrid')) loadFeatures();
   if (document.getElementById('topProductsGrid')) loadFeaturedProducts();
