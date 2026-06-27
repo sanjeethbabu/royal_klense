@@ -51,6 +51,18 @@ const siteData = {
     { text: 'The quality of their disinfectants and hygiene products is exceptional. Our infection control ratings have improved significantly since switching to Royal Klense.', author: 'Dr. Priya Sharma', role: 'Chief of Operations, City Healthcare Group' },
     { text: 'Their customized cleaning solutions have transformed our facility management operations. Highly professional team with excellent product knowledge.', author: 'Amit Verma', role: 'Director, Elite Facility Management' },
     { text: 'We have been sourcing laundry and kitchen chemicals from Royal Klense for our restaurant chain. Consistent quality and reliable supply chain.', author: 'Vikram Singh', role: 'Owner, Royal Hospitality Group' }
+  ],
+  catalog: [
+    { code: 'F01', name: 'Lemon Fresh Scent', category: 'fragrances', image: '/images/lemon_fc.png', desc: 'A crisp and refreshing lemon fragrance that leaves spaces feeling clean and invigorated with a long-lasting fresh aroma.' },
+    { code: 'F02', name: 'Lavender Bliss', category: 'fragrances', image: '/images/lemon_fc.png', desc: 'A calming lavender aroma that creates a relaxing and soothing atmosphere in any environment.' },
+    { code: 'F03', name: 'Ocean Breeze', category: 'fragrances', image: '/images/lemon_fc.png', desc: 'A fresh marine scent that brings the invigorating feel of the ocean into indoor spaces.' },
+    { code: 'F04', name: 'Citrus Burst', category: 'fragrances', image: '/images/lemon_fc.png', desc: 'A zesty citrus blend that energizes and revitalizes the senses with bright notes.' },
+    { code: 'F05', name: 'Rose Elegance', category: 'fragrances', image: '/images/lemon_fc.png', desc: 'A delicate and elegant rose fragrance that adds a touch of sophistication to any space.' },
+    { code: 'C01', name: 'Multipurpose Cleaner', category: 'cleaners', image: '/images/lemon_fc.png', desc: 'A versatile cleaning solution effective on all surfaces for daily professional cleaning needs.' },
+    { code: 'C02', name: 'Glass & Surface Cleaner', category: 'cleaners', image: '/images/lemon_fc.png', desc: 'Streak-free formula that delivers brilliant shine on glass, mirrors, and reflective surfaces.' },
+    { code: 'C03', name: 'Floor Cleaner', category: 'cleaners', image: '/images/lemon_fc.png', desc: 'Heavy-duty floor cleaning solution suitable for all types of flooring materials and surfaces.' },
+    { code: 'C04', name: 'Bathroom Cleaner', category: 'cleaners', image: '/images/lemon_fc.png', desc: 'Anti-bacterial formula that ensures complete hygiene and cleanliness in bathroom spaces.' },
+    { code: 'C05', name: 'Kitchen Degreaser', category: 'cleaners', image: '/images/lemon_fc.png', desc: 'Powerful grease-cutting formula for commercial and domestic kitchen surface cleaning.' }
   ]
 };
 
@@ -148,6 +160,107 @@ function loadProducts() {
       <div class="product-card-edge" style="background: linear-gradient(90deg, ${gradColors[i][0]}, ${gradColors[i][1]})"></div>
     </div>
   `).join('');
+}
+
+function loadProductCatalog() {
+  const grid = document.getElementById('productsCatalog');
+  if (!grid) return;
+
+  grid.innerHTML = siteData.catalog.map((p, i) => `
+    <div class="catalog-card" data-category="${p.category}" style="animation-delay: ${i * 0.06}s">
+      <div class="catalog-card-inner">
+        <div class="catalog-card-image-section">
+          <div class="catalog-card-bracket"></div>
+          <div class="catalog-card-img-wrap">
+            <img class="catalog-card-img" src="${p.image}" alt="${p.name}" loading="lazy">
+            <div class="catalog-card-img-shadow"></div>
+          </div>
+          <div class="catalog-card-3d-rim"></div>
+        </div>
+        <div class="catalog-card-body">
+          <span class="catalog-card-code">${p.code}</span>
+          <h3 class="catalog-card-name">${p.name}</h3>
+          <button class="catalog-card-btn" onclick="openCatalogModal('${p.code}', '${p.name}', \`${p.desc}\`)">
+            Know More <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  setupProductFilters();
+  setupPkgPopup();
+}
+
+function setupPkgPopup() {
+  const ctaBtn = document.getElementById('ctaBtn');
+  const overlay = document.getElementById('pkgPopupOverlay');
+  const closeBtn = document.getElementById('pkgPopupClose');
+  if (!ctaBtn || !overlay || !closeBtn) return;
+
+  ctaBtn.addEventListener('click', e => {
+    e.preventDefault();
+    overlay.classList.add('is-visible');
+    document.body.style.overflow = 'hidden';
+  });
+
+  const closePopup = () => {
+    overlay.classList.remove('is-visible');
+    document.body.style.overflow = '';
+  };
+
+  closeBtn.addEventListener('click', closePopup);
+}
+
+function setupProductFilters() {
+  const sidebar = document.querySelector('.sidebar-nav');
+  if (!sidebar) return;
+
+  sidebar.addEventListener('click', e => {
+    const item = e.target.closest('.sidebar-nav-item');
+    if (!item) return;
+
+    sidebar.querySelectorAll('.sidebar-nav-item').forEach(n => n.classList.remove('active'));
+    item.classList.add('active');
+
+    const productsMain = document.querySelector('.products-main');
+    if (productsMain) {
+      productsMain.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    const filter = item.dataset.filter;
+    document.querySelectorAll('.catalog-card').forEach(card => {
+      if (filter === 'all' || card.dataset.category === filter) {
+        card.style.display = '';
+        card.style.animation = 'none';
+        void card.offsetHeight;
+        card.style.animation = 'catalogCardIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards';
+      } else {
+        card.style.animation = 'none';
+        card.style.display = 'none';
+      }
+    });
+  });
+}
+
+function openCatalogModal(code, name, desc) {
+  openModal(`
+    <div class="catalog-modal-content">
+      <div class="catalog-modal-icon">
+        <img src="/images/lemon_fc.png" alt="${name}" style="max-width:120px;border-radius:12px">
+      </div>
+      <span class="catalog-modal-code">${code}</span>
+      <h2>${name}</h2>
+      <p>${desc}</p>
+      <p style="font-size:0.9rem;color:var(--text-light);margin-top:16px">Contact our team for detailed product specifications, pricing, and bulk ordering information.</p>
+      <button class="btn btn-primary" onclick="closeModal();openQuoteModal()" style="margin-top:16px">
+        <i class="fas fa-file-invoice"></i> Request Quote
+      </button>
+      <button class="btn btn-outline" onclick="closeModal();openContactModal()" style="margin-top:8px">
+        <i class="fas fa-phone-alt"></i> Inquire Now
+      </button>
+    </div>
+  `);
 }
 
 function openProductModal(name, desc) {
@@ -998,6 +1111,7 @@ function setupScroll3DParallax() {
 
 function loadPageContent() {
   if (document.getElementById('productsGrid')) loadProducts();
+  if (document.getElementById('productsCatalog')) loadProductCatalog();
   if (document.getElementById('industriesGridTop') || document.getElementById('industriesGridBottom')) loadIndustries();
   if (document.getElementById('featuresGrid')) loadFeatures();
   if (document.getElementById('topProductsGrid')) loadFeaturedProducts();

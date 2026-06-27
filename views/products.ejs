@@ -24,16 +24,36 @@
           <div class="sidebar-notebook-footer"></div>
         </div>
         <div class="sidebar-action">
-          <a href="#" class="sidebar-cta-btn">
-            <span class="sidebar-cta-dot"></span>
-            click for Latest Updates
+          <a href="#" class="sidebar-cta-btn" id="ctaBtn">
+            <span>Click for Latest Updates</span>
             <i class="fas fa-arrow-right"></i>
           </a>
         </div>
       </aside>
       <main class="products-main">
+        <div class="products-catalog-header">
+          <div class="products-catalog-explore">
+            <span class="explore-text">Explore our products</span>
+
+          </div>
+        </div>
+        <div id="productsCatalog" class="products-catalog-grid"></div>
       </main>
     </div>
   </section>
+
+  <div class="pkg-popup-overlay" id="pkgPopupOverlay">
+    <div class="pkg-popup" id="pkgPopup">
+      <button class="pkg-popup-close" id="pkgPopupClose" aria-label="Close">&times;</button>
+      <div class="pkg-popup-icon"><i class="fas fa-box-open"></i></div>
+      <span class="pkg-popup-title">See What's New </span>
+
+      <ul class="pkg-popup-list">
+        <li>Cleaning products are available in <strong>5-litre</strong> and <strong>500-ml</strong> packages.</li>
+        <li>Air fresheners are available in <strong>5-litre</strong> and <strong>500-ml</strong> packages.</li>
+        <li>Toilet bowl cleaners are available in <strong>5-litre</strong> and <strong>500-ml</strong> packages.</li>
+      </ul>
+    </div>
+  </div>
 
   <%- include('partials/footer') %>
