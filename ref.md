@@ -1,5 +1,2 @@
-<!-- <h2 class="section-title">Trusted Across Sectors</h2> -->
-      <!-- <p class="section-desc">Our solutions are tailored to meet the unique requirements of various industries.</p> --> this two have to removed
-
-      in that empty rework for maintaing the respected space we leave for other contents 
-      
+now lets explore produts image with action and responsre
+i need for a row 3 products for now i dont have 10 products , so duplicate the image i gave to you the image is C:\Users\SanjeethBabu_owc6ggv\OneDrive - Gantec Corporation\Desktop\self_developement\royal_clense\public\images\lemon_fc.png and refre the how products are are alligned in this web page "https://www.britishclean.com/all-products.html" i need thee exact structure like know more extra in our theme the products are scome under some catories like some comes under fragrace and some comes undder cleanear for the if hte left filter is clicked based on needded  so now create the structure and make the image with 3d style and buttons with 3d style and animation needed each image should has outline on left , right and bottom from left and right from half of the image with goldedn like the structure comes like (|_|) on image make shaow and make the interatc=ive ux and ui and make it as so so so professional

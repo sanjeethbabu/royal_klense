@@ -1,9 +1,39 @@
 <%- include('partials/header') %>
 
-  <section class="section products" style="padding-top:120px">
-    <div class="container">
-      <div class="products-grid" id="productsGrid"></div>
+  <section class="products-layout">
+    <div class="container products-layout-inner">
+      <aside class="products-sidebar">
+        <div class="sidebar-notebook">
+          <div class="sidebar-notebook-header">
+            <h3>Categories</h3>
+          </div>
+          <nav class="sidebar-nav">
+            <a href="#" class="sidebar-nav-item active" data-filter="all">
+              <span class="sidebar-nav-icon"><i class="fas fa-layer-group"></i></span>
+              <span>All Products</span>
+            </a>
+            <a href="#" class="sidebar-nav-item" data-filter="fragrances">
+              <span class="sidebar-nav-icon"><i class="fas fa-spray-can"></i></span>
+              <span>Fragrances</span>
+            </a>
+            <a href="#" class="sidebar-nav-item" data-filter="cleaners">
+              <span class="sidebar-nav-icon"><i class="fas fa-pump-soap"></i></span>
+              <span>Cleaners</span>
+            </a>
+          </nav>
+          <div class="sidebar-notebook-footer"></div>
+        </div>
+        <div class="sidebar-action">
+          <a href="#" class="sidebar-cta-btn">
+            <span class="sidebar-cta-dot"></span>
+            click for Latest Updates
+            <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </aside>
+      <main class="products-main">
+      </main>
     </div>
   </section>
 
-<%- include('partials/footer') %>
+  <%- include('partials/footer') %>
