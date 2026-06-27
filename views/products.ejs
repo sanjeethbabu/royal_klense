@@ -1,48 +1,18 @@
 <%- include('partials/header') %>
 
-  <section class="products-layout">
-    <div class="container products-layout-inner">
-      <aside class="products-sidebar">
-        <div class="sidebar-notebook">
-          <div class="sidebar-notebook-header">
-            <h3>Categories</h3>
-          </div>
-          <nav class="sidebar-nav">
-            <a href="#" class="sidebar-nav-item active" data-filter="all">
-              <span class="sidebar-nav-icon"><i class="fas fa-layer-group"></i></span>
-              <span>All Products</span>
-            </a>
-            <a href="#" class="sidebar-nav-item" data-filter="fragrances">
-              <span class="sidebar-nav-icon"><i class="fas fa-spray-can"></i></span>
-              <span>Fragrances</span>
-            </a>
-            <a href="#" class="sidebar-nav-item" data-filter="cleaners">
-              <span class="sidebar-nav-icon"><i class="fas fa-pump-soap"></i></span>
-              <span>Cleaners</span>
-            </a>
-          </nav>
-          <div class="sidebar-notebook-footer"></div>
-        </div>
-        <div class="sidebar-action">
-          <a href="#" class="sidebar-cta-btn" id="ctaBtn">
-            <span class="cta-btn-content">
-              <span>Click for Latest Updates</span>
-              <i class="fas fa-arrow-right"></i>
-            </span>
-          </a>
-        </div>
-      </aside>
-      <main class="products-main">
-        <div class="products-catalog-header">
-          <div class="products-catalog-explore">
-            <span class="explore-text">Explore our products</span>
-
-          </div>
-        </div>
-        <div id="productsCatalog" class="products-catalog-grid"></div>
-      </main>
+  <main class="products-page">
+    <div class="products-catalog-header">
+      <div class="products-catalog-explore">
+        <span class="explore-text">Explore our products</span>
+      </div>
+      <div class="filter-tabs">
+        <button class="filter-tab active" data-filter="all"><span>All Products</span></button>
+        <button class="filter-tab" data-filter="fragrances"><span>Fragrances</span></button>
+        <button class="filter-tab" data-filter="cleaners"><span>Cleaners</span></button>
+      </div>
     </div>
-  </section>
+    <div id="productsCatalog" class="products-catalog-grid"></div>
+  </main>
 
   <div class="pkg-popup-overlay" id="pkgPopupOverlay">
     <div class="pkg-popup" id="pkgPopup">
