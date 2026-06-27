@@ -325,6 +325,12 @@ body:not(.rk-leaving):not(.rk-reveal)>*:not(#loader):not(script) {
   transition: opacity 0.15s ease;
 }
 
+.loader.exiting .loader-footer {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
 .loader-bg {
   position: absolute;
   inset: 0;
@@ -808,6 +814,32 @@ body:not(.rk-leaving):not(.rk-reveal)>*:not(#loader):not(script) {
   100% {
     transform: translateX(100%);
   }
+}
+
+.loader-footer {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 2;
+}
+
+.loader-footer-text {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #888;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.loader-footer-logo {
+  height: 28px;
+  width: auto;
+  opacity: 0.8;
 }
 
 .star {

@@ -1,5 +1,1 @@
-<!-- <h2 class="section-title">Trusted Across Sectors</h2> -->
-      <!-- <p class="section-desc">Our solutions are tailored to meet the unique requirements of various industries.</p> --> this two have to removed
-
-      in that empty rework for maintaing the respected space we leave for other contents 
-      
+in loading page at bottom i need in center "Powered by  C:\Users\SanjeethBabu_owc6ggv\OneDrive - Gantec Corporation\Desktop\self_developement\royal_clense\public\images\vc_logo.png(image) and make it as professtionly
