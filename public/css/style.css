@@ -6593,9 +6593,9 @@ img:hover {
   justify-content: center;
   gap: 10px;
   width: 100%;
-  padding: 14px 16px;
+  padding: 16px 20px;
   border: none;
-  border-radius: 12px;
+  border-radius: 14px;
   background: linear-gradient(135deg, var(--gold), var(--gold-dark));
   color: var(--white);
   font-family: var(--font-heading);
@@ -6606,34 +6606,79 @@ img:hover {
   text-decoration: none;
   text-transform: uppercase;
   position: relative;
-  box-shadow: 0 4px 16px rgba(201, 162, 39, 0.25);
+  box-shadow: 0 8px 24px rgba(201, 162, 39, 0.2);
+  animation: btnPulse 2s ease-in-out infinite;
+  transition: box-shadow 0.3s ease;
 }
 
 .sidebar-cta-btn::before {
   content: '';
   position: absolute;
-  inset: -4px;
+  inset: 0;
   border-radius: 14px;
-  background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
-  z-index: -1;
-  opacity: 0.3;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent 50%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.sidebar-cta-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  border-radius: 14px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  transform: skewX(-25deg);
+  animation: btnShimmer 2.5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 2;
 }
 
 .sidebar-cta-btn:hover {
-  box-shadow: 0 4px 16px rgba(201, 162, 39, 0.25);
+  box-shadow: 0 12px 36px rgba(201, 162, 39, 0.35);
+  animation: none;
 }
 
-.sidebar-cta-btn:hover::before {
-  opacity: 0.4;
+.sidebar-cta-btn:hover::after {
+  animation: none;
+  opacity: 0;
+}
+
+@keyframes btnShimmer {
+  0% {
+    left: -75%;
+  }
+  100% {
+    left: 125%;
+  }
 }
 
 .sidebar-cta-btn:active {
-  transition: transform 0.1s var(--ease-out-expo);
-  box-shadow: 0 2px 8px rgba(201, 162, 39, 0.2);
+  transition: box-shadow 0.08s ease;
+  box-shadow: 0 4px 12px rgba(201, 162, 39, 0.15);
+}
+
+@keyframes btnPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.04);
+  }
+}
+
+.cta-btn-content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .sidebar-cta-btn i {
-  transition: transform 0.3s var(--ease-out-expo);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .sidebar-cta-btn i.fa-arrow-right {
@@ -6647,8 +6692,17 @@ img:hover {
 .sidebar-cta-btn i.fa-hand-point-down {
   font-size: 1.3rem;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
-  animation: fingerPoint3D 2s ease-in-out infinite;
+  animation: fingerPointBtn 0.8s ease-in-out infinite;
   transform-style: preserve-3d;
+}
+
+@keyframes fingerPointBtn {
+  0%, 100% {
+    transform: translateY(0) rotateX(0deg);
+  }
+  40% {
+    transform: translateY(5px) rotateX(14deg);
+  }
 }
 
 .finger-3d-icon {
