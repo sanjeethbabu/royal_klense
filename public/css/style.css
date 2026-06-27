@@ -6967,19 +6967,7 @@ img:hover {
 }
 
 .catalog-card-inner {
-  background: var(--white);
-  border-radius: 20px;
-  overflow: hidden;
   position: relative;
-  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-  box-shadow: 0 2px 12px rgba(11, 29, 58, 0.06), 0 4px 24px rgba(11, 29, 58, 0.04);
-  border: 1px solid var(--light-gray);
-}
-
-.catalog-card:hover .catalog-card-inner {
-  transform: translateY(-10px) rotateX(2deg);
-  box-shadow: 0 20px 50px rgba(11, 29, 58, 0.1), 0 8px 30px rgba(201, 162, 39, 0.08);
-  border-color: rgba(201, 162, 39, 0.15);
 }
 
 /* ── Image Section ── */
@@ -6990,7 +6978,6 @@ img:hover {
   align-items: center;
   justify-content: center;
   min-height: 240px;
-  background: linear-gradient(180deg, rgba(11, 29, 58, 0.02), transparent 60%);
 }
 
 .catalog-card-img-wrap {
@@ -7038,43 +7025,16 @@ img:hover {
 
 /* ── Golden Bracket (|_| shape from half height) ── */
 .catalog-card-bracket {
-  position: absolute;
-  left: 4px;
-  right: 4px;
-  top: 50%;
-  bottom: 4px;
-  border-left: 2.5px solid var(--gold);
-  border-right: 2.5px solid var(--gold);
-  border-bottom: 2.5px solid var(--gold);
-  border-radius: 0 0 4px 4px;
-  pointer-events: none;
-  z-index: 3;
-  opacity: 0.7;
-  transition: opacity 0.4s ease, box-shadow 0.4s ease;
-  box-shadow:
-    inset 0 0 12px rgba(201, 162, 39, 0.06),
-    0 0 12px rgba(201, 162, 39, 0.08);
+  display: none;
 }
 
 .catalog-card:hover .catalog-card-bracket {
-  opacity: 1;
-  box-shadow:
-    inset 0 0 20px rgba(201, 162, 39, 0.12),
-    0 0 20px rgba(201, 162, 39, 0.15),
-    0 0 40px rgba(201, 162, 39, 0.06);
+  display: none;
 }
 
 /* 3D rim highlight on image area */
 .catalog-card-3d-rim {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  right: 20px;
-  bottom: 0;
-  border-radius: 12px;
-  background: linear-gradient(180deg, transparent 50%, rgba(201, 162, 39, 0.03));
-  pointer-events: none;
-  z-index: 1;
+  display: none;
 }
 
 /* ── Card Body ── */
@@ -7297,15 +7257,11 @@ img:hover {
   }
 
   .catalog-card-bracket {
-    left: 2px;
-    right: 2px;
-    bottom: 2px;
-    border-width: 2px;
+    display: none;
   }
 
   .catalog-card-3d-rim {
-    left: 16px;
-    right: 16px;
+    display: none;
   }
 }
 
