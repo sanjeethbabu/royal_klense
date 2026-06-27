@@ -89,13 +89,63 @@ function closeModal() {
 
 function loadProducts() {
   const grid = document.getElementById('productsGrid');
+  const filterBar = document.getElementById('productsFilterBar');
   if (!grid) return;
+
+  const gradients = [
+    'from-#C9A227-to-#9a7a1a', 'from-#0B1D3A-to-#17305c', 'from-#1a6b3c-to-#0f4d2a',
+    'from-#8B4513-to-#5c2d0a', 'from-#1a5276-to-#0e344e', 'from-#6c3483-to-#4a235a',
+    'from-#117a65-to-#0b5345', 'from-#b7950b-to-#7d6608', 'from-#922b21-to-#641e16',
+    'from-#2c3e50-to-#1a252f'
+  ];
+
+  const gradColors = [
+    ['#C9A227', '#9a7a1a'], ['#0B1D3A', '#17305c'], ['#1a6b3c', '#0f4d2a'],
+    ['#8B4513', '#5c2d0a'], ['#1a5276', '#0e344e'], ['#6c3483', '#4a235a'],
+    ['#117a65', '#0b5345'], ['#b7950b', '#7d6608'], ['#922b21', '#641e16'],
+    ['#2c3e50', '#1a252f']
+  ];
+
+  if (filterBar) {
+    const cats = siteData.products.map(p => p.name);
+    filterBar.innerHTML = `<button class="filter-btn active" data-filter="all">All Categories</button>` +
+      cats.map((c, i) => `<button class="filter-btn" data-filter="cat-${i}">${c}</button>`).join('');
+
+    filterBar.addEventListener('click', e => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+      filterBar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('.product-card').forEach(card => {
+        if (filter === 'all' || card.dataset.category === filter) {
+          card.style.display = '';
+          card.style.animation = 'none';
+          card.style.animationDelay = '';
+          void card.offsetHeight;
+          card.style.animation = 'cardFadeIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards';
+        } else {
+          card.style.animation = 'none';
+          card.style.display = 'none';
+        }
+      });
+    });
+  }
+
   grid.innerHTML = siteData.products.map((p, i) => `
-    <div class="product-card reveal" data-delay="${i * 80}" onclick="openProductModal('${p.name}', '${p.desc}')">
-      <div class="product-icon"><i class="${p.icon}"></i></div>
-      <h3>${p.name}</h3>
-      <p>${p.desc}</p>
-      <span class="product-link">Learn More <i class="fas fa-arrow-right"></i></span>
+    <div class="product-card enhanced-product-card" style="animation-delay: ${i * 0.08}s" data-category="cat-${i}" onclick="openProductModal('${p.name}', '${p.desc}')">
+      <div class="product-card-bg" style="background: linear-gradient(135deg, ${gradColors[i][0]}15, ${gradColors[i][1]}08)"></div>
+      <div class="product-card-shine"></div>
+      <div class="product-card-inner">
+        <div class="product-icon-wrap" style="background: linear-gradient(135deg, ${gradColors[i][0]}20, ${gradColors[i][1]}10); color: ${gradColors[i][0]}">
+          <i class="${p.icon}"></i>
+        </div>
+        <span class="product-badge" style="background: ${gradColors[i][0]}">${p.name.split(' ')[0]}</span>
+        <h3>${p.name}</h3>
+        <p>${p.desc}</p>
+        <span class="product-link">Explore Range <i class="fas fa-arrow-right"></i></span>
+      </div>
+      <div class="product-card-edge" style="background: linear-gradient(90deg, ${gradColors[i][0]}, ${gradColors[i][1]})"></div>
     </div>
   `).join('');
 }
