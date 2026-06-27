@@ -6552,17 +6552,42 @@ img:hover {
   font-weight: 500;
   position: relative;
   cursor: pointer;
+  will-change: transform;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), color 0.35s ease;
 }
 
 .sidebar-nav-item:hover {
-  background: rgba(201, 162, 39, 0.06);
   color: var(--gold);
 }
 
+.sidebar-nav-item:hover .sidebar-nav-icon {
+  animation: icon3DBounce 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  transform-style: preserve-3d;
+}
+
+@keyframes icon3DBounce {
+  0% {
+    transform: rotateY(0deg) scale(1);
+  }
+  40% {
+    transform: rotateY(180deg) scale(1.15);
+  }
+  60% {
+    transform: rotateY(190deg) scale(1.1);
+  }
+  100% {
+    transform: rotateY(360deg) scale(1);
+  }
+}
+
+.sidebar-nav-item.active .sidebar-nav-icon {
+  animation: none;
+}
+
 .sidebar-nav-item.active {
-  background: linear-gradient(135deg, rgba(201, 162, 39, 0.1), rgba(201, 162, 39, 0.04));
-  color: var(--gold-dark);
-  font-weight: 600;
+  color: var(--gold);
+  font-weight: 700;
+  transform: scale(1.05);
 }
 
 .sidebar-nav-icon {
@@ -6576,11 +6601,13 @@ img:hover {
   background: var(--off-white);
   color: var(--text-light);
   flex-shrink: 0;
+  perspective: 600px;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 .sidebar-nav-item.active .sidebar-nav-icon {
-  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-  color: var(--white);
+  color: var(--gold);
+  background: rgba(201, 162, 39, 0.06);
 }
 
 .sidebar-action {
