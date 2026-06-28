@@ -53,16 +53,19 @@ const siteData = {
     { text: 'We have been sourcing laundry and kitchen chemicals from Royal Klense for our restaurant chain. Consistent quality and reliable supply chain.', author: 'Vikram Singh', role: 'Owner, Royal Hospitality Group' }
   ],
   catalog: [
-    { code: 'F01', name: 'Lemon Fresh Scent', category: 'fragrances', image: '/images/lemon_fc.png', desc: 'A crisp and refreshing lemon fragrance that leaves spaces feeling clean and invigorated with a long-lasting fresh aroma.' },
-    { code: 'F02', name: 'Lavender Bliss', category: 'fragrances', image: '/images/lemon_fc.png', desc: 'A calming lavender aroma that creates a relaxing and soothing atmosphere in any environment.' },
-    { code: 'F03', name: 'Ocean Breeze', category: 'fragrances', image: '/images/lemon_fc.png', desc: 'A fresh marine scent that brings the invigorating feel of the ocean into indoor spaces.' },
-    { code: 'F04', name: 'Citrus Burst', category: 'fragrances', image: '/images/lemon_fc.png', desc: 'A zesty citrus blend that energizes and revitalizes the senses with bright notes.' },
-    { code: 'F05', name: 'Rose Elegance', category: 'fragrances', image: '/images/lemon_fc.png', desc: 'A delicate and elegant rose fragrance that adds a touch of sophistication to any space.' },
-    { code: 'C01', name: 'Multipurpose Cleaner', category: 'cleaners', image: '/images/lemon_fc.png', desc: 'A versatile cleaning solution effective on all surfaces for daily professional cleaning needs.' },
-    { code: 'C02', name: 'Glass & Surface Cleaner', category: 'cleaners', image: '/images/lemon_fc.png', desc: 'Streak-free formula that delivers brilliant shine on glass, mirrors, and reflective surfaces.' },
-    { code: 'C03', name: 'Floor Cleaner', category: 'cleaners', image: '/images/lemon_fc.png', desc: 'Heavy-duty floor cleaning solution suitable for all types of flooring materials and surfaces.' },
-    { code: 'C04', name: 'Bathroom Cleaner', category: 'cleaners', image: '/images/lemon_fc.png', desc: 'Anti-bacterial formula that ensures complete hygiene and cleanliness in bathroom spaces.' },
-    { code: 'C05', name: 'Kitchen Degreaser', category: 'cleaners', image: '/images/lemon_fc.png', desc: 'Powerful grease-cutting formula for commercial and domestic kitchen surface cleaning.' }
+    { code: 'F01', name: 'Liquid Freshner', flavor: 'Strawberry Shot', category: 'freshners', image: '/images/freshners/sberry_LF.png', desc: 'A sweet and fruity strawberry fragrance that fills the air with a fresh, delightful aroma perfect for any space.' },
+    { code: 'F02', name: 'Liquid Freshner', flavor: 'Fresh Flora', category: 'freshners', image: '/images/freshners/fresh_flora_LF.png', desc: 'A captivating floral fragrance that brings the essence of a blooming garden indoors with a long-lasting freshness.' },
+    { code: 'C01', name: 'Multi-Purpose Cleaner', flavor: 'Original', category: 'cleaners', image: '/images/cleaners/multi_purpose_cleaner.png', desc: 'A versatile cleaning solution effective on all surfaces for daily professional cleaning needs.' },
+    { code: 'C02', name: 'Glass Cleaner', flavor: 'Original', category: 'cleaners', image: '/images/cleaners/glass_cleaner.png', desc: 'Streak-free formula that delivers brilliant shine on glass, mirrors, and reflective surfaces.' },
+    { code: 'C03', name: 'Floor Cleaner', flavor: 'Lemon', category: 'cleaners', image: '/images/cleaners/lemon_floor_cleaner.png', desc: 'Fresh lemon-scented floor cleaning solution for all types of flooring materials and surfaces.' },
+    { code: 'C04', name: 'Floor Cleaner', flavor: 'Lavender', category: 'cleaners', image: '/images/cleaners/lavender_floor_cleaner.png', desc: 'Calming lavender-infused floor cleaner that leaves floors sparkling clean with a soothing fragrance.' },
+    { code: 'C05', name: 'Floor Cleaner', flavor: 'Garden Bloom', category: 'cleaners', image: '/images/cleaners/garden_bloom_floor_cleaner.png', desc: 'A refreshing floral-scented floor cleaner inspired by the freshness of a blooming garden.' },
+    { code: 'C06', name: 'Dishwash', flavor: 'Lemon', category: 'cleaners', image: '/images/cleaners/lemon_dishwash.png', desc: 'Powerful lemon-scented dishwashing liquid that cuts through grease and leaves dishes spotless.' },
+    { code: 'C07', name: 'Bathroom & Ceramic Cleaner', flavor: 'Original', category: 'cleaners', image: '/images/cleaners/bathroom_ceramic_cleaner.png', desc: 'Anti-bacterial formula designed for complete hygiene on bathroom surfaces, tiles, and ceramic fixtures.' },
+    { code: 'C08', name: 'Toilet Bowl Cleaner', flavor: 'Original', category: 'cleaners', image: '/images/cleaners/toiler_bowl_cleaner.png', desc: 'Powerful thick formula that removes tough stains and limescale while disinfecting toilet bowls.' },
+    { code: 'C09', name: 'Ultra Remover', flavor: 'Original', category: 'cleaners', image: '/images/cleaners/ultra_remover.png', desc: 'Heavy-duty stain remover for stubborn marks, grime, and hard-to-clean surfaces.' },
+    { code: 'C10', name: 'Handwash', flavor: 'Royal Cream', category: 'cleaners', image: '/images/cleaners/handwash_royalcream.png', desc: 'Premium creamy handwash with moisturizers for a gentle yet effective cleansing experience.' },
+    { code: 'C11', name: 'Handwash', flavor: 'Strawberry', category: 'cleaners', image: '/images/cleaners/handwash_strawberry.png', desc: 'A fruity strawberry-scented handwash that cleanses gently while leaving hands soft and fragrant.' }
   ]
 };
 
@@ -179,7 +182,9 @@ function loadProductCatalog() {
                 </div>
                 <div class="catalog-card-body">
                   <span class="catalog-card-code">${p.code}</span>
+                  <span class="catalog-card-category">${p.category === 'freshners' ? 'Freshner' : 'Cleaner'}</span>
                   <h3 class="catalog-card-name">${p.name}</h3>
+                  <span class="catalog-card-flavor">${p.flavor}</span>
                   <button class="catalog-card-btn" type="button">Get Info <i class="fas fa-arrow-right"></i></button>
                 </div>
               </div>
@@ -325,13 +330,10 @@ function setupCarousel() {
     e.stopPropagation();
     const visible = carouselCards.filter(c => !c.classList.contains('card-hidden'));
     const curIdx = visible.indexOf(carouselCards[carouselIndex]);
-    const isWrap = curIdx - 1 < 0;
-    const prevIdx = isWrap ? visible.length - 1 : curIdx - 1;
-    if (prevIdx !== curIdx) {
-      stopAutoRotate();
+    const prevIdx = curIdx - 1;
+    if (prevIdx >= 0) {
       carouselIndex = carouselCards.indexOf(visible[prevIdx]);
-      positionCarouselCards(isWrap);
-      startAutoRotate();
+      positionCarouselCards();
     }
   });
 
@@ -339,56 +341,47 @@ function setupCarousel() {
     e.stopPropagation();
     const visible = carouselCards.filter(c => !c.classList.contains('card-hidden'));
     const curIdx = visible.indexOf(carouselCards[carouselIndex]);
-    const isWrap = curIdx + 1 >= visible.length;
-    const nextIdx = isWrap ? 0 : curIdx + 1;
-    if (nextIdx !== curIdx) {
-      stopAutoRotate();
+    const nextIdx = curIdx + 1;
+    if (nextIdx < visible.length) {
       carouselIndex = carouselCards.indexOf(visible[nextIdx]);
-      positionCarouselCards(isWrap);
-      startAutoRotate();
+      positionCarouselCards();
     }
   });
 
   positionCarouselCards();
-  startAutoRotate();
   window.addEventListener('resize', positionCarouselCards);
 
   const container = document.querySelector('.carousel-container');
-  if (container) {
-    container.addEventListener('mouseenter', stopAutoRotate);
-    container.addEventListener('mouseleave', startAutoRotate);
+  if (!container) return;
 
-    let touchStartX = 0;
-    let touchEndX = 0;
-    let isSwiping = false;
+  let touchStartX = 0;
+  let touchEndX = 0;
+  let isSwiping = false;
 
-    container.addEventListener('touchstart', (e) => {
-      touchStartX = e.changedTouches[0].screenX;
-      touchEndX = touchStartX;
-      isSwiping = true;
-    }, { passive: true });
+  container.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+    touchEndX = touchStartX;
+    isSwiping = true;
+  }, { passive: true });
 
-    container.addEventListener('touchmove', (e) => {
-      if (!isSwiping) return;
-      touchEndX = e.changedTouches[0].screenX;
-    }, { passive: true });
+  container.addEventListener('touchmove', (e) => {
+    if (!isSwiping) return;
+    touchEndX = e.changedTouches[0].screenX;
+  }, { passive: true });
 
-    container.addEventListener('touchend', (e) => {
-      if (!isSwiping) return;
-      isSwiping = false;
-      if (e.target.closest('.catalog-card-btn') || e.target.closest('.carousel-arrow') || e.target.closest('.carousel-dot')) return;
-      const diff = touchStartX - touchEndX;
-      if (Math.abs(diff) > 60) {
-        stopAutoRotate();
-        if (diff > 0) {
-          document.getElementById('carouselNext')?.click();
-        } else {
-          document.getElementById('carouselPrev')?.click();
-        }
-        startAutoRotate();
+  container.addEventListener('touchend', (e) => {
+    if (!isSwiping) return;
+    isSwiping = false;
+    if (e.target.closest('.catalog-card-btn') || e.target.closest('.carousel-arrow') || e.target.closest('.carousel-dot')) return;
+    const diff = touchStartX - touchEndX;
+    if (Math.abs(diff) > 60) {
+      if (diff > 0) {
+        document.getElementById('carouselNext')?.click();
+      } else {
+        document.getElementById('carouselPrev')?.click();
       }
-    });
-  }
+    }
+  });
 
   carouselInitialized = true;
 }
@@ -465,8 +458,8 @@ function setupProductFilters() {
 }
 
 function openCatalogModal(code, name, category, desc) {
-  const catLabel = category === 'fragrances' ? 'Fragrance' : 'Cleaner';
-  const applications = category === 'fragrances'
+  const catLabel = category === 'freshners' ? 'Freshner' : 'Cleaner';
+  const applications = category === 'freshners'
     ? 'Ideal for use in hotels, offices, restrooms, lobbies, hospitals, and commercial spaces to maintain a pleasant and inviting atmosphere.'
     : 'Suitable for daily use in kitchens, bathrooms, floors, glass surfaces, industrial areas, and institutional facilities.';
 
@@ -1021,14 +1014,23 @@ function scrollToHash() {
 function setupHeroVideo() {
   const video = document.getElementById('heroVideo');
   if (!video) return;
-  const source = video.querySelector('source');
-  if (source) {
-    const base = source.src.split('#')[0];
-    source.src = base + '#t=0.9';
+  const START_SEC = 3;
+  function seekToStart() {
+    if (Math.abs((video.currentTime || 0) - START_SEC) > 0.05) {
+      video.currentTime = START_SEC;
+    }
   }
+  video.addEventListener('loadstart', seekToStart);
+  video.addEventListener('loadedmetadata', seekToStart);
+  video.addEventListener('seeked', seekToStart);
   video.addEventListener('ended', function() {
-    video.currentTime = 0.9;
-    video.play();
+    video.currentTime = START_SEC;
+    video.play().catch(() => {});
+  });
+  window.addEventListener('pageshow', (e) => {
+    if (e.persisted) {
+      video.currentTime = START_SEC;
+    }
   });
   const heroScroll = document.getElementById('heroScroll');
   const about = document.querySelector('#about');
@@ -1069,7 +1071,7 @@ function setupHeroCarousel() {
         current = (current + 1) % slides.length;
         slides[current].classList.add('active');
         dots[current].classList.add('active');
-      }, 5000);
+  }, 4000);
     });
   });
 }
