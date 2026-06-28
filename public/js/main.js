@@ -178,7 +178,7 @@ function loadProductCatalog() {
             <div class="catalog-card" data-index="${i}" data-category="${p.category}">
               <div class="catalog-card-inner">
                 <div class="catalog-card-image-section">
-                  <img class="catalog-card-img" src="${p.image}" alt="${p.name}" loading="lazy">
+                  <img class="catalog-card-img" src="${p.image}" alt="${p.name}" loading="eager">
                 </div>
                 <div class="catalog-card-body">
                   <span class="catalog-card-code">${p.code}</span>
@@ -357,7 +357,25 @@ function setupCarousel() {
     }
   });
 
-  positionCarouselCards();
+  const images = Array.from(track.querySelectorAll('img'));
+  const unloadedImages = images.filter(img => !img.complete);
+  if (unloadedImages.length) {
+    let loaded = 0;
+    unloadedImages.forEach(img => {
+      img.addEventListener('load', () => {
+        loaded += 1;
+        if (loaded === unloadedImages.length) {
+          requestAnimationFrame(positionCarouselCards);
+        }
+      }, { once: true });
+    });
+  }
+
+  track.style.transition = 'none';
+  requestAnimationFrame(() => {
+    positionCarouselCards();
+    track.style.transition = '';
+  });
   window.addEventListener('resize', positionCarouselCards);
 
   const container = document.querySelector('.carousel-container');
