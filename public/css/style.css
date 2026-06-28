@@ -1394,6 +1394,7 @@ html.nav-open body {
   object-fit: cover;
   object-position: center bottom;
   opacity: 1;
+  will-change: transform;
 }
 
 .hero-title-gold {
@@ -7230,10 +7231,12 @@ img:hover {
   display: flex;
   align-items: center;
   padding-top: 40px;
+  -webkit-overflow-scrolling: touch;
 }
 
 .carousel-stage {
   perspective: 1200px;
+  -webkit-perspective: 1200px;
 }
 
 .carousel-track {
@@ -7243,6 +7246,7 @@ img:hover {
   transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform;
   transform-style: preserve-3d;
+  -webkit-transform: translateZ(0);
 }
 
 @keyframes cardFadeGlide {
@@ -7270,6 +7274,7 @@ img:hover {
   transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.7s ease, filter 0.7s ease, border-color 0.7s ease;
   transform-style: preserve-3d;
   backface-visibility: hidden;
+  -webkit-transform: translateZ(0);
 }
 
 .catalog-card.card-dimmed {
@@ -7351,6 +7356,7 @@ img:hover {
   border-radius: 20px 20px 0 0;
   transition: border-radius 0.6s cubic-bezier(0.22, 1, 0.36, 1);
   position: relative;
+  -webkit-transform: translateZ(0);
 }
 
 .catalog-card-img {
@@ -7366,6 +7372,9 @@ img:hover {
   transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
   animation: imgFloat 4s ease-in-out infinite;
   filter: drop-shadow(0 8px 28px rgba(0, 0, 0, 0.10));
+  -webkit-transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 .catalog-card:not(.card-dimmed) .catalog-card-img {

@@ -1015,23 +1015,46 @@ function setupHeroVideo() {
   const video = document.getElementById('heroVideo');
   if (!video) return;
   const START_SEC = 3;
+
   function seekToStart() {
     if (Math.abs((video.currentTime || 0) - START_SEC) > 0.05) {
       video.currentTime = START_SEC;
     }
   }
-  video.addEventListener('loadstart', seekToStart);
-  video.addEventListener('loadedmetadata', seekToStart);
+
+  function tryPlay() {
+    video.play().catch(function() {
+      document.addEventListener('touchstart', function playOnTouch() {
+        video.play();
+        document.removeEventListener('touchstart', playOnTouch);
+      }, { once: true });
+    });
+  }
+
+  video.addEventListener('loadedmetadata', function() {
+    seekToStart();
+    tryPlay();
+  });
+
   video.addEventListener('seeked', seekToStart);
+
   video.addEventListener('ended', function() {
     video.currentTime = START_SEC;
-    video.play().catch(() => {});
+    video.play().catch(function() {});
   });
-  window.addEventListener('pageshow', (e) => {
+
+  window.addEventListener('pageshow', function(e) {
     if (e.persisted) {
       video.currentTime = START_SEC;
+      tryPlay();
     }
   });
+
+  if (video.readyState >= 2) {
+    seekToStart();
+    tryPlay();
+  }
+
   const heroScroll = document.getElementById('heroScroll');
   const about = document.querySelector('#about');
   if (!about) return;
