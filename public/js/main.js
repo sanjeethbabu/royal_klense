@@ -1021,14 +1021,23 @@ function scrollToHash() {
 function setupHeroVideo() {
   const video = document.getElementById('heroVideo');
   if (!video) return;
-  const source = video.querySelector('source');
-  if (source) {
-    const base = source.src.split('#')[0];
-    source.src = base + '#t=0.9';
+  const START_SEC = 3;
+  function seekToStart() {
+    if (Math.abs((video.currentTime || 0) - START_SEC) > 0.05) {
+      video.currentTime = START_SEC;
+    }
   }
+  video.addEventListener('loadstart', seekToStart);
+  video.addEventListener('loadedmetadata', seekToStart);
+  video.addEventListener('seeked', seekToStart);
   video.addEventListener('ended', function() {
-    video.currentTime = 0.9;
-    video.play();
+    video.currentTime = START_SEC;
+    video.play().catch(() => {});
+  });
+  window.addEventListener('pageshow', (e) => {
+    if (e.persisted) {
+      video.currentTime = START_SEC;
+    }
   });
   const heroScroll = document.getElementById('heroScroll');
   const about = document.querySelector('#about');
@@ -1069,7 +1078,7 @@ function setupHeroCarousel() {
         current = (current + 1) % slides.length;
         slides[current].classList.add('active');
         dots[current].classList.add('active');
-      }, 5000);
+  }, 4000);
     });
   });
 }
