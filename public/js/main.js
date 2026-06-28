@@ -644,7 +644,7 @@ function setupParallax() {
       });
       ticking = true;
     }
-  });
+  }, { passive: true });
 }
 
 function animateCounters() {
@@ -1031,6 +1031,13 @@ function setupHeroVideo() {
     });
   }
 
+  function showVideo() {
+    video.classList.add('ready');
+  }
+
+  video.addEventListener('playing', showVideo);
+  video.addEventListener('loadeddata', showVideo);
+
   video.addEventListener('loadedmetadata', function() {
     seekToStart();
     tryPlay();
@@ -1310,8 +1317,8 @@ function setupScrollProgress() {
     const h = document.documentElement;
     const scrollTop = h.scrollTop || document.body.scrollTop;
     const scrollHeight = h.scrollHeight - h.clientHeight;
-    const progress = (scrollTop / scrollHeight) * 100;
-    bar.style.width = progress + '%';
+    const progress = (scrollTop / scrollHeight);
+    bar.style.transform = 'scaleX(' + progress + ')';
   }, { passive: true });
 }
 
@@ -1382,7 +1389,7 @@ function setupScroll3DParallax() {
       });
       ticking = true;
     }
-  });
+  }, { passive: true });
 }
 
 function loadPageContent() {

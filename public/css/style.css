@@ -1393,8 +1393,13 @@ html.nav-open body {
   height: 100%;
   object-fit: cover;
   object-position: center bottom;
-  opacity: 1;
+  opacity: 0;
   will-change: transform;
+  transition: opacity 0.6s ease;
+}
+
+.hero-video.ready {
+  opacity: 1;
 }
 
 .hero-title-gold {
@@ -1529,6 +1534,7 @@ html.nav-open body {
   right: -200px;
   z-index: 1;
   animation: floatDrift 20s ease-in-out infinite;
+  will-change: transform;
 }
 
 .hero-geometric-2 {
@@ -1602,6 +1608,7 @@ html.nav-open body {
   grid-row: 2;
   align-self: end;
   justify-self: start;
+  will-change: transform, opacity;
 }
 
 .hero-video-section .hero-stats {
@@ -1612,6 +1619,7 @@ html.nav-open body {
   justify-content: flex-start;
   align-self: end;
   padding-bottom: 10px;
+  will-change: transform, opacity;
 }
 
 .hero-video-section .hero-stat {
@@ -4561,8 +4569,8 @@ html.nav-open body {
   opacity: 0;
   transform: perspective(var(--perspective-3d)) rotateX(15deg) translateY(60px) translateZ(-20px);
   transform-origin: top center;
-  transition: opacity 0.9s cubic-bezier(0.23, 1, 0.32, 1),
-    transform 0.9s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1),
+    transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
   will-change: transform, opacity;
 }
 
@@ -4575,8 +4583,8 @@ html.nav-open body {
   opacity: 0;
   transform: perspective(var(--perspective-3d)) rotateY(20deg) translateX(-50px) translateZ(-20px);
   transform-origin: left center;
-  transition: opacity 0.9s cubic-bezier(0.23, 1, 0.32, 1),
-    transform 0.9s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1),
+    transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
   will-change: transform, opacity;
 }
 
@@ -4589,8 +4597,8 @@ html.nav-open body {
   opacity: 0;
   transform: perspective(var(--perspective-3d)) rotateY(-20deg) translateX(50px) translateZ(-20px);
   transform-origin: right center;
-  transition: opacity 0.9s cubic-bezier(0.23, 1, 0.32, 1),
-    transform 0.9s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1),
+    transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
   will-change: transform, opacity;
 }
 
@@ -4602,8 +4610,8 @@ html.nav-open body {
 .reveal-3d-scale {
   opacity: 0;
   transform: perspective(var(--perspective-3d)) scale3d(0.8, 0.8, 0.8) translateY(40px);
-  transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1),
-    transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1),
+    transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
   will-change: transform, opacity;
 }
 
@@ -5306,10 +5314,12 @@ html.nav-open body {
   height: 3px;
   background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-light));
   z-index: 10001;
-  width: 0%;
-  transition: width 0.1s linear;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.1s linear;
   box-shadow: 0 0 15px rgba(201, 162, 39, 0.4);
-  transform-style: preserve-3d;
+  will-change: transform;
 }
 
 /* --- 3D Text Effect --- */
@@ -7222,6 +7232,7 @@ img:hover {
   justify-content: center;
   width: 100%;
   padding: 40px 0;
+  contain: layout style;
 }
 
 .carousel-stage {
@@ -7232,6 +7243,7 @@ img:hover {
   align-items: center;
   padding-top: 40px;
   -webkit-overflow-scrolling: touch;
+  contain: layout style;
 }
 
 .carousel-stage {
@@ -7250,18 +7262,18 @@ img:hover {
 }
 
 @keyframes cardFadeGlide {
-  0% { transform: scale(0.88) translateZ(-40px); opacity: 0.4; filter: blur(2px); }
-  60% { transform: scale(1.1) translateZ(35px); opacity: 1; filter: blur(0); }
-  100% { transform: scale(1.08) translateZ(40px); opacity: 1; filter: blur(0); }
+  0% { transform: scale(0.88) translateZ(-40px); opacity: 0.4; }
+  60% { transform: scale(1.1) translateZ(35px); opacity: 1; }
+  100% { transform: scale(1.08) translateZ(40px); opacity: 1; }
 }
 
 @keyframes cardDimGlide {
-  0% { transform: scale(1.08) translateZ(40px); opacity: 1; filter: blur(0); }
-  100% { transform: scale(0.85) translateZ(-60px); opacity: 0.4; filter: blur(1px); }
+  0% { transform: scale(1.08) translateZ(40px); opacity: 1; }
+  100% { transform: scale(0.85) translateZ(-60px); opacity: 0.4; }
 }
 
 .carousel-track.slide-3d {
-  transition: transform 1.2s cubic-bezier(0.12, 0.9, 0.2, 1.05);
+  transition: transform 0.6s cubic-bezier(0.12, 0.9, 0.2, 1.05);
 }
 
 .catalog-card {
@@ -7270,25 +7282,26 @@ img:hover {
   cursor: pointer;
   border-radius: 24px;
   border: 1px solid rgba(201, 162, 39, 0.12);
-  filter: drop-shadow(0 8px 30px rgba(0, 0, 0, 0.06));
-  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.7s ease, filter 0.7s ease, border-color 0.7s ease;
+  filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.06));
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
   transform-style: preserve-3d;
   backface-visibility: hidden;
   -webkit-transform: translateZ(0);
+  will-change: transform;
 }
 
 .catalog-card.card-dimmed {
   opacity: 0.4;
   transform: scale(0.85) translateZ(-60px) rotateY(12deg);
-  filter: brightness(0.75) saturate(0.7) blur(1px);
+  filter: brightness(0.75) saturate(0.7);
   pointer-events: none;
-  animation: cardDimGlide 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: cardDimGlide 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .catalog-card:not(.card-dimmed) {
   transform: scale(1.08) translateZ(40px);
   z-index: 2;
-  animation: cardFadeGlide 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: cardFadeGlide 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .catalog-card:not(.card-dimmed) .catalog-card-inner {
@@ -7331,8 +7344,8 @@ img:hover {
 }
 
 @keyframes imgFloatActive {
-  0%, 100% { transform: translateY(0) perspective(800px) rotateY(-4deg) rotateX(2deg) scale(1.12); }
-  50% { transform: translateY(-12px) perspective(800px) rotateY(0deg) rotateX(-1deg) scale(1.18); }
+  0%, 100% { transform: translateY(0) rotateY(-4deg) rotateX(2deg) scale(1.12); }
+  50% { transform: translateY(-12px) rotateY(0deg) rotateX(-1deg) scale(1.18); }
 }
 
 .catalog-card-inner {
@@ -7344,6 +7357,7 @@ img:hover {
     inset 0 1px 0 rgba(255, 255, 255, 0.6);
   border: 1px solid rgba(201, 162, 39, 0.08);
   transition: border-radius 0.6s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.6s ease, border-color 0.6s ease;
+  contain: layout style;
 }
 
 .catalog-card-image-section {
@@ -7357,6 +7371,7 @@ img:hover {
   transition: border-radius 0.6s cubic-bezier(0.22, 1, 0.36, 1);
   position: relative;
   -webkit-transform: translateZ(0);
+  contain: layout style;
 }
 
 .catalog-card-img {
@@ -7369,9 +7384,9 @@ img:hover {
   image-rendering: auto;
   -ms-interpolation-mode: bicubic;
   transform-style: preserve-3d;
-  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
   animation: imgFloat 4s ease-in-out infinite;
-  filter: drop-shadow(0 8px 28px rgba(0, 0, 0, 0.10));
+  filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.10));
   -webkit-transform: translateZ(0);
   will-change: transform;
   backface-visibility: hidden;
@@ -7381,7 +7396,7 @@ img:hover {
   width: 135%;
   margin-top: -30px;
   animation: imgFloatActive 5s ease-in-out infinite;
-  filter: drop-shadow(-8px 16px 40px rgba(201, 162, 39, 0.18)) drop-shadow(0 8px 24px rgba(0, 0, 0, 0.12));
+  filter: drop-shadow(-4px 8px 20px rgba(201, 162, 39, 0.18)) drop-shadow(0 4px 12px rgba(0, 0, 0, 0.12));
   z-index: 3;
 }
 
@@ -7393,6 +7408,7 @@ img:hover {
   padding: 24px 28px 32px;
   text-align: center;
   position: relative;
+  contain: layout style;
 }
 
 .catalog-card-body .catalog-card-code {
