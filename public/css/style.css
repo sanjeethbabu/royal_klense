@@ -1896,14 +1896,37 @@ html.nav-open body {
 
 .about-image {
   position: relative;
+  perspective: 1200px;
 }
 
 .about-image-frame {
   position: relative;
   border-radius: var(--radius-lg);
-  overflow: hidden;
-  background: linear-gradient(135deg, var(--royal-blue), var(--royal-blue-dark));
   aspect-ratio: 4/3;
+  transform: rotateY(-6deg) rotateX(3deg) translateZ(0);
+  transform-style: preserve-3d;
+  transition: transform 0.5s var(--ease-smooth), box-shadow 0.5s var(--ease-smooth);
+  box-shadow:
+    0 25px 60px rgba(11, 29, 58, 0.18),
+    0 10px 25px rgba(11, 29, 58, 0.1),
+    -8px 8px 0 rgba(201, 162, 39, 0.2);
+}
+
+.about-image-frame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(201, 162, 39, 0.08), transparent 50%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.about-image:hover .about-image-frame {
+  transform: rotateY(0deg) rotateX(0deg) translateZ(30px);
+  box-shadow:
+    0 40px 80px rgba(11, 29, 58, 0.25),
+    0 15px 35px rgba(11, 29, 58, 0.15),
+    0 0 0 4px rgba(201, 162, 39, 0.25);
 }
 
 .about-image-placeholder {
@@ -1933,11 +1956,12 @@ html.nav-open body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s ease;
+  transition: transform 0.6s var(--ease-smooth);
+  transform: scale(1.02);
 }
 
 .about-image-frame:hover .about-image-placeholder img {
-  transform: scale(1.05);
+  transform: scale(1.08);
 }
 
 .about-badge {
@@ -5482,7 +5506,6 @@ html {
 /* Clip common container types */
 .hero,
 .page-hero,
-.about-image-frame,
 .feature-card,
 .cta {
   overflow-x: hidden !important;
@@ -7319,11 +7342,11 @@ img:hover {
 }
 
 .catalog-card-image-section {
-  padding: 24px 24px 0;
+  padding: 40px 24px 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 260px;
+  min-height: 320px;
   background: linear-gradient(180deg, rgba(201, 162, 39, 0.03), transparent 60%);
   border-radius: 20px 20px 0 0;
   transition: border-radius 0.6s cubic-bezier(0.22, 1, 0.36, 1);
@@ -7346,8 +7369,8 @@ img:hover {
 }
 
 .catalog-card:not(.card-dimmed) .catalog-card-img {
-  width: 140%;
-  margin-top: -45px;
+  width: 135%;
+  margin-top: -30px;
   animation: imgFloatActive 5s ease-in-out infinite;
   filter: drop-shadow(-8px 16px 40px rgba(201, 162, 39, 0.18)) drop-shadow(0 8px 24px rgba(0, 0, 0, 0.12));
   z-index: 3;
@@ -7373,6 +7396,29 @@ img:hover {
   font-weight: 700;
   letter-spacing: 1px;
   margin-bottom: 10px;
+  font-family: var(--font-heading);
+}
+
+.catalog-card-category {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 50px;
+  background: linear-gradient(135deg, var(--royal-blue), var(--royal-blue-light));
+  color: var(--white);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+}
+
+.catalog-card-flavor {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--gold-dark);
+  font-weight: 600;
+  margin-bottom: 14px;
   font-family: var(--font-heading);
 }
 
