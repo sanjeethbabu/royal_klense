@@ -171,7 +171,7 @@ function loadProductCatalog() {
       <button class="carousel-arrow carousel-prev" id="carouselPrev"><i class="fas fa-chevron-left"></i></button>
       <div class="carousel-stage" id="carouselStage">
         <div class="carousel-track" id="carouselTrack">
-          ${siteData.catalog.map((p, i) => `
+           ${siteData.catalog.map((p, i) => `
             <div class="catalog-card" data-index="${i}" data-category="${p.category}">
               <div class="catalog-card-inner">
                 <div class="catalog-card-image-section">
@@ -180,9 +180,7 @@ function loadProductCatalog() {
                 <div class="catalog-card-body">
                   <span class="catalog-card-code">${p.code}</span>
                   <h3 class="catalog-card-name">${p.name}</h3>
-                  <button class="catalog-card-btn" onclick="openCatalogModal('${p.code}', '${p.name}', '${p.category}', \`${p.desc}\`)">
-                    Get Info <i class="fas fa-arrow-right"></i>
-                  </button>
+                  <button class="catalog-card-btn" type="button">Get Info <i class="fas fa-arrow-right"></i></button>
                 </div>
               </div>
             </div>`).join('')}
@@ -195,6 +193,7 @@ function loadProductCatalog() {
 
   setupCarousel();
   setupProductFilters();
+  setupLatestUpdatesBtn();
 }
 
 let carouselIndex = 0;
@@ -203,7 +202,7 @@ let carouselCards = [];
 let carouselInitialized = false;
 let autoRotateTimer = null;
 
-function positionCarouselCards() {
+function positionCarouselCards(isLoop) {
   const track = document.getElementById('carouselTrack');
   if (!track) return;
   const stage = document.getElementById('carouselStage');
@@ -222,7 +221,13 @@ function positionCarouselCards() {
 
   const offsetX = (stageW / 2) - (curVisibleIdx * slideW + cardW / 2);
 
+  if (isLoop) {
+    track.classList.add('slide-3d');
+  }
   track.style.transform = `translateX(${offsetX}px)`;
+  if (isLoop) {
+    setTimeout(() => track.classList.remove('slide-3d'), 1000);
+  }
 
   visible.forEach((card, i) => {
     card.classList.toggle('card-dimmed', i !== curVisibleIdx);
@@ -246,22 +251,29 @@ function updateDots() {
 
   const curVisibleIdx = visible.indexOf(carouselCards[carouselIndex]);
 
-  container.innerHTML = visible.map((_, i) =>
-    `<span class="carousel-dot${i === curVisibleIdx ? ' active' : ''}" data-idx="${i}"></span>`
-  ).join('');
+  if (container.dataset.dotsCount !== String(count)) {
+    container.innerHTML = visible.map((_, i) =>
+      `<button class="carousel-dot${i === curVisibleIdx ? ' active' : ''}" data-idx="${i}"></button>`
+    ).join('');
+    container.dataset.dotsCount = String(count);
 
-  container.querySelectorAll('.carousel-dot').forEach(dot => {
-    dot.addEventListener('click', () => {
-      const idx = parseInt(dot.dataset.idx);
-      const v = carouselCards.filter(c => !c.classList.contains('card-hidden'));
-      if (idx >= 0 && idx < v.length) {
-        stopAutoRotate();
-        carouselIndex = carouselCards.indexOf(v[idx]);
-        positionCarouselCards();
-        startAutoRotate();
-      }
+    container.querySelectorAll('.carousel-dot').forEach(dot => {
+      dot.addEventListener('click', () => {
+        const idx = parseInt(dot.dataset.idx);
+        const v = carouselCards.filter(c => !c.classList.contains('card-hidden'));
+        if (idx >= 0 && idx < v.length) {
+          stopAutoRotate();
+          carouselIndex = carouselCards.indexOf(v[idx]);
+          positionCarouselCards();
+          startAutoRotate();
+        }
+      });
     });
-  });
+  } else {
+    container.querySelectorAll('.carousel-dot').forEach((dot, i) => {
+      dot.classList.toggle('active', i === curVisibleIdx);
+    });
+  }
 }
 
 function startAutoRotate() {
@@ -269,7 +281,7 @@ function startAutoRotate() {
   autoRotateTimer = setInterval(() => {
     const btn = document.getElementById('carouselNext');
     if (btn) btn.click();
-  }, 3500);
+  }, 5000);
 }
 
 function stopAutoRotate() {
@@ -287,31 +299,38 @@ function setupCarousel() {
   carouselTotal = carouselCards.length;
 
   carouselCards.forEach((card) => {
-    card.addEventListener('click', () => {
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('.catalog-card-btn')) return;
       const visible = carouselCards.filter(c => !c.classList.contains('card-hidden'));
       const idx = visible.indexOf(card);
       if (idx === -1) return;
       const curVisibleIdx = visible.indexOf(carouselCards[carouselIndex]);
+      if (idx === curVisibleIdx) return;
       stopAutoRotate();
-      if (idx !== curVisibleIdx) {
-        carouselIndex = carouselCards.indexOf(visible[idx]);
-        positionCarouselCards();
-      } else {
-        card.querySelector('.catalog-card-btn')?.click();
-      }
+      carouselIndex = carouselCards.indexOf(visible[idx]);
+      positionCarouselCards();
       startAutoRotate();
     });
+    const btn = card.querySelector('.catalog-card-btn');
+    if (btn) {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const p = siteData.catalog[+card.dataset.index];
+        if (p) openCatalogModal(p.code, p.name, p.category, p.desc);
+      });
+    }
   });
 
   document.getElementById('carouselPrev')?.addEventListener('click', (e) => {
     e.stopPropagation();
     const visible = carouselCards.filter(c => !c.classList.contains('card-hidden'));
     const curIdx = visible.indexOf(carouselCards[carouselIndex]);
-    const prevIdx = Math.max(0, curIdx - 1);
+    const isWrap = curIdx - 1 < 0;
+    const prevIdx = isWrap ? visible.length - 1 : curIdx - 1;
     if (prevIdx !== curIdx) {
       stopAutoRotate();
       carouselIndex = carouselCards.indexOf(visible[prevIdx]);
-      positionCarouselCards();
+      positionCarouselCards(isWrap);
       startAutoRotate();
     }
   });
@@ -320,11 +339,12 @@ function setupCarousel() {
     e.stopPropagation();
     const visible = carouselCards.filter(c => !c.classList.contains('card-hidden'));
     const curIdx = visible.indexOf(carouselCards[carouselIndex]);
-    const nextIdx = Math.min(visible.length - 1, curIdx + 1);
+    const isWrap = curIdx + 1 >= visible.length;
+    const nextIdx = isWrap ? 0 : curIdx + 1;
     if (nextIdx !== curIdx) {
       stopAutoRotate();
       carouselIndex = carouselCards.indexOf(visible[nextIdx]);
-      positionCarouselCards();
+      positionCarouselCards(isWrap);
       startAutoRotate();
     }
   });
@@ -337,9 +357,65 @@ function setupCarousel() {
   if (container) {
     container.addEventListener('mouseenter', stopAutoRotate);
     container.addEventListener('mouseleave', startAutoRotate);
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+    let isSwiping = false;
+
+    container.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      touchEndX = touchStartX;
+      isSwiping = true;
+    }, { passive: true });
+
+    container.addEventListener('touchmove', (e) => {
+      if (!isSwiping) return;
+      touchEndX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    container.addEventListener('touchend', (e) => {
+      if (!isSwiping) return;
+      isSwiping = false;
+      if (e.target.closest('.catalog-card-btn') || e.target.closest('.carousel-arrow') || e.target.closest('.carousel-dot')) return;
+      const diff = touchStartX - touchEndX;
+      if (Math.abs(diff) > 60) {
+        stopAutoRotate();
+        if (diff > 0) {
+          document.getElementById('carouselNext')?.click();
+        } else {
+          document.getElementById('carouselPrev')?.click();
+        }
+        startAutoRotate();
+      }
+    });
   }
 
   carouselInitialized = true;
+}
+
+function setupLatestUpdatesBtn() {
+  const btn = document.getElementById('latestUpdatesBtn');
+  const overlay = document.getElementById('pkgPopupOverlay');
+  const closeBtn = document.getElementById('pkgPopupClose');
+  if (!btn || !overlay || !closeBtn) return;
+
+  btn.addEventListener('click', () => {
+    overlay.classList.add('is-visible');
+    document.body.style.overflow = 'hidden';
+  });
+
+  function closePopup() {
+    overlay.classList.remove('is-visible');
+    document.body.style.overflow = '';
+  }
+
+  closeBtn.addEventListener('click', closePopup);
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closePopup();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && overlay.classList.contains('is-visible')) closePopup();
+  });
 }
 
 function setupProductFilters() {
@@ -359,14 +435,32 @@ function setupProductFilters() {
     }
 
     const filter = tab.dataset.filter;
-    carouselIndex = 0;
+    const allCards = document.querySelectorAll('.catalog-card');
+    if (filter === 'all') {
+      carouselIndex = 0;
+    } else {
+      const firstMatch = [...allCards].findIndex(c => c.dataset.category === filter);
+      carouselIndex = firstMatch >= 0 ? firstMatch : 0;
+    }
     stopAutoRotate();
+
+    const tr = document.getElementById('carouselTrack');
+    if (tr) {
+      tr.style.transition = 'none';
+      tr.style.transform = 'translateX(0)';
+      void tr.offsetHeight;
+    }
+
     document.querySelectorAll('.catalog-card').forEach(card => {
       const match = filter === 'all' || card.dataset.category === filter;
       card.classList.toggle('card-hidden', !match);
     });
-    positionCarouselCards();
-    startAutoRotate();
+
+    requestAnimationFrame(() => {
+      if (tr) tr.style.transition = '';
+      positionCarouselCards();
+      startAutoRotate();
+    });
   });
 }
 
@@ -381,27 +475,20 @@ function openCatalogModal(code, name, category, desc) {
       <span class="catalog-modal-badge">${catLabel}</span>
       <h2 style="font-size:1.3rem;margin:4px 0 8px">${name}</h2>
       <p style="font-size:0.92rem;color:var(--text-dark);line-height:1.6;margin-bottom:14px">${desc}</p>
-      <div style="background:var(--off-white);border-radius:10px;padding:14px 16px;margin-bottom:18px;text-align:left">
-        <strong style="font-size:0.75rem;color:var(--gold-dark);text-transform:uppercase;letter-spacing:1px">Application of Use</strong>
-        <p style="font-size:0.85rem;color:var(--text-light);margin:6px 0 0;line-height:1.5">${applications}</p>
+      <div style="background:var(--off-white);border-radius:10px;padding:12px 16px;margin-bottom:14px;text-align:left">
+        <p style="font-size:0.85rem;color:var(--text-light);margin:0;line-height:1.5;font-style:italic">${applications}</p>
       </div>
       <form id="quickQuoteForm" onsubmit="handleQuickQuote(event)">
         <input type="hidden" id="qq_product" value="${name}">
-        <div class="form-row">
-          <div class="form-group">
-            <label for="qq_name">Full Name *</label>
-            <input type="text" id="qq_name" required placeholder="Your full name">
+        <div class="form-row" style="gap:6px">
+          <div class="form-group" style="margin-bottom:0">
+            <input type="text" id="qq_name" required placeholder="Your full name" style="padding:10px 14px;font-style:italic">
           </div>
-          <div class="form-group">
-            <label for="qq_phone">Mobile Number *</label>
-            <input type="tel" id="qq_phone" required placeholder="+91 90423 24286">
+          <div class="form-group" style="margin-bottom:0">
+            <input type="tel" id="qq_phone" required placeholder="Your Phone Number" style="padding:10px 14px;font-style:italic">
           </div>
         </div>
-        <div class="form-group">
-          <label for="qq_email">Email Address <span style="font-weight:400;color:var(--text-light)">(optional)</span></label>
-          <input type="email" id="qq_email" placeholder="your@email.com">
-        </div>
-        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:8px">
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:12px;padding:12px 20px">
           <i class="fas fa-paper-plane"></i> Submit Inquiry
         </button>
       </form>
@@ -936,16 +1023,9 @@ function setupHeroVideo() {
   if (!video) return;
   const source = video.querySelector('source');
   if (source) {
-    const base = source.src.split('?')[0];
-    source.src = base + '?v=' + Date.now();
+    const base = source.src.split('#')[0];
+    source.src = base + '#t=0.9';
   }
-  video.load();
-  video.addEventListener('loadedmetadata', function() {
-    video.currentTime = 0.9;
-  }, { once: true });
-  video.addEventListener('seeked', function() {
-    video.play();
-  }, { once: true });
   video.addEventListener('ended', function() {
     video.currentTime = 0.9;
     video.play();
