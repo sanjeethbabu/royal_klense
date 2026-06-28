@@ -7446,7 +7446,7 @@ img:hover {
 .carousel-arrow {
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-50%) perspective(800px) rotateX(0deg);
   width: 44px;
   height: 44px;
   border: none;
@@ -7456,18 +7456,78 @@ img:hover {
   font-size: 1rem;
   cursor: pointer;
   z-index: 10;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  transition: all 0.25s ease;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.14);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, color 0.25s ease;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+  transform-style: preserve-3d;
+}
+
+.carousel-arrow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9), transparent 45%);
+  transform: translateZ(8px);
+  pointer-events: none;
+  transition: transform 0.25s ease;
+}
+
+.carousel-arrow::after {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.08);
+  filter: blur(2px);
+  transform: translateZ(-10px);
+  pointer-events: none;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+  opacity: 0.75;
 }
 
 .carousel-arrow:hover {
   background: linear-gradient(135deg, var(--gold), var(--gold-dark));
   color: var(--white);
-  box-shadow: 0 6px 20px rgba(201, 162, 39, 0.3);
-  transform: translateY(-50%) scale(1.08);
+  box-shadow: 0 18px 32px rgba(0, 0, 0, 0.2);
+  transform: translateY(-50%) translateZ(4px) rotateX(2deg);
+}
+
+.carousel-arrow:hover::before {
+  transform: translateZ(10px);
+}
+
+.carousel-arrow:hover::after {
+  transform: translateZ(-12px);
+  opacity: 0.55;
+}
+
+.carousel-arrow i {
+  transform: translateZ(12px);
+  transition: transform 0.25s ease, color 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-arrow:hover i {
+  transform: translateZ(14px);
+}
+
+.carousel-prev:hover i {
+  transform: translateZ(14px) translateX(-2px);
+}
+
+.carousel-next:hover i {
+  transform: translateZ(14px) translateX(2px);
+}
+
+.carousel-arrow:active {
+  transform: translateY(-50%) translateZ(2px) rotateX(1deg);
+  box-shadow: 0 12px 18px rgba(0, 0, 0, 0.18);
 }
 
 .carousel-prev {
