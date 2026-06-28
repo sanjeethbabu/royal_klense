@@ -217,7 +217,11 @@ function positionCarouselCards(isLoop) {
   const count = visible.length;
   if (!count) return;
 
-  const curVisibleIdx = visible.indexOf(carouselCards[carouselIndex]);
+  let curVisibleIdx = visible.indexOf(carouselCards[carouselIndex]);
+  if (curVisibleIdx < 0) {
+    carouselIndex = carouselCards.indexOf(visible[0]) || 0;
+    curVisibleIdx = 0;
+  }
 
   const cardW = visible[0].offsetWidth;
   const gap = parseFloat(getComputedStyle(track).gap) || 24;
@@ -229,7 +233,7 @@ function positionCarouselCards(isLoop) {
   if (isLoop) {
     track.classList.add('slide-3d');
   }
-  track.style.transform = `translateX(${offsetX}px)`;
+  track.style.transform = `translate3d(${offsetX}px, 0, 0)`;
   if (isLoop) {
     setTimeout(() => track.classList.remove('slide-3d'), 1000);
   }
@@ -254,7 +258,7 @@ function updateDots() {
   const count = visible.length;
   if (count <= 1) { container.innerHTML = ''; return; }
 
-  const curVisibleIdx = visible.indexOf(carouselCards[carouselIndex]);
+  const curVisibleIdx = Math.max(0, visible.indexOf(carouselCards[carouselIndex]));
 
   if (container.dataset.dotsCount !== String(count)) {
     container.innerHTML = visible.map((_, i) =>
@@ -302,6 +306,11 @@ function setupCarousel() {
 
   carouselCards = [...track.querySelectorAll('.catalog-card')];
   carouselTotal = carouselCards.length;
+
+  const visibleCards = carouselCards.filter(c => !c.classList.contains('card-hidden'));
+  if (visibleCards.length && !visibleCards.includes(carouselCards[carouselIndex])) {
+    carouselIndex = carouselCards.indexOf(visibleCards[0]);
+  }
 
   carouselCards.forEach((card) => {
     card.addEventListener('click', (e) => {
