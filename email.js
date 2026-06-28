@@ -90,7 +90,7 @@ async function sendEnquiryEmail(data) {
   try {
     await t.sendMail({
       from: `"Royal Klense" <${process.env.SMTP_USER}>`,
-      to: process.env.CONTACT_EMAIL || 'sales@royalklense.com',
+      to: process.env.CONTACT_EMAIL || 'sanjeethbabumani@gmail.com',
       subject: `New ${data.type === 'quote' ? 'Quote Request' : 'Enquiry'} from ${data.name}`,
       html: buildEnquiryHtml(data),
       replyTo: data.email,
@@ -108,7 +108,7 @@ async function sendSubscriberEmail(email) {
   try {
     await t.sendMail({
       from: `"Royal Klense" <${process.env.SMTP_USER}>`,
-      to: process.env.CONTACT_EMAIL || 'sales@royalklense.com',
+      to: process.env.CONTACT_EMAIL || 'sanjeethbabumani@gmail.com',
       subject: 'New Newsletter Subscriber',
       html: buildSubscriberHtml(email),
     });

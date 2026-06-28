@@ -75,7 +75,7 @@ app.post('/api/contact', (req, res) => {
   if (transporter) {
     const mailOptions = {
       from: process.env.SMTP_USER,
-      to: process.env.CONTACT_EMAIL || 'info@royalklense.com',
+      to: process.env.CONTACT_EMAIL || 'sanjeethbabumani@gmail.com',
       subject: `New Contact Inquiry from ${name} - Royal Klense`,
       html: `
         <h2>New Contact Inquiry</h2>
@@ -150,7 +150,7 @@ app.post('/api/quote', (req, res) => {
   if (transporter) {
     const mailOptions = {
       from: process.env.SMTP_USER,
-      to: process.env.CONTACT_EMAIL || 'vedhaschem.info@gmail.com',
+      to: process.env.CONTACT_EMAIL || 'sanjeethbabumani@gmail.com',
       subject: `New Quote Request from ${name} - Royal Klense`,
       html: `
         <h2>New Quote Request</h2>
