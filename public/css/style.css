@@ -7353,10 +7353,6 @@ img:hover {
   z-index: 3;
 }
 
-.catalog-card:not(.card-dimmed):hover .catalog-card-img {
-  animation-duration: 2s;
-}
-
 .catalog-card.card-dimmed .catalog-card-img {
   animation-play-state: paused;
 }
