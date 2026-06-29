@@ -3735,7 +3735,9 @@ html.nav-open body {
 
   .hero-scroll {
     bottom: 15px;
-    right: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    right: auto;
     gap: 4px;
     font-size: 0.75rem;
   }
@@ -4095,7 +4097,9 @@ html.nav-open body {
 
   .hero-scroll {
     bottom: 12px;
-    right: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    right: auto;
     gap: 4px;
     font-size: 0.7rem;
   }
@@ -4290,7 +4294,9 @@ html.nav-open body {
 
   .hero-scroll {
     bottom: 10px;
-    right: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    right: auto;
     gap: 3px;
     font-size: 0.65rem;
   }
