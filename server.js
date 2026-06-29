@@ -1,15 +1,16 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const fs = require('fs');
 const multer = require('multer');
 require('dotenv').config();
 
 const { getWaMeLink, sendWhatsApp } = require('./whatsapp');
 const { saveEnquiry, saveSubscriber } = require('./db');
 
+const storage = multer.memoryStorage();
 const upload = multer({
-  dest: path.join(__dirname, 'temp_uploads'),
+  storage,
+  limits: { fileSize: 5 * 1024 * 1024 },
   fileFilter: (req, file, cb) => {
     if (file.mimetype !== 'application/pdf') {
       return cb(new Error('Only PDF files are supported.'), false);
@@ -55,7 +56,7 @@ app.post('/api/contact', (req, res, next) => {
 
 function handleContact(req, res) {
   const { name, email, phone, company, message, position, education, experience, exp_city, exp_state } = req.body;
-  const hasResume = req.file && req.file.path;
+  const hasResume = req.file && req.file.buffer;
 
   if (!name || !email) {
     return res.status(400).json({ success: false, error: 'Name and email are required.' });
@@ -119,7 +120,7 @@ function handleContact(req, res) {
           <p><strong>Phone:</strong> ${data.phone}</p>
           <p><strong>Position Applied:</strong> ${data.position}</p>
           <p><strong>Education:</strong> ${data.education}</p>
-          <p><strong>Years of Experience:</strong> ${data.experience && data.experience.toLowerCase() === 'nil' ? 'Fresher' : data.experience}</p>
+          <p><strong>Years of Experience:</strong> ${data.experience && String(data.experience).toLowerCase() === 'nil' ? 'Fresher' : data.experience}</p>
           <p><strong>City:</strong> ${data.exp_city}</p>
           <p><strong>State:</strong> ${data.exp_state}</p>
           <p><strong>Message:</strong></p>
@@ -129,13 +130,12 @@ function handleContact(req, res) {
         `,
         attachments: [{
           filename: req.file.originalname,
-          path: req.file.path
+          content: req.file.buffer
         }]
       };
 
       transporter.sendMail(mailOptions).then(() => {
         console.log('Job application email sent with resume.');
-        try { fs.unlinkSync(req.file.path); } catch (e) { /* cleanup */ }
       }).catch(err => {
         console.error('Job application email send failed:', err.message);
       });
