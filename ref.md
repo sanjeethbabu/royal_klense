@@ -1,11 +1,12 @@
-Thank You for Your Application!
+his Serverless Function has crashed.
 
-Your application has been submitted successfully.
+Your connection is working correctly.
 
-Our recruitment team will review your information and reach out if your profile is shortlisted. We appreciate the time you've taken to apply and look forward to learning more about you. 
- if any doubuts contact us by maila and call to our contacr 
+Vercel is working correctly.
 
+500: INTERNAL_SERVER_ERROR
+Code: FUNCTION_INVOCATION_FAILED
+ID: bom1::gb89d-1782747592760-a5e66f81e9ff
 
-
- reframe this and 
-i need this to be displayed if some one is applied for job anfter submiting 
+If you are a visitor, contact the website owner or try again later.
+If you are the owner, learn how to fix the error and check the logs.
