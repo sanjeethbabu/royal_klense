@@ -241,6 +241,8 @@ function positionCarouselCards() {
     card.style.transform = `translate(-50%, -50%) rotateY(${i * angleStep}deg) translateZ(${radius}px) scale(${scale})`;
     card.style.opacity = isFrontThree ? (dist === 0 ? '1' : '0.25') : '0';
     card.style.pointerEvents = isFrontThree && cos > 0 ? 'auto' : 'none';
+    const cardImg = card.querySelector('.catalog-card-img');
+    if (cardImg) cardImg.style.animationPlayState = dist === 0 ? '' : 'paused';
   });
 
   track.style.transform = `rotateY(${-curVisibleIdx * angleStep}deg)`;
@@ -281,7 +283,6 @@ function updateDots() {
           stopAutoRotate();
           carouselIndex = carouselCards.indexOf(v[idx]);
           positionCarouselCards();
-          startAutoRotate();
         }
       });
     });
@@ -330,7 +331,6 @@ function setupCarousel() {
       stopAutoRotate();
       carouselIndex = carouselCards.indexOf(visible[idx]);
       positionCarouselCards();
-      startAutoRotate();
     });
     const btn = card.querySelector('.catalog-card-btn');
     if (btn) {
@@ -344,6 +344,7 @@ function setupCarousel() {
 
   document.getElementById('carouselPrev')?.addEventListener('click', (e) => {
     e.stopPropagation();
+    stopAutoRotate();
     const visible = carouselCards.filter(c => !c.classList.contains('card-hidden'));
     const curIdx = visible.indexOf(carouselCards[carouselIndex]);
     const prevIdx = curIdx - 1;
@@ -355,6 +356,7 @@ function setupCarousel() {
 
   document.getElementById('carouselNext')?.addEventListener('click', (e) => {
     e.stopPropagation();
+    stopAutoRotate();
     const visible = carouselCards.filter(c => !c.classList.contains('card-hidden'));
     const curIdx = visible.indexOf(carouselCards[carouselIndex]);
     const nextIdx = curIdx + 1;
@@ -380,11 +382,12 @@ function setupCarousel() {
 
   track.style.transition = 'none';
   carouselCards.forEach(c => c.style.transition = 'none');
-  requestAnimationFrame(() => {
-    positionCarouselCards();
-    track.style.transition = 'transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)';
-    carouselCards.forEach(c => c.style.transition = 'opacity 0.8s ease, transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)');
-  });
+      requestAnimationFrame(() => {
+        positionCarouselCards();
+        track.style.transition = 'transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        carouselCards.forEach(c => c.style.transition = 'opacity 0.8s ease, transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)');
+      });
+      startAutoRotate();
   window.addEventListener('resize', positionCarouselCards);
 
   const container = document.querySelector('.carousel-container');
@@ -1493,7 +1496,7 @@ function setupRefCarousel() {
       const effAngle = i * angleStep - refIndex * angleStep;
       const rad = effAngle * Math.PI / 180;
       const cos = Math.cos(rad);
-    const scale = dist === 0 ? 1 : 0.35;
+      const scale = 0.4 + 0.6 * Math.max(0, cos);
       card.style.transform = `translate(-50%, -50%) rotateY(${i * angleStep}deg) translateZ(${refRadius}px) scale(${scale})`;
       card.style.opacity = cos > -0.1 ? (0.25 + 0.75 * Math.max(0, cos)).toFixed(2) : '0.15';
       card.style.pointerEvents = cos > 0 ? 'auto' : 'none';
