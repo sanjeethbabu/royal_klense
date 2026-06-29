@@ -516,7 +516,7 @@ function openCatalogModal(code, name, category, desc) {
             <input type="text" id="qq_name" required placeholder="Your full name" style="padding:10px 14px;font-style:italic">
           </div>
           <div class="form-group" style="margin-bottom:0">
-            <input type="tel" id="qq_phone" required placeholder="Your Phone Number" style="padding:10px 14px;font-style:italic">
+            <input type="tel" id="qq_phone" required placeholder="Your Mobile Number" style="padding:10px 14px;font-style:italic">
           </div>
         </div>
         <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:12px;padding:12px 20px">
@@ -802,8 +802,8 @@ function getContactForm() {
       </div>
       <div class="form-row">
         <div class="form-group">
-          <label for="cf_phone">Phone Number</label>
-          <input type="tel" id="cf_phone" placeholder="+91 90423 24286">
+          <label for="cf_phone">Mobile Number</label>
+          <input type="tel" id="cf_phone" placeholder="Your Mobile Number">
         </div>
         <div class="form-group">
           <label for="cf_company">Company Name</label>
@@ -822,29 +822,59 @@ function getContactForm() {
 }
 
 function getQuoteForm() {
-  return `
-    <h2>Request a Quote</h2>
-    <p>Share your details and our sales team will get back to you.</p>
-    <form id="quickQuoteForm" onsubmit="handleQuickQuote(event)">
-      <div class="form-row">
-        <div class="form-group">
-          <label for="qq_name">Full Name *</label>
-          <input type="text" id="qq_name" required placeholder="Your full name">
-        </div>
-        <div class="form-group">
-          <label for="qq_phone">Phone Number *</label>
-          <input type="tel" id="qq_phone" required placeholder="+91 90423 24286">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="qq_email">Email Address <span style="font-weight:400;color:var(--text-light)">(optional)</span></label>
-        <input type="email" id="qq_email" placeholder="your@email.com">
-      </div>
-      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">
-        <i class="fas fa-paper-plane"></i> Submit Inquiry
-      </button>
-    </form>
-  `;
+  return '<h2>Request a Quote</h2><p>Share your requirements and our sales team will get back to you.</p><form id="quickQuoteForm" onsubmit="handleQuickQuote(event)"><div class="form-row"><div class="form-group"><label for="qq_name">Full Name *</label><input type="text" id="qq_name" required placeholder="Your full name"></div><div class="form-group"><label for="qq_phone">Mobile Number *</label><input type="tel" id="qq_phone" required placeholder="Your Mobile Number"></div></div><div class="form-group"><label for="qq_email">Email Address <span style="font-weight:400;color:var(--text-light)">(optional)</span></label><input type="email" id="qq_email" placeholder="your@email.com"></div><div class="form-row"><div class="form-group"><label>Product Category *</label><div class="custom-select" id="cs_category" tabindex="0"><input type="hidden" id="qq_category" name="category" value=""><div class="custom-select-trigger"><span class="custom-select-text">Select category</span><i class="fas fa-chevron-down"></i></div><div class="custom-select-options"><div class="custom-select-option" data-value="freshners">Freshners</div><div class="custom-select-option" data-value="cleaners">Cleaners</div></div></div></div><div class="form-group"><label>Product *</label><div class="custom-select" id="cs_product" tabindex="0"><input type="hidden" id="qq_product" name="product" value=""><div class="custom-select-trigger"><span class="custom-select-text">Select category first</span><i class="fas fa-chevron-down"></i></div><div class="custom-select-options"></div></div></div></div><div class="form-row"><div class="form-group"><label for="qq_qty">Quantity / Litres *</label><input type="text" id="qq_qty" required placeholder="e.g. 5 litres, 10 units"></div><div class="form-group"><label for="qq_location">Delivery Location *</label><input type="text" id="qq_location" required placeholder="City / Area"></div></div><button type="submit" class="btn btn-primary" style="width:100%;justify-content:center"><i class="fas fa-paper-plane"></i> Submit Inquiry</button></form>';
+}
+
+function setupQuoteFormFilter() {
+  var freshners = siteData.catalog.filter(function(p) { return p.category === 'freshners'; });
+  var cleaners = siteData.catalog.filter(function(p) { return p.category === 'cleaners'; });
+
+  var selects = document.querySelectorAll('.custom-select');
+  selects.forEach(function(s) {
+    var trigger = s.querySelector('.custom-select-trigger');
+    var options = s.querySelector('.custom-select-options');
+    var hidden = s.querySelector('input[type="hidden"]');
+    if (!trigger || !options || !hidden) return;
+
+    trigger.addEventListener('click', function(e) {
+      e.stopPropagation();
+      document.querySelectorAll('.custom-select.open').forEach(function(os) { if (os !== s) os.classList.remove('open'); });
+      s.classList.toggle('open');
+      var modal = document.querySelector('.modal');
+      if (modal) modal.style.overflow = s.classList.contains('open') ? 'visible' : '';
+    });
+
+    options.addEventListener('click', function(e) {
+      var opt = e.target.closest('.custom-select-option');
+      if (!opt) return;
+      var val = opt.dataset.value;
+      var text = opt.textContent;
+      s.querySelector('.custom-select-text').textContent = text;
+      hidden.value = val;
+      s.classList.remove('open');
+      var modal = document.querySelector('.modal');
+      if (modal) modal.style.overflow = '';
+      if (hidden.id === 'qq_category') updateProductOptions(val);
+    });
+  });
+
+  document.addEventListener('click', function() {
+    document.querySelectorAll('.custom-select.open').forEach(function(os) { os.classList.remove('open'); });
+    var modal = document.querySelector('.modal');
+    if (modal) modal.style.overflow = '';
+  });
+
+  function updateProductOptions(cat) {
+    var prodSel = document.getElementById('cs_product');
+    var prodOpts = prodSel ? prodSel.querySelector('.custom-select-options') : null;
+    var prodText = prodSel ? prodSel.querySelector('.custom-select-text') : null;
+    var prodHidden = document.getElementById('qq_product');
+    if (!prodOpts || !prodText || !prodHidden) return;
+    var list = cat === 'freshners' ? freshners : cat === 'cleaners' ? cleaners : [];
+    prodOpts.innerHTML = list.map(function(p) { return '<div class="custom-select-option" data-value="' + p.name + ' - ' + p.flavor + '">' + p.name + ' (' + p.flavor + ')</div>'; }).join('');
+    prodText.textContent = 'Select product';
+    prodHidden.value = '';
+  }
 }
 
 async function handleContact(e) {
@@ -904,7 +934,10 @@ async function handleQuickQuote(e) {
     name: document.getElementById('qq_name').value,
     phone: document.getElementById('qq_phone').value,
     email: document.getElementById('qq_email').value || '',
-    product: document.getElementById('qq_product')?.value || ''
+    product: document.getElementById('qq_product')?.value || '',
+    category: document.getElementById('qq_category')?.value || '',
+    quantity: document.getElementById('qq_qty')?.value || '',
+    location: document.getElementById('qq_location')?.value || ''
   };
 
   try {
@@ -995,36 +1028,49 @@ function openContactModal() {
 
 function openQuoteModal() {
   openModal(getQuoteForm());
+  setTimeout(setupQuoteFormFilter, 50);
 }
 
 function getJoinTeamForm() {
   return `
     <h2>Join Our Team</h2>
     <p>Interested in building a career with Royal Klense? Share your details and our HR team will reach out.</p>
-    <form id="contactForm" onsubmit="handleContact(event)">
+    <form id="joinTeamForm" onsubmit="handleJoinTeam(event)">
       <div class="form-row">
         <div class="form-group">
-          <label for="cf_name">Full Name *</label>
-          <input type="text" id="cf_name" required placeholder="Your full name">
+          <label for="jt_name">Full Name *</label>
+          <input type="text" id="jt_name" required placeholder="Your full name">
         </div>
         <div class="form-group">
-          <label for="cf_email">Email Address *</label>
-          <input type="email" id="cf_email" required placeholder="your@email.com">
+          <label for="jt_email">Email Address *</label>
+          <input type="email" id="jt_email" required placeholder="your@email.com">
         </div>
       </div>
       <div class="form-row">
         <div class="form-group">
-          <label for="cf_phone">Phone Number</label>
-          <input type="tel" id="cf_phone" placeholder="+91 90423 24286">
+          <label for="jt_phone">Mobile Number *</label>
+          <input type="tel" id="jt_phone" required placeholder="Your Mobile Number">
         </div>
         <div class="form-group">
-          <label for="cf_company">Position Applied For</label>
-          <input type="text" id="cf_company" placeholder="e.g. Sales Executive, Production">
+          <label for="jt_position">Position Applied For</label>
+          <input type="text" id="jt_position" placeholder="e.g. Sales Executive, Production">
         </div>
       </div>
       <div class="form-group">
-        <label for="cf_message">Tell Us About Yourself *</label>
-        <textarea id="cf_message" required placeholder="Your experience, skills, and why you'd like to join Royal Klense..."></textarea>
+        <label for="jt_message">Tell Us About Yourself *</label>
+        <textarea id="jt_message" required placeholder="Your experience, skills, and why you'd like to join Royal Klense..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>Upload Resume (PDF only)</label>
+        <div class="file-upload-wrap">
+          <input type="file" id="jt_resume" accept=".pdf,application/pdf">
+          <div class="file-upload-box">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <span class="file-upload-text">Choose Resume PDF</span>
+            <span class="file-upload-hint">or drag & drop</span>
+          </div>
+          <button type="button" class="file-upload-remove" id="jtResumeRemove" title="Remove file" style="display:none"><i class="fas fa-times"></i></button>
+        </div>
       </div>
       <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">
         <i class="fas fa-paper-plane"></i> Submit Application
@@ -1033,8 +1079,72 @@ function getJoinTeamForm() {
   `;
 }
 
+function handleJoinTeam(e) {
+  e.preventDefault();
+  var btn = e.target.querySelector('button[type="submit"]');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+
+  var data = {
+    name: document.getElementById('jt_name').value,
+    email: document.getElementById('jt_email').value,
+    phone: document.getElementById('jt_phone').value,
+    position: document.getElementById('jt_position').value
+  };
+
+  var formData = new FormData();
+  formData.append('name', data.name);
+  formData.append('email', data.email);
+  formData.append('phone', data.phone);
+  formData.append('position', data.position);
+  var resumeInput = document.getElementById('jt_resume');
+  if (resumeInput && resumeInput.files[0]) {
+    formData.append('resume', resumeInput.files[0]);
+  }
+
+  fetch(API_BASE + '/api/contact', {
+    method: 'POST',
+    body: formData
+  }).then(function(r) { return r.json(); }).then(function(result) {
+    if (result.success) {
+      document.getElementById('modalBody').innerHTML = '<div class="form-success"><i class="fas fa-check-circle"></i><h3>Thank You for Your Application!</h3><p>Your application has been submitted successfully.</p><p style="font-size:0.88rem;color:var(--text-light);margin-top:8px">Our recruitment team will review your information and reach out if your profile is shortlisted. We appreciate the time you\'ve taken to apply and look forward to learning more about you.</p><p style="font-size:0.85rem;color:var(--text-light);margin-top:10px;padding-top:10px;border-top:1px solid rgba(201,162,39,0.15)">If you have any questions, feel free to <a href="mailto:sanjeethbabumani@gmail.com" style="color:var(--gold-dark);font-weight:600;text-decoration:none">email us</a> or call <a href="tel:+916379588598" style="color:var(--gold-dark);font-weight:600;text-decoration:none">+91 6379588598</a>.</p><button class="btn btn-primary" onclick="closeModal()" style="margin-top:16px">Close</button></div>';
+      showToast('Application submitted!', 'success');
+    } else {
+      showToast(result.error || 'Something went wrong.', 'error');
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Application';
+    }
+  }).catch(function() {
+    showToast('Network error. Please try again.', 'error');
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Application';
+  });
+}
+
 function openJoinTeamModal() {
   openModal(getJoinTeamForm());
+  setTimeout(function() {
+    var input = document.getElementById('jt_resume');
+    var removeBtn = document.getElementById('jtResumeRemove');
+    if (input) {
+      input.addEventListener('change', function() {
+        var text = this.closest('.file-upload-wrap').querySelector('.file-upload-text');
+        if (text) text.textContent = this.files[0] ? this.files[0].name : 'Choose Resume PDF';
+        if (removeBtn) removeBtn.style.display = this.files[0] ? 'flex' : 'none';
+      });
+    }
+    if (removeBtn) {
+      removeBtn.addEventListener('click', function() {
+        var wrap = this.closest('.file-upload-wrap');
+        if (!wrap) return;
+        var input = wrap.querySelector('input[type="file"]');
+        var text = wrap.querySelector('.file-upload-text');
+        if (input) { input.value = ''; }
+        if (text) { text.textContent = 'Choose Resume PDF'; }
+        this.style.display = 'none';
+      });
+    }
+  }, 50);
 }
 
 function scrollToHash() {
