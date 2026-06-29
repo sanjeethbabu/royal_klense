@@ -207,7 +207,7 @@ let carouselCards = [];
 let carouselInitialized = false;
 let autoRotateTimer = null;
 
-function positionCarouselCards(isLoop) {
+function positionCarouselCards() {
   const track = document.getElementById('carouselTrack');
   if (!track) return;
   const stage = document.getElementById('carouselStage');
@@ -223,27 +223,34 @@ function positionCarouselCards(isLoop) {
     curVisibleIdx = 0;
   }
 
-  const cardW = visible[0].offsetWidth;
-  const gap = parseFloat(getComputedStyle(track).gap) || 24;
-  const slideW = cardW + gap;
+  const isMobile = window.innerWidth < 768;
   const stageW = stage.offsetWidth;
-
-  const offsetX = (stageW / 2) - (curVisibleIdx * slideW + cardW / 2);
-
-  if (isLoop) {
-    track.classList.add('slide-3d');
-  }
-  track.style.transform = `translate3d(${offsetX}px, 0, 0)`;
-  if (isLoop) {
-    setTimeout(() => track.classList.remove('slide-3d'), 1000);
-  }
+  const angleStep = 360 / count;
+  const cardWidth = visible[0]?.offsetWidth || 260;
+  const minRadius = cardWidth / (2 * Math.sin(Math.PI / count));
+  const stageRadius = isMobile ? Math.min(320, stageW * 0.38) : Math.min(500, stageW * 0.45);
+  const radius = Math.max(minRadius, stageRadius);
 
   visible.forEach((card, i) => {
-    card.classList.toggle('card-dimmed', i !== curVisibleIdx);
+    const dist = Math.min(Math.abs(i - curVisibleIdx), count - Math.abs(i - curVisibleIdx));
+    const isFrontThree = count <= 3 || dist <= 1;
+    const effAngle = i * angleStep - curVisibleIdx * angleStep;
+    const rad = effAngle * Math.PI / 180;
+    const cos = Math.cos(rad);
+    const scale = 0.4 + 0.6 * Math.max(0, cos);
+    card.style.transform = `translate(-50%, -50%) rotateY(${i * angleStep}deg) translateZ(${radius}px) scale(${scale})`;
+    card.style.opacity = isFrontThree ? (dist === 0 ? '1' : '0.25') : '0';
+    card.style.pointerEvents = isFrontThree && cos > 0 ? 'auto' : 'none';
   });
+
+  track.style.transform = `rotateY(${-curVisibleIdx * angleStep}deg)`;
 
   carouselCards.forEach(c => {
     if (c.classList.contains('card-hidden')) {
+      c.style.position = '';
+      c.style.left = '';
+      c.style.top = '';
+      c.style.transform = '';
       c.classList.remove('card-dimmed');
     }
   });
@@ -372,9 +379,11 @@ function setupCarousel() {
   }
 
   track.style.transition = 'none';
+  carouselCards.forEach(c => c.style.transition = 'none');
   requestAnimationFrame(() => {
     positionCarouselCards();
-    track.style.transition = '';
+    track.style.transition = 'transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)';
+    carouselCards.forEach(c => c.style.transition = 'opacity 0.8s ease, transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)');
   });
   window.addEventListener('resize', positionCarouselCards);
 
@@ -467,7 +476,6 @@ function setupProductFilters() {
     const tr = document.getElementById('carouselTrack');
     if (tr) {
       tr.style.transition = 'none';
-      tr.style.transform = 'translateX(0)';
       void tr.offsetHeight;
     }
 
@@ -1419,9 +1427,112 @@ function setupScroll3DParallax() {
   }, { passive: true });
 }
 
+/* ═══════════════════════════════════════════
+   REF.MD 3D CAROUSEL
+   ═══════════════════════════════════════════ */
+const refProducts = [
+  { name: 'Liquid Fresh', category: 'Fresh Flora', scent: 'Strawberry Scent', color: '#FCE4EC', accent: '#E91E63' },
+  { name: 'Room Freshener', category: 'Floral Collection', scent: 'Fresh Floral Scent', color: '#F3E5F5', accent: '#9C27B0' },
+  { name: 'Multi-Purpose Cleaner', category: 'Original', scent: 'Original Scent', color: '#E3F2FD', accent: '#1976D2' },
+  { name: 'Glass/Surface Cleaner', category: 'Original', scent: 'Original Scent', color: '#E8F5E9', accent: '#388E3C' }
+];
+let refIndex = 0;
+let refCards = [];
+let refAutoTimer = null;
+const refRadius = 400;
+
+function loadRefCarousel() {
+  const container = document.getElementById('refCarousel');
+  if (!container) return;
+  container.innerHTML = `
+    <div class="ref-wrapper">
+      <div class="ref-header">
+        <h2 class="ref-title">Royal Klense</h2>
+        <p class="ref-subtitle">Premium Cleaning Solutions</p>
+      </div>
+      <div class="ref-carousel">
+        <button class="ref-arrow ref-prev" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
+        <div class="ref-stage" id="refStage">
+          <div class="ref-track" id="refTrack">
+            ${refProducts.map((p, i) => `
+            <div class="ref-card" data-index="${i}">
+              <span class="ref-badge" style="background:${p.accent}">0${i + 1}</span>
+              <div class="ref-bottle">
+                <div class="ref-bottle-cap" style="background:${p.accent}"></div>
+                <div class="ref-bottle-body" style="background:${p.color}">
+                  <div class="ref-label">
+                    <span class="ref-category">${p.category}</span>
+                    <h3 class="ref-name">${p.name}</h3>
+                    <span class="ref-scent">${p.scent}</span>
+                  </div>
+                </div>
+              </div>
+              <button class="ref-btn">GET INFO</button>
+            </div>`).join('')}
+          </div>
+        </div>
+        <button class="ref-arrow ref-next" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
+      </div>
+      <div class="ref-dots" id="refDots">
+        ${refProducts.map((_, i) => `<button class="ref-dot${i === 0 ? ' active' : ''}" data-idx="${i}"></button>`).join('')}
+      </div>
+    </div>`;
+  setupRefCarousel();
+}
+
+function setupRefCarousel() {
+  const track = document.getElementById('refTrack');
+  const stage = document.getElementById('refStage');
+  if (!track || !stage) return;
+  refCards = [...track.querySelectorAll('.ref-card')];
+  const total = refCards.length;
+  const angleStep = 360 / total;
+
+  function updateCards() {
+    refCards.forEach((card, i) => {
+      const effAngle = i * angleStep - refIndex * angleStep;
+      const rad = effAngle * Math.PI / 180;
+      const cos = Math.cos(rad);
+    const scale = dist === 0 ? 1 : 0.35;
+      card.style.transform = `translate(-50%, -50%) rotateY(${i * angleStep}deg) translateZ(${refRadius}px) scale(${scale})`;
+      card.style.opacity = cos > -0.1 ? (0.25 + 0.75 * Math.max(0, cos)).toFixed(2) : '0.15';
+      card.style.pointerEvents = cos > 0 ? 'auto' : 'none';
+    });
+    track.style.transform = `rotateY(${-refIndex * angleStep}deg)`;
+    document.querySelectorAll('.ref-dot').forEach((d, i) => d.classList.toggle('active', i === refIndex));
+  }
+
+  document.querySelector('.ref-prev')?.addEventListener('click', () => { refIndex = (refIndex - 1 + total) % total; updateCards(); resetRefRotate(); });
+  document.querySelector('.ref-next')?.addEventListener('click', () => { refIndex = (refIndex + 1) % total; updateCards(); resetRefRotate(); });
+  document.querySelectorAll('.ref-dot').forEach(dot => dot.addEventListener('click', () => {
+    const idx = parseInt(dot.dataset.idx);
+    if (idx >= 0 && idx < total) { refIndex = idx; updateCards(); resetRefRotate(); }
+  }));
+
+  function startRefRotate() { stopRefRotate(); refAutoTimer = setInterval(() => { refIndex = (refIndex + 1) % total; updateCards(); }, 4000); }
+  function stopRefRotate() { if (refAutoTimer) { clearInterval(refAutoTimer); refAutoTimer = null; } }
+  function resetRefRotate() { stopRefRotate(); startRefRotate(); }
+
+  const wrapper = document.querySelector('.ref-wrapper');
+  wrapper?.addEventListener('mouseenter', stopRefRotate);
+  wrapper?.addEventListener('mouseleave', startRefRotate);
+
+  refCards.forEach(c => c.style.transition = 'none');
+  track.style.transition = 'none';
+  refCards.forEach((card, i) => {
+    const baseAngle = i * angleStep;
+    card.style.transform = `translate(-50%, -50%) rotateY(${baseAngle}deg) translateZ(${refRadius}px)`;
+  });
+  updateCards();
+  refCards.forEach(c => c.style.transition = 'opacity 0.8s ease, transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)');
+  track.style.transition = 'transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)';
+  startRefRotate();
+}
+
 function loadPageContent() {
   if (document.getElementById('productsGrid')) loadProducts();
   if (document.getElementById('productsCatalog')) loadProductCatalog();
+  if (document.getElementById('refCarousel')) loadRefCarousel();
   if (document.getElementById('industriesGridTop') || document.getElementById('industriesGridBottom')) loadIndustries();
   if (document.getElementById('featuresGrid')) loadFeatures();
   if (document.getElementById('topProductsGrid')) loadFeaturedProducts();
