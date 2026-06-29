@@ -1750,8 +1750,8 @@ html.nav-open body {
 .hero-scroll {
   position: absolute;
   bottom: 30px;
-  right: 30px;
-  z-index: 2;
+  right: 120px;
+  z-index: 3;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2880,7 +2880,10 @@ html.nav-open body {
 }
 
 .whatsapp-float {
-  position: relative;
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
   width: 60px;
   height: 60px;
   background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);

@@ -1052,13 +1052,7 @@ function scrollToHash() {
 function setupHeroVideo() {
   const video = document.getElementById('heroVideo');
   if (!video) return;
-  const START_SEC = 3;
-
-  function seekToStart() {
-    if (Math.abs((video.currentTime || 0) - START_SEC) > 0.05) {
-      video.currentTime = START_SEC;
-    }
-  }
+  const START_SEC = 1;
 
   function tryPlay() {
     video.play().catch(function() {
@@ -1073,37 +1067,56 @@ function setupHeroVideo() {
     video.classList.add('ready');
   }
 
+  function seekAndPlay() {
+    if (Math.abs((video.currentTime || 0) - START_SEC) > 0.05) {
+      video.currentTime = START_SEC;
+      video.addEventListener('seeked', function onSeeked() {
+        video.removeEventListener('seeked', onSeeked);
+        tryPlay();
+      });
+    } else {
+      tryPlay();
+    }
+  }
+
   video.addEventListener('playing', showVideo);
   video.addEventListener('loadeddata', showVideo);
 
-  video.addEventListener('loadedmetadata', function() {
-    seekToStart();
-    tryPlay();
-  });
-
-  video.addEventListener('seeked', seekToStart);
+  video.addEventListener('loadedmetadata', seekAndPlay);
 
   video.addEventListener('ended', function() {
     video.currentTime = START_SEC;
-    video.play().catch(function() {});
+    video.addEventListener('seeked', function onEndSeek() {
+      video.removeEventListener('seeked', onEndSeek);
+      tryPlay();
+    });
   });
 
   window.addEventListener('pageshow', function(e) {
     if (e.persisted) {
       video.currentTime = START_SEC;
-      tryPlay();
+      video.addEventListener('seeked', function onPageSeek() {
+        video.removeEventListener('seeked', onPageSeek);
+        tryPlay();
+      });
     }
   });
 
   if (video.readyState >= 2) {
-    seekToStart();
-    tryPlay();
+    seekAndPlay();
   }
 
   const heroScroll = document.getElementById('heroScroll');
   const about = document.querySelector('#about');
   if (!about) return;
+
+  var userScrolled = false;
+  function onScroll() { userScrolled = true; window.removeEventListener('scroll', onScroll); }
+  window.addEventListener('scroll', onScroll, { passive: true });
+
   setTimeout(function() {
+    window.removeEventListener('scroll', onScroll);
+    if (userScrolled) return;
     const navHeight = document.getElementById('navbar')?.offsetHeight || 80;
     const top = about.getBoundingClientRect().top + window.scrollY - navHeight - 16;
     window.scrollTo({ top, behavior: 'smooth' });
