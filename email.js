@@ -47,7 +47,7 @@ function buildEnquiryHtml(data) {
     <div style="font-family:'Segoe UI',Arial,sans-serif;max-width:600px;margin:0 auto;background:#f8f9fa;padding:32px">
       <div style="background:linear-gradient(135deg,#003B8E,#002a6a);padding:32px;border-radius:12px 12px 0 0;text-align:center">
         <h1 style="color:#C9A227;margin:0;font-size:24px">New Website Enquiry</h1>
-        <p style="color:#fff;margin:8px 0 0;opacity:0.9">Received on ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}</p>
+        <p style="color:#fff;margin:8px 0 0;opacity:0.9">Received on ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', hour12: true, day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' })}</p>
       </div>
 
       <div style="background:#fff;border-radius:0 0 12px 12px;padding:24px;box-shadow:0 2px 8px rgba(0,0,0,0.08)">
@@ -77,7 +77,7 @@ function buildSubscriberHtml(email) {
       </div>
       <div style="background:#fff;border-radius:12px;padding:24px;margin-top:16px;box-shadow:0 2px 8px rgba(0,0,0,0.08);text-align:center">
         <p style="font-size:18px;color:#333;margin:0">${email}</p>
-        <p style="color:#999;margin-top:8px">Subscribed on ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}</p>
+        <p style="color:#999;margin-top:8px">Subscribed on ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', hour12: true, day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' })}</p>
       </div>
     </div>
   `;
