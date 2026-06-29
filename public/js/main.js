@@ -1052,18 +1052,38 @@ function getJoinTeamForm() {
           <input type="tel" id="jt_phone" required placeholder="Your Mobile Number">
         </div>
         <div class="form-group">
-          <label for="jt_position">Position Applied For</label>
-          <input type="text" id="jt_position" placeholder="e.g. Sales Executive, Production">
+          <label for="jt_position">Position Applied For *</label>
+          <input type="text" id="jt_position" required placeholder="e.g. Sales Executive, Production">
         </div>
       </div>
+      <div class="form-group">
+        <label for="jt_education">Education *</label>
+        <input type="text" id="jt_education" required placeholder="e.g. B.Sc Chemistry, MBA">
+      </div>
+      <div class="form-group">
+        <label for="jt_experience">Years of Experience * <span style="font-weight:400;color:var(--text-light)">(type "nil" if fresher)</span></label>
+        <input type="text" id="jt_experience" required placeholder="e.g. 3, 5, nil">
+      </div>
+      <div class="form-group">
+        <label style="font-weight:600;color:var(--text-dark);margin-bottom:4px;display:block">Where are you from? *</label>
+        <div class="form-row">
+          <div class="form-group" style="margin-bottom:0">
+            <input type="text" id="jt_exp_city" required placeholder="City">
+          </div>
+          <div class="form-group" style="margin-bottom:0">
+            <input type="text" id="jt_exp_state" required placeholder="State">
+          </div>
+        </div>
+      </div>
+
       <div class="form-group">
         <label for="jt_message">Tell Us About Yourself *</label>
         <textarea id="jt_message" required placeholder="Your experience, skills, and why you'd like to join Royal Klense..."></textarea>
       </div>
       <div class="form-group">
-        <label>Upload Resume (PDF only)</label>
+        <label>Upload Resume (PDF only) *</label>
         <div class="file-upload-wrap">
-          <input type="file" id="jt_resume" accept=".pdf,application/pdf">
+          <input type="file" id="jt_resume" accept=".pdf,application/pdf" required>
           <div class="file-upload-box">
             <i class="fas fa-cloud-upload-alt"></i>
             <span class="file-upload-text">Choose Resume PDF</span>
@@ -1089,7 +1109,12 @@ function handleJoinTeam(e) {
     name: document.getElementById('jt_name').value,
     email: document.getElementById('jt_email').value,
     phone: document.getElementById('jt_phone').value,
-    position: document.getElementById('jt_position').value
+    position: document.getElementById('jt_position').value,
+    education: document.getElementById('jt_education').value,
+    experience: document.getElementById('jt_experience').value,
+    exp_city: document.getElementById('jt_exp_city').value,
+    exp_state: document.getElementById('jt_exp_state').value,
+    message: document.getElementById('jt_message').value
   };
 
   var formData = new FormData();
@@ -1097,10 +1122,25 @@ function handleJoinTeam(e) {
   formData.append('email', data.email);
   formData.append('phone', data.phone);
   formData.append('position', data.position);
+  formData.append('education', data.education);
+  formData.append('experience', data.experience);
+  formData.append('exp_city', data.exp_city);
+  formData.append('exp_state', data.exp_state);
+  formData.append('message', data.message);
   var resumeInput = document.getElementById('jt_resume');
-  if (resumeInput && resumeInput.files[0]) {
-    formData.append('resume', resumeInput.files[0]);
+  if (!resumeInput || !resumeInput.files[0]) {
+    showToast('Please upload your resume (PDF only).', 'error');
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Application';
+    return;
   }
+  if (resumeInput.files[0].type !== 'application/pdf') {
+    showToast('Only PDF files are supported.', 'error');
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Application';
+    return;
+  }
+  formData.append('resume', resumeInput.files[0]);
 
   fetch(API_BASE + '/api/contact', {
     method: 'POST',
@@ -1128,6 +1168,14 @@ function openJoinTeamModal() {
     var removeBtn = document.getElementById('jtResumeRemove');
     if (input) {
       input.addEventListener('change', function() {
+        if (this.files[0] && this.files[0].type !== 'application/pdf') {
+          showToast('Only PDF files are supported.', 'error');
+          this.value = '';
+          if (removeBtn) removeBtn.style.display = 'none';
+          var text = this.closest('.file-upload-wrap').querySelector('.file-upload-text');
+          if (text) text.textContent = 'Choose Resume PDF';
+          return;
+        }
         var text = this.closest('.file-upload-wrap').querySelector('.file-upload-text');
         if (text) text.textContent = this.files[0] ? this.files[0].name : 'Choose Resume PDF';
         if (removeBtn) removeBtn.style.display = this.files[0] ? 'flex' : 'none';

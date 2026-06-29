@@ -2,9 +2,21 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
+const multer = require('multer');
 require('dotenv').config();
 
-const { getWaMeLink } = require('./whatsapp');
+const { getWaMeLink, sendWhatsApp } = require('./whatsapp');
+const { saveEnquiry, saveSubscriber } = require('./db');
+
+const upload = multer({
+  dest: path.join(__dirname, 'temp_uploads'),
+  fileFilter: (req, file, cb) => {
+    if (file.mimetype !== 'application/pdf') {
+      return cb(new Error('Only PDF files are supported.'), false);
+    }
+    cb(null, true);
+  }
+});
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -29,11 +41,32 @@ app.use(express.static(path.join(__dirname, 'public'), { index: false }));
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/image2', express.static(path.join(__dirname, 'image2')));
 
-app.post('/api/contact', (req, res) => {
-  const { name, email, phone, company, message } = req.body;
+app.post('/api/contact', (req, res, next) => {
+  upload.single('resume')(req, res, (err) => {
+    if (err) {
+      if (err instanceof multer.MulterError || err.message === 'Only PDF files are supported.') {
+        return res.status(400).json({ success: false, error: err.message });
+      }
+      return next(err);
+    }
+    handleContact(req, res);
+  });
+});
 
-  if (!name || !email || !message) {
-    return res.status(400).json({ success: false, error: 'Name, email, and message are required.' });
+function handleContact(req, res) {
+  const { name, email, phone, company, message, position, education, experience, exp_city, exp_state } = req.body;
+  const hasResume = req.file && req.file.path;
+
+  if (!name || !email) {
+    return res.status(400).json({ success: false, error: 'Name and email are required.' });
+  }
+
+  if (!hasResume && !message) {
+    return res.status(400).json({ success: false, error: 'Message is required.' });
+  }
+
+  if (hasResume && (!position || !education || !experience || !exp_city || !exp_state)) {
+    return res.status(400).json({ success: false, error: 'All fields are required for job applications.' });
   }
 
   const data = {
@@ -41,18 +74,18 @@ app.post('/api/contact', (req, res) => {
     email,
     phone: phone || 'N/A',
     company: company || 'N/A',
-    message,
+    position: position || 'N/A',
+    education: education || 'N/A',
+    experience: experience || 'N/A',
+    exp_city: exp_city || 'N/A',
+    exp_state: exp_state || 'N/A',
+    message: message || 'N/A',
+    type: hasResume ? 'job' : 'contact',
+    resume_name: hasResume ? req.file.originalname : null,
     receivedAt: new Date().toISOString()
   };
 
-  const logDir = path.join(__dirname, 'data');
-  if (!fs.existsSync(logDir)) {
-    fs.mkdirSync(logDir, { recursive: true });
-  }
-
-  const filename = `contact-${Date.now()}.json`;
-  fs.writeFileSync(path.join(logDir, filename), JSON.stringify(data, null, 2));
-  console.log(`Contact inquiry saved: ${filename}`);
+  saveEnquiry(data);
 
   let transporter = null;
   try {
@@ -73,34 +106,72 @@ app.post('/api/contact', (req, res) => {
   }
 
   if (transporter) {
-    const mailOptions = {
-      from: process.env.SMTP_USER,
-      to: process.env.CONTACT_EMAIL || 'sanjeethbabumani@gmail.com',
-      subject: `New Contact Inquiry from ${name} - Royal Klense`,
-      html: `
-        <h2>New Contact Inquiry</h2>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Phone:</strong> ${data.phone}</p>
-        <p><strong>Company:</strong> ${data.company}</p>
-        <p><strong>Message:</strong></p>
-        <p>${message}</p>
-      `
-    };
+    if (hasResume) {
+      const mailOptions = {
+        from: `"${name}" <${process.env.SMTP_USER}>`,
+        replyTo: email,
+        to: process.env.CONTACT_EMAIL || 'sanjeethbabumani@gmail.com',
+        subject: `Job Application from ${name} - ${position || 'N/A'} - Royal Klense`,
+        html: `
+          <h2>New Job Application</h2>
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Phone:</strong> ${data.phone}</p>
+          <p><strong>Position Applied:</strong> ${data.position}</p>
+          <p><strong>Education:</strong> ${data.education}</p>
+          <p><strong>Years of Experience:</strong> ${data.experience && data.experience.toLowerCase() === 'nil' ? 'Fresher' : data.experience}</p>
+          <p><strong>City:</strong> ${data.exp_city}</p>
+          <p><strong>State:</strong> ${data.exp_state}</p>
+          <p><strong>Message:</strong></p>
+          <p>${data.message}</p>
+          <hr>
+          <p><em>Resume attached: ${req.file.originalname}</em></p>
+        `,
+        attachments: [{
+          filename: req.file.originalname,
+          path: req.file.path
+        }]
+      };
 
-    transporter.sendMail(mailOptions).catch(err => {
-      console.error('Email send failed:', err.message);
-    });
+      transporter.sendMail(mailOptions).then(() => {
+        console.log('Job application email sent with resume.');
+        try { fs.unlinkSync(req.file.path); } catch (e) { /* cleanup */ }
+      }).catch(err => {
+        console.error('Job application email send failed:', err.message);
+      });
+    } else {
+      const mailOptions = {
+        from: `"${name}" <${process.env.SMTP_USER}>`,
+        replyTo: email,
+        to: process.env.CONTACT_EMAIL || 'sanjeethbabumani@gmail.com',
+        subject: `New Contact Inquiry from ${name} - Royal Klense`,
+        html: `
+          <h2>New Contact Inquiry</h2>
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Phone:</strong> ${data.phone}</p>
+          <p><strong>Company:</strong> ${data.company}</p>
+          <p><strong>Message:</strong></p>
+          <p>${message}</p>
+        `
+      };
+
+      transporter.sendMail(mailOptions).catch(err => {
+        console.error('Email send failed:', err.message);
+      });
+    }
   }
 
   const waLink = getWaMeLink({ ...data, type: 'contact' });
 
+  sendWhatsApp({ ...data, type: 'contact' });
+
   res.json({
     success: true,
-    message: 'Thank you for your inquiry. Our team will contact you shortly.',
+    message: hasResume ? 'Your application has been submitted successfully.' : 'Thank you for your inquiry. Our team will contact you shortly.',
     waLink,
   });
-});
+}
 
 app.post('/api/quote', (req, res) => {
   const { name, email, phone, company, product, quantity, message } = req.body;
@@ -117,17 +188,11 @@ app.post('/api/quote', (req, res) => {
     product,
     quantity: quantity || 'N/A',
     message: message || 'N/A',
+    type: 'quote',
     receivedAt: new Date().toISOString()
   };
 
-  const logDir = path.join(__dirname, 'data');
-  if (!fs.existsSync(logDir)) {
-    fs.mkdirSync(logDir, { recursive: true });
-  }
-
-  const filename = `quote-${Date.now()}.json`;
-  fs.writeFileSync(path.join(logDir, filename), JSON.stringify(data, null, 2));
-  console.log(`Quote request saved: ${filename}`);
+  saveEnquiry(data);
 
   let transporter = null;
   try {
@@ -171,6 +236,8 @@ app.post('/api/quote', (req, res) => {
 
   const waLink = getWaMeLink({ ...data, type: 'quote' });
 
+  sendWhatsApp({ ...data, type: 'quote' });
+
   res.json({
     success: true,
     message: 'Your quote request has been submitted. Our sales team will respond within 24 hours.',
@@ -190,15 +257,7 @@ app.post('/api/subscribe', (req, res) => {
     subscribedAt: new Date().toISOString()
   };
 
-  const logDir = path.join(__dirname, 'data');
-  if (!fs.existsSync(logDir)) {
-    fs.mkdirSync(logDir, { recursive: true });
-  }
-
-  const filename = `subscriber-${Date.now()}.json`;
-  fs.writeFileSync(path.join(logDir, filename), JSON.stringify(data, null, 2));
-
-  console.log(`New subscriber: ${email}`);
+  saveSubscriber(email);
   res.json({ success: true, message: 'Thank you for subscribing to our newsletter.' });
 });
 
