@@ -241,6 +241,8 @@ function positionCarouselCards() {
     card.style.transform = `translate(-50%, -50%) rotateY(${i * angleStep}deg) translateZ(${radius}px) scale(${scale})`;
     card.style.opacity = isFrontThree ? (dist === 0 ? '1' : '0.25') : '0';
     card.style.pointerEvents = isFrontThree && cos > 0 ? 'auto' : 'none';
+    const cardImg = card.querySelector('.catalog-card-img');
+    if (cardImg) cardImg.style.animationPlayState = dist === 0 ? '' : 'paused';
   });
 
   track.style.transform = `rotateY(${-curVisibleIdx * angleStep}deg)`;
