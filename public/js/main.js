@@ -53,19 +53,19 @@ const siteData = {
     { text: 'We have been sourcing laundry and kitchen chemicals from Royal Klense for our restaurant chain. Consistent quality and reliable supply chain.', author: 'Vikram Singh', role: 'Owner, Royal Hospitality Group' }
   ],
   catalog: [
-    { code: 'F01', name: 'Liquid Freshner', flavor: 'Strawberry Shot', category: 'freshners', image: '/images/freshners/sberry_LF.png', desc: 'A sweet and fruity strawberry fragrance that fills the air with a fresh, delightful aroma perfect for any space.' },
-    { code: 'F02', name: 'Liquid Freshner', flavor: 'Fresh Flora', category: 'freshners', image: '/images/freshners/fresh_flora_LF.png', desc: 'A captivating floral fragrance that brings the essence of a blooming garden indoors with a long-lasting freshness.' },
-    { code: 'C01', name: 'Multi-Purpose Cleaner', flavor: 'Original', category: 'cleaners', image: '/images/cleaners/multi_purpose_cleaner.png', desc: 'A versatile cleaning solution effective on all surfaces for daily professional cleaning needs.' },
+    { code: 'F01', name: 'Liquid Room Freshner', flavor: 'Strawberry Shot', category: 'freshners', image: '/images/freshners/sberry_LF.png', desc: 'A sweet and fruity strawberry fragrance that fills the air with a fresh, delightful aroma perfect for any space.' },
+    { code: 'F02', name: 'Liquid Room Freshner', flavor: 'Fresh Flora', category: 'freshners', image: '/images/freshners/fresh_flora_LF.png', desc: 'A captivating floral fragrance that brings the essence of a blooming garden indoors with a long-lasting freshness.' },
+    { code: 'C01', name: 'Multi-Purpose Cleaner', flavor: 'French Rose', category: 'cleaners', image: '/images/cleaners/multi_purpose_cleaner.png', desc: 'A versatile cleaning solution effective on all surfaces for daily professional cleaning needs.' },
     { code: 'C02', name: 'Glass Cleaner', flavor: 'Original', category: 'cleaners', image: '/images/cleaners/glass_cleaner.png', desc: 'Streak-free formula that delivers brilliant shine on glass, mirrors, and reflective surfaces.' },
-    { code: 'C03', name: 'Floor Cleaner', flavor: 'Lemon', category: 'cleaners', image: '/images/cleaners/lemon_floor_cleaner.png', desc: 'Fresh lemon-scented floor cleaning solution for all types of flooring materials and surfaces.' },
-    { code: 'C04', name: 'Floor Cleaner', flavor: 'Lavender', category: 'cleaners', image: '/images/cleaners/lavender_floor_cleaner.png', desc: 'Calming lavender-infused floor cleaner that leaves floors sparkling clean with a soothing fragrance.' },
-    { code: 'C05', name: 'Floor Cleaner', flavor: 'Garden Bloom', category: 'cleaners', image: '/images/cleaners/garden_bloom_floor_cleaner.png', desc: 'A refreshing floral-scented floor cleaner inspired by the freshness of a blooming garden.' },
-    { code: 'C06', name: 'Dishwash', flavor: 'Lemon', category: 'cleaners', image: '/images/cleaners/lemon_dishwash.png', desc: 'Powerful lemon-scented dishwashing liquid that cuts through grease and leaves dishes spotless.' },
-    { code: 'C07', name: 'Bathroom & Ceramic Cleaner', flavor: 'Original', category: 'cleaners', image: '/images/cleaners/bathroom_ceramic_cleaner.png', desc: 'Anti-bacterial formula designed for complete hygiene on bathroom surfaces, tiles, and ceramic fixtures.' },
+    { code: 'C03', name: 'Disinfectant Surface Cleaner', flavor: 'Lemon Fresh', category: 'cleaners', image: '/images/cleaners/lemon_floor_cleaner.png', desc: 'Fresh lemon-scented disinfectant surface cleaning solution for all types of surfaces.' },
+    { code: 'C04', name: 'Disinfectant Surface Cleaner', flavor: 'Millennium Lavender', category: 'cleaners', image: '/images/cleaners/lavender_floor_cleaner.png', desc: 'Calming lavender-infused disinfectant surface cleaner that leaves surfaces sparkling clean with a soothing fragrance.' },
+    { code: 'C05', name: 'Disinfectant Surface Cleaner', flavor: 'Garden Bloom', category: 'cleaners', image: '/images/cleaners/garden_bloom_floor_cleaner.png', desc: 'A refreshing floral-scented disinfectant surface cleaner inspired by the freshness of a blooming garden.' },
+    { code: 'C06', name: 'Dishwash Liquid', flavor: 'Lemon Fresh', category: 'cleaners', image: '/images/cleaners/lemon_dishwash.png', desc: 'Powerful lemon-scented dishwashing liquid that cuts through grease and leaves dishes spotless.' },
+    { code: 'C07', name: 'Bathroom & Ceramic Cleaner', flavor: 'Mild & Gentle', category: 'cleaners', image: '/images/cleaners/bathroom_ceramic_cleaner.png', desc: 'Anti-bacterial formula designed for complete hygiene on bathroom surfaces, tiles, and ceramic fixtures.' },
     { code: 'C08', name: 'Toilet Bowl Cleaner', flavor: 'Original', category: 'cleaners', image: '/images/cleaners/toiler_bowl_cleaner.png', desc: 'Powerful thick formula that removes tough stains and limescale while disinfecting toilet bowls.' },
-    { code: 'C09', name: 'Ultra Remover', flavor: 'Original', category: 'cleaners', image: '/images/cleaners/ultra_remover.png', desc: 'Heavy-duty stain remover for stubborn marks, grime, and hard-to-clean surfaces.' },
+    { code: 'C09', name: 'Ultra Scale Remover', flavor: 'Original', category: 'cleaners', image: '/images/cleaners/ultra_remover.png', desc: 'Heavy-duty stain remover for stubborn marks, grime, and hard-to-clean surfaces.' },
     { code: 'C10', name: 'Handwash', flavor: 'Royal Cream', category: 'cleaners', image: '/images/cleaners/handwash_royalcream.png', desc: 'Premium creamy handwash with moisturizers for a gentle yet effective cleansing experience.' },
-    { code: 'C11', name: 'Handwash', flavor: 'Strawberry', category: 'cleaners', image: '/images/cleaners/handwash_strawberry.png', desc: 'A fruity strawberry-scented handwash that cleanses gently while leaving hands soft and fragrant.' }
+    { code: 'C11', name: 'Handwash', flavor: 'Strawberry Shot', category: 'cleaners', image: '/images/cleaners/handwash_strawberry.png', desc: 'A fruity strawberry-scented handwash that cleanses gently while leaving hands soft and fragrant.' }
   ]
 };
 
@@ -513,10 +513,18 @@ function openCatalogModal(code, name, category, desc) {
         <input type="hidden" id="qq_product" value="${name}">
         <div class="form-row" style="gap:6px">
           <div class="form-group" style="margin-bottom:0">
-            <input type="text" id="qq_name" required placeholder="Your full name" style="padding:10px 14px;font-style:italic">
+            <input type="text" id="qq_name" required placeholder="Your name" style="padding:10px 12px;font-size:0.85rem">
           </div>
           <div class="form-group" style="margin-bottom:0">
-            <input type="tel" id="qq_phone" required placeholder="Your Mobile Number" style="padding:10px 14px;font-style:italic">
+            <input type="email" id="qq_email" required placeholder="Your email" style="padding:10px 12px;font-size:0.85rem">
+          </div>
+        </div>
+        <div class="form-row" style="gap:6px;margin-top:6px">
+          <div class="form-group" style="margin-bottom:0">
+            <input type="tel" id="qq_phone" required placeholder="Phone number" style="padding:10px 12px;font-size:0.85rem">
+          </div>
+          <div class="form-group" style="margin-bottom:0">
+            <input type="text" id="qq_qty" placeholder="Qty / Litres" style="padding:10px 12px;font-size:0.85rem">
           </div>
         </div>
         <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:12px;padding:12px 20px">

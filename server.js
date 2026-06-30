@@ -5,7 +5,6 @@ const multer = require('multer');
 require('dotenv').config();
 
 const { getWaMeLink, sendWhatsApp } = require('./whatsapp');
-const { saveEnquiry, saveSubscriber } = require('./db');
 
 const storage = multer.memoryStorage();
 const upload = multer({
@@ -91,8 +90,6 @@ function handleContact(req, res) {
     receivedAt: new Date().toISOString()
   };
 
-  saveEnquiry(data);
-
   let transporter = null;
   try {
     const nodemailer = require('nodemailer');
@@ -114,7 +111,7 @@ function handleContact(req, res) {
   if (transporter) {
     if (hasResume) {
       const mailOptions = {
-        from: `"${name}" <${process.env.SMTP_USER}>`,
+        from: `"${name}" <${email}>`,
         replyTo: email,
         to: process.env.CONTACT_EMAIL || 'sanjeethbabumani@gmail.com',
         subject: `Job Application from ${name} - ${position || 'N/A'} - Royal Klense`,
@@ -146,7 +143,7 @@ function handleContact(req, res) {
       });
     } else {
       const mailOptions = {
-        from: `"${name}" <${process.env.SMTP_USER}>`,
+        from: `"${name}" <${email}>`,
         replyTo: email,
         to: process.env.CONTACT_EMAIL || 'sanjeethbabumani@gmail.com',
         subject: `New Contact Inquiry from ${name} - Royal Klense`,
@@ -197,8 +194,6 @@ app.post('/api/quote', (req, res) => {
     receivedAt: new Date().toISOString()
   };
 
-  saveEnquiry(data);
-
   let transporter = null;
   try {
     const nodemailer = require('nodemailer');
@@ -219,7 +214,8 @@ app.post('/api/quote', (req, res) => {
 
   if (transporter) {
     const mailOptions = {
-      from: process.env.SMTP_USER,
+      from: `"${name}" <${email}>`,
+      replyTo: email,
       to: process.env.CONTACT_EMAIL || 'sanjeethbabumani@gmail.com',
       subject: `New Quote Request from ${name} - Royal Klense`,
       html: `
@@ -262,7 +258,6 @@ app.post('/api/subscribe', (req, res) => {
     subscribedAt: new Date().toISOString()
   };
 
-  saveSubscriber(email);
   res.json({ success: true, message: 'Thank you for subscribing to our newsletter.' });
 });
 
@@ -296,7 +291,7 @@ app.post('/api/send-email', emailUpload.array('attachments', 5), async (req, res
   }
 
   const mailOptions = {
-    from: `"${from}" <${process.env.SMTP_USER}>`,
+    from: from,
     replyTo: from,
     to: to,
     cc: cc || undefined,
