@@ -799,7 +799,7 @@ function getContactForm() {
         <span class="contact-option-label">WhatsApp</span>
       </a>
       <a href="tel:+916369311595" class="contact-option contact-option-phone">
-        <div class="contact-option-icon"><i class="fas fa-phone-alt"></i></div>
+        <div class="contact-option-icon"><i class="fas fa-phone-alt" style="transform:scaleX(-1)"></i></div>
         <span class="contact-option-label">Call</span>
       </a>
     </div>
