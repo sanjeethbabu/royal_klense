@@ -19,6 +19,11 @@ const upload = multer({
   }
 });
 
+const emailUpload = multer({
+  storage,
+  limits: { fileSize: 10 * 1024 * 1024 }
+});
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -259,6 +264,61 @@ app.post('/api/subscribe', (req, res) => {
 
   saveSubscriber(email);
   res.json({ success: true, message: 'Thank you for subscribing to our newsletter.' });
+});
+
+app.post('/api/send-email', emailUpload.array('attachments', 5), async (req, res) => {
+  const { from, to, cc, subject, body } = req.body;
+
+  if (!from || !to || !subject || !body) {
+    return res.status(400).json({ success: false, error: 'From, To, Subject, and Message are required.' });
+  }
+
+  let transporter = null;
+  try {
+    const nodemailer = require('nodemailer');
+    if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
+      transporter = nodemailer.createTransport({
+        host: process.env.SMTP_HOST,
+        port: parseInt(process.env.SMTP_PORT) || 587,
+        secure: false,
+        auth: {
+          user: process.env.SMTP_USER,
+          pass: process.env.SMTP_PASS
+        }
+      });
+    }
+  } catch (e) {
+    return res.status(500).json({ success: false, error: 'Email service not configured.' });
+  }
+
+  if (!transporter) {
+    return res.status(500).json({ success: false, error: 'Email service not configured.' });
+  }
+
+  const mailOptions = {
+    from: `"${from}" <${process.env.SMTP_USER}>`,
+    replyTo: from,
+    to: to,
+    cc: cc || undefined,
+    subject: subject,
+    html: body
+  };
+
+  if (req.files && req.files.length > 0) {
+    mailOptions.attachments = req.files.map(f => ({
+      filename: f.originalname,
+      content: f.buffer
+    }));
+  }
+
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log(`Email sent from ${from} to ${to}`);
+    res.json({ success: true, message: 'Email sent successfully.' });
+  } catch (err) {
+    console.error('Email send failed:', err.message);
+    res.status(500).json({ success: false, error: 'Failed to send email. ' + err.message });
+  }
 });
 
 app.get('/api/health', (req, res) => {

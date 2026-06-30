@@ -788,37 +788,198 @@ function setupModal() {
 function getContactForm() {
   return `
     <h2>Get in Touch</h2>
-    <p>Fill out the form below and our team will get back to you within 24 hours.</p>
-    <form id="contactForm" onsubmit="handleContact(event)">
-      <div class="form-row">
-        <div class="form-group">
-          <label for="cf_name">Full Name *</label>
-          <input type="text" id="cf_name" required placeholder="Your full name">
-        </div>
-        <div class="form-group">
-          <label for="cf_email">Email Address *</label>
-          <input type="email" id="cf_email" required placeholder="your@email.com">
-        </div>
+    <p>Choose how you'd like to reach us</p>
+    <div class="contact-options">
+      <div class="contact-option" onclick="showEmailOptions()" style="cursor:pointer">
+        <div class="contact-option-icon"><i class="fas fa-envelope"></i></div>
+        <span class="contact-option-label">Email</span>
       </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label for="cf_phone">Mobile Number</label>
-          <input type="tel" id="cf_phone" placeholder="Your Mobile Number">
-        </div>
-        <div class="form-group">
-          <label for="cf_company">Company Name</label>
-          <input type="text" id="cf_company" placeholder="Your company">
-        </div>
+      <a href="https://wa.me/916369311595?text=Hey%20Royal%20Klense%20team%20!%20I%20would%20like%20to%20know%20more%20details%20about%20your%20product.%20Could%20you%20please%20help%20me%20with%20that%20%3F" target="_blank" rel="noopener" class="contact-option">
+        <div class="contact-option-icon"><i class="fab fa-whatsapp"></i></div>
+        <span class="contact-option-label">WhatsApp</span>
+      </a>
+      <a href="tel:+916369311595" class="contact-option contact-option-phone">
+        <div class="contact-option-icon"><i class="fas fa-phone-alt"></i></div>
+        <span class="contact-option-label">Call</span>
+      </a>
+    </div>
+  `;
+}
+
+function showEmailOptions() {
+  document.getElementById('modalBody').innerHTML = `
+    <h2>Compose Email</h2>
+    <p>Send directly from here</p>
+    <form id="composeForm" onsubmit="sendComposeMail(event)">
+      <div class="form-group">
+        <label for="compose_from">From *</label>
+        <input type="email" id="compose_from" required placeholder="Your email address">
       </div>
       <div class="form-group">
-        <label for="cf_message">Message *</label>
-        <textarea id="cf_message" required placeholder="Tell us about your requirements..."></textarea>
+        <label for="compose_to">To *</label>
+        <input type="email" id="compose_to" value="sanjeethbabumani@gmail.com" required placeholder="Recipient email address">
       </div>
-      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">
-        <i class="fas fa-paper-plane"></i> Send Message
-      </button>
+      <div class="form-group">
+        <label for="compose_cc">CC</label>
+        <input type="email" id="compose_cc" placeholder="CC email (optional)">
+      </div>
+      <div class="form-group">
+        <label for="compose_subject">Subject *</label>
+        <input type="text" id="compose_subject" required placeholder="Email subject">
+      </div>
+      <div class="form-group">
+        <label>Body *</label>
+        <div style="border:1px solid #ddd;border-radius:8px;overflow:hidden">
+          <div style="display:flex;gap:2px;padding:4px 6px;background:#f5f5f5;border-bottom:1px solid #ddd;flex-wrap:wrap">
+            <button type="button" onclick="formatDoc('bold')" style="border:none;background:transparent;padding:4px 8px;cursor:pointer;border-radius:4px;font-weight:600;font-size:0.85rem" title="Bold"><b>B</b></button>
+            <button type="button" onclick="formatDoc('italic')" style="border:none;background:transparent;padding:4px 8px;cursor:pointer;border-radius:4px;font-style:italic;font-size:0.85rem" title="Italic"><i>I</i></button>
+            <button type="button" onclick="formatDoc('underline')" style="border:none;background:transparent;padding:4px 8px;cursor:pointer;border-radius:4px;text-decoration:underline;font-size:0.85rem" title="Underline"><u>U</u></button>
+            <span style="width:1px;height:20px;background:#ddd;margin:auto 4px"></span>
+            <button type="button" onclick="formatDoc('justifyLeft')" style="border:none;background:transparent;padding:4px 8px;cursor:pointer;border-radius:4px;font-size:0.85rem" title="Align Left"><i class="fas fa-align-left"></i></button>
+            <button type="button" onclick="formatDoc('justifyCenter')" style="border:none;background:transparent;padding:4px 8px;cursor:pointer;border-radius:4px;font-size:0.85rem" title="Center"><i class="fas fa-align-center"></i></button>
+            <button type="button" onclick="formatDoc('justifyRight')" style="border:none;background:transparent;padding:4px 8px;cursor:pointer;border-radius:4px;font-size:0.85rem" title="Align Right"><i class="fas fa-align-right"></i></button>
+            <span style="width:1px;height:20px;background:#ddd;margin:auto 4px"></span>
+            <button type="button" onclick="formatDoc('insertUnorderedList')" style="border:none;background:transparent;padding:4px 8px;cursor:pointer;border-radius:4px;font-size:0.85rem" title="Bullet List"><i class="fas fa-list-ul"></i></button>
+            <button type="button" onclick="formatDoc('insertOrderedList')" style="border:none;background:transparent;padding:4px 8px;cursor:pointer;border-radius:4px;font-size:0.85rem" title="Numbered List"><i class="fas fa-list-ol"></i></button>
+            <span style="width:1px;height:20px;background:#ddd;margin:auto 4px"></span>
+            <button type="button" onclick="formatDoc('hiliteColor')" style="border:none;background:transparent;padding:4px 8px;cursor:pointer;border-radius:4px;font-size:0.85rem;position:relative" title="Highlight"><i class="fas fa-highlighter"></i></button>
+          </div>
+          <div id="compose_body" contenteditable="true" style="min-height:150px;padding:10px;outline:none;font-size:0.9rem;line-height:1.5" oninput="checkBodyContent()"></div>
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:12px">
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+          <label for="compose_attachments" class="btn btn-outline" style="cursor:pointer;margin:0;font-size:0.85rem;padding:8px 16px">
+            <i class="fas fa-paperclip"></i> Attach Files
+          </label>
+          <input type="file" id="compose_attachments" multiple style="display:none" onchange="handleAttachFiles(this)">
+        </div>
+        <div id="compose_file_list" style="margin-top:8px;display:flex;flex-direction:column;gap:4px"></div>
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <button type="submit" class="btn btn-primary" style="flex:1;justify-content:center" id="composeSendBtn"><i class="fas fa-paper-plane"></i> Send Email</button>
+        <button type="button" class="btn btn-outline" onclick="sendViaOutlook()" style="flex:1;justify-content:center"><i class="fas fa-envelope"></i> Send via Outlook</button>
+      </div>
     </form>
+    <div style="text-align:center;margin-top:16px">
+      <button class="btn btn-outline" onclick="openModal(getContactForm())" style="font-size:0.85rem"><i class="fas fa-arrow-left"></i> Back</button>
+    </div>
   `;
+}
+
+function sendComposeMail(e) {
+  e.preventDefault();
+  var btn = document.getElementById('composeSendBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+
+  var formData = new FormData();
+  formData.append('from', document.getElementById('compose_from').value);
+  formData.append('to', document.getElementById('compose_to').value);
+  formData.append('cc', document.getElementById('compose_cc').value);
+  formData.append('subject', document.getElementById('compose_subject').value);
+  var bodyEl = document.getElementById('compose_body');
+  if (!bodyEl.textContent.trim()) {
+    showToast('Please write a message.', 'error');
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Email';
+    return;
+  }
+  formData.append('body', bodyEl.innerHTML);
+
+  if (composeAttachments.length > 0) {
+    for (var i = 0; i < composeAttachments.length; i++) {
+      formData.append('attachments', composeAttachments[i]);
+    }
+  }
+
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', '/api/send-email', true);
+  xhr.onload = function() {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Email';
+    var result = JSON.parse(xhr.responseText);
+    if (result.success) {
+      document.getElementById('modalBody').innerHTML = '<div class="form-success"><i class="fas fa-check-circle"></i><h3>Email Sent!</h3><p>Your email has been sent successfully.</p><button class="btn btn-primary" onclick="closeModal()" style="margin-top:16px">Close</button></div>';
+    } else {
+      showToast(result.error || 'Failed to send email.', 'error');
+    }
+  };
+  xhr.onerror = function() {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Email';
+    showToast('Network error. Please try again.', 'error');
+  };
+  xhr.send(formData);
+}
+
+function sendViaOutlook() {
+  var from = document.getElementById('compose_from').value;
+  var to = document.getElementById('compose_to').value;
+  var cc = document.getElementById('compose_cc').value;
+  var subject = document.getElementById('compose_subject').value;
+  var bodyEl = document.getElementById('compose_body');
+  var body = bodyEl.textContent.trim();
+  if (!from || !to || !subject || !body) {
+    showToast('Please fill in From, To, Subject, and Message.', 'error');
+    return;
+  }
+  var url = 'https://outlook.live.com/mail/0/deeplink/compose?to=' + encodeURIComponent(to) + '&cc=' + encodeURIComponent(cc) + '&subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+  window.open(url, '_blank');
+}
+
+function formatDoc(command) {
+  if (command === 'hiliteColor') {
+    var color = prompt('Enter highlight color (e.g. yellow, #ffff00):', 'yellow');
+    if (color) document.execCommand('hiliteColor', false, color);
+  } else {
+    document.execCommand(command, false, null);
+  }
+  document.getElementById('compose_body').focus();
+}
+
+function checkBodyContent() {
+  var el = document.getElementById('compose_body');
+  if (!el.textContent.trim()) {
+    el.setAttribute('data-empty', 'true');
+  } else {
+    el.removeAttribute('data-empty');
+  }
+}
+
+var composeAttachments = [];
+
+function handleAttachFiles(input) {
+  for (var i = 0; i < input.files.length; i++) {
+    composeAttachments.push(input.files[i]);
+  }
+  input.value = '';
+  renderAttachFiles();
+}
+
+function removeAttachFile(index) {
+  composeAttachments.splice(index, 1);
+  renderAttachFiles();
+}
+
+function renderAttachFiles() {
+  var list = document.getElementById('compose_file_list');
+  if (!list) return;
+  if (composeAttachments.length === 0) {
+    list.innerHTML = '<span style="font-size:0.82rem;color:var(--text-light)">No files chosen</span>';
+    return;
+  }
+  var html = '';
+  for (var i = 0; i < composeAttachments.length; i++) {
+    var size = (composeAttachments[i].size / 1024).toFixed(1);
+    html += '<div style="display:flex;align-items:center;gap:8px;padding:4px 8px;background:var(--light-gray);border-radius:6px;font-size:0.82rem">' +
+      '<i class="fas fa-file" style="color:var(--gold-dark);font-size:0.85rem"></i>' +
+      '<span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + composeAttachments[i].name + '</span>' +
+      '<span style="color:var(--text-light);font-size:0.75rem">' + size + ' KB</span>' +
+      '<button type="button" onclick="removeAttachFile(' + i + ')" style="background:none;border:none;color:#e74c3c;cursor:pointer;padding:2px;font-size:0.9rem" title="Remove">&times;</button>' +
+      '</div>';
+  }
+  list.innerHTML = html;
 }
 
 function getQuoteForm() {
@@ -1147,7 +1308,7 @@ function handleJoinTeam(e) {
     body: formData
   }).then(function(r) { return r.json(); }).then(function(result) {
     if (result.success) {
-      document.getElementById('modalBody').innerHTML = '<div class="form-success"><i class="fas fa-check-circle"></i><h3>Thank You for Your Application!</h3><p>Your application has been submitted successfully.</p><p style="font-size:0.88rem;color:var(--text-light);margin-top:8px">Our recruitment team will review your information and reach out if your profile is shortlisted. We appreciate the time you\'ve taken to apply and look forward to learning more about you.</p><p style="font-size:0.85rem;color:var(--text-light);margin-top:10px;padding-top:10px;border-top:1px solid rgba(201,162,39,0.15)">If you have any questions, feel free to <a href="mailto:sanjeethbabumani@gmail.com" style="color:var(--gold-dark);font-weight:600;text-decoration:none">email us</a> or call <a href="tel:+916379588598" style="color:var(--gold-dark);font-weight:600;text-decoration:none">+91 6379588598</a>.</p><button class="btn btn-primary" onclick="closeModal()" style="margin-top:16px">Close</button></div>';
+      document.getElementById('modalBody').innerHTML = '<div class="form-success"><i class="fas fa-check-circle"></i><h3>Thank You for Your Application!</h3><p>Your application has been submitted successfully.</p><p style="font-size:0.88rem;color:var(--text-light);margin-top:8px">Our recruitment team will review your information and reach out if your profile is shortlisted. We appreciate the time you\'ve taken to apply and look forward to learning more about you.</p><p style="font-size:0.85rem;color:var(--text-light);margin-top:10px;padding-top:10px;border-top:1px solid rgba(201,162,39,0.15)">If you have any questions, feel free to <a href="mailto:sanjeethbabumani@gmail.com" style="color:var(--gold-dark);font-weight:600;text-decoration:none">email us</a> or call <a href="tel:+916369311595" style="color:var(--gold-dark);font-weight:600;text-decoration:none">+91 6369311595</a>.</p><button class="btn btn-primary" onclick="closeModal()" style="margin-top:16px">Close</button></div>';
       showToast('Application submitted!', 'success');
     } else {
       showToast(result.error || 'Something went wrong.', 'error');
