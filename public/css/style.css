@@ -244,6 +244,28 @@ body:not(.rk-leaving):not(.rk-reveal)>*:not(#loader):not(script) {
   background: rgba(201, 162, 39, 0.06);
 }
 
+.btn-gold-shimmer {
+  background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light), var(--gold), var(--gold-dark));
+  background-size: 300% 100%;
+  color: var(--white);
+  border: none;
+  box-shadow: 0 4px 20px rgba(201, 162, 39, 0.3);
+  animation: goldShimmer 3s ease-in-out infinite;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-gold-shimmer:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 35px rgba(201, 162, 39, 0.45);
+}
+
+@keyframes goldShimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 .btn-whatsapp {
   background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
   color: var(--white);
@@ -3056,6 +3078,72 @@ html.nav-open body {
   font-size: 0.95rem;
   margin-bottom: 24px;
   line-height: 1.7;
+}
+
+.contact-options {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.contact-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 28px 36px;
+  border-radius: 16px;
+  background: var(--light-gray);
+  text-decoration: none;
+  color: var(--text-dark);
+  transition: all 0.3s ease;
+  min-width: 120px;
+  cursor: pointer;
+}
+
+.contact-option:hover {
+  background: var(--gold-gradient);
+  color: var(--white);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(201, 162, 39, 0.25);
+}
+
+.contact-option-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: var(--gold-dark);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+.contact-option:hover .contact-option-icon {
+  background: rgba(255,255,255,0.2);
+  color: var(--white);
+  box-shadow: none;
+}
+
+.contact-option-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.contact-option-phone {
+  display: none;
+}
+
+@media (max-width: 991px) {
+  .contact-option-phone {
+    display: flex;
+  }
 }
 
 .form-group {
