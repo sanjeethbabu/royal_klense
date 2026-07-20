@@ -8189,17 +8189,7 @@ img:hover {
   }
 
   .carousel-arrow {
-    width: 32px;
-    height: 32px;
-    font-size: 0.75rem;
-  }
-
-  .carousel-prev {
-    left: -40px;
-  }
-
-  .carousel-next {
-    right: -40px;
+    display: none;
   }
 
   .carousel-dots {
@@ -8248,23 +8238,28 @@ img:hover {
   }
 
   .carousel-stage {
-    min-height: 380px;
-    padding-top: 20px;
+    min-height: 340px;
+    padding-top: 16px;
   }
 
   .catalog-card {
-    width: 150px;
+    width: 140px;
   }
 
   .catalog-card-image-section {
-    min-height: 170px;
-    padding: 14px 10px 4px;
+    min-height: 130px;
+    padding: 10px 8px 4px;
   }
 
   .catalog-card-img {
     max-width: none;
-    width: 115%;
-    margin-top: -14px;
+    width: 110%;
+    margin-top: -12px;
+  }
+
+  .catalog-card:not(.card-dimmed) .catalog-card-img {
+    width: 120%;
+    margin-top: -18px;
   }
 
   .catalog-card-body {
@@ -8272,27 +8267,32 @@ img:hover {
   }
 
   .catalog-card-name {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     margin-bottom: 4px;
   }
 
   .catalog-card-btn {
-    padding: 5px 12px;
-    font-size: 0.6rem;
+    padding: 4px 10px;
+    font-size: 0.55rem;
     gap: 4px;
   }
 
-  .carousel-arrow {
-    width: 28px;
-    height: 28px;
+  .catalog-card-code {
+    font-size: 0.55rem;
+    padding: 2px 8px;
+    margin-bottom: 6px;
+  }
+
+  .catalog-card-flavor {
     font-size: 0.65rem;
+    margin-bottom: 8px;
   }
 
   .carousel-dots {
     gap: 6px;
     padding: 2px 10px;
     height: 20px;
-    bottom: -50px;
+    bottom: -40px;
   }
 
   .carousel-dot {
@@ -8305,26 +8305,6 @@ img:hover {
     height: 8px;
   }
 }
-
-  .catalog-card-body .catalog-card-code {
-    font-size: 0.62rem;
-    padding: 3px 10px;
-    margin-bottom: 8px;
-  }
-
-  .carousel-arrow {
-    width: 32px;
-    height: 32px;
-    font-size: 0.75rem;
-  }
-
-  .carousel-prev {
-    left: -40px;
-  }
-
-  .carousel-next {
-    right: -40px;
-  }
 
 /* ═══════════════════════════════════════════
    REF.MD 3D CAROUSEL
@@ -8607,9 +8587,7 @@ img:hover {
   .ref-subtitle { font-size: 0.8rem; letter-spacing: 3px; }
   .ref-card { width: 190px; height: 350px; }
   .ref-stage { min-height: 440px; }
-  .ref-arrow { width: 40px; height: 40px; font-size: 0.9rem; }
-  .ref-prev { left: -8px; }
-  .ref-next { right: -8px; }
+  .ref-arrow { display: none; }
   .ref-header { margin-bottom: 30px; }
   .ref-name { font-size: 0.78rem; }
   .ref-bottle-body { width: 68%; }
@@ -8625,9 +8603,7 @@ img:hover {
   .ref-category { font-size: 0.5rem; }
   .ref-scent { font-size: 0.55rem; }
   .ref-btn { font-size: 0.65rem; padding: 8px 0; }
-  .ref-arrow { width: 34px; height: 34px; font-size: 0.75rem; }
-  .ref-prev { left: -4px; }
-  .ref-next { right: -4px; }
+  .ref-arrow { display: none; }
   .ref-dots { gap: 10px; padding: 6px 14px; }
   .ref-dot.active { width: 28px; }
 }

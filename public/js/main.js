@@ -232,7 +232,7 @@ function positionCarouselCards() {
   const angleStep = isAll ? 360 / count : 360 / 11;
   const cardWidth = visible[0]?.offsetWidth || 260;
   const minRadius = cardWidth / (2 * Math.sin(Math.PI / count));
-  const stageRadius = isMobile ? Math.min(320, stageW * 0.38) : Math.min(500, stageW * 0.45);
+  const stageRadius = isMobile ? Math.min(320, Math.max(stageW * 0.38, 240)) : Math.min(500, stageW * 0.45);
   const radius = Math.max(minRadius, stageRadius);
 
   visible.forEach((card, i) => {
