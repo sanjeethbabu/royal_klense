@@ -55,6 +55,9 @@ const siteData = {
   catalog: [
     { code: 'F01', name: 'Liquid Room Freshner', flavor: 'Strawberry Shot', category: 'freshners', image: '/images/freshners/sberry_LF.png', desc: 'A sweet and fruity strawberry fragrance that fills the air with a fresh, delightful aroma perfect for any space.' },
     { code: 'F02', name: 'Liquid Room Freshner', flavor: 'Fresh Flora', category: 'freshners', image: '/images/freshners/fresh_flora_LF.png', desc: 'A captivating floral fragrance that brings the essence of a blooming garden indoors with a long-lasting freshness.' },
+    { code: 'F03', name: 'Liquid Room Freshner', flavor: 'Millennium Lavender', category: 'freshners', image: '/images/freshners/lavender_LF.png', desc: 'A soothing lavender fragrance that promotes relaxation while keeping your space fresh and inviting.' },
+    { code: 'F04', name: 'Liquid Room Freshner', flavor: 'Citrus Zest', category: 'freshners', image: '/images/freshners/orange_lf.png', desc: 'A zesty citrus burst that energizes any room with its bright, uplifting orange fragrance.' },
+    { code: 'F05', name: 'Liquid Room Freshner', flavor: 'Earth Essence', category: 'freshners', image: '/images/freshners/earth_essence_lf.png', desc: 'An earthy, grounding fragrance that brings a natural, woody aroma to any space.' },
     { code: 'C01', name: 'Multi-Purpose Cleaner', flavor: 'French Rose', category: 'cleansers', image: '/images/cleansers/multi_purpose_cleaner.png', desc: 'A versatile cleaning solution effective on all surfaces for daily professional cleaning needs.' },
     { code: 'C02', name: 'Glass Cleaner', flavor: 'Original', category: 'cleansers', image: '/images/cleansers/glass_cleaner.png', desc: 'Streak-free formula that delivers brilliant shine on glass, mirrors, and reflective surfaces.' },
     { code: 'C03', name: 'Disinfectant Surface Cleaner', flavor: 'Lemon Fresh', category: 'cleansers', image: '/images/cleansers/lemon_floor_cleaner.png', desc: 'Fresh lemon-scented disinfectant surface cleaning solution for all types of surfaces.' },
@@ -225,7 +228,8 @@ function positionCarouselCards() {
 
   const isMobile = window.innerWidth < 768;
   const stageW = stage.offsetWidth;
-  const angleStep = 360 / count;
+  const spreadFactor = Math.min(count / 11, 1);
+  const angleStep = spreadFactor * 360 / count;
   const cardWidth = visible[0]?.offsetWidth || 260;
   const minRadius = cardWidth / (2 * Math.sin(Math.PI / count));
   const stageRadius = isMobile ? Math.min(320, stageW * 0.38) : Math.min(500, stageW * 0.45);
