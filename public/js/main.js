@@ -231,7 +231,9 @@ function positionCarouselCards() {
   const isAll = count > 11;
   const angleStep = isAll ? 360 / count : 360 / 11;
   const cardWidth = visible[0]?.offsetWidth || 260;
-  const minRadius = cardWidth / (2 * Math.sin(Math.PI / count));
+  const minRadius = isAll
+    ? cardWidth / (2 * Math.sin(Math.PI / count))
+    : cardWidth / (2 * Math.sin(angleStep * Math.PI / 360));
   const stageRadius = isMobile ? Math.min(320, stageW * 0.38) : Math.min(500, stageW * 0.45);
   const radius = Math.max(minRadius, stageRadius);
 
@@ -1951,7 +1953,9 @@ function setupRefCarousel() {
       const effAngle = i * angleStep - refIndex * angleStep;
       const rad = effAngle * Math.PI / 180;
       const cos = Math.cos(rad);
-      const scale = 0.4 + 0.6 * Math.max(0, cos);
+    const scale = isMobile && !isAll
+      ? 0.15 + 0.85 * Math.pow(Math.max(0, cos), 3)
+      : 0.4 + 0.6 * Math.max(0, cos);
       card.style.transform = `translate(-50%, -50%) rotateY(${i * angleStep}deg) translateZ(${refRadius}px) scale(${scale})`;
       card.style.opacity = cos > -0.1 ? (0.25 + 0.75 * Math.max(0, cos)).toFixed(2) : '0.15';
       card.style.pointerEvents = cos > 0 ? 'auto' : 'none';
