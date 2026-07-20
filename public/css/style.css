@@ -3336,25 +3336,25 @@ html.nav-open body {
   justify-content: space-between;
   width: 100%;
   padding: 13px 16px;
-  border: 2px solid rgba(201,162,39,0.3);
+  border: 2px solid var(--light-gray);
   border-radius: 10px;
   background: var(--white);
   font-family: var(--font-body);
   font-size: 0.92rem;
-  color: var(--gold-dark);
-  font-weight: 600;
+  color: var(--text-dark);
+  font-weight: 500;
   transition: border-color 0.25s ease, box-shadow 0.3s ease;
 }
 
 .custom-select-trigger i {
   font-size: 0.75rem;
-  color: var(--gold);
+  color: var(--text-light);
   transition: transform 0.25s ease;
 }
 
 .custom-select.open .custom-select-trigger {
-  border-color: var(--gold);
-  box-shadow: 0 0 0 4px rgba(201,162,39,0.08);
+  border-color: var(--royal-blue);
+  box-shadow: 0 0 0 4px rgba(11,29,58,0.08);
 }
 
 .custom-select.open .custom-select-trigger i {
@@ -3367,7 +3367,7 @@ html.nav-open body {
   left: 0;
   right: 0;
   background: var(--white);
-  border: 2px solid var(--gold);
+  border: 2px solid var(--light-gray);
   border-radius: 10px;
   box-shadow: 0 8px 32px rgba(0,0,0,0.12);
   z-index: 50;
@@ -3389,12 +3389,52 @@ html.nav-open body {
 }
 
 .custom-select-option:hover {
-  background: rgba(201,162,39,0.08);
-  color: var(--gold-dark);
+  background: rgba(11,29,58,0.05);
+  color: var(--royal-blue);
 }
 
 .custom-select-option:not(:last-child) {
-  border-bottom: 1px solid rgba(201,162,39,0.08);
+  border-bottom: 1px solid var(--light-gray);
+}
+
+.multi-select .custom-select-options {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.multi-select .custom-select-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.multi-select .custom-select-option.selected {
+  background: rgba(11, 29, 58, 0.06);
+  color: var(--royal-blue);
+  font-weight: 500;
+}
+
+.multi-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--light-gray);
+  border-radius: 3px;
+  font-size: 0.7rem;
+  flex-shrink: 0;
+  background: var(--white);
+}
+
+.custom-select-option.selected .multi-check {
+  background: var(--royal-blue);
+  border-color: var(--royal-blue);
+  color: var(--white);
+}
+
+.qty-row input {
+  width: 100%;
 }
 
 .form-row {

@@ -997,12 +997,64 @@ function renderAttachFiles() {
 }
 
 function getQuoteForm() {
-  return '<h2>Request a Quote</h2><p>Share your requirements and our sales team will get back to you.</p><form id="quickQuoteForm" onsubmit="handleQuickQuote(event)"><div class="form-row"><div class="form-group"><label for="qq_name">Full Name *</label><input type="text" id="qq_name" required placeholder="Your full name"></div><div class="form-group"><label for="qq_phone">Mobile Number *</label><input type="tel" id="qq_phone" required placeholder="Your Mobile Number"></div></div><div class="form-group"><label for="qq_email">Email Address <span style="font-weight:400;color:var(--text-light)">(optional)</span></label><input type="email" id="qq_email" placeholder="your@email.com"></div><div class="form-row"><div class="form-group"><label>Product Category *</label><div class="custom-select" id="cs_category" tabindex="0"><input type="hidden" id="qq_category" name="category" value=""><div class="custom-select-trigger"><span class="custom-select-text">Select category</span><i class="fas fa-chevron-down"></i></div><div class="custom-select-options"><div class="custom-select-option" data-value="freshners">Freshners</div><div class="custom-select-option" data-value="cleansers">Cleansers</div></div></div></div><div class="form-group"><label>Product *</label><div class="custom-select" id="cs_product" tabindex="0"><input type="hidden" id="qq_product" name="product" value=""><div class="custom-select-trigger"><span class="custom-select-text">Select category first</span><i class="fas fa-chevron-down"></i></div><div class="custom-select-options"></div></div></div></div><div class="form-row"><div class="form-group"><label for="qq_qty">Quantity / Litres *</label><input type="text" id="qq_qty" required placeholder="e.g. 5 litres, 10 units"></div><div class="form-group"><label for="qq_location">Delivery Location *</label><input type="text" id="qq_location" required placeholder="City / Area"></div></div><button type="submit" class="btn btn-primary" style="width:100%;justify-content:center"><i class="fas fa-paper-plane"></i> Submit Inquiry</button></form>';
+  return '<h2>Request a Quote</h2><p>Share your requirements and our sales team will get back to you.</p><form id="quickQuoteForm" onsubmit="handleQuickQuote(event)"><div class="form-row"><div class="form-group"><label for="qq_name">Full Name *</label><input type="text" id="qq_name" required placeholder="Your full name"></div><div class="form-group"><label for="qq_phone">Mobile Number *</label><input type="tel" id="qq_phone" required placeholder="Your Mobile Number"></div></div><div class="form-group"><label for="qq_email">Email Address <span style="font-weight:400;color:var(--text-light)">(optional)</span></label><input type="email" id="qq_email" placeholder="your@email.com"></div><div class="form-row"><div class="form-group"><label>Product Category</label><div class="custom-select" id="cs_category" tabindex="0"><input type="hidden" id="qq_category" name="category" value="all"><div class="custom-select-trigger"><span class="custom-select-text">All</span><i class="fas fa-chevron-down"></i></div><div class="custom-select-options"><div class="custom-select-option" data-value="all">All</div><div class="custom-select-option" data-value="freshners">Freshners</div><div class="custom-select-option" data-value="cleansers">Cleansers</div></div></div></div><div class="form-group"><label>Products</label><div class="custom-select multi-select" id="cs_product" tabindex="0"><input type="hidden" id="qq_product" name="product" value=""><div class="custom-select-trigger"><span class="custom-select-text">Select products</span><i class="fas fa-chevron-down"></i></div><div class="custom-select-options" id="qq_product_options"></div></div></div></div><div class="form-group"><label>Quantities</label><div id="qq_quantities"></div></div><div class="form-group"><label for="qq_location">Delivery Location *</label><input type="text" id="qq_location" required placeholder="City / Area"></div><div class="form-group"><label for="qq_pincode">Pincode *</label><input type="number" id="qq_pincode" required placeholder="Enter pincode" min="0" onkeypress="if(this.value.length>=6) return false" oninput="if(this.value.length>6) this.value=this.value.slice(0,6)"></div><button type="submit" class="btn btn-primary" style="width:100%;justify-content:center"><i class="fas fa-paper-plane"></i> Submit Inquiry</button></form>';
 }
 
 function setupQuoteFormFilter() {
-  var freshners = siteData.catalog.filter(function(p) { return p.category === 'freshners'; });
-  var cleansers = siteData.catalog.filter(function(p) { return p.category === 'cleansers'; });
+  var allProducts = siteData.catalog.map(function(p) { return { name: p.name + ' (' + p.flavor + ')', value: p.name + ' - ' + p.flavor, category: p.category }; });
+  var selectedProducts = [];
+
+  var prodSel = document.getElementById('cs_product');
+  var prodTrigger = prodSel ? prodSel.querySelector('.custom-select-trigger') : null;
+  var prodText = prodSel ? prodSel.querySelector('.custom-select-text') : null;
+  var prodOpts = document.getElementById('qq_product_options');
+  var prodHidden = document.getElementById('qq_product');
+
+  function renderProducts(cat) {
+    if (!prodOpts || !prodText) return;
+    var list = cat === 'all' ? allProducts : allProducts.filter(function(p) { return p.category === cat; });
+    prodOpts.innerHTML = list.map(function(p) {
+      var sel = selectedProducts.indexOf(p.value) !== -1;
+      return '<div class="custom-select-option' + (sel ? ' selected' : '') + '" data-value="' + p.value + '"><span class="multi-check">' + (sel ? '&#10003;' : '') + '</span>' + p.name + '</div>';
+    }).join('');
+    updateTriggerText();
+  }
+
+  function updateTriggerText() {
+    if (!prodText) return;
+    if (selectedProducts.length === 0) {
+      prodText.textContent = 'Select products';
+    } else {
+      prodText.textContent = selectedProducts.length + ' product' + (selectedProducts.length > 1 ? 's' : '') + ' selected';
+    }
+  }
+
+  function updateQuantities() {
+    var qtyContainer = document.getElementById('qq_quantities');
+    if (!qtyContainer) return;
+    if (selectedProducts.length === 0) {
+      qtyContainer.innerHTML = '<div style="font-size:0.85rem;color:var(--text-light);padding:4px 0">Select products above</div>';
+      return;
+    }
+    qtyContainer.innerHTML = selectedProducts.map(function(val) {
+      var name = allProducts.filter(function(p) { return p.value === val; })[0];
+      var label = name ? name.name : val;
+      return '<div class="form-group qty-row" style="margin-bottom:8px"><label style="font-size:0.82rem;font-weight:500;color:var(--text-dark)">' + label + '</label><input type="text" class="qq-qty" data-product="' + val.replace(/"/g, '&quot;') + '" required placeholder="e.g. 5 litres, 10 units"></div>';
+    }).join('');
+  }
+
+  function toggleProduct(val) {
+    var idx = selectedProducts.indexOf(val);
+    if (idx === -1) {
+      selectedProducts.push(val);
+    } else {
+      selectedProducts.splice(idx, 1);
+    }
+    renderProducts(document.getElementById('qq_category')?.value || 'all');
+    updateQuantities();
+  }
+
+  renderProducts('all');
 
   var selects = document.querySelectorAll('.custom-select');
   selects.forEach(function(s) {
@@ -1015,41 +1067,36 @@ function setupQuoteFormFilter() {
       e.stopPropagation();
       document.querySelectorAll('.custom-select.open').forEach(function(os) { if (os !== s) os.classList.remove('open'); });
       s.classList.toggle('open');
-      var modal = document.querySelector('.modal');
-      if (modal) modal.style.overflow = s.classList.contains('open') ? 'visible' : '';
     });
 
     options.addEventListener('click', function(e) {
       var opt = e.target.closest('.custom-select-option');
       if (!opt) return;
       var val = opt.dataset.value;
-      var text = opt.textContent;
-      s.querySelector('.custom-select-text').textContent = text;
-      hidden.value = val;
-      s.classList.remove('open');
-      var modal = document.querySelector('.modal');
-      if (modal) modal.style.overflow = '';
-      if (hidden.id === 'qq_category') updateProductOptions(val);
+      var hiddenId = hidden.id;
+      if (hiddenId === 'qq_category') {
+        var text = opt.textContent;
+        s.querySelector('.custom-select-text').textContent = text;
+        hidden.value = val;
+        s.classList.remove('open');
+        selectedProducts = [];
+        renderProducts(val);
+        updateQuantities();
+      }
     });
   });
 
+  if (prodOpts) {
+    prodOpts.addEventListener('click', function(e) {
+      var opt = e.target.closest('.custom-select-option');
+      if (!opt) return;
+      toggleProduct(opt.dataset.value);
+    });
+  }
+
   document.addEventListener('click', function() {
     document.querySelectorAll('.custom-select.open').forEach(function(os) { os.classList.remove('open'); });
-    var modal = document.querySelector('.modal');
-    if (modal) modal.style.overflow = '';
   });
-
-  function updateProductOptions(cat) {
-    var prodSel = document.getElementById('cs_product');
-    var prodOpts = prodSel ? prodSel.querySelector('.custom-select-options') : null;
-    var prodText = prodSel ? prodSel.querySelector('.custom-select-text') : null;
-    var prodHidden = document.getElementById('qq_product');
-    if (!prodOpts || !prodText || !prodHidden) return;
-    var list = cat === 'freshners' ? freshners : cat === 'cleansers' ? cleansers : [];
-    prodOpts.innerHTML = list.map(function(p) { return '<div class="custom-select-option" data-value="' + p.name + ' - ' + p.flavor + '">' + p.name + ' (' + p.flavor + ')</div>'; }).join('');
-    prodText.textContent = 'Select product';
-    prodHidden.value = '';
-  }
 }
 
 async function handleContact(e) {
@@ -1105,14 +1152,22 @@ async function handleQuickQuote(e) {
   btn.disabled = true;
   btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
 
+  var qtyInputs = document.querySelectorAll('.qq-qty');
+  var items = [];
+  qtyInputs.forEach(function(inp) {
+    if (inp.dataset.product && inp.value.trim()) {
+      items.push({ product: inp.dataset.product, quantity: inp.value.trim() });
+    }
+  });
+
   const data = {
     name: document.getElementById('qq_name').value,
     phone: document.getElementById('qq_phone').value,
     email: document.getElementById('qq_email').value || '',
-    product: document.getElementById('qq_product')?.value || '',
-    category: document.getElementById('qq_category')?.value || '',
-    quantity: document.getElementById('qq_qty')?.value || '',
-    location: document.getElementById('qq_location')?.value || ''
+    category: document.getElementById('qq_category')?.value || 'all',
+    items: items,
+    location: document.getElementById('qq_location')?.value || '',
+    pincode: document.getElementById('qq_pincode')?.value || ''
   };
 
   try {
@@ -1227,7 +1282,7 @@ function getJoinTeamForm() {
           <input type="tel" id="jt_phone" required placeholder="Your Mobile Number">
         </div>
         <div class="form-group">
-          <label for="jt_position">Position Applied For *</label>
+          <label for="jt_position">Position Appliying For *</label>
           <input type="text" id="jt_position" required placeholder="e.g. Sales Executive, Production">
         </div>
       </div>
@@ -1240,6 +1295,21 @@ function getJoinTeamForm() {
         <input type="text" id="jt_experience" required placeholder="e.g. 3, 5, nil">
       </div>
       <div class="form-group">
+        <label>Are you willing to travel? *</label>
+        <div class="custom-select" id="cs_travel" tabindex="0">
+          <input type="hidden" id="jt_travel" name="travel" value="">
+          <div class="custom-select-trigger">
+            <span class="custom-select-text">Select option</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="custom-select-options">
+            <div class="custom-select-option" data-value="Yes">Yes</div>
+            <div class="custom-select-option" data-value="No">No</div>
+            <div class="custom-select-option" data-value="Within City">Within City</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
         <label style="font-weight:600;color:var(--text-dark);margin-bottom:4px;display:block">Where are you from? *</label>
         <div class="form-row">
           <div class="form-group" style="margin-bottom:0">
@@ -1249,6 +1319,10 @@ function getJoinTeamForm() {
             <input type="text" id="jt_exp_state" required placeholder="State">
           </div>
         </div>
+      </div>
+      <div class="form-group">
+        <label for="jt_pincode">Pincode *</label>
+        <input type="number" id="jt_pincode" required placeholder="Enter pincode" min="0" onkeypress="if(this.value.length>=6) return false" oninput="if(this.value.length>6) this.value=this.value.slice(0,6)">
       </div>
 
       <div class="form-group">
@@ -1289,6 +1363,8 @@ function handleJoinTeam(e) {
     experience: document.getElementById('jt_experience').value,
     exp_city: document.getElementById('jt_exp_city').value,
     exp_state: document.getElementById('jt_exp_state').value,
+    travel: document.getElementById('jt_travel')?.value || '',
+    pincode: document.getElementById('jt_pincode').value,
     message: document.getElementById('jt_message').value
   };
 
@@ -1299,8 +1375,10 @@ function handleJoinTeam(e) {
   formData.append('position', data.position);
   formData.append('education', data.education);
   formData.append('experience', data.experience);
+  formData.append('travel', data.travel);
   formData.append('exp_city', data.exp_city);
   formData.append('exp_state', data.exp_state);
+  formData.append('pincode', data.pincode);
   formData.append('message', data.message);
   var resumeInput = document.getElementById('jt_resume');
   if (!resumeInput || !resumeInput.files[0]) {
@@ -1336,9 +1414,36 @@ function handleJoinTeam(e) {
   });
 }
 
+function initCustomSelect(s) {
+  var trigger = s.querySelector('.custom-select-trigger');
+  var options = s.querySelector('.custom-select-options');
+  var hidden = s.querySelector('input[type="hidden"]');
+  if (!trigger || !options || !hidden) return;
+
+  trigger.addEventListener('click', function(e) {
+    e.stopPropagation();
+    document.querySelectorAll('.custom-select.open').forEach(function(os) { if (os !== s) os.classList.remove('open'); });
+    s.classList.toggle('open');
+  });
+
+  options.addEventListener('click', function(e) {
+    var opt = e.target.closest('.custom-select-option');
+    if (!opt) return;
+    var val = opt.dataset.value;
+    var text = opt.textContent;
+    s.querySelector('.custom-select-text').textContent = text;
+    hidden.value = val;
+    s.classList.remove('open');
+  });
+}
+
 function openJoinTeamModal() {
   openModal(getJoinTeamForm());
   setTimeout(function() {
+    document.querySelectorAll('#joinTeamForm .custom-select').forEach(initCustomSelect);
+    document.addEventListener('click', function() {
+      document.querySelectorAll('.custom-select.open').forEach(function(os) { os.classList.remove('open'); });
+    });
     var input = document.getElementById('jt_resume');
     var removeBtn = document.getElementById('jtResumeRemove');
     if (input) {
