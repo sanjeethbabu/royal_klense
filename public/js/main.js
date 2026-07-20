@@ -228,8 +228,8 @@ function positionCarouselCards() {
 
   const isMobile = window.innerWidth < 768;
   const stageW = stage.offsetWidth;
-  const spreadFactor = Math.min(count / 11, 1);
-  const angleStep = spreadFactor * 360 / count;
+  const isAll = count > 11;
+  const angleStep = isAll ? 360 / count : 360 / 11;
   const cardWidth = visible[0]?.offsetWidth || 260;
   const minRadius = cardWidth / (2 * Math.sin(Math.PI / count));
   const stageRadius = isMobile ? Math.min(320, stageW * 0.38) : Math.min(500, stageW * 0.45);
@@ -238,11 +238,19 @@ function positionCarouselCards() {
   visible.forEach((card, i) => {
     const dist = Math.min(Math.abs(i - curVisibleIdx), count - Math.abs(i - curVisibleIdx));
     const isFrontThree = count <= 3 || dist <= 1;
-    const effAngle = i * angleStep - curVisibleIdx * angleStep;
+    let effAngle;
+    if (isAll) {
+      effAngle = i * angleStep - curVisibleIdx * angleStep;
+    } else {
+      const rawDiff = i - curVisibleIdx;
+      const absDiff = Math.abs(rawDiff);
+      const shortPathDir = absDiff <= count / 2 ? Math.sign(rawDiff) || 1 : -Math.sign(rawDiff);
+      effAngle = shortPathDir * dist * angleStep;
+    }
     const rad = effAngle * Math.PI / 180;
     const cos = Math.cos(rad);
     const scale = 0.4 + 0.6 * Math.max(0, cos);
-    card.style.transform = `translate(-50%, -50%) rotateY(${i * angleStep}deg) translateZ(${radius}px) scale(${scale})`;
+    card.style.transform = `translate(-50%, -50%) rotateY(${isAll ? i * angleStep : effAngle}deg) translateZ(${radius}px) scale(${scale})`;
     card.style.opacity = isFrontThree ? '1' : '0';
     card.style.pointerEvents = isFrontThree && cos > 0 ? 'auto' : 'none';
     const cardImg = card.querySelector('.catalog-card-img');
@@ -251,7 +259,7 @@ function positionCarouselCards() {
     card.classList.toggle('card-side', dist !== 0 && isFrontThree);
   });
 
-  track.style.transform = `rotateY(${-curVisibleIdx * angleStep}deg)`;
+  track.style.transform = `rotateY(${isAll ? -curVisibleIdx * angleStep : 0}deg)`;
 
   carouselCards.forEach(c => {
     if (c.classList.contains('card-hidden')) {
@@ -353,11 +361,9 @@ function setupCarousel() {
     stopAutoRotate();
     const visible = carouselCards.filter(c => !c.classList.contains('card-hidden'));
     const curIdx = visible.indexOf(carouselCards[carouselIndex]);
-    const prevIdx = curIdx - 1;
-    if (prevIdx >= 0) {
-      carouselIndex = carouselCards.indexOf(visible[prevIdx]);
-      positionCarouselCards();
-    }
+    const prevIdx = (curIdx - 1 + visible.length) % visible.length;
+    carouselIndex = carouselCards.indexOf(visible[prevIdx]);
+    positionCarouselCards();
   });
 
   document.getElementById('carouselNext')?.addEventListener('click', (e) => {
@@ -365,11 +371,9 @@ function setupCarousel() {
     stopAutoRotate();
     const visible = carouselCards.filter(c => !c.classList.contains('card-hidden'));
     const curIdx = visible.indexOf(carouselCards[carouselIndex]);
-    const nextIdx = curIdx + 1;
-    if (nextIdx < visible.length) {
-      carouselIndex = carouselCards.indexOf(visible[nextIdx]);
-      positionCarouselCards();
-    }
+    const nextIdx = (curIdx + 1) % visible.length;
+    carouselIndex = carouselCards.indexOf(visible[nextIdx]);
+    positionCarouselCards();
   });
 
   const images = Array.from(track.querySelectorAll('img'));
