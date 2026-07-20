@@ -7910,11 +7910,11 @@ img:hover {
 }
 
 .carousel-prev {
-  left: 16px;
+  left: -30px;
 }
 
 .carousel-next {
-  right: 16px;
+  right: -30px;
 }
 
 /* ── Carousel Dots ── */
@@ -8195,11 +8195,11 @@ img:hover {
   }
 
   .carousel-prev {
-    left: 2px;
+    left: -40px;
   }
 
   .carousel-next {
-    right: 2px;
+    right: -40px;
   }
 
   .carousel-dots {
@@ -8225,11 +8225,11 @@ img:hover {
 }
 
 .carousel-prev {
-  left: 4px;
+  left: -40px;
 }
 
 .carousel-next {
-  right: 4px;
+  right: -40px;
 }
 
 .carousel-dots {
@@ -8319,11 +8319,11 @@ img:hover {
   }
 
   .carousel-prev {
-    left: 4px;
+    left: -40px;
   }
 
   .carousel-next {
-    right: 4px;
+    right: -40px;
   }
 
 /* ═══════════════════════════════════════════
