@@ -1,75 +1,37 @@
-<%- include('partials/header', { title: 'Products', currentPage: 'products' }) %>
+<%- include('partials/header') %>
 
-  <section class="section page-hero" style="position:relative;overflow:hidden">
-    <div class="hero-transparent-img">
-      <img src="/images/WhatsApp%20Image%202026-06-23%20at%206.15.56%20PM.jpeg" alt="Royal Klense Products">
-    </div>
-    <div class="container" style="text-align:center;position:relative;z-index:2">
-      <span class="section-tag">Our Products</span>
-      <h1 class="section-title" style="font-size:3.5rem">Comprehensive Cleaning & Hygiene Solutions</h1>
-      <p class="section-desc" style="max-width:600px;margin:0 auto">From industrial-grade cleaners to premium hygiene essentials, we offer over 300 products across 12 categories.</p>
-    </div>
-  </section>
-
-  <section class="section products" style="padding-top:0">
-    <div class="container">
-      <div class="products-grid" id="productsGrid"></div>
-    </div>
-  </section>
-
-  <section class="section featured-products">
-    <div class="container">
-      <div class="section-header reveal-3d" data-delay="0">
-        <span class="section-tag">Top Selling</span>
-        <h2 class="section-title">Our Most Popular Products</h2>
-        <p class="section-desc">Trusted and preferred by industry leaders across sectors.</p>
+  <main class="products-page">
+    <div class="products-catalog-header">
+      <div class="latest-updates-wrap">
+        <button class="latest-updates-btn" id="latestUpdatesBtn">
+          <span class="latest-updates-btn-dot"></span>
+          Click for Latest Updates
+        </button>
       </div>
-      <div class="top-products-grid" id="topProductsGrid"></div>
-    </div>
-  </section>
-
-  <section class="manufacturing" style="padding:80px 0">
-    <div class="container">
-      <div class="section-header reveal-3d" data-delay="0">
-        <span class="section-tag">Manufacturing Excellence</span>
-        <h2 class="section-title">State-of-the-Art Production Facilities</h2>
-        <p class="section-desc">Our manufacturing processes adhere to international quality standards at every stage.</p>
+      <div class="products-catalog-explore">
+        <span class="explore-text">Explore our products</span>
       </div>
-      <div class="manufacturing-grid">
-        <div class="manufacturing-card reveal" data-delay="0">
-          <div class="manufacturing-icon"><i class="fas fa-industry"></i></div>
-          <h3>Modern Facility</h3>
-          <p>Spread across 50,000 sq. ft. with automated production lines and advanced quality control systems.</p>
-        </div>
-        <div class="manufacturing-card reveal" data-delay="100">
-          <div class="manufacturing-icon"><i class="fas fa-microscope"></i></div>
-          <h3>Quality Control</h3>
-          <p>Every batch undergoes rigorous testing in our in-house laboratory for consistency and safety.</p>
-        </div>
-        <div class="manufacturing-card reveal" data-delay="200">
-          <div class="manufacturing-icon"><i class="fas fa-dna"></i></div>
-          <h3>Research & Development</h3>
-          <p>Our R&D team develops innovative, eco-friendly formulations that exceed industry standards.</p>
-        </div>
-        <div class="manufacturing-card reveal" data-delay="300">
-          <div class="manufacturing-icon"><i class="fas fa-box"></i></div>
-          <h3>Premium Packaging</h3>
-          <p>We use high-quality, sustainable packaging that preserves product integrity and reduces environmental impact.</p>
-        </div>
+      <div class="filter-tabs">
+        <button class="filter-tab active" data-filter="all"><span>All Products</span></button>
+        <button class="filter-tab" data-filter="freshners"><span>Freshners</span></button>
+        <button class="filter-tab" data-filter="cleansers"><span>Cleansers</span></button>
       </div>
     </div>
-  </section>
+    <div id="productsCatalog" class="products-catalog-grid"></div>
+  </main>
 
-  <section class="section cta">
-    <div class="cta-overlay"></div>
-    <div class="container cta-container">
-      <h2 class="cta-title">Need a Custom Solution?</h2>
-      <p class="cta-text">Contact our team for customized product formulations tailored to your specific requirements.</p>
-      <div class="cta-actions">
-        <a href="/contact" class="btn btn-primary btn-lg btn-3d">Get a Quote <i class="fas fa-arrow-right"></i></a>
-        <a href="/contact" class="btn btn-outline btn-lg btn-3d">Contact Us</a>
-      </div>
+  <div class="pkg-popup-overlay" id="pkgPopupOverlay">
+    <div class="pkg-popup" id="pkgPopup">
+      <button class="pkg-popup-close" id="pkgPopupClose" aria-label="Close">&times;</button>
+      <div class="pkg-popup-icon"><i class="fas fa-box-open"></i></div>
+      <span class="pkg-popup-title">See What's New </span>
+
+      <ul class="pkg-popup-list">
+        <li>Cleaning products are available in <strong>5-litre</strong> and <strong>500-ml</strong> packages.</li>
+        <li>Air fresheners are available in <strong>5-litre</strong> and <strong>500-ml</strong> packages.</li>
+        <li>Toilet bowl cleansers are available in <strong>5-litre</strong> and <strong>500-ml</strong> packages.</li>
+      </ul>
     </div>
-  </section>
+  </div>
 
-<%- include('partials/footer') %>
+  <%- include('partials/footer') %>

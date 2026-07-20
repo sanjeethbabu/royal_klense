@@ -1,80 +1,76 @@
-const mysql = require('mysql2/promise');
-const fs = require('fs');
-const path = require('path');
+const { Pool } = require('pg');
 
 let pool = null;
 
 async function getPool() {
   if (pool) return pool;
 
-  if (process.env.DB_HOST && process.env.DB_USER && process.env.DB_NAME) {
-    pool = mysql.createPool({
-      host: process.env.DB_HOST,
-      port: parseInt(process.env.DB_PORT) || 3306,
-      user: process.env.DB_USER,
-      password: process.env.DB_PASS || '',
-      database: process.env.DB_NAME,
-      waitForConnections: true,
-      connectionLimit: 10,
+  if (process.env.SUPABASE_CONNECTION_STRING) {
+    pool = new Pool({
+      connectionString: process.env.SUPABASE_CONNECTION_STRING,
+      ssl: { rejectUnauthorized: false },
     });
-    console.log('MySQL connection pool created.');
+    console.log('Supabase/PostgreSQL connection pool created.');
   } else {
     pool = null;
   }
   return pool;
 }
 
-function saveToFile(dir, prefix, data) {
-  const logDir = path.join(__dirname, dir);
-  if (!fs.existsSync(logDir)) {
-    fs.mkdirSync(logDir, { recursive: true });
-  }
-  const filename = `${prefix}-${Date.now()}.json`;
-  fs.writeFileSync(path.join(logDir, filename), JSON.stringify(data, null, 2));
-  console.log(`${prefix} saved: ${filename}`);
-  return filename;
-}
-
-async function saveEnquiry({ name, company, phone, email, message, type }) {
+async function saveEnquiry(data) {
   const p = await getPool();
-  const record = { name, company, phone, email, message, type: type || 'contact', created_at: new Date().toISOString() };
-
-  if (p) {
-    try {
-      const [result] = await p.execute(
-        'INSERT INTO enquiries (name, company, phone, email, message, type) VALUES (?, ?, ?, ?, ?, ?)',
-        [name, company || null, phone || null, email, message, type || 'contact']
-      );
-      console.log(`Enquiry saved to DB, id: ${result.insertId}`);
-      return { id: result.insertId };
-    } catch (err) {
-      console.error('DB insert failed, falling back to file:', err.message);
-    }
+  if (!p) {
+    console.log('Supabase not configured, enquiry not saved.');
+    return { id: null };
   }
 
-  saveToFile('data', `enquiry-${type || 'contact'}`, record);
-  return { id: null };
+  try {
+    const { name, email, phone, company, message, type, position, education, experience, exp_city, exp_state, resume_name } = data;
+    const result = await p.query(
+      `INSERT INTO enquiries (name, email, phone, company, message, type, position, education, experience, city, state, resume_name)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+       RETURNING id`,
+      [
+        name || null,
+        email || null,
+        phone || null,
+        company || null,
+        message || null,
+        type || 'contact',
+        position || null,
+        education || null,
+        experience || null,
+        exp_city || null,
+        exp_state || null,
+        resume_name || null
+      ]
+    );
+    console.log(`Enquiry saved to Supabase, id: ${result.rows[0].id}`);
+    return { id: result.rows[0].id };
+  } catch (err) {
+    console.error('Supabase insert failed:', err.message);
+    return { id: null };
+  }
 }
 
 async function saveSubscriber(email) {
   const p = await getPool();
-  const record = { email, subscribedAt: new Date().toISOString() };
-
-  if (p) {
-    try {
-      const [result] = await p.execute(
-        'INSERT INTO subscribers (email) VALUES (?)',
-        [email]
-      );
-      console.log(`Subscriber saved to DB, id: ${result.insertId}`);
-      return { id: result.insertId };
-    } catch (err) {
-      console.error('DB insert failed, falling back to file:', err.message);
-    }
+  if (!p) {
+    console.log('Supabase not configured, subscriber not saved.');
+    return { id: null };
   }
 
-  saveToFile('data', 'subscriber', record);
-  return { id: null };
+  try {
+    const result = await p.query(
+      'INSERT INTO subscribers (email) VALUES ($1) RETURNING id',
+      [email]
+    );
+    console.log(`Subscriber saved to Supabase, id: ${result.rows[0].id}`);
+    return { id: result.rows[0].id };
+  } catch (err) {
+    console.error('Supabase insert failed:', err.message);
+    return { id: null };
+  }
 }
 
 module.exports = { getPool, saveEnquiry, saveSubscriber };

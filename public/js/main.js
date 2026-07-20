@@ -5,15 +5,15 @@ window.scrollTo(0, 0);
 
 const siteData = {
   products: [
-    { icon: 'fas fa-soap', name: 'Soap Oils & Cleaners', desc: 'Premium hand washes, body soaps, and multipurpose liquid cleaners for professional use.' },
+    { icon: 'fas fa-soap', name: 'Soap Oils & Cleansers', desc: 'Premium hand washes, body soaps, and multipurpose liquid cleansers for professional use.' },
     { icon: 'fas fa-tshirt', name: 'Laundry Essentials', desc: 'Industrial laundry detergents, fabric softeners, and stain removal solutions.' },
     { icon: 'fas fa-utensils', name: 'Kitchen Care', desc: 'Degreasers, dishwashing liquids, and kitchen surface sanitizers for commercial kitchens.' },
-    { icon: 'fas fa-broom', name: 'Floor Care', desc: 'Floor cleaners, polishes, and maintenance solutions for all surface types.' },
-    { icon: 'fas fa-shower', name: 'Bathroom Solutions', desc: 'Toilet cleaners, bathroom sprays, and descaling solutions for hygiene.' },
+    { icon: 'fas fa-broom', name: 'Floor Care', desc: 'Floor cleansers, polishes, and maintenance solutions for all surface types.' },
+    { icon: 'fas fa-shower', name: 'Bathroom Solutions', desc: 'Toilet cleansers, bathroom sprays, and descaling solutions for hygiene.' },
     { icon: 'fas fa-hand-sparkles', name: 'Hygiene Essentials', desc: 'Hand sanitizers, surface disinfectants, and infection control products.' },
-    { icon: 'fas fa-wind', name: 'Glass & Surface Care', desc: 'Streak-free glass cleaners and multi-surface polishing solutions.' },
+    { icon: 'fas fa-wind', name: 'Glass & Surface Care', desc: 'Streak-free glass cleansers and multi-surface polishing solutions.' },
     { icon: 'fas fa-vial', name: 'Specialty Products', desc: 'Specialized cleaning agents for industrial and institutional applications.' },
-    { icon: 'fas fa-trash-alt', name: 'Waste Management', desc: 'Odor control solutions, bin cleaners, and waste treatment chemicals.' },
+    { icon: 'fas fa-trash-alt', name: 'Waste Management', desc: 'Odor control solutions, bin cleansers, and waste treatment chemicals.' },
     { icon: 'fas fa-tools', name: 'Cleaning Accessories', desc: 'Dispensers, mops, buckets, and professional cleaning equipment.' }
   ],
   topProducts: [
@@ -32,7 +32,7 @@ const siteData = {
     { icon: 'fas fa-utensils', name: 'Restaurants & Catering', desc: 'Professional kitchen cleaning and sanitation solutions for food service.' },
     { icon: 'fas fa-school', name: 'Educational Institutions', desc: 'Safe and effective cleaning solutions for schools, colleges, and universities.' },
     { icon: 'fas fa-building', name: 'Corporate Offices', desc: 'Professional cleaning and hygiene products for workplace environments.' },
-    { icon: 'fas fa-industry', name: 'Manufacturing Industries', desc: 'Heavy-duty industrial cleaners and specialized maintenance chemicals.' },
+    { icon: 'fas fa-industry', name: 'Manufacturing Industries', desc: 'Heavy-duty industrial cleansers and specialized maintenance chemicals.' },
     { icon: 'fas fa-store', name: 'Commercial Buildings', desc: 'Complete facility management cleaning solutions for commercial properties.' },
     { icon: 'fas fa-chess', name: 'Facility Management', desc: 'Comprehensive cleaning programs tailored for facility management companies.' }
   ],
@@ -47,10 +47,28 @@ const siteData = {
     { icon: 'fas fa-headset', name: 'Technical Support', desc: 'Expert technical team providing application guidance and troubleshooting support.' }
   ],
   testimonials: [
-    { text: 'Royal Klense has been our trusted partner for over 5 years. Their products consistently meet our high standards for quality and reliability.', author: 'Rajesh Mehta', role: 'General Manager, Grand Palace Hotels' },
-    { text: 'The quality of their disinfectants and hygiene products is exceptional. Our infection control ratings have improved significantly since switching to Royal Klense.', author: 'Dr. Priya Sharma', role: 'Chief of Operations, City Healthcare Group' },
-    { text: 'Their customized cleaning solutions have transformed our facility management operations. Highly professional team with excellent product knowledge.', author: 'Amit Verma', role: 'Director, Elite Facility Management' },
-    { text: 'We have been sourcing laundry and kitchen chemicals from Royal Klense for our restaurant chain. Consistent quality and reliable supply chain.', author: 'Vikram Singh', role: 'Owner, Royal Hospitality Group' }
+    { text: 'Royal Klense has been our trusted partner for over 5 years. Their products consistently meet our high standards for quality and reliability.', author: 'Rajesh', role: 'General Manager, Grand Palace Hotels' },
+    { text: 'The quality of their disinfectants and hygiene products is exceptional. Our infection control ratings have improved significantly since switching to Royal Klense.', author: 'Dr. Priya', role: 'Chief of Operations, City Healthcare Group' },
+    { text: 'Their customized cleaning solutions have transformed our facility management operations. Highly professional team with excellent product knowledge.', author: 'Amit', role: 'Director, Elite Facility Management' },
+    { text: 'We have been sourcing laundry and kitchen chemicals from Royal Klense for our restaurant chain. Consistent quality and reliable supply chain.', author: 'Vikram', role: 'Owner, Royal Hospitality Group' }
+  ],
+  catalog: [
+    { code: 'F01', name: 'Liquid Room Freshner', flavor: 'Strawberry Shot', category: 'freshners', image: '/images/freshners/sberry_LF.png', desc: 'A sweet and fruity strawberry fragrance that fills the air with a fresh, delightful aroma perfect for any space.' },
+    { code: 'F02', name: 'Liquid Room Freshner', flavor: 'Fresh Flora', category: 'freshners', image: '/images/freshners/fresh_flora_LF.png', desc: 'A captivating floral fragrance that brings the essence of a blooming garden indoors with a long-lasting freshness.' },
+    { code: 'F03', name: 'Liquid Room Freshner', flavor: 'Millennium Lavender', category: 'freshners', image: '/images/freshners/lavender_LF.png', desc: 'A soothing lavender fragrance that promotes relaxation while keeping your space fresh and inviting.' },
+    { code: 'F04', name: 'Liquid Room Freshner', flavor: 'Citrus Zest', category: 'freshners', image: '/images/freshners/orange_lf.png', desc: 'A zesty citrus burst that energizes any room with its bright, uplifting orange fragrance.' },
+    { code: 'F05', name: 'Liquid Room Freshner', flavor: 'Earth Essence', category: 'freshners', image: '/images/freshners/earth_essence_lf.png', desc: 'An earthy, grounding fragrance that brings a natural, woody aroma to any space.' },
+    { code: 'C01', name: 'Multi-Purpose Cleaner', flavor: 'French Rose', category: 'cleansers', image: '/images/cleansers/multi_purpose_cleaner.png', desc: 'A versatile cleaning solution effective on all surfaces for daily professional cleaning needs.' },
+    { code: 'C02', name: 'Glass Cleaner', flavor: 'Original', category: 'cleansers', image: '/images/cleansers/glass_cleaner.png', desc: 'Streak-free formula that delivers brilliant shine on glass, mirrors, and reflective surfaces.' },
+    { code: 'C03', name: 'Disinfectant Surface Cleaner', flavor: 'Lemon Fresh', category: 'cleansers', image: '/images/cleansers/lemon_floor_cleaner.png', desc: 'Fresh lemon-scented disinfectant surface cleaning solution for all types of surfaces.' },
+    { code: 'C04', name: 'Disinfectant Surface Cleaner', flavor: 'Millennium Lavender', category: 'cleansers', image: '/images/cleansers/lavender_floor_cleaner.png', desc: 'Calming lavender-infused disinfectant surface cleaner that leaves surfaces sparkling clean with a soothing fragrance.' },
+    { code: 'C05', name: 'Disinfectant Surface Cleaner', flavor: 'Garden Bloom', category: 'cleansers', image: '/images/cleansers/garden_bloom_floor_cleaner.png', desc: 'A refreshing floral-scented disinfectant surface cleaner inspired by the freshness of a blooming garden.' },
+    { code: 'C06', name: 'Dishwash Liquid', flavor: 'Lemon Fresh', category: 'cleansers', image: '/images/cleansers/lemon_dishwash.png', desc: 'Powerful lemon-scented dishwashing liquid that cuts through grease and leaves dishes spotless.' },
+    { code: 'C07', name: 'Bathroom & Ceramic Cleaner', flavor: 'Mild & Gentle', category: 'cleansers', image: '/images/cleansers/bathroom_ceramic_cleaner.png', desc: 'Anti-bacterial formula designed for complete hygiene on bathroom surfaces, tiles, and ceramic fixtures.' },
+    { code: 'C08', name: 'Toilet Bowl Cleaner', flavor: 'Original', category: 'cleansers', image: '/images/cleansers/toiler_bowl_cleaner.png', desc: 'Powerful thick formula that removes tough stains and limescale while disinfecting toilet bowls.' },
+    { code: 'C09', name: 'Ultra Scale Remover', flavor: 'Original', category: 'cleansers', image: '/images/cleansers/ultra_remover.png', desc: 'Heavy-duty stain remover for stubborn marks, grime, and hard-to-clean surfaces.' },
+    { code: 'C10', name: 'Handwash', flavor: 'Royal Cream', category: 'cleansers', image: '/images/cleansers/handwash_royalcream.png', desc: 'Premium creamy handwash with moisturizers for a gentle yet effective cleansing experience.' },
+    { code: 'C11', name: 'Handwash', flavor: 'Strawberry Shot', category: 'cleansers', image: '/images/cleansers/handwash_strawberry.png', desc: 'A fruity strawberry-scented handwash that cleanses gently while leaving hands soft and fragrant.' }
   ]
 };
 
@@ -89,14 +107,442 @@ function closeModal() {
 
 function loadProducts() {
   const grid = document.getElementById('productsGrid');
+  const filterBar = document.getElementById('productsFilterBar');
+  if (!grid) return;
+
+  const gradients = [
+    'from-#C9A227-to-#9a7a1a', 'from-#0B1D3A-to-#17305c', 'from-#1a6b3c-to-#0f4d2a',
+    'from-#8B4513-to-#5c2d0a', 'from-#1a5276-to-#0e344e', 'from-#6c3483-to-#4a235a',
+    'from-#117a65-to-#0b5345', 'from-#b7950b-to-#7d6608', 'from-#922b21-to-#641e16',
+    'from-#2c3e50-to-#1a252f'
+  ];
+
+  const gradColors = [
+    ['#C9A227', '#9a7a1a'], ['#0B1D3A', '#17305c'], ['#1a6b3c', '#0f4d2a'],
+    ['#8B4513', '#5c2d0a'], ['#1a5276', '#0e344e'], ['#6c3483', '#4a235a'],
+    ['#117a65', '#0b5345'], ['#b7950b', '#7d6608'], ['#922b21', '#641e16'],
+    ['#2c3e50', '#1a252f']
+  ];
+
+  if (filterBar) {
+    const cats = siteData.products.map(p => p.name);
+    filterBar.innerHTML = `<button class="filter-btn active" data-filter="all">All Categories</button>` +
+      cats.map((c, i) => `<button class="filter-btn" data-filter="cat-${i}">${c}</button>`).join('');
+
+    filterBar.addEventListener('click', e => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+      filterBar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('.product-card').forEach(card => {
+        if (filter === 'all' || card.dataset.category === filter) {
+          card.style.display = '';
+          card.style.animation = 'none';
+          card.style.animationDelay = '';
+          void card.offsetHeight;
+          card.style.animation = 'cardFadeIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards';
+        } else {
+          card.style.animation = 'none';
+          card.style.display = 'none';
+        }
+      });
+    });
+  }
+
   grid.innerHTML = siteData.products.map((p, i) => `
-    <div class="product-card reveal" data-delay="${i * 80}" onclick="openProductModal('${p.name}', '${p.desc}')">
-      <div class="product-icon"><i class="${p.icon}"></i></div>
-      <h3>${p.name}</h3>
-      <p>${p.desc}</p>
-      <span class="product-link">Learn More <i class="fas fa-arrow-right"></i></span>
+    <div class="product-card enhanced-product-card" style="animation-delay: ${i * 0.08}s" data-category="cat-${i}" onclick="openProductModal('${p.name}', '${p.desc}')">
+      <div class="product-card-bg" style="background: linear-gradient(135deg, ${gradColors[i][0]}15, ${gradColors[i][1]}08)"></div>
+      <div class="product-card-shine"></div>
+      <div class="product-card-inner">
+        <div class="product-icon-wrap" style="background: linear-gradient(135deg, ${gradColors[i][0]}20, ${gradColors[i][1]}10); color: ${gradColors[i][0]}">
+          <i class="${p.icon}"></i>
+        </div>
+        <span class="product-badge" style="background: ${gradColors[i][0]}">${p.name.split(' ')[0]}</span>
+        <h3>${p.name}</h3>
+        <p>${p.desc}</p>
+        <span class="product-link">Explore Range <i class="fas fa-arrow-right"></i></span>
+      </div>
+      <div class="product-card-edge" style="background: linear-gradient(90deg, ${gradColors[i][0]}, ${gradColors[i][1]})"></div>
     </div>
   `).join('');
+}
+
+function loadProductCatalog() {
+  const grid = document.getElementById('productsCatalog');
+  if (!grid) return;
+
+  grid.innerHTML = `
+    <div class="carousel-container">
+      <button class="carousel-arrow carousel-prev" id="carouselPrev"><i class="fas fa-chevron-left"></i></button>
+      <div class="carousel-stage" id="carouselStage">
+        <div class="carousel-track" id="carouselTrack">
+           ${siteData.catalog.map((p, i) => `
+            <div class="catalog-card" data-index="${i}" data-category="${p.category}">
+              <div class="catalog-card-inner">
+                <div class="catalog-card-image-section">
+                  <img class="catalog-card-img" src="${p.image}" alt="${p.name}" loading="eager">
+                </div>
+                <div class="catalog-card-body">
+                  <span class="catalog-card-code">${p.code}</span>
+                  <span class="catalog-card-category">${p.category === 'freshners' ? 'Freshner' : 'Cleaner'}</span>
+                  <h3 class="catalog-card-name">${p.name}</h3>
+                  <span class="catalog-card-flavor">${p.flavor}</span>
+                  <button class="catalog-card-btn" type="button">Get Info <i class="fas fa-arrow-right"></i></button>
+                </div>
+              </div>
+            </div>`).join('')}
+        </div>
+      </div>
+      <button class="carousel-arrow carousel-next" id="carouselNext"><i class="fas fa-chevron-right"></i></button>
+      <div class="carousel-dots" id="carouselDots"></div>
+    </div>
+  `;
+
+  setupCarousel();
+  setupProductFilters();
+  setupLatestUpdatesBtn();
+}
+
+let carouselIndex = 0;
+let carouselTotal = 0;
+let carouselCards = [];
+let carouselInitialized = false;
+let autoRotateTimer = null;
+
+function positionCarouselCards() {
+  const track = document.getElementById('carouselTrack');
+  if (!track) return;
+  const stage = document.getElementById('carouselStage');
+  if (!stage) return;
+
+  const visible = carouselCards.filter(c => !c.classList.contains('card-hidden'));
+  const count = visible.length;
+  if (!count) return;
+
+  let curVisibleIdx = visible.indexOf(carouselCards[carouselIndex]);
+  if (curVisibleIdx < 0) {
+    carouselIndex = carouselCards.indexOf(visible[0]) || 0;
+    curVisibleIdx = 0;
+  }
+
+  const isMobile = window.innerWidth < 768;
+  const stageW = stage.offsetWidth;
+  const isAll = count > 11;
+  const angleStep = isAll ? 360 / count : 360 / 11;
+  const cardWidth = visible[0]?.offsetWidth || 260;
+  const minRadius = cardWidth / (2 * Math.sin(Math.PI / count));
+  const stageRadius = isMobile ? Math.min(320, Math.max(stageW * 0.38, 240)) : Math.min(500, stageW * 0.45);
+  const radius = Math.max(minRadius, stageRadius);
+
+  visible.forEach((card, i) => {
+    const dist = Math.min(Math.abs(i - curVisibleIdx), count - Math.abs(i - curVisibleIdx));
+    const isFrontThree = count <= 3 || dist <= 1;
+    let effAngle;
+    if (isAll) {
+      effAngle = i * angleStep - curVisibleIdx * angleStep;
+    } else {
+      const rawDiff = i - curVisibleIdx;
+      const absDiff = Math.abs(rawDiff);
+      const shortPathDir = absDiff <= count / 2 ? Math.sign(rawDiff) || 1 : -Math.sign(rawDiff);
+      effAngle = shortPathDir * dist * angleStep;
+    }
+    const rad = effAngle * Math.PI / 180;
+    const cos = Math.cos(rad);
+    const scale = 0.4 + 0.6 * Math.max(0, cos);
+    card.style.transform = `translate(-50%, -50%) rotateY(${isAll ? i * angleStep : effAngle}deg) translateZ(${radius}px) scale(${scale})`;
+    card.style.opacity = isFrontThree ? '1' : '0';
+    card.style.pointerEvents = isFrontThree && cos > 0 ? 'auto' : 'none';
+    const cardImg = card.querySelector('.catalog-card-img');
+    if (cardImg) cardImg.style.animationPlayState = dist === 0 ? '' : 'paused';
+    card.classList.toggle('card-center', dist === 0 && isFrontThree);
+    card.classList.toggle('card-side', dist !== 0 && isFrontThree);
+  });
+
+  track.style.transform = `rotateY(${isAll ? -curVisibleIdx * angleStep : 0}deg)`;
+
+  carouselCards.forEach(c => {
+    if (c.classList.contains('card-hidden')) {
+      c.style.position = '';
+      c.style.left = '';
+      c.style.top = '';
+      c.style.transform = '';
+      c.classList.remove('card-dimmed', 'card-center', 'card-side');
+    }
+  });
+
+  updateDots();
+}
+
+function updateDots() {
+  const container = document.getElementById('carouselDots');
+  if (!container) return;
+  const visible = carouselCards.filter(c => !c.classList.contains('card-hidden'));
+  const count = visible.length;
+  if (count <= 1) { container.innerHTML = ''; return; }
+
+  const curVisibleIdx = Math.max(0, visible.indexOf(carouselCards[carouselIndex]));
+
+  if (container.dataset.dotsCount !== String(count)) {
+    container.innerHTML = visible.map((_, i) =>
+      `<button class="carousel-dot${i === curVisibleIdx ? ' active' : ''}" data-idx="${i}"></button>`
+    ).join('');
+    container.dataset.dotsCount = String(count);
+
+    container.querySelectorAll('.carousel-dot').forEach(dot => {
+      dot.addEventListener('click', () => {
+        const idx = parseInt(dot.dataset.idx);
+        const v = carouselCards.filter(c => !c.classList.contains('card-hidden'));
+        if (idx >= 0 && idx < v.length) {
+          stopAutoRotate();
+          carouselIndex = carouselCards.indexOf(v[idx]);
+          positionCarouselCards();
+        }
+      });
+    });
+  } else {
+    container.querySelectorAll('.carousel-dot').forEach((dot, i) => {
+      dot.classList.toggle('active', i === curVisibleIdx);
+    });
+  }
+}
+
+function startAutoRotate() {
+  stopAutoRotate();
+  autoRotateTimer = setInterval(() => {
+    const btn = document.getElementById('carouselNext');
+    if (btn) btn.click();
+  }, 5000);
+}
+
+function stopAutoRotate() {
+  if (autoRotateTimer) {
+    clearInterval(autoRotateTimer);
+    autoRotateTimer = null;
+  }
+}
+
+function setupCarousel() {
+  const track = document.getElementById('carouselTrack');
+  if (!track) return;
+
+  carouselCards = [...track.querySelectorAll('.catalog-card')];
+  carouselTotal = carouselCards.length;
+
+  const visibleCards = carouselCards.filter(c => !c.classList.contains('card-hidden'));
+  if (visibleCards.length && !visibleCards.includes(carouselCards[carouselIndex])) {
+    carouselIndex = carouselCards.indexOf(visibleCards[0]);
+  }
+
+  carouselCards.forEach((card) => {
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('.catalog-card-btn')) return;
+      const visible = carouselCards.filter(c => !c.classList.contains('card-hidden'));
+      const idx = visible.indexOf(card);
+      if (idx === -1) return;
+      const curVisibleIdx = visible.indexOf(carouselCards[carouselIndex]);
+      if (idx === curVisibleIdx) return;
+      stopAutoRotate();
+      carouselIndex = carouselCards.indexOf(visible[idx]);
+      positionCarouselCards();
+    });
+    const btn = card.querySelector('.catalog-card-btn');
+    if (btn) {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const p = siteData.catalog[+card.dataset.index];
+        if (p) openCatalogModal(p.code, p.name, p.category, p.desc);
+      });
+    }
+  });
+
+  document.getElementById('carouselPrev')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    stopAutoRotate();
+    const visible = carouselCards.filter(c => !c.classList.contains('card-hidden'));
+    const curIdx = visible.indexOf(carouselCards[carouselIndex]);
+    const prevIdx = (curIdx - 1 + visible.length) % visible.length;
+    carouselIndex = carouselCards.indexOf(visible[prevIdx]);
+    positionCarouselCards();
+  });
+
+  document.getElementById('carouselNext')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    stopAutoRotate();
+    const visible = carouselCards.filter(c => !c.classList.contains('card-hidden'));
+    const curIdx = visible.indexOf(carouselCards[carouselIndex]);
+    const nextIdx = (curIdx + 1) % visible.length;
+    carouselIndex = carouselCards.indexOf(visible[nextIdx]);
+    positionCarouselCards();
+  });
+
+  const images = Array.from(track.querySelectorAll('img'));
+  const unloadedImages = images.filter(img => !img.complete);
+  if (unloadedImages.length) {
+    let loaded = 0;
+    unloadedImages.forEach(img => {
+      img.addEventListener('load', () => {
+        loaded += 1;
+        if (loaded === unloadedImages.length) {
+          requestAnimationFrame(positionCarouselCards);
+        }
+      }, { once: true });
+    });
+  }
+
+  track.style.transition = 'none';
+  carouselCards.forEach(c => c.style.transition = 'none');
+      requestAnimationFrame(() => {
+        positionCarouselCards();
+        track.style.transition = 'transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        carouselCards.forEach(c => c.style.transition = 'opacity 0.8s ease, transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)');
+      });
+      startAutoRotate();
+  window.addEventListener('resize', positionCarouselCards);
+
+  const container = document.querySelector('.carousel-container');
+  if (!container) return;
+
+  let touchStartX = 0;
+  let touchEndX = 0;
+  let isSwiping = false;
+
+  container.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+    touchEndX = touchStartX;
+    isSwiping = true;
+  }, { passive: true });
+
+  container.addEventListener('touchmove', (e) => {
+    if (!isSwiping) return;
+    touchEndX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  container.addEventListener('touchend', (e) => {
+    if (!isSwiping) return;
+    isSwiping = false;
+    if (e.target.closest('.catalog-card-btn') || e.target.closest('.carousel-arrow') || e.target.closest('.carousel-dot')) return;
+    const diff = touchStartX - touchEndX;
+    if (Math.abs(diff) > 60) {
+      if (diff > 0) {
+        document.getElementById('carouselNext')?.click();
+      } else {
+        document.getElementById('carouselPrev')?.click();
+      }
+    }
+  });
+
+  carouselInitialized = true;
+}
+
+function setupLatestUpdatesBtn() {
+  const btn = document.getElementById('latestUpdatesBtn');
+  const overlay = document.getElementById('pkgPopupOverlay');
+  const closeBtn = document.getElementById('pkgPopupClose');
+  if (!btn || !overlay || !closeBtn) return;
+
+  btn.addEventListener('click', () => {
+    overlay.classList.add('is-visible');
+    document.body.style.overflow = 'hidden';
+  });
+
+  function closePopup() {
+    overlay.classList.remove('is-visible');
+    document.body.style.overflow = '';
+  }
+
+  closeBtn.addEventListener('click', closePopup);
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closePopup();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && overlay.classList.contains('is-visible')) closePopup();
+  });
+}
+
+function setupProductFilters() {
+  const tabs = document.querySelector('.filter-tabs');
+  if (!tabs) return;
+
+  tabs.addEventListener('click', e => {
+    const tab = e.target.closest('.filter-tab');
+    if (!tab) return;
+
+    tabs.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+
+    const productsPage = document.querySelector('.products-page');
+    if (productsPage) {
+      productsPage.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    const filter = tab.dataset.filter;
+    const allCards = document.querySelectorAll('.catalog-card');
+    if (filter === 'all') {
+      carouselIndex = 0;
+    } else {
+      const firstMatch = [...allCards].findIndex(c => c.dataset.category === filter);
+      carouselIndex = firstMatch >= 0 ? firstMatch : 0;
+    }
+    stopAutoRotate();
+
+    const tr = document.getElementById('carouselTrack');
+    if (tr) {
+      tr.style.transition = 'none';
+      void tr.offsetHeight;
+    }
+
+    document.querySelectorAll('.catalog-card').forEach(card => {
+      const match = filter === 'all' || card.dataset.category === filter;
+      card.classList.toggle('card-hidden', !match);
+    });
+
+    requestAnimationFrame(() => {
+      if (tr) tr.style.transition = '';
+      positionCarouselCards();
+      startAutoRotate();
+    });
+  });
+}
+
+function openCatalogModal(code, name, category, desc) {
+  const catLabel = category === 'freshners' ? 'Freshner' : 'Cleaner';
+  const applications = category === 'freshners'
+    ? 'Ideal for use in hotels, offices, restrooms, lobbies, hospitals, and commercial spaces to maintain a pleasant and inviting atmosphere.'
+    : 'Suitable for daily use in kitchens, bathrooms, floors, glass surfaces, industrial areas, and institutional facilities.';
+
+  openModal(`
+    <div class="catalog-modal-content">
+      <span class="catalog-modal-badge">${catLabel}</span>
+      <h2 style="font-size:1.3rem;margin:4px 0 8px">${name}</h2>
+      <p style="font-size:0.92rem;color:var(--text-dark);line-height:1.6;margin-bottom:14px">${desc}</p>
+      <div style="background:var(--off-white);border-radius:10px;padding:12px 16px;margin-bottom:14px;text-align:left">
+        <p style="font-size:0.85rem;color:var(--text-light);margin:0;line-height:1.5;font-style:italic">${applications}</p>
+      </div>
+      <form id="quickQuoteForm" onsubmit="handleQuickQuote(event)">
+        <input type="hidden" id="qq_product" value="${name}">
+        <div class="form-row" style="gap:6px">
+          <div class="form-group" style="margin-bottom:0">
+            <input type="text" id="qq_name" required placeholder="Your name" style="padding:10px 12px;font-size:0.85rem">
+          </div>
+          <div class="form-group" style="margin-bottom:0">
+            <input type="email" id="qq_email" required placeholder="Your email" style="padding:10px 12px;font-size:0.85rem">
+          </div>
+        </div>
+        <div class="form-row" style="gap:6px;margin-top:6px">
+          <div class="form-group" style="margin-bottom:0">
+            <input type="tel" id="qq_phone" required placeholder="Phone number" style="padding:10px 12px;font-size:0.85rem">
+          </div>
+          <div class="form-group" style="margin-bottom:0">
+            <input type="text" id="qq_qty" placeholder="Qty / Litres" style="padding:10px 12px;font-size:0.85rem">
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:12px;padding:12px 20px">
+          <i class="fas fa-paper-plane"></i> Submit Inquiry
+        </button>
+      </form>
+    </div>
+  `);
 }
 
 function openProductModal(name, desc) {
@@ -137,6 +583,7 @@ function loadIndustries() {
 
 function loadFeatures() {
   const grid = document.getElementById('featuresGrid');
+  if (!grid) return;
   grid.innerHTML = siteData.features.map((f, i) => `
     <div class="feature-card reveal" data-delay="${i * 80}">
       <div class="feature-icon"><i class="${f.icon}"></i></div>
@@ -149,6 +596,7 @@ function loadFeatures() {
 function loadTestimonials() {
   const carousel = document.getElementById('testimonialsCarousel');
   const dots = document.getElementById('testimonialDots');
+  if (!carousel || !dots) return;
 
   carousel.innerHTML = siteData.testimonials.map((t, i) => `
     <div class="testimonial-card ${i === 0 ? 'active' : ''}" data-index="${i}">
@@ -181,6 +629,32 @@ function showTestimonial(index) {
 
 function startAutoTestimonial() {
   return setInterval(() => showTestimonial(currentTestimonial + 1), 5000);
+}
+
+function setupTestimonialControls() {
+  const prevBtn = document.getElementById('prevTestimonial');
+  const nextBtn = document.getElementById('nextTestimonial');
+  const dotsContainer = document.getElementById('testimonialDots');
+  if (!prevBtn || !nextBtn || !dotsContainer) return;
+
+  const autoTimer = startAutoTestimonial();
+
+  prevBtn.addEventListener('click', () => {
+    clearInterval(autoTimer);
+    showTestimonial(currentTestimonial - 1);
+  });
+
+  nextBtn.addEventListener('click', () => {
+    clearInterval(autoTimer);
+    showTestimonial(currentTestimonial + 1);
+  });
+
+  dotsContainer.addEventListener('click', (e) => {
+    if (e.target.classList.contains('testimonial-dot')) {
+      clearInterval(autoTimer);
+      showTestimonial(parseInt(e.target.dataset.index, 10));
+    }
+  });
 }
 
 function setupScrollReveal() {
@@ -226,7 +700,7 @@ function setupParallax() {
       });
       ticking = true;
     }
-  });
+  }, { passive: true });
 }
 
 function animateCounters() {
@@ -261,59 +735,60 @@ function animateCounters() {
   counters.forEach(c => observer.observe(c));
 }
 
+let navbarInitialized = false;
+
 function setupNavbar() {
+  if (navbarInitialized) return;
+  navbarInitialized = true;
+
   const navbar = document.getElementById('navbar');
   const navToggle = document.getElementById('navToggle');
   const navMenu = document.getElementById('navMenu');
+  const navBackdrop = document.getElementById('navBackdrop');
   const navLinks = document.querySelectorAll('.nav-link');
+
+  if (!navToggle || !navMenu) return;
 
   let tickingNav = false;
   window.addEventListener('scroll', () => {
     if (!tickingNav) {
       window.requestAnimationFrame(() => {
-        navbar.classList.toggle('scrolled', window.scrollY > 80);
+        navbar?.classList.toggle('scrolled', window.scrollY > 80);
         tickingNav = false;
       });
       tickingNav = true;
     }
+  }, { passive: true });
+
+  function setNavOpen(open) {
+    requestAnimationFrame(() => {
+      navToggle.classList.toggle('active', open);
+      navMenu.classList.toggle('active', open);
+      navBackdrop?.classList.toggle('active', open);
+      document.documentElement.classList.toggle('nav-open', open);
+      navToggle.setAttribute('aria-expanded', String(open));
+      navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      navMenu.setAttribute('aria-hidden', String(!open));
+    });
+  }
+
+  navToggle.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setNavOpen(!navMenu.classList.contains('active'));
   });
 
-  const navBackdrop = document.getElementById('navBackdrop');
-  let scrollPos = 0;
-
-  function lockScroll(lock) {
-    if (lock) {
-      scrollPos = window.scrollY;
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollPos}px`;
-      document.body.style.left = '0';
-      document.body.style.right = '0';
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.left = '';
-      document.body.style.right = '';
-      document.body.style.overflow = '';
-      window.scrollTo(0, scrollPos);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+      setNavOpen(false);
     }
-  }
-
-  function toggleNav(open) {
-    const isActive = open !== undefined ? open : !navMenu.classList.contains('active');
-    navToggle.classList.toggle('active', isActive);
-    navMenu.classList.toggle('active', isActive);
-    navBackdrop.classList.toggle('active', isActive);
-    lockScroll(isActive);
-  }
-
-  navToggle.addEventListener('click', () => {
-    toggleNav();
   });
 
   navLinks.forEach(link => {
     link.addEventListener('click', () => {
-      toggleNav(false);
+      if (navMenu.classList.contains('active')) {
+        setNavOpen(false);
+      }
     });
   });
 }
@@ -331,84 +806,301 @@ function setupModal() {
 function getContactForm() {
   return `
     <h2>Get in Touch</h2>
-    <p>Fill out the form below and our team will get back to you within 24 hours.</p>
-    <form id="contactForm" onsubmit="handleContact(event)">
-      <div class="form-row">
-        <div class="form-group">
-          <label for="cf_name">Full Name *</label>
-          <input type="text" id="cf_name" required placeholder="Your full name">
-        </div>
-        <div class="form-group">
-          <label for="cf_email">Email Address *</label>
-          <input type="email" id="cf_email" required placeholder="your@email.com">
-        </div>
+    <p>Choose how you'd like to reach us</p>
+    <div class="contact-options">
+      <div class="contact-option" onclick="showEmailOptions()" style="cursor:pointer">
+        <div class="contact-option-icon"><i class="fas fa-envelope"></i></div>
+        <span class="contact-option-label">Email</span>
       </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label for="cf_phone">Phone Number</label>
-          <input type="tel" id="cf_phone" placeholder="+91 98765 43210">
-        </div>
-        <div class="form-group">
-          <label for="cf_company">Company Name</label>
-          <input type="text" id="cf_company" placeholder="Your company">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="cf_message">Message *</label>
-        <textarea id="cf_message" required placeholder="Tell us about your requirements..."></textarea>
-      </div>
-      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">
-        <i class="fas fa-paper-plane"></i> Send Message
-      </button>
-    </form>
+      <a href="https://wa.me/916369311595?text=Hey%20Royal%20Klense%20team%20!%20I%20would%20like%20to%20know%20more%20details%20about%20your%20product.%20Could%20you%20please%20help%20me%20with%20that%20%3F" target="_blank" rel="noopener" class="contact-option">
+        <div class="contact-option-icon"><i class="fab fa-whatsapp"></i></div>
+        <span class="contact-option-label">WhatsApp</span>
+      </a>
+      <a href="tel:+916369311595" class="contact-option contact-option-phone">
+        <div class="contact-option-icon"><i class="fas fa-phone-alt" style="transform:scaleX(-1)"></i></div>
+        <span class="contact-option-label">Call</span>
+      </a>
+    </div>
   `;
 }
 
-function getQuoteForm() {
-  return `
-    <h2>Request a Quote</h2>
-    <p>Tell us what you need and our sales team will provide a customized quote.</p>
-    <form id="quoteForm" onsubmit="handleQuote(event)">
-      <div class="form-row">
-        <div class="form-group">
-          <label for="qf_name">Full Name *</label>
-          <input type="text" id="qf_name" required placeholder="Your full name">
-        </div>
-        <div class="form-group">
-          <label for="qf_email">Email Address *</label>
-          <input type="email" id="qf_email" required placeholder="your@email.com">
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label for="qf_phone">Phone Number</label>
-          <input type="tel" id="qf_phone" placeholder="+91 98765 43210">
-        </div>
-        <div class="form-group">
-          <label for="qf_company">Company Name</label>
-          <input type="text" id="qf_company" placeholder="Your company">
-        </div>
+function showEmailOptions() {
+  document.getElementById('modalBody').innerHTML = `
+    <h2>Compose Email</h2>
+    <p>Send directly from here</p>
+    <form id="composeForm" onsubmit="sendComposeMail(event)">
+      <div class="form-group">
+        <label for="compose_from">From *</label>
+        <input type="email" id="compose_from" required placeholder="Your email address">
       </div>
       <div class="form-group">
-        <label for="qf_product">Product Interested In *</label>
-        <select id="qf_product" required>
-          <option value="">Select a category...</option>
-          ${siteData.products.map(p => `<option value="${p.name}">${p.name}</option>`).join('')}
-        </select>
+        <label for="compose_to">To *</label>
+        <input type="email" id="compose_to" value="sanjeethbabumani@gmail.com" required placeholder="Recipient email address">
       </div>
       <div class="form-group">
-        <label for="qf_quantity">Estimated Quantity</label>
-        <input type="text" id="qf_quantity" placeholder="e.g., 100 litres, 50 kgs">
+        <label for="compose_cc">CC</label>
+        <input type="email" id="compose_cc" placeholder="CC email (optional)">
       </div>
       <div class="form-group">
-        <label for="qf_message">Additional Details</label>
-        <textarea id="qf_message" placeholder="Any specific requirements..."></textarea>
+        <label for="compose_subject">Subject *</label>
+        <input type="text" id="compose_subject" required placeholder="Email subject">
       </div>
-      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">
-        <i class="fas fa-file-invoice"></i> Request Quote
-      </button>
+      <div class="form-group">
+        <label>Body *</label>
+        <div style="border:1px solid #ddd;border-radius:8px;overflow:hidden">
+          <div style="display:flex;gap:2px;padding:4px 6px;background:#f5f5f5;border-bottom:1px solid #ddd;flex-wrap:wrap">
+            <button type="button" onclick="formatDoc('bold')" style="border:none;background:transparent;padding:4px 8px;cursor:pointer;border-radius:4px;font-weight:600;font-size:0.85rem" title="Bold"><b>B</b></button>
+            <button type="button" onclick="formatDoc('italic')" style="border:none;background:transparent;padding:4px 8px;cursor:pointer;border-radius:4px;font-style:italic;font-size:0.85rem" title="Italic"><i>I</i></button>
+            <button type="button" onclick="formatDoc('underline')" style="border:none;background:transparent;padding:4px 8px;cursor:pointer;border-radius:4px;text-decoration:underline;font-size:0.85rem" title="Underline"><u>U</u></button>
+            <span style="width:1px;height:20px;background:#ddd;margin:auto 4px"></span>
+            <button type="button" onclick="formatDoc('justifyLeft')" style="border:none;background:transparent;padding:4px 8px;cursor:pointer;border-radius:4px;font-size:0.85rem" title="Align Left"><i class="fas fa-align-left"></i></button>
+            <button type="button" onclick="formatDoc('justifyCenter')" style="border:none;background:transparent;padding:4px 8px;cursor:pointer;border-radius:4px;font-size:0.85rem" title="Center"><i class="fas fa-align-center"></i></button>
+            <button type="button" onclick="formatDoc('justifyRight')" style="border:none;background:transparent;padding:4px 8px;cursor:pointer;border-radius:4px;font-size:0.85rem" title="Align Right"><i class="fas fa-align-right"></i></button>
+            <span style="width:1px;height:20px;background:#ddd;margin:auto 4px"></span>
+            <button type="button" onclick="formatDoc('insertUnorderedList')" style="border:none;background:transparent;padding:4px 8px;cursor:pointer;border-radius:4px;font-size:0.85rem" title="Bullet List"><i class="fas fa-list-ul"></i></button>
+            <button type="button" onclick="formatDoc('insertOrderedList')" style="border:none;background:transparent;padding:4px 8px;cursor:pointer;border-radius:4px;font-size:0.85rem" title="Numbered List"><i class="fas fa-list-ol"></i></button>
+            <span style="width:1px;height:20px;background:#ddd;margin:auto 4px"></span>
+            <button type="button" onclick="formatDoc('hiliteColor')" style="border:none;background:transparent;padding:4px 8px;cursor:pointer;border-radius:4px;font-size:0.85rem;position:relative" title="Highlight"><i class="fas fa-highlighter"></i></button>
+          </div>
+          <div id="compose_body" contenteditable="true" style="min-height:150px;padding:10px;outline:none;font-size:0.9rem;line-height:1.5" oninput="checkBodyContent()"></div>
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:12px">
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+          <label for="compose_attachments" class="btn btn-outline" style="cursor:pointer;margin:0;font-size:0.85rem;padding:8px 16px">
+            <i class="fas fa-paperclip"></i> Attach Files
+          </label>
+          <input type="file" id="compose_attachments" multiple style="display:none" onchange="handleAttachFiles(this)">
+        </div>
+        <div id="compose_file_list" style="margin-top:8px;display:flex;flex-direction:column;gap:4px"></div>
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <button type="submit" class="btn btn-primary" style="flex:1;justify-content:center" id="composeSendBtn"><i class="fas fa-paper-plane"></i> Send Email</button>
+        <button type="button" class="btn btn-outline" onclick="sendViaOutlook()" style="flex:1;justify-content:center"><i class="fas fa-envelope"></i> Send via Outlook</button>
+      </div>
     </form>
+    <div style="text-align:center;margin-top:16px">
+      <button class="btn btn-outline" onclick="openModal(getContactForm())" style="font-size:0.85rem"><i class="fas fa-arrow-left"></i> Back</button>
+    </div>
   `;
+}
+
+function sendComposeMail(e) {
+  e.preventDefault();
+  var btn = document.getElementById('composeSendBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+
+  var formData = new FormData();
+  formData.append('from', document.getElementById('compose_from').value);
+  formData.append('to', document.getElementById('compose_to').value);
+  formData.append('cc', document.getElementById('compose_cc').value);
+  formData.append('subject', document.getElementById('compose_subject').value);
+  var bodyEl = document.getElementById('compose_body');
+  if (!bodyEl.textContent.trim()) {
+    showToast('Please write a message.', 'error');
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Email';
+    return;
+  }
+  formData.append('body', bodyEl.innerHTML);
+
+  if (composeAttachments.length > 0) {
+    for (var i = 0; i < composeAttachments.length; i++) {
+      formData.append('attachments', composeAttachments[i]);
+    }
+  }
+
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', '/api/send-email', true);
+  xhr.onload = function() {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Email';
+    var result = JSON.parse(xhr.responseText);
+    if (result.success) {
+      document.getElementById('modalBody').innerHTML = '<div class="form-success"><i class="fas fa-check-circle"></i><h3>Email Sent!</h3><p>Your email has been sent successfully.</p><button class="btn btn-primary" onclick="closeModal()" style="margin-top:16px">Close</button></div>';
+    } else {
+      showToast(result.error || 'Failed to send email.', 'error');
+    }
+  };
+  xhr.onerror = function() {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Email';
+    showToast('Network error. Please try again.', 'error');
+  };
+  xhr.send(formData);
+}
+
+function sendViaOutlook() {
+  var from = document.getElementById('compose_from').value;
+  var to = document.getElementById('compose_to').value;
+  var cc = document.getElementById('compose_cc').value;
+  var subject = document.getElementById('compose_subject').value;
+  var bodyEl = document.getElementById('compose_body');
+  var body = bodyEl.textContent.trim();
+  if (!from || !to || !subject || !body) {
+    showToast('Please fill in From, To, Subject, and Message.', 'error');
+    return;
+  }
+  var url = 'https://outlook.live.com/mail/0/deeplink/compose?to=' + encodeURIComponent(to) + '&cc=' + encodeURIComponent(cc) + '&subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+  window.open(url, '_blank');
+}
+
+function formatDoc(command) {
+  if (command === 'hiliteColor') {
+    var color = prompt('Enter highlight color (e.g. yellow, #ffff00):', 'yellow');
+    if (color) document.execCommand('hiliteColor', false, color);
+  } else {
+    document.execCommand(command, false, null);
+  }
+  document.getElementById('compose_body').focus();
+}
+
+function checkBodyContent() {
+  var el = document.getElementById('compose_body');
+  if (!el.textContent.trim()) {
+    el.setAttribute('data-empty', 'true');
+  } else {
+    el.removeAttribute('data-empty');
+  }
+}
+
+var composeAttachments = [];
+
+function handleAttachFiles(input) {
+  for (var i = 0; i < input.files.length; i++) {
+    composeAttachments.push(input.files[i]);
+  }
+  input.value = '';
+  renderAttachFiles();
+}
+
+function removeAttachFile(index) {
+  composeAttachments.splice(index, 1);
+  renderAttachFiles();
+}
+
+function renderAttachFiles() {
+  var list = document.getElementById('compose_file_list');
+  if (!list) return;
+  if (composeAttachments.length === 0) {
+    list.innerHTML = '<span style="font-size:0.82rem;color:var(--text-light)">No files chosen</span>';
+    return;
+  }
+  var html = '';
+  for (var i = 0; i < composeAttachments.length; i++) {
+    var size = (composeAttachments[i].size / 1024).toFixed(1);
+    html += '<div style="display:flex;align-items:center;gap:8px;padding:4px 8px;background:var(--light-gray);border-radius:6px;font-size:0.82rem">' +
+      '<i class="fas fa-file" style="color:var(--gold-dark);font-size:0.85rem"></i>' +
+      '<span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + composeAttachments[i].name + '</span>' +
+      '<span style="color:var(--text-light);font-size:0.75rem">' + size + ' KB</span>' +
+      '<button type="button" onclick="removeAttachFile(' + i + ')" style="background:none;border:none;color:#e74c3c;cursor:pointer;padding:2px;font-size:0.9rem" title="Remove">&times;</button>' +
+      '</div>';
+  }
+  list.innerHTML = html;
+}
+
+function getQuoteForm() {
+  return '<h2>Request a Quote</h2><p>Share your requirements and our sales team will get back to you.</p><form id="quickQuoteForm" onsubmit="handleQuickQuote(event)"><div class="form-row"><div class="form-group"><label for="qq_name">Full Name *</label><input type="text" id="qq_name" required placeholder="Your full name"></div><div class="form-group"><label for="qq_phone">Mobile Number *</label><input type="tel" id="qq_phone" required placeholder="Your Mobile Number"></div></div><div class="form-group"><label for="qq_email">Email Address <span style="font-weight:400;color:var(--text-light)">(optional)</span></label><input type="email" id="qq_email" placeholder="your@email.com"></div><div class="form-row"><div class="form-group"><label>Product Category</label><div class="custom-select" id="cs_category" tabindex="0"><input type="hidden" id="qq_category" name="category" value="all"><div class="custom-select-trigger"><span class="custom-select-text">All</span><i class="fas fa-chevron-down"></i></div><div class="custom-select-options"><div class="custom-select-option" data-value="all">All</div><div class="custom-select-option" data-value="freshners">Freshners</div><div class="custom-select-option" data-value="cleansers">Cleansers</div></div></div></div><div class="form-group"><label>Products</label><div class="custom-select multi-select" id="cs_product" tabindex="0"><input type="hidden" id="qq_product" name="product" value=""><div class="custom-select-trigger"><span class="custom-select-text">Select products</span><i class="fas fa-chevron-down"></i></div><div class="custom-select-options" id="qq_product_options"></div></div></div></div><div class="form-group"><label>Quantities</label><div id="qq_quantities"></div></div><div class="form-group"><label for="qq_location">Delivery Location *</label><input type="text" id="qq_location" required placeholder="City / Area"></div><div class="form-group"><label for="qq_pincode">Pincode *</label><input type="number" id="qq_pincode" required placeholder="Enter pincode" min="0" onkeypress="if(this.value.length>=6) return false" oninput="if(this.value.length>6) this.value=this.value.slice(0,6)"></div><button type="submit" class="btn btn-primary" style="width:100%;justify-content:center"><i class="fas fa-paper-plane"></i> Submit Inquiry</button></form>';
+}
+
+function setupQuoteFormFilter() {
+  var allProducts = siteData.catalog.map(function(p) { return { name: p.name + ' (' + p.flavor + ')', value: p.name + ' - ' + p.flavor, category: p.category }; });
+  var selectedProducts = [];
+
+  var prodSel = document.getElementById('cs_product');
+  var prodTrigger = prodSel ? prodSel.querySelector('.custom-select-trigger') : null;
+  var prodText = prodSel ? prodSel.querySelector('.custom-select-text') : null;
+  var prodOpts = document.getElementById('qq_product_options');
+  var prodHidden = document.getElementById('qq_product');
+
+  function renderProducts(cat) {
+    if (!prodOpts || !prodText) return;
+    var list = cat === 'all' ? allProducts : allProducts.filter(function(p) { return p.category === cat; });
+    prodOpts.innerHTML = list.map(function(p) {
+      var sel = selectedProducts.indexOf(p.value) !== -1;
+      return '<div class="custom-select-option' + (sel ? ' selected' : '') + '" data-value="' + p.value + '"><span class="multi-check">' + (sel ? '&#10003;' : '') + '</span>' + p.name + '</div>';
+    }).join('');
+    updateTriggerText();
+  }
+
+  function updateTriggerText() {
+    if (!prodText) return;
+    if (selectedProducts.length === 0) {
+      prodText.textContent = 'Select products';
+    } else {
+      prodText.textContent = selectedProducts.length + ' product' + (selectedProducts.length > 1 ? 's' : '') + ' selected';
+    }
+  }
+
+  function updateQuantities() {
+    var qtyContainer = document.getElementById('qq_quantities');
+    if (!qtyContainer) return;
+    if (selectedProducts.length === 0) {
+      qtyContainer.innerHTML = '<div style="font-size:0.85rem;color:var(--text-light);padding:4px 0">Select products above</div>';
+      return;
+    }
+    qtyContainer.innerHTML = selectedProducts.map(function(val) {
+      var name = allProducts.filter(function(p) { return p.value === val; })[0];
+      var label = name ? name.name : val;
+      return '<div class="form-group qty-row" style="margin-bottom:8px"><label style="font-size:0.82rem;font-weight:500;color:var(--text-dark)">' + label + '</label><input type="text" class="qq-qty" data-product="' + val.replace(/"/g, '&quot;') + '" required placeholder="e.g. 5 litres, 10 units"></div>';
+    }).join('');
+  }
+
+  function toggleProduct(val) {
+    var idx = selectedProducts.indexOf(val);
+    if (idx === -1) {
+      selectedProducts.push(val);
+    } else {
+      selectedProducts.splice(idx, 1);
+    }
+    renderProducts(document.getElementById('qq_category')?.value || 'all');
+    updateQuantities();
+  }
+
+  renderProducts('all');
+
+  var selects = document.querySelectorAll('.custom-select');
+  selects.forEach(function(s) {
+    var trigger = s.querySelector('.custom-select-trigger');
+    var options = s.querySelector('.custom-select-options');
+    var hidden = s.querySelector('input[type="hidden"]');
+    if (!trigger || !options || !hidden) return;
+
+    trigger.addEventListener('click', function(e) {
+      e.stopPropagation();
+      document.querySelectorAll('.custom-select.open').forEach(function(os) { if (os !== s) os.classList.remove('open'); });
+      s.classList.toggle('open');
+    });
+
+    options.addEventListener('click', function(e) {
+      var opt = e.target.closest('.custom-select-option');
+      if (!opt) return;
+      var val = opt.dataset.value;
+      var hiddenId = hidden.id;
+      if (hiddenId === 'qq_category') {
+        var text = opt.textContent;
+        s.querySelector('.custom-select-text').textContent = text;
+        hidden.value = val;
+        s.classList.remove('open');
+        selectedProducts = [];
+        renderProducts(val);
+        updateQuantities();
+      }
+    });
+  });
+
+  if (prodOpts) {
+    prodOpts.addEventListener('click', function(e) {
+      var opt = e.target.closest('.custom-select-option');
+      if (!opt) return;
+      toggleProduct(opt.dataset.value);
+    });
+  }
+
+  document.addEventListener('click', function() {
+    document.querySelectorAll('.custom-select.open').forEach(function(os) { os.classList.remove('open'); });
+  });
 }
 
 async function handleContact(e) {
@@ -455,6 +1147,63 @@ async function handleContact(e) {
     showToast('Network error. Please try again.', 'error');
     btn.disabled = false;
     btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+  }
+}
+
+async function handleQuickQuote(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('button[type="submit"]');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+
+  var qtyInputs = document.querySelectorAll('.qq-qty');
+  var items = [];
+  qtyInputs.forEach(function(inp) {
+    if (inp.dataset.product && inp.value.trim()) {
+      items.push({ product: inp.dataset.product, quantity: inp.value.trim() });
+    }
+  });
+
+  const data = {
+    name: document.getElementById('qq_name').value,
+    phone: document.getElementById('qq_phone').value,
+    email: document.getElementById('qq_email').value || '',
+    category: document.getElementById('qq_category')?.value || 'all',
+    items: items,
+    location: document.getElementById('qq_location')?.value || '',
+    pincode: document.getElementById('qq_pincode')?.value || ''
+  };
+
+  try {
+    const res = await fetch(`${API_BASE}/api/quote`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    const result = await res.json();
+    if (result.success) {
+      const waBtn = result.waLink ? `<a href="${result.waLink}" target="_blank" class="btn btn-whatsapp" style="margin-top:12px;width:100%;justify-content:center">
+        <i class="fab fa-whatsapp"></i> Notify Us on WhatsApp
+      </a>` : '';
+      document.getElementById('modalBody').innerHTML = `
+        <div class="form-success">
+          <i class="fas fa-check-circle"></i>
+          <h3>Inquiry Submitted!</h3>
+          <p>${result.message}</p>
+          ${waBtn}
+          <button class="btn btn-primary" onclick="closeModal()" style="margin-top:12px">Close</button>
+        </div>
+      `;
+      showToast('Inquiry submitted!', 'success');
+    } else {
+      showToast(result.error || 'Something went wrong.', 'error');
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Inquiry';
+    }
+  } catch (err) {
+    showToast('Network error. Please try again.', 'error');
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Inquiry';
   }
 }
 
@@ -513,6 +1262,308 @@ function openContactModal() {
 
 function openQuoteModal() {
   openModal(getQuoteForm());
+  setTimeout(setupQuoteFormFilter, 50);
+}
+
+function getJoinTeamForm() {
+  return `
+    <h2>Join Our Team</h2>
+    <p>Interested in building a career with Royal Klense? Share your details and our HR team will reach out.</p>
+    <form id="joinTeamForm" onsubmit="handleJoinTeam(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="jt_name">Full Name *</label>
+          <input type="text" id="jt_name" required placeholder="Your full name">
+        </div>
+        <div class="form-group">
+          <label for="jt_email">Email Address *</label>
+          <input type="email" id="jt_email" required placeholder="your@email.com">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="jt_phone">Mobile Number *</label>
+          <input type="tel" id="jt_phone" required placeholder="Your Mobile Number">
+        </div>
+        <div class="form-group">
+          <label for="jt_position">Position Appliying For *</label>
+          <input type="text" id="jt_position" required placeholder="e.g. Sales Executive, Production">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="jt_education">Education *</label>
+        <input type="text" id="jt_education" required placeholder="e.g. B.Sc Chemistry, MBA">
+      </div>
+      <div class="form-group">
+        <label for="jt_experience">Years of Experience * <span style="font-weight:400;color:var(--text-light)">(type "nil" if fresher)</span></label>
+        <input type="text" id="jt_experience" required placeholder="e.g. 3, 5, nil">
+      </div>
+      <div class="form-group">
+        <label>Are you willing to travel? *</label>
+        <div class="custom-select" id="cs_travel" tabindex="0">
+          <input type="hidden" id="jt_travel" name="travel" value="">
+          <div class="custom-select-trigger">
+            <span class="custom-select-text">Select option</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="custom-select-options">
+            <div class="custom-select-option" data-value="Yes">Yes</div>
+            <div class="custom-select-option" data-value="No">No</div>
+            <div class="custom-select-option" data-value="Within City">Within City</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label style="font-weight:600;color:var(--text-dark);margin-bottom:4px;display:block">Where are you from? *</label>
+        <div class="form-row">
+          <div class="form-group" style="margin-bottom:0">
+            <input type="text" id="jt_exp_city" required placeholder="City">
+          </div>
+          <div class="form-group" style="margin-bottom:0">
+            <input type="text" id="jt_exp_state" required placeholder="State">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="jt_pincode">Pincode *</label>
+        <input type="number" id="jt_pincode" required placeholder="Enter pincode" min="0" onkeypress="if(this.value.length>=6) return false" oninput="if(this.value.length>6) this.value=this.value.slice(0,6)">
+      </div>
+
+      <div class="form-group">
+        <label for="jt_message">Tell Us About Yourself *</label>
+        <textarea id="jt_message" required placeholder="Your experience, skills, and why you'd like to join Royal Klense..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>Upload Resume (PDF only) *</label>
+        <div class="file-upload-wrap">
+          <input type="file" id="jt_resume" accept=".pdf,application/pdf" required>
+          <div class="file-upload-box">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <span class="file-upload-text">Choose Resume PDF</span>
+            <span class="file-upload-hint">or drag & drop</span>
+          </div>
+          <button type="button" class="file-upload-remove" id="jtResumeRemove" title="Remove file" style="display:none"><i class="fas fa-times"></i></button>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">
+        <i class="fas fa-paper-plane"></i> Submit Application
+      </button>
+    </form>
+  `;
+}
+
+function handleJoinTeam(e) {
+  e.preventDefault();
+  var btn = e.target.querySelector('button[type="submit"]');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+
+  var data = {
+    name: document.getElementById('jt_name').value,
+    email: document.getElementById('jt_email').value,
+    phone: document.getElementById('jt_phone').value,
+    position: document.getElementById('jt_position').value,
+    education: document.getElementById('jt_education').value,
+    experience: document.getElementById('jt_experience').value,
+    exp_city: document.getElementById('jt_exp_city').value,
+    exp_state: document.getElementById('jt_exp_state').value,
+    travel: document.getElementById('jt_travel')?.value || '',
+    pincode: document.getElementById('jt_pincode').value,
+    message: document.getElementById('jt_message').value
+  };
+
+  var formData = new FormData();
+  formData.append('name', data.name);
+  formData.append('email', data.email);
+  formData.append('phone', data.phone);
+  formData.append('position', data.position);
+  formData.append('education', data.education);
+  formData.append('experience', data.experience);
+  formData.append('travel', data.travel);
+  formData.append('exp_city', data.exp_city);
+  formData.append('exp_state', data.exp_state);
+  formData.append('pincode', data.pincode);
+  formData.append('message', data.message);
+  var resumeInput = document.getElementById('jt_resume');
+  if (!resumeInput || !resumeInput.files[0]) {
+    showToast('Please upload your resume (PDF only).', 'error');
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Application';
+    return;
+  }
+  if (resumeInput.files[0].type !== 'application/pdf') {
+    showToast('Only PDF files are supported.', 'error');
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Application';
+    return;
+  }
+  formData.append('resume', resumeInput.files[0]);
+
+  fetch(API_BASE + '/api/contact', {
+    method: 'POST',
+    body: formData
+  }).then(function(r) { return r.json(); }).then(function(result) {
+    if (result.success) {
+      document.getElementById('modalBody').innerHTML = '<div class="form-success"><i class="fas fa-check-circle"></i><h3>Thank You for Your Application!</h3><p>Your application has been submitted successfully.</p><p style="font-size:0.88rem;color:var(--text-light);margin-top:8px">Our recruitment team will review your information and reach out if your profile is shortlisted. We appreciate the time you\'ve taken to apply and look forward to learning more about you.</p><p style="font-size:0.85rem;color:var(--text-light);margin-top:10px;padding-top:10px;border-top:1px solid rgba(201,162,39,0.15)">If you have any questions, feel free to <a href="mailto:sanjeethbabumani@gmail.com" style="color:var(--gold-dark);font-weight:600;text-decoration:none">email us</a> or call <a href="tel:+916369311595" style="color:var(--gold-dark);font-weight:600;text-decoration:none">+91 6369311595</a>.</p><button class="btn btn-primary" onclick="closeModal()" style="margin-top:16px">Close</button></div>';
+      showToast('Application submitted!', 'success');
+    } else {
+      showToast(result.error || 'Something went wrong.', 'error');
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Application';
+    }
+  }).catch(function() {
+    showToast('Network error. Please try again.', 'error');
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Application';
+  });
+}
+
+function initCustomSelect(s) {
+  var trigger = s.querySelector('.custom-select-trigger');
+  var options = s.querySelector('.custom-select-options');
+  var hidden = s.querySelector('input[type="hidden"]');
+  if (!trigger || !options || !hidden) return;
+
+  trigger.addEventListener('click', function(e) {
+    e.stopPropagation();
+    document.querySelectorAll('.custom-select.open').forEach(function(os) { if (os !== s) os.classList.remove('open'); });
+    s.classList.toggle('open');
+  });
+
+  options.addEventListener('click', function(e) {
+    var opt = e.target.closest('.custom-select-option');
+    if (!opt) return;
+    var val = opt.dataset.value;
+    var text = opt.textContent;
+    s.querySelector('.custom-select-text').textContent = text;
+    hidden.value = val;
+    s.classList.remove('open');
+  });
+}
+
+function openJoinTeamModal() {
+  openModal(getJoinTeamForm());
+  setTimeout(function() {
+    document.querySelectorAll('#joinTeamForm .custom-select').forEach(initCustomSelect);
+    document.addEventListener('click', function() {
+      document.querySelectorAll('.custom-select.open').forEach(function(os) { os.classList.remove('open'); });
+    });
+    var input = document.getElementById('jt_resume');
+    var removeBtn = document.getElementById('jtResumeRemove');
+    if (input) {
+      input.addEventListener('change', function() {
+        if (this.files[0] && this.files[0].type !== 'application/pdf') {
+          showToast('Only PDF files are supported.', 'error');
+          this.value = '';
+          if (removeBtn) removeBtn.style.display = 'none';
+          var text = this.closest('.file-upload-wrap').querySelector('.file-upload-text');
+          if (text) text.textContent = 'Choose Resume PDF';
+          return;
+        }
+        var text = this.closest('.file-upload-wrap').querySelector('.file-upload-text');
+        if (text) text.textContent = this.files[0] ? this.files[0].name : 'Choose Resume PDF';
+        if (removeBtn) removeBtn.style.display = this.files[0] ? 'flex' : 'none';
+      });
+    }
+    if (removeBtn) {
+      removeBtn.addEventListener('click', function() {
+        var wrap = this.closest('.file-upload-wrap');
+        if (!wrap) return;
+        var input = wrap.querySelector('input[type="file"]');
+        var text = wrap.querySelector('.file-upload-text');
+        if (input) { input.value = ''; }
+        if (text) { text.textContent = 'Choose Resume PDF'; }
+        this.style.display = 'none';
+      });
+    }
+  }, 50);
+}
+
+function scrollToHash() {
+  const hash = window.location.hash;
+  if (!hash) return;
+  const target = document.querySelector(hash);
+  if (!target) return;
+  setTimeout(() => {
+    const navHeight = document.getElementById('navbar')?.offsetHeight || 80;
+    const top = target.getBoundingClientRect().top + window.scrollY - navHeight - 16;
+    window.scrollTo({ top, behavior: 'smooth' });
+  }, 100);
+}
+
+function setupHeroVideo() {
+  const video = document.getElementById('heroVideo');
+  if (!video) return;
+  const START_SEC = 1;
+
+  function tryPlay() {
+    video.play().catch(function() {
+      document.addEventListener('touchstart', function playOnTouch() {
+        video.play();
+        document.removeEventListener('touchstart', playOnTouch);
+      }, { once: true });
+    });
+  }
+
+  function showVideo() {
+    video.classList.add('ready');
+  }
+
+  function seekAndPlay() {
+    if (Math.abs((video.currentTime || 0) - START_SEC) > 0.05) {
+      video.currentTime = START_SEC;
+      video.addEventListener('seeked', function onSeeked() {
+        video.removeEventListener('seeked', onSeeked);
+        tryPlay();
+      });
+    } else {
+      tryPlay();
+    }
+  }
+
+  video.addEventListener('playing', showVideo);
+  video.addEventListener('loadeddata', showVideo);
+
+  video.addEventListener('loadedmetadata', seekAndPlay);
+
+  video.addEventListener('ended', function() {
+    video.currentTime = START_SEC;
+    video.addEventListener('seeked', function onEndSeek() {
+      video.removeEventListener('seeked', onEndSeek);
+      tryPlay();
+    });
+  });
+
+  window.addEventListener('pageshow', function(e) {
+    if (e.persisted) {
+      video.currentTime = START_SEC;
+      video.addEventListener('seeked', function onPageSeek() {
+        video.removeEventListener('seeked', onPageSeek);
+        tryPlay();
+      });
+    }
+  });
+
+  if (video.readyState >= 2) {
+    seekAndPlay();
+  }
+
+  const heroScroll = document.getElementById('heroScroll');
+  const about = document.querySelector('#about');
+  if (!about) return;
+
+  var userScrolled = false;
+  function onScroll() { userScrolled = true; window.removeEventListener('scroll', onScroll); }
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  setTimeout(function() {
+    window.removeEventListener('scroll', onScroll);
+    if (userScrolled) return;
+    const navHeight = document.getElementById('navbar')?.offsetHeight || 80;
+    const top = about.getBoundingClientRect().top + window.scrollY - navHeight - 16;
+    window.scrollTo({ top, behavior: 'smooth' });
+    if (heroScroll) heroScroll.style.display = 'none';
+  }, 12000);
 }
 
 function setupHeroCarousel() {
@@ -543,7 +1594,7 @@ function setupHeroCarousel() {
         current = (current + 1) % slides.length;
         slides[current].classList.add('active');
         dots[current].classList.add('active');
-      }, 5000);
+  }, 4000);
     });
   });
 }
@@ -703,6 +1754,11 @@ function setup3DGeometrics() {
   });
 }
 
+// Debug helper: highlight elements wider than the viewport (run in dev only)
+window.addEventListener('load', () => {
+  // No debug overflow highlight on production pages.
+});
+
 function setupHeroParticles() {
   const hero = document.querySelector('.hero');
   if (!hero || window.innerWidth < 768) return;
@@ -754,8 +1810,8 @@ function setupScrollProgress() {
     const h = document.documentElement;
     const scrollTop = h.scrollTop || document.body.scrollTop;
     const scrollHeight = h.scrollHeight - h.clientHeight;
-    const progress = (scrollTop / scrollHeight) * 100;
-    bar.style.width = progress + '%';
+    const progress = (scrollTop / scrollHeight);
+    bar.style.transform = 'scaleX(' + progress + ')';
   }, { passive: true });
 }
 
@@ -822,78 +1878,287 @@ function setupScroll3DParallax() {
           stat.style.transform = `translateY(${sy * rate}px)`;
         });
 
-        document.querySelectorAll('.footer').forEach(footer => {
-          const rect = footer.getBoundingClientRect();
-          if (rect.top < window.innerHeight) {
-            const progress = 1 - (rect.top / window.innerHeight);
-            footer.style.transform = `translateZ(${progress * -10}px)`;
-          }
-        });
-
         ticking = false;
       });
       ticking = true;
     }
+  }, { passive: true });
+}
+
+/* ═══════════════════════════════════════════
+   REF.MD 3D CAROUSEL
+   ═══════════════════════════════════════════ */
+const refProducts = [
+  { name: 'Liquid Fresh', category: 'Fresh Flora', scent: 'Strawberry Scent', color: '#FCE4EC', accent: '#E91E63' },
+  { name: 'Room Freshener', category: 'Floral Collection', scent: 'Fresh Floral Scent', color: '#F3E5F5', accent: '#9C27B0' },
+  { name: 'Multi-Purpose Cleaner', category: 'Original', scent: 'Original Scent', color: '#E3F2FD', accent: '#1976D2' },
+  { name: 'Glass/Surface Cleaner', category: 'Original', scent: 'Original Scent', color: '#E8F5E9', accent: '#388E3C' }
+];
+let refIndex = 0;
+let refCards = [];
+let refAutoTimer = null;
+const refRadius = 400;
+
+function loadRefCarousel() {
+  const container = document.getElementById('refCarousel');
+  if (!container) return;
+  container.innerHTML = `
+    <div class="ref-wrapper">
+      <div class="ref-header">
+        <h2 class="ref-title">Royal Klense</h2>
+        <p class="ref-subtitle">Premium Cleaning Solutions</p>
+      </div>
+      <div class="ref-carousel">
+        <button class="ref-arrow ref-prev" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
+        <div class="ref-stage" id="refStage">
+          <div class="ref-track" id="refTrack">
+            ${refProducts.map((p, i) => `
+            <div class="ref-card" data-index="${i}">
+              <span class="ref-badge" style="background:${p.accent}">0${i + 1}</span>
+              <div class="ref-bottle">
+                <div class="ref-bottle-cap" style="background:${p.accent}"></div>
+                <div class="ref-bottle-body" style="background:${p.color}">
+                  <div class="ref-label">
+                    <span class="ref-category">${p.category}</span>
+                    <h3 class="ref-name">${p.name}</h3>
+                    <span class="ref-scent">${p.scent}</span>
+                  </div>
+                </div>
+              </div>
+              <button class="ref-btn">GET INFO</button>
+            </div>`).join('')}
+          </div>
+        </div>
+        <button class="ref-arrow ref-next" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
+      </div>
+      <div class="ref-dots" id="refDots">
+        ${refProducts.map((_, i) => `<button class="ref-dot${i === 0 ? ' active' : ''}" data-idx="${i}"></button>`).join('')}
+      </div>
+    </div>`;
+  setupRefCarousel();
+}
+
+function setupRefCarousel() {
+  const track = document.getElementById('refTrack');
+  const stage = document.getElementById('refStage');
+  if (!track || !stage) return;
+  refCards = [...track.querySelectorAll('.ref-card')];
+  const total = refCards.length;
+  const angleStep = 360 / total;
+
+  function updateCards() {
+    refCards.forEach((card, i) => {
+      const effAngle = i * angleStep - refIndex * angleStep;
+      const rad = effAngle * Math.PI / 180;
+      const cos = Math.cos(rad);
+      const scale = 0.4 + 0.6 * Math.max(0, cos);
+      card.style.transform = `translate(-50%, -50%) rotateY(${i * angleStep}deg) translateZ(${refRadius}px) scale(${scale})`;
+      card.style.opacity = cos > -0.1 ? (0.25 + 0.75 * Math.max(0, cos)).toFixed(2) : '0.15';
+      card.style.pointerEvents = cos > 0 ? 'auto' : 'none';
+    });
+    track.style.transform = `rotateY(${-refIndex * angleStep}deg)`;
+    document.querySelectorAll('.ref-dot').forEach((d, i) => d.classList.toggle('active', i === refIndex));
+  }
+
+  document.querySelector('.ref-prev')?.addEventListener('click', () => { refIndex = (refIndex - 1 + total) % total; updateCards(); resetRefRotate(); });
+  document.querySelector('.ref-next')?.addEventListener('click', () => { refIndex = (refIndex + 1) % total; updateCards(); resetRefRotate(); });
+  document.querySelectorAll('.ref-dot').forEach(dot => dot.addEventListener('click', () => {
+    const idx = parseInt(dot.dataset.idx);
+    if (idx >= 0 && idx < total) { refIndex = idx; updateCards(); resetRefRotate(); }
+  }));
+
+  function startRefRotate() { stopRefRotate(); refAutoTimer = setInterval(() => { refIndex = (refIndex + 1) % total; updateCards(); }, 4000); }
+  function stopRefRotate() { if (refAutoTimer) { clearInterval(refAutoTimer); refAutoTimer = null; } }
+  function resetRefRotate() { stopRefRotate(); startRefRotate(); }
+
+  const wrapper = document.querySelector('.ref-wrapper');
+  wrapper?.addEventListener('mouseenter', stopRefRotate);
+  wrapper?.addEventListener('mouseleave', startRefRotate);
+
+  refCards.forEach(c => c.style.transition = 'none');
+  track.style.transition = 'none';
+  refCards.forEach((card, i) => {
+    const baseAngle = i * angleStep;
+    card.style.transform = `translate(-50%, -50%) rotateY(${baseAngle}deg) translateZ(${refRadius}px)`;
+  });
+  updateCards();
+  refCards.forEach(c => c.style.transition = 'opacity 0.8s ease, transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)');
+  track.style.transition = 'transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)';
+  startRefRotate();
+}
+
+function loadPageContent() {
+  if (document.getElementById('productsGrid')) loadProducts();
+  if (document.getElementById('productsCatalog')) loadProductCatalog();
+  if (document.getElementById('refCarousel')) loadRefCarousel();
+  if (document.getElementById('industriesGridTop') || document.getElementById('industriesGridBottom')) loadIndustries();
+  if (document.getElementById('featuresGrid')) loadFeatures();
+  if (document.getElementById('topProductsGrid')) loadFeaturedProducts();
+  if (document.getElementById('videoGrid')) loadVideoTestimonials();
+  if (document.getElementById('testimonialsCarousel')) loadTestimonials();
+}
+
+function triggerInViewReveals() {
+  document.querySelectorAll('.reveal-3d, .reveal-3d-left, .reveal-3d-right, .reveal-3d-scale, .reveal').forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.92 && rect.bottom > 0) {
+      el.classList.add('visible');
+    }
   });
 }
 
-function init() {
-  setTimeout(() => {
-    document.getElementById('loader').classList.add('hidden');
-    document.body.style.overflow = '';
-    window.scrollTo({ top: 0, behavior: 'instant' });
+function runDeferredEffects() {
+  const page = document.body.dataset.page || 'home';
+  const isHome = page === 'home';
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    loadProducts();
-    loadIndustries();
-    loadFeatures();
-    loadFeaturedProducts();
-    loadVideoTestimonials();
-    loadTestimonials();
+  setupScrollReveal();
+  enhance3DScrollReveal();
+  triggerInViewReveals();
+  animateCounters();
+  setupScrollProgress();
+
+  if (document.getElementById('testimonialsCarousel')) {
+    setupTestimonialControls();
+  }
+
+  if (reduceMotion || window.innerWidth < 768) {
+    triggerInViewReveals();
+    return;
+  }
+
+  setTimeout(() => {
+    setupTilt3D();
+    if (isHome) {
+      setupParallax();
+      setupHeroParticles();
+      setup3DCubes();
+      setupHero3DDepth();
+      setupScroll3DParallax();
+      setup3DGeometrics();
+    }
+  }, 80);
+}
+
+const LOADER_MIN_MS = 2500;
+const LOADER_MAX_MS = 2500;
+
+function bindCtaButtons() {
+  document.querySelector('.cta .btn-primary')?.addEventListener('click', (e) => {
+    if (e.currentTarget.getAttribute('onclick')) return;
+    e.preventDefault();
+    openQuoteModal();
+  });
+
+  document.querySelector('.cta .btn-outline')?.addEventListener('click', (e) => {
+    if (e.currentTarget.getAttribute('onclick')) return;
+    e.preventDefault();
+    openContactModal();
+  });
+}
+
+function hideLoader() {
+  const loader = document.getElementById('loader');
+  if (!loader || loader.classList.contains('hidden')) return;
+
+  loader.classList.add('exiting');
+  loader.setAttribute('aria-hidden', 'true');
+
+  animateTextReveal();
+  setupScrollTextReveal();
+  setTimeout(() => {
+    loader.classList.add('hidden');
+    document.body.classList.add('rk-reveal');
+    document.body.classList.remove('is-loading');
+    document.body.style.overflow = '';
+    setTimeout(function() {
+      document.body.classList.remove('rk-reveal');
+    }, 550);
+    if (!window.location.hash) {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+    requestAnimationFrame(() => {
+      runDeferredEffects();
+      scrollToHash();
+    });
+  }, 600);
+}
+
+let loaderFinished = false;
+
+function finishLoading() {
+  if (loaderFinished) return;
+  loaderFinished = true;
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const minMs = reduceMotion ? 200 : LOADER_MIN_MS;
+  const elapsed = performance.now() - (window.__pageLoadStart || 0);
+  const remaining = Math.max(0, minMs - elapsed);
+  setTimeout(hideLoader, remaining);
+}
+
+var rkTextIdx = 0;
+
+function revealText(el, idx) {
+  if (el.classList.contains('rk-revealed')) return;
+  el.classList.add('rk-revealed');
+  var isShort = (el.textContent || '').trim().length < 60;
+  el.classList.add(isShort ? 'rk-text-reveal' : 'rk-text-fade');
+  el.style.animationDelay = ((idx || rkTextIdx++) * 20) + 'ms';
+}
+
+function animateTextReveal() {
+  rkTextIdx = 0;
+  document.querySelectorAll(
+    '.hero-title, .hero-subtitle, .section-title, .section-tag, .section-desc, ' +
+    '.nav-link, .nav-logo, .cta-title, .cta-text, ' +
+    '.page-hero .section-title, .page-hero .section-tag, .page-hero .section-desc, ' +
+    '.about-text'
+  ).forEach(function(el) { revealText(el); });
+}
+
+function setupScrollTextReveal() {}
+
+function init() {
+  var isFast = document.documentElement.classList.contains('rk-fast');
+
+  if (isFast) {
+    loadPageContent();
     setupNavbar();
     setupModal();
-    setupScrollReveal();
-    setupParallax();
-    animateCounters();
-
-    setupTilt3D();
-    setup3DGeometrics();
-    setupHeroParticles();
-    setup3DCubes();
-    setupScrollProgress();
-    enhance3DScrollReveal();
-    setupHero3DDepth();
-    setupScroll3DParallax();
-
-    const autoTimer = startAutoTestimonial();
-
-    document.getElementById('prevTestimonial').addEventListener('click', () => {
-      clearInterval(autoTimer);
-      showTestimonial(currentTestimonial - 1);
+    setupHeroVideo();
+    bindCtaButtons();
+    animateTextReveal();
+    setupScrollTextReveal();
+    requestAnimationFrame(function() {
+      runDeferredEffects();
+      scrollToHash();
     });
+    setTimeout(function() {
+      document.body.classList.remove('is-loading');
+      document.body.style.overflow = '';
+    }, 480);
+    return;
+  }
 
-    document.getElementById('nextTestimonial').addEventListener('click', () => {
-      clearInterval(autoTimer);
-      showTestimonial(currentTestimonial + 1);
-    });
+  window.__pageLoadStart = performance.now();
 
-    document.getElementById('testimonialDots').addEventListener('click', (e) => {
-      if (e.target.classList.contains('testimonial-dot')) {
-        clearInterval(autoTimer);
-        showTestimonial(parseInt(e.target.dataset.index));
-      }
-    });
+  document.body.classList.add('is-loading');
+  document.body.style.overflow = 'hidden';
 
-    document.querySelector('.cta .btn-primary')?.addEventListener('click', (e) => {
-      e.preventDefault();
-      openQuoteModal();
-    });
+  loadPageContent();
+  setupNavbar();
+  setupModal();
+  setupHeroVideo();
+  bindCtaButtons();
 
-    document.querySelector('.cta .btn-outline')?.addEventListener('click', (e) => {
-      e.preventDefault();
-      openContactModal();
-    });
+  if (document.readyState === 'complete') {
+    finishLoading();
+  } else {
+    window.addEventListener('load', finishLoading, { once: true });
+  }
 
-  }, 3000);
+  setTimeout(finishLoading, LOADER_MAX_MS);
 }
 
 document.addEventListener('DOMContentLoaded', init);
