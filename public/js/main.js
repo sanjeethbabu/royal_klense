@@ -5,15 +5,15 @@ window.scrollTo(0, 0);
 
 const siteData = {
   products: [
-    { icon: 'fas fa-soap', name: 'Soap Oils & Cleaners', desc: 'Premium hand washes, body soaps, and multipurpose liquid cleaners for professional use.' },
+    { icon: 'fas fa-soap', name: 'Soap Oils & Cleansers', desc: 'Premium hand washes, body soaps, and multipurpose liquid cleansers for professional use.' },
     { icon: 'fas fa-tshirt', name: 'Laundry Essentials', desc: 'Industrial laundry detergents, fabric softeners, and stain removal solutions.' },
     { icon: 'fas fa-utensils', name: 'Kitchen Care', desc: 'Degreasers, dishwashing liquids, and kitchen surface sanitizers for commercial kitchens.' },
-    { icon: 'fas fa-broom', name: 'Floor Care', desc: 'Floor cleaners, polishes, and maintenance solutions for all surface types.' },
-    { icon: 'fas fa-shower', name: 'Bathroom Solutions', desc: 'Toilet cleaners, bathroom sprays, and descaling solutions for hygiene.' },
+    { icon: 'fas fa-broom', name: 'Floor Care', desc: 'Floor cleansers, polishes, and maintenance solutions for all surface types.' },
+    { icon: 'fas fa-shower', name: 'Bathroom Solutions', desc: 'Toilet cleansers, bathroom sprays, and descaling solutions for hygiene.' },
     { icon: 'fas fa-hand-sparkles', name: 'Hygiene Essentials', desc: 'Hand sanitizers, surface disinfectants, and infection control products.' },
-    { icon: 'fas fa-wind', name: 'Glass & Surface Care', desc: 'Streak-free glass cleaners and multi-surface polishing solutions.' },
+    { icon: 'fas fa-wind', name: 'Glass & Surface Care', desc: 'Streak-free glass cleansers and multi-surface polishing solutions.' },
     { icon: 'fas fa-vial', name: 'Specialty Products', desc: 'Specialized cleaning agents for industrial and institutional applications.' },
-    { icon: 'fas fa-trash-alt', name: 'Waste Management', desc: 'Odor control solutions, bin cleaners, and waste treatment chemicals.' },
+    { icon: 'fas fa-trash-alt', name: 'Waste Management', desc: 'Odor control solutions, bin cleansers, and waste treatment chemicals.' },
     { icon: 'fas fa-tools', name: 'Cleaning Accessories', desc: 'Dispensers, mops, buckets, and professional cleaning equipment.' }
   ],
   topProducts: [
@@ -32,7 +32,7 @@ const siteData = {
     { icon: 'fas fa-utensils', name: 'Restaurants & Catering', desc: 'Professional kitchen cleaning and sanitation solutions for food service.' },
     { icon: 'fas fa-school', name: 'Educational Institutions', desc: 'Safe and effective cleaning solutions for schools, colleges, and universities.' },
     { icon: 'fas fa-building', name: 'Corporate Offices', desc: 'Professional cleaning and hygiene products for workplace environments.' },
-    { icon: 'fas fa-industry', name: 'Manufacturing Industries', desc: 'Heavy-duty industrial cleaners and specialized maintenance chemicals.' },
+    { icon: 'fas fa-industry', name: 'Manufacturing Industries', desc: 'Heavy-duty industrial cleansers and specialized maintenance chemicals.' },
     { icon: 'fas fa-store', name: 'Commercial Buildings', desc: 'Complete facility management cleaning solutions for commercial properties.' },
     { icon: 'fas fa-chess', name: 'Facility Management', desc: 'Comprehensive cleaning programs tailored for facility management companies.' }
   ],
@@ -47,25 +47,25 @@ const siteData = {
     { icon: 'fas fa-headset', name: 'Technical Support', desc: 'Expert technical team providing application guidance and troubleshooting support.' }
   ],
   testimonials: [
-    { text: 'Royal Klense has been our trusted partner for over 5 years. Their products consistently meet our high standards for quality and reliability.', author: 'Rajesh Mehta', role: 'General Manager, Grand Palace Hotels' },
-    { text: 'The quality of their disinfectants and hygiene products is exceptional. Our infection control ratings have improved significantly since switching to Royal Klense.', author: 'Dr. Priya Sharma', role: 'Chief of Operations, City Healthcare Group' },
-    { text: 'Their customized cleaning solutions have transformed our facility management operations. Highly professional team with excellent product knowledge.', author: 'Amit Verma', role: 'Director, Elite Facility Management' },
-    { text: 'We have been sourcing laundry and kitchen chemicals from Royal Klense for our restaurant chain. Consistent quality and reliable supply chain.', author: 'Vikram Singh', role: 'Owner, Royal Hospitality Group' }
+    { text: 'Royal Klense has been our trusted partner for over 5 years. Their products consistently meet our high standards for quality and reliability.', author: 'Rajesh', role: 'General Manager, Grand Palace Hotels' },
+    { text: 'The quality of their disinfectants and hygiene products is exceptional. Our infection control ratings have improved significantly since switching to Royal Klense.', author: 'Dr. Priya', role: 'Chief of Operations, City Healthcare Group' },
+    { text: 'Their customized cleaning solutions have transformed our facility management operations. Highly professional team with excellent product knowledge.', author: 'Amit', role: 'Director, Elite Facility Management' },
+    { text: 'We have been sourcing laundry and kitchen chemicals from Royal Klense for our restaurant chain. Consistent quality and reliable supply chain.', author: 'Vikram', role: 'Owner, Royal Hospitality Group' }
   ],
   catalog: [
     { code: 'F01', name: 'Liquid Room Freshner', flavor: 'Strawberry Shot', category: 'freshners', image: '/images/freshners/sberry_LF.png', desc: 'A sweet and fruity strawberry fragrance that fills the air with a fresh, delightful aroma perfect for any space.' },
     { code: 'F02', name: 'Liquid Room Freshner', flavor: 'Fresh Flora', category: 'freshners', image: '/images/freshners/fresh_flora_LF.png', desc: 'A captivating floral fragrance that brings the essence of a blooming garden indoors with a long-lasting freshness.' },
-    { code: 'C01', name: 'Multi-Purpose Cleaner', flavor: 'French Rose', category: 'cleaners', image: '/images/cleaners/multi_purpose_cleaner.png', desc: 'A versatile cleaning solution effective on all surfaces for daily professional cleaning needs.' },
-    { code: 'C02', name: 'Glass Cleaner', flavor: 'Original', category: 'cleaners', image: '/images/cleaners/glass_cleaner.png', desc: 'Streak-free formula that delivers brilliant shine on glass, mirrors, and reflective surfaces.' },
-    { code: 'C03', name: 'Disinfectant Surface Cleaner', flavor: 'Lemon Fresh', category: 'cleaners', image: '/images/cleaners/lemon_floor_cleaner.png', desc: 'Fresh lemon-scented disinfectant surface cleaning solution for all types of surfaces.' },
-    { code: 'C04', name: 'Disinfectant Surface Cleaner', flavor: 'Millennium Lavender', category: 'cleaners', image: '/images/cleaners/lavender_floor_cleaner.png', desc: 'Calming lavender-infused disinfectant surface cleaner that leaves surfaces sparkling clean with a soothing fragrance.' },
-    { code: 'C05', name: 'Disinfectant Surface Cleaner', flavor: 'Garden Bloom', category: 'cleaners', image: '/images/cleaners/garden_bloom_floor_cleaner.png', desc: 'A refreshing floral-scented disinfectant surface cleaner inspired by the freshness of a blooming garden.' },
-    { code: 'C06', name: 'Dishwash Liquid', flavor: 'Lemon Fresh', category: 'cleaners', image: '/images/cleaners/lemon_dishwash.png', desc: 'Powerful lemon-scented dishwashing liquid that cuts through grease and leaves dishes spotless.' },
-    { code: 'C07', name: 'Bathroom & Ceramic Cleaner', flavor: 'Mild & Gentle', category: 'cleaners', image: '/images/cleaners/bathroom_ceramic_cleaner.png', desc: 'Anti-bacterial formula designed for complete hygiene on bathroom surfaces, tiles, and ceramic fixtures.' },
-    { code: 'C08', name: 'Toilet Bowl Cleaner', flavor: 'Original', category: 'cleaners', image: '/images/cleaners/toiler_bowl_cleaner.png', desc: 'Powerful thick formula that removes tough stains and limescale while disinfecting toilet bowls.' },
-    { code: 'C09', name: 'Ultra Scale Remover', flavor: 'Original', category: 'cleaners', image: '/images/cleaners/ultra_remover.png', desc: 'Heavy-duty stain remover for stubborn marks, grime, and hard-to-clean surfaces.' },
-    { code: 'C10', name: 'Handwash', flavor: 'Royal Cream', category: 'cleaners', image: '/images/cleaners/handwash_royalcream.png', desc: 'Premium creamy handwash with moisturizers for a gentle yet effective cleansing experience.' },
-    { code: 'C11', name: 'Handwash', flavor: 'Strawberry Shot', category: 'cleaners', image: '/images/cleaners/handwash_strawberry.png', desc: 'A fruity strawberry-scented handwash that cleanses gently while leaving hands soft and fragrant.' }
+    { code: 'C01', name: 'Multi-Purpose Cleaner', flavor: 'French Rose', category: 'cleansers', image: '/images/cleansers/multi_purpose_cleaner.png', desc: 'A versatile cleaning solution effective on all surfaces for daily professional cleaning needs.' },
+    { code: 'C02', name: 'Glass Cleaner', flavor: 'Original', category: 'cleansers', image: '/images/cleansers/glass_cleaner.png', desc: 'Streak-free formula that delivers brilliant shine on glass, mirrors, and reflective surfaces.' },
+    { code: 'C03', name: 'Disinfectant Surface Cleaner', flavor: 'Lemon Fresh', category: 'cleansers', image: '/images/cleansers/lemon_floor_cleaner.png', desc: 'Fresh lemon-scented disinfectant surface cleaning solution for all types of surfaces.' },
+    { code: 'C04', name: 'Disinfectant Surface Cleaner', flavor: 'Millennium Lavender', category: 'cleansers', image: '/images/cleansers/lavender_floor_cleaner.png', desc: 'Calming lavender-infused disinfectant surface cleaner that leaves surfaces sparkling clean with a soothing fragrance.' },
+    { code: 'C05', name: 'Disinfectant Surface Cleaner', flavor: 'Garden Bloom', category: 'cleansers', image: '/images/cleansers/garden_bloom_floor_cleaner.png', desc: 'A refreshing floral-scented disinfectant surface cleaner inspired by the freshness of a blooming garden.' },
+    { code: 'C06', name: 'Dishwash Liquid', flavor: 'Lemon Fresh', category: 'cleansers', image: '/images/cleansers/lemon_dishwash.png', desc: 'Powerful lemon-scented dishwashing liquid that cuts through grease and leaves dishes spotless.' },
+    { code: 'C07', name: 'Bathroom & Ceramic Cleaner', flavor: 'Mild & Gentle', category: 'cleansers', image: '/images/cleansers/bathroom_ceramic_cleaner.png', desc: 'Anti-bacterial formula designed for complete hygiene on bathroom surfaces, tiles, and ceramic fixtures.' },
+    { code: 'C08', name: 'Toilet Bowl Cleaner', flavor: 'Original', category: 'cleansers', image: '/images/cleansers/toiler_bowl_cleaner.png', desc: 'Powerful thick formula that removes tough stains and limescale while disinfecting toilet bowls.' },
+    { code: 'C09', name: 'Ultra Scale Remover', flavor: 'Original', category: 'cleansers', image: '/images/cleansers/ultra_remover.png', desc: 'Heavy-duty stain remover for stubborn marks, grime, and hard-to-clean surfaces.' },
+    { code: 'C10', name: 'Handwash', flavor: 'Royal Cream', category: 'cleansers', image: '/images/cleansers/handwash_royalcream.png', desc: 'Premium creamy handwash with moisturizers for a gentle yet effective cleansing experience.' },
+    { code: 'C11', name: 'Handwash', flavor: 'Strawberry Shot', category: 'cleansers', image: '/images/cleansers/handwash_strawberry.png', desc: 'A fruity strawberry-scented handwash that cleanses gently while leaving hands soft and fragrant.' }
   ]
 };
 
@@ -239,10 +239,12 @@ function positionCarouselCards() {
     const cos = Math.cos(rad);
     const scale = 0.4 + 0.6 * Math.max(0, cos);
     card.style.transform = `translate(-50%, -50%) rotateY(${i * angleStep}deg) translateZ(${radius}px) scale(${scale})`;
-    card.style.opacity = isFrontThree ? (dist === 0 ? '1' : '0.25') : '0';
+    card.style.opacity = isFrontThree ? '1' : '0';
     card.style.pointerEvents = isFrontThree && cos > 0 ? 'auto' : 'none';
     const cardImg = card.querySelector('.catalog-card-img');
     if (cardImg) cardImg.style.animationPlayState = dist === 0 ? '' : 'paused';
+    card.classList.toggle('card-center', dist === 0 && isFrontThree);
+    card.classList.toggle('card-side', dist !== 0 && isFrontThree);
   });
 
   track.style.transform = `rotateY(${-curVisibleIdx * angleStep}deg)`;
@@ -253,7 +255,7 @@ function positionCarouselCards() {
       c.style.left = '';
       c.style.top = '';
       c.style.transform = '';
-      c.classList.remove('card-dimmed');
+      c.classList.remove('card-dimmed', 'card-center', 'card-side');
     }
   });
 
@@ -991,12 +993,12 @@ function renderAttachFiles() {
 }
 
 function getQuoteForm() {
-  return '<h2>Request a Quote</h2><p>Share your requirements and our sales team will get back to you.</p><form id="quickQuoteForm" onsubmit="handleQuickQuote(event)"><div class="form-row"><div class="form-group"><label for="qq_name">Full Name *</label><input type="text" id="qq_name" required placeholder="Your full name"></div><div class="form-group"><label for="qq_phone">Mobile Number *</label><input type="tel" id="qq_phone" required placeholder="Your Mobile Number"></div></div><div class="form-group"><label for="qq_email">Email Address <span style="font-weight:400;color:var(--text-light)">(optional)</span></label><input type="email" id="qq_email" placeholder="your@email.com"></div><div class="form-row"><div class="form-group"><label>Product Category *</label><div class="custom-select" id="cs_category" tabindex="0"><input type="hidden" id="qq_category" name="category" value=""><div class="custom-select-trigger"><span class="custom-select-text">Select category</span><i class="fas fa-chevron-down"></i></div><div class="custom-select-options"><div class="custom-select-option" data-value="freshners">Freshners</div><div class="custom-select-option" data-value="cleaners">Cleaners</div></div></div></div><div class="form-group"><label>Product *</label><div class="custom-select" id="cs_product" tabindex="0"><input type="hidden" id="qq_product" name="product" value=""><div class="custom-select-trigger"><span class="custom-select-text">Select category first</span><i class="fas fa-chevron-down"></i></div><div class="custom-select-options"></div></div></div></div><div class="form-row"><div class="form-group"><label for="qq_qty">Quantity / Litres *</label><input type="text" id="qq_qty" required placeholder="e.g. 5 litres, 10 units"></div><div class="form-group"><label for="qq_location">Delivery Location *</label><input type="text" id="qq_location" required placeholder="City / Area"></div></div><button type="submit" class="btn btn-primary" style="width:100%;justify-content:center"><i class="fas fa-paper-plane"></i> Submit Inquiry</button></form>';
+  return '<h2>Request a Quote</h2><p>Share your requirements and our sales team will get back to you.</p><form id="quickQuoteForm" onsubmit="handleQuickQuote(event)"><div class="form-row"><div class="form-group"><label for="qq_name">Full Name *</label><input type="text" id="qq_name" required placeholder="Your full name"></div><div class="form-group"><label for="qq_phone">Mobile Number *</label><input type="tel" id="qq_phone" required placeholder="Your Mobile Number"></div></div><div class="form-group"><label for="qq_email">Email Address <span style="font-weight:400;color:var(--text-light)">(optional)</span></label><input type="email" id="qq_email" placeholder="your@email.com"></div><div class="form-row"><div class="form-group"><label>Product Category *</label><div class="custom-select" id="cs_category" tabindex="0"><input type="hidden" id="qq_category" name="category" value=""><div class="custom-select-trigger"><span class="custom-select-text">Select category</span><i class="fas fa-chevron-down"></i></div><div class="custom-select-options"><div class="custom-select-option" data-value="freshners">Freshners</div><div class="custom-select-option" data-value="cleansers">Cleansers</div></div></div></div><div class="form-group"><label>Product *</label><div class="custom-select" id="cs_product" tabindex="0"><input type="hidden" id="qq_product" name="product" value=""><div class="custom-select-trigger"><span class="custom-select-text">Select category first</span><i class="fas fa-chevron-down"></i></div><div class="custom-select-options"></div></div></div></div><div class="form-row"><div class="form-group"><label for="qq_qty">Quantity / Litres *</label><input type="text" id="qq_qty" required placeholder="e.g. 5 litres, 10 units"></div><div class="form-group"><label for="qq_location">Delivery Location *</label><input type="text" id="qq_location" required placeholder="City / Area"></div></div><button type="submit" class="btn btn-primary" style="width:100%;justify-content:center"><i class="fas fa-paper-plane"></i> Submit Inquiry</button></form>';
 }
 
 function setupQuoteFormFilter() {
   var freshners = siteData.catalog.filter(function(p) { return p.category === 'freshners'; });
-  var cleaners = siteData.catalog.filter(function(p) { return p.category === 'cleaners'; });
+  var cleansers = siteData.catalog.filter(function(p) { return p.category === 'cleansers'; });
 
   var selects = document.querySelectorAll('.custom-select');
   selects.forEach(function(s) {
@@ -1039,7 +1041,7 @@ function setupQuoteFormFilter() {
     var prodText = prodSel ? prodSel.querySelector('.custom-select-text') : null;
     var prodHidden = document.getElementById('qq_product');
     if (!prodOpts || !prodText || !prodHidden) return;
-    var list = cat === 'freshners' ? freshners : cat === 'cleaners' ? cleaners : [];
+    var list = cat === 'freshners' ? freshners : cat === 'cleansers' ? cleansers : [];
     prodOpts.innerHTML = list.map(function(p) { return '<div class="custom-select-option" data-value="' + p.name + ' - ' + p.flavor + '">' + p.name + ' (' + p.flavor + ')</div>'; }).join('');
     prodText.textContent = 'Select product';
     prodHidden.value = '';

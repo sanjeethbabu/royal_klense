@@ -333,7 +333,7 @@ const pageMeta = {
   },
   products: {
     title: 'Products',
-    description: 'Explore 300+ cleaning and hygiene products across 12 categories — from industrial cleaners to premium hygiene essentials by Royal Klense.',
+    description: 'Explore 300+ cleaning and hygiene products across 12 categories — from industrial cleansers to premium hygiene essentials by Royal Klense.',
     canonical: '/products'
   },
   industries: {

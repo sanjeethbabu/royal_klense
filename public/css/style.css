@@ -1912,6 +1912,17 @@ html.nav-open body {
     0 25px 60px rgba(11, 29, 58, 0.18),
     0 10px 25px rgba(11, 29, 58, 0.1),
     -8px 8px 0 rgba(201, 162, 39, 0.2);
+  overflow: hidden;
+  animation: subtleFloat 6s ease-in-out infinite;
+}
+
+@keyframes subtleFloat {
+  0%, 100% { transform: rotateY(-6deg) rotateX(3deg) translateY(0); }
+  50% { transform: rotateY(-6deg) rotateX(3deg) translateY(-8px); }
+}
+
+.about-image:hover .about-image-frame {
+  animation: none;
 }
 
 .about-image-frame::before {
@@ -1921,6 +1932,28 @@ html.nav-open body {
   background: linear-gradient(135deg, rgba(201, 162, 39, 0.08), transparent 50%);
   z-index: 2;
   pointer-events: none;
+}
+
+.about-image-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.3) 45%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0.3) 55%, transparent 60%);
+  background-size: 200% 100%;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.about-image:hover .about-image-frame::after {
+  opacity: 1;
+  animation: shimmerSweep 1.2s ease forwards;
+}
+
+@keyframes shimmerSweep {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 
 .about-image:hover .about-image-frame {
@@ -1940,6 +1973,9 @@ html.nav-open body {
   color: rgba(255, 255, 255, 0.6);
   gap: 16px;
   overflow: hidden;
+  border-radius: var(--radius-lg);
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  mask-image: radial-gradient(white, black);
 }
 
 .about-image-placeholder i {
@@ -1958,12 +1994,6 @@ html.nav-open body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s var(--ease-smooth);
-  transform: scale(1.02);
-}
-
-.about-image-frame:hover .about-image-placeholder img {
-  transform: scale(1.08);
 }
 
 .about-badge {
@@ -1978,6 +2008,12 @@ html.nav-open body {
   font-size: 1rem;
   font-weight: 600;
   box-shadow: var(--shadow-gold);
+  transition: transform 0.5s var(--ease-smooth), box-shadow 0.5s ease;
+}
+
+.about-image:hover .about-badge {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 16px 48px rgba(201, 162, 39, 0.35);
 }
 
 .about-content {
@@ -3472,6 +3508,24 @@ html.nav-open body {
 .cred-logo:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.cred-image {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: contain;
+  border: 1px solid var(--light-gray);
+  background: var(--white);
+  padding: 10px;
+  transition: var(--transition);
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.04));
+}
+
+.cred-image:hover {
+  transform: translateY(-3px);
+  border-color: var(--gold);
+  box-shadow: 0 8px 24px rgba(201, 162, 39, 0.12);
 }
 
 .featured-products {
@@ -7579,6 +7633,26 @@ img:hover {
   pointer-events: none;
 }
 
+.catalog-card.card-side .catalog-card-inner {
+  background: transparent;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-color: rgba(201, 162, 39, 0.08);
+  box-shadow: none;
+}
+
+.catalog-card.card-side .catalog-card-image-section {
+  background: transparent;
+}
+
+.catalog-card.card-side .catalog-card-body {
+  background: transparent;
+}
+
+.catalog-card.card-center .catalog-card-inner {
+  background: var(--white);
+}
+
 .card-hidden {
   display: none !important;
 }
@@ -7806,7 +7880,7 @@ img:hover {
 /* ── Carousel Dots ── */
 .carousel-dots {
   position: absolute;
-  bottom: -24px;
+  bottom: -40px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
@@ -8178,7 +8252,7 @@ img:hover {
     gap: 6px;
     padding: 2px 10px;
     height: 20px;
-    bottom: -18px;
+    bottom: -30px;
   }
 
   .carousel-dot {
