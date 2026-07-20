@@ -1,1 +1,1 @@
-in c04 and it is millennium lavender and c01 the flavor is french rose c03 it is lemon fresh c07 it is mild & gentle c11 it is straberry shot
+© 2021 Royal Klense. All rights reserved.  in footer the year has to change according to the current year automatically
