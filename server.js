@@ -182,16 +182,33 @@ app.post('/api/quote', (req, res) => {
     return res.status(400).json({ success: false, error: 'Name is required.' });
   }
 
-  var productStr = product || (items && items.length ? items.map(function(i) { return i.product + ' (' + i.quantity + ')'; }).join(', ') : 'N/A');
   var emailStr = email || 'N/A';
+
+  var productListHtml = 'N/A';
+  if (items && items.length) {
+    var groups = {};
+    items.forEach(function(i) {
+      var cat = i.category || 'all';
+      if (!groups[cat]) groups[cat] = [];
+      groups[cat].push(i);
+    });
+    var listItems = [];
+    Object.keys(groups).forEach(function(cat) {
+      listItems.push('<li style="list-style:none;margin-top:8px"><strong>' + cat.charAt(0).toUpperCase() + cat.slice(1) + '</strong></li>');
+      groups[cat].forEach(function(i, idx) {
+        listItems.push('<li>' + (idx + 1) + '. ' + i.product + ' — ' + i.quantity + '</li>');
+      });
+    });
+    productListHtml = '<ul style="padding-left:20px;margin:4px 0;list-style:none">' + listItems.join('') + '</ul>';
+  }
 
   const data = {
     name,
     email: emailStr,
     phone: phone || 'N/A',
     company: company || 'N/A',
-    product: productStr,
-    quantity: quantity || (items && items.length ? items.map(function(i) { return i.quantity; }).join(', ') : 'N/A'),
+    product: product || 'N/A',
+    quantity: quantity || 'N/A',
     category: category || 'N/A',
     location: location || 'N/A',
     pincode: pincode || 'N/A',
@@ -229,12 +246,10 @@ app.post('/api/quote', (req, res) => {
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Email:</strong> ${emailStr}</p>
         <p><strong>Phone:</strong> ${data.phone}</p>
-        <p><strong>Company:</strong> ${data.company}</p>
-        <p><strong>Category:</strong> ${data.category}</p>
-        <p><strong>Products:</strong> ${productStr}</p>
         <p><strong>Location:</strong> ${data.location}</p>
         <p><strong>Pincode:</strong> ${data.pincode}</p>
-        <p><strong>Message:</strong> ${data.message}</p>
+        <p><strong>Products:</strong></p>
+        ${productListHtml}
       `
     };
 
