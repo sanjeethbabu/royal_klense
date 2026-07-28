@@ -269,6 +269,74 @@ app.post('/api/quote', (req, res) => {
   });
 });
 
+app.post('/api/direct-quote', (req, res) => {
+  const { name, phone, email, city, pincode, product, quantity } = req.body;
+
+  if (!name || !product) {
+    return res.status(400).json({ success: false, error: 'Name and product are required.' });
+  }
+
+  var emailStr = email || 'N/A';
+
+  const data = {
+    name,
+    phone: phone || 'N/A',
+    email: emailStr,
+    city: city || 'N/A',
+    pincode: pincode || 'N/A',
+    product: product || 'N/A',
+    quantity: quantity || 'N/A',
+    type: 'direct-quote',
+    receivedAt: new Date().toISOString()
+  };
+
+  let transporter = null;
+  try {
+    const nodemailer = require('nodemailer');
+    if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
+      transporter = nodemailer.createTransport({
+        host: process.env.SMTP_HOST,
+        port: parseInt(process.env.SMTP_PORT) || 587,
+        secure: false,
+        auth: {
+          user: process.env.SMTP_USER,
+          pass: process.env.SMTP_PASS
+        }
+      });
+    }
+  } catch (e) {
+    console.log('Nodemailer not configured, skipping email notification.');
+  }
+
+  if (transporter) {
+    const mailOptions = {
+      from: `"${name}" <${emailStr}>`,
+      replyTo: emailStr,
+      to: process.env.CONTACT_EMAIL || 'sanjeethbabumani@gmail.com',
+      subject: `Direct Quote Request: ${product} from ${name} - Royal Klense`,
+      html: `
+        <h2>Direct Quote Request</h2>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Phone:</strong> ${data.phone}</p>
+        <p><strong>Email:</strong> ${emailStr}</p>
+        <p><strong>City:</strong> ${data.city}</p>
+        <p><strong>Pincode:</strong> ${data.pincode}</p>
+        <p><strong>Product:</strong> ${data.product}</p>
+        <p><strong>Quantity:</strong> ${data.quantity}</p>
+      `
+    };
+
+    transporter.sendMail(mailOptions).catch(err => {
+      console.error('Email send failed:', err.message);
+    });
+  }
+
+  res.json({
+    success: true,
+    message: 'Your quote request for ' + product + ' has been submitted. Our team will respond within 24 hours.'
+  });
+});
+
 app.post('/api/subscribe', (req, res) => {
   const { email } = req.body;
 

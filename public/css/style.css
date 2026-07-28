@@ -3135,7 +3135,7 @@ html.nav-open body {
 }
 
 .contact-option-phone {
-  display: none;
+  display: flex;
 }
 
 @media (max-width: 991px) {
@@ -8097,11 +8097,6 @@ img:hover {
     margin-top: -40px;
   }
 
-  .catalog-card:not(.card-dimmed) .catalog-card-img {
-    width: 145%;
-    margin-top: -55px;
-  }
-
   .catalog-card-body {
     padding: 6px 10px 14px;
   }
@@ -8128,6 +8123,17 @@ img:hover {
 
   .carousel-dot.active {
     width: 22px;
+  }
+
+  .catalog-card:not(.card-dimmed) .catalog-card-inner::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 15%;
+    right: 15%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--gold-light), var(--gold), var(--gold-dark));
+    border-radius: 0 0 12px 12px;
   }
 }
 

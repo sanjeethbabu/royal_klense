@@ -103,8 +103,10 @@ function openModal(content) {
 function closeModal() {
   const overlay = document.getElementById('modalOverlay');
   overlay.classList.remove('active');
+  overlay.style.background = '';
   document.body.style.overflow = '';
   const modal = document.getElementById('modal');
+  modal.style.background = '';
   modal.classList.remove('pip-modal');
 }
 
@@ -348,6 +350,14 @@ function setupCarousel() {
         if (p) openCatalogModal(p);
       });
     }
+    const cardImg = card.querySelector('.catalog-card-img');
+    if (cardImg) {
+      cardImg.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const p = siteData.catalog[+card.dataset.index];
+        if (p) openImageModal(p.image, p.name);
+      });
+    }
   });
 
   document.getElementById('carouselPrev')?.addEventListener('click', (e) => {
@@ -508,8 +518,8 @@ function openCatalogModal(p) {
     : 'Suitable for daily use in kitchens, bathrooms, floors, glass surfaces, industrial areas, and institutional facilities.';
 
   const packSizes = p.category === 'freshners'
-    ? ['500 ml', '1 L', '5 L']
-    : ['1 L', '5 L', '10 L', '20 L'];
+    ? ['5 Litres']
+    : ['5 Litres', '10 Litres', '20 Litres'];
 
   const highlights = p.desc
     .replace(/\./g, '|')
@@ -561,7 +571,7 @@ function openCatalogModal(p) {
           <div class="pip-variants">
             <span class="pip-variant active">${p.flavor}</span>
           </div>
-          <p class="pip-pack-info">Also available in: ${packSizes.join(', ')}</p>
+          
         </div>
 
         <div class="pip-section">
@@ -577,10 +587,10 @@ function openCatalogModal(p) {
         </div>
 
         <div class="pip-cta">
-          <button class="pip-btn pip-btn-primary" onclick="closeModal();openQuoteModal()">
+          <button class="pip-btn pip-btn-primary" onclick="closeModal();openDirectQuoteModal('${p.name}', '${p.flavor}')">
             <i class="fas fa-file-invoice"></i> Request Quote
           </button>
-          <a href="tel:+916369311595" class="pip-btn pip-btn-call">
+          <a href="#" class="pip-btn pip-btn-call" onclick="handleCallClick();return false">
             <i class="fas fa-phone-alt"></i> Call
           </a>
           <a href="https://wa.me/916369311595?text=Hey%20Royal%20Klense%20team!%20I%20would%20like%20to%20know%20more%20about%20${encodeURIComponent(p.name)}" target="_blank" rel="noopener" class="pip-btn pip-btn-whatsapp">
@@ -841,7 +851,8 @@ function setupNavbar() {
 }
 
 function setupModal() {
-  document.getElementById('modalClose').addEventListener('click', closeModal);
+  var mc = document.getElementById('modalClose');
+  if (mc) mc.addEventListener('click', closeModal);
   document.getElementById('modalOverlay').addEventListener('click', (e) => {
     if (e.target === e.currentTarget) closeModal();
   });
@@ -863,7 +874,7 @@ function getContactForm() {
         <div class="contact-option-icon"><i class="fab fa-whatsapp"></i></div>
         <span class="contact-option-label">WhatsApp</span>
       </a>
-      <a href="tel:+916369311595" class="contact-option contact-option-phone">
+      <a href="#" class="contact-option contact-option-phone" onclick="handleCallClick();return false">
         <div class="contact-option-icon"><i class="fas fa-phone-alt" style="transform:scaleX(-1)"></i></div>
         <span class="contact-option-label">Call</span>
       </a>
@@ -1158,6 +1169,11 @@ function setupQuoteFormFilter() {
   document.addEventListener('click', function() {
     document.querySelectorAll('.custom-select.open').forEach(function(os) { os.classList.remove('open'); });
   });
+
+  if (preselectedProduct) {
+    toggleProduct(preselectedProduct);
+    preselectedProduct = null;
+  }
 }
 
 async function handleContact(e) {
@@ -1312,11 +1328,139 @@ async function handleQuote(e) {
   }
 }
 
+function openDirectQuoteModal(productName, productFlavor) {
+  var cat = 'freshners';
+  var found = siteData.catalog.find(function(p) { return p.name === productName && p.flavor === productFlavor; });
+  if (found) cat = found.category;
+  var catLabel = cat === 'freshners' ? 'Freshner' : 'Cleaner';
+
+  openModal('<div style="max-width:440px;margin:0 auto">' +
+    '<div style="text-align:center;margin-bottom:16px">' +
+      '<div style="display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--gold-light),var(--gold),var(--gold-dark));margin-bottom:8px;box-shadow:0 6px 20px rgba(201,162,39,0.2)">' +
+        '<i class="fas fa-file-invoice" style="font-size:1.2rem;color:#fff"></i>' +
+      '</div>' +
+      '<h3 style="margin:0;font-size:1.05rem;color:var(--text-dark)">Request Quote</h3>' +
+      '<p style="margin:4px 0 0;font-size:0.8rem;color:var(--text-light)">for <strong style="color:var(--gold-dark)">' + productName + ' (' + productFlavor + ')</strong></p>' +
+      '<span style="display:inline-block;margin-top:4px;padding:1px 10px;border-radius:20px;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;background:' + (cat === 'freshners' ? 'rgba(201,162,39,0.12);color:var(--gold-dark)' : 'rgba(11,29,58,0.1);color:var(--royal-blue)') + '">' + catLabel + '</span>' +
+    '</div>' +
+    '<form id="directQuoteForm" onsubmit="handleDirectQuote(event)">' +
+      '<div style="margin-bottom:10px">' +
+        '<label style="display:block;font-size:0.78rem;font-weight:600;color:var(--text-dark);margin-bottom:3px">Full Name *</label>' +
+        '<input type="text" id="dq_name" required placeholder="Your full name" style="width:100%;padding:10px 12px;border:1.5px solid rgba(201,162,39,0.2);border-radius:10px;font-size:0.85rem;outline:none;transition:border-color 0.3s;box-sizing:border-box;background:var(--white)" onfocus="this.style.borderColor=\'var(--gold)\'" onblur="this.style.borderColor=\'rgba(201,162,39,0.2)\'">' +
+      '</div>' +
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">' +
+        '<div>' +
+          '<label style="display:block;font-size:0.78rem;font-weight:600;color:var(--text-dark);margin-bottom:3px">Mobile Number *</label>' +
+          '<input type="tel" id="dq_phone" required placeholder="Phone" style="width:100%;padding:10px 12px;border:1.5px solid rgba(201,162,39,0.2);border-radius:10px;font-size:0.85rem;outline:none;transition:border-color 0.3s;box-sizing:border-box;background:var(--white)" onfocus="this.style.borderColor=\'var(--gold)\'" onblur="this.style.borderColor=\'rgba(201,162,39,0.2)\'">' +
+        '</div>' +
+        '<div>' +
+          '<label style="display:block;font-size:0.78rem;font-weight:600;color:var(--text-dark);margin-bottom:3px">Email <span style="font-weight:400;color:var(--text-light)">(optional)</span></label>' +
+          '<input type="email" id="dq_email" placeholder="Email" style="width:100%;padding:10px 12px;border:1.5px solid rgba(201,162,39,0.2);border-radius:10px;font-size:0.85rem;outline:none;transition:border-color 0.3s;box-sizing:border-box;background:var(--white)" onfocus="this.style.borderColor=\'var(--gold)\'" onblur="this.style.borderColor=\'rgba(201,162,39,0.2)\'">' +
+        '</div>' +
+      '</div>' +
+      '<div style="margin-bottom:10px">' +
+        '<label style="display:block;font-size:0.78rem;font-weight:600;color:var(--text-dark);margin-bottom:3px">Required Quantity (Litres) *</label>' +
+        '<input type="text" id="dq_litres" required placeholder="e.g. 5 litres" style="width:100%;padding:10px 12px;border:1.5px solid rgba(201,162,39,0.2);border-radius:10px;font-size:0.85rem;outline:none;transition:border-color 0.3s;box-sizing:border-box;background:var(--white)" onfocus="this.style.borderColor=\'var(--gold)\'" onblur="this.style.borderColor=\'rgba(201,162,39,0.2)\'">' +
+      '</div>' +
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">' +
+        '<div>' +
+          '<label style="display:block;font-size:0.78rem;font-weight:600;color:var(--text-dark);margin-bottom:3px">City *</label>' +
+          '<input type="text" id="dq_city" required placeholder="City" style="width:100%;padding:10px 12px;border:1.5px solid rgba(201,162,39,0.2);border-radius:10px;font-size:0.85rem;outline:none;transition:border-color 0.3s;box-sizing:border-box;background:var(--white)" onfocus="this.style.borderColor=\'var(--gold)\'" onblur="this.style.borderColor=\'rgba(201,162,39,0.2)\'">' +
+        '</div>' +
+        '<div>' +
+          '<label style="display:block;font-size:0.78rem;font-weight:600;color:var(--text-dark);margin-bottom:3px">Pincode *</label>' +
+          '<input type="number" id="dq_pincode" required placeholder="Pincode" min="0" onkeypress="if(this.value.length>=6) return false" oninput="if(this.value.length>6) this.value=this.value.slice(0,6)" style="width:100%;padding:10px 12px;border:1.5px solid rgba(201,162,39,0.2);border-radius:10px;font-size:0.85rem;outline:none;transition:border-color 0.3s;box-sizing:border-box;background:var(--white)" onfocus="this.style.borderColor=\'var(--gold)\'" onblur="this.style.borderColor=\'rgba(201,162,39,0.2)\'">' +
+        '</div>' +
+      '</div>' +
+      '<button type="submit" style="width:100%;padding:12px;border:none;border-radius:50px;background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:#fff;font-size:0.9rem;font-weight:700;cursor:pointer;box-shadow:0 4px 15px rgba(201,162,39,0.3);transition:all 0.3s ease;display:flex;align-items:center;justify-content:center;gap:8px" onmouseover="this.style.transform=\'translateY(-2px)\';this.style.boxShadow=\'0 8px 24px rgba(201,162,39,0.4)\'" onmouseout="this.style.transform=\'\';this.style.boxShadow=\'0 4px 15px rgba(201,162,39,0.3)\'">' +
+        '<i class="fas fa-paper-plane"></i> Submit Quote Request' +
+      '</button>' +
+    '</form>' +
+  '</div>');
+}
+
+function handleDirectQuote(e) {
+  e.preventDefault();
+  var btn = e.target.querySelector('button[type="submit"]');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+
+  var name = document.getElementById('dq_name').value;
+  var phone = document.getElementById('dq_phone').value;
+  var email = document.getElementById('dq_email').value || '';
+  var city = document.getElementById('dq_city').value;
+  var pincode = document.getElementById('dq_pincode').value;
+  var litres = document.getElementById('dq_litres').value;
+
+  var productMatch = document.querySelector('#modalBody strong');
+  var productText = productMatch ? productMatch.textContent : '';
+
+  var data = {
+    name: name,
+    phone: phone,
+    email: email,
+    city: city,
+    pincode: pincode,
+    product: productText,
+    quantity: litres
+  };
+
+  fetch(API_BASE + '/api/direct-quote', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  }).then(function(r) { return r.json(); }).then(function(result) {
+    if (result.success) {
+      document.getElementById('modalBody').innerHTML = '\n        <div class="form-success" style="text-align:center">\n          <i class="fas fa-check-circle" style="font-size:2.5rem;color:var(--gold);margin-bottom:12px"></i>\n          <h3>Quote Requested!</h3>\n          <p>' + result.message + '</p>\n          <p style="margin-top:8px;font-size:0.85rem;color:var(--text-light)">Our team will review your requirements and get back to you within 24 hours.</p>\n          <button class="btn btn-primary" onclick="closeModal()" style="margin-top:16px">Close</button>\n        </div>\n      ';
+      showToast('Quote requested!', 'success');
+    } else {
+      showToast(result.error || 'Something went wrong.', 'error');
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Quote Request';
+    }
+  }).catch(function() {
+    showToast('Network error. Please try again.', 'error');
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Quote Request';
+  });
+}
+
+function openImageModal(src, alt) {
+  openModal('<div style="text-align:center;padding:0;background:transparent;touch-action:auto">' +
+    '<img id="zoomableImg" src="' + src + '" alt="' + alt + '" style="max-width:100%;max-height:75vh;border-radius:16px;box-shadow:0 8px 40px rgba(0,0,0,0.15);display:block;margin:0 auto;touch-action:auto;cursor:zoom-in" onclick="this.style.maxWidth=this.style.maxWidth===\'100%\'?\'none\':\'100%\';this.style.maxHeight=this.style.maxHeight===\'75vh\'?\'none\':\'75vh\';this.style.cursor=this.style.cursor===\'zoom-in\'?\'zoom-out\':\'zoom-in\'">' +
+    '<button class="btn btn-primary" onclick="closeModal()" style="margin-top:16px">Close</button>' +
+  '</div>');
+  var overlay = document.getElementById('modalOverlay');
+  if (overlay) overlay.style.background = 'rgba(0,0,0,0.85)';
+  var modal = document.getElementById('modal');
+  if (modal) modal.style.background = 'transparent';
+}
+
+function handleCallClick() {
+  var isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  if (isMobile) {
+    window.location.href = 'tel:+916369311595';
+  } else {
+    openModal('<div style="text-align:center;padding:28px 24px;max-width:420px;margin:0 auto">' +
+      '<div style="display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--gold-light),var(--gold),var(--gold-dark));margin-bottom:16px;box-shadow:0 8px 24px rgba(201,162,39,0.25)">' +
+        '<i class="fas fa-phone-alt" style="font-size:1.5rem;color:#fff;transform:scaleX(-1)"></i>' +
+      '</div>' +
+      '<h3 style="margin:0 0 12px;font-size:1.2rem;color:var(--text-dark)">Call Us</h3>' +
+      '<p style="margin:0 0 6px;font-size:0.95rem;color:var(--text-light);line-height:1.6">Please take a moment to call us at</p>' +
+      '<p style="margin:0 0 12px;font-size:1.5rem;font-weight:700;color:var(--gold-dark);letter-spacing:1px">634789451</p>' +
+      '<p style="margin:0;font-size:0.88rem;color:var(--text-light);line-height:1.5">Our team is ready to assist you and looks forward to speaking with you.</p>' +
+    '</div>');
+  }
+}
+
 function openContactModal() {
   openModal(getContactForm());
 }
 
-function openQuoteModal() {
+var preselectedProduct = null;
+
+function openQuoteModal(productValue) {
+  preselectedProduct = productValue || null;
   openModal(getQuoteForm());
   setTimeout(setupQuoteFormFilter, 50);
 }
@@ -2096,8 +2240,8 @@ function runDeferredEffects() {
   }, 80);
 }
 
-const LOADER_MIN_MS = 2500;
-const LOADER_MAX_MS = 2500;
+const LOADER_MIN_MS = 500;
+const LOADER_MAX_MS = 1500;
 
 function bindCtaButtons() {
   document.querySelector('.cta .btn-primary')?.addEventListener('click', (e) => {
