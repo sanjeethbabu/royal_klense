@@ -1072,15 +1072,19 @@ function setupQuoteFormFilter() {
       var sel = selectedProducts.indexOf(p.value) !== -1;
       return '<div class="custom-select-option' + (sel ? ' selected' : '') + '" data-value="' + p.value + '"><span class="multi-check">' + (sel ? '&#10003;' : '') + '</span>' + p.name + '</div>';
     }).join('');
-    updateTriggerText();
+    updateTriggerText(cat);
   }
 
-  function updateTriggerText() {
+  function updateTriggerText(cat) {
     if (!prodText) return;
-    if (selectedProducts.length === 0) {
+    var count = cat === 'all' ? selectedProducts.length : selectedProducts.filter(function(v) {
+      var p = allProducts.find(function(p) { return p.value === v; });
+      return p && p.category === cat;
+    }).length;
+    if (count === 0) {
       prodText.textContent = 'Select products';
     } else {
-      prodText.textContent = selectedProducts.length + ' product' + (selectedProducts.length > 1 ? 's' : '') + ' selected';
+      prodText.textContent = count + ' product' + (count > 1 ? 's' : '') + ' selected';
     }
   }
 
@@ -1134,7 +1138,6 @@ function setupQuoteFormFilter() {
         s.querySelector('.custom-select-text').textContent = text;
         hidden.value = val;
         s.classList.remove('open');
-        selectedProducts = [];
         renderProducts(val);
         updateQuantities();
       }

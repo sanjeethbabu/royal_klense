@@ -1224,23 +1224,12 @@ body:not(.rk-leaving):not(.rk-reveal)>*:not(#loader):not(script) {
   overflow: hidden;
 }
 
-.nav-cta::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, var(--gold-light), var(--gold));
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  border-radius: 50px;
-}
-
 .nav-cta::after {
   display: none;
 }
 
 .nav-cta:hover {
-  transform: perspective(600px) rotateX(4deg) rotateY(3deg) translateZ(8px) translateY(-3px);
-  transition: all 0.25s cubic-bezier(0.22,1,0.36,1);
+  transform: translateY(-2px);
 }
 
 .nav-cta:active {
