@@ -176,19 +176,25 @@ function handleContact(req, res) {
 }
 
 app.post('/api/quote', (req, res) => {
-  const { name, email, phone, company, product, quantity, message } = req.body;
+  const { name, email, phone, company, product, quantity, message, items, category, location, pincode } = req.body;
 
-  if (!name || !email || !product) {
-    return res.status(400).json({ success: false, error: 'Name, email, and product are required.' });
+  if (!name) {
+    return res.status(400).json({ success: false, error: 'Name is required.' });
   }
+
+  var productStr = product || (items && items.length ? items.map(function(i) { return i.product + ' (' + i.quantity + ')'; }).join(', ') : 'N/A');
+  var emailStr = email || 'N/A';
 
   const data = {
     name,
-    email,
+    email: emailStr,
     phone: phone || 'N/A',
     company: company || 'N/A',
-    product,
-    quantity: quantity || 'N/A',
+    product: productStr,
+    quantity: quantity || (items && items.length ? items.map(function(i) { return i.quantity; }).join(', ') : 'N/A'),
+    category: category || 'N/A',
+    location: location || 'N/A',
+    pincode: pincode || 'N/A',
     message: message || 'N/A',
     type: 'quote',
     receivedAt: new Date().toISOString()
@@ -214,18 +220,20 @@ app.post('/api/quote', (req, res) => {
 
   if (transporter) {
     const mailOptions = {
-      from: `"${name}" <${email}>`,
-      replyTo: email,
+      from: `"${name}" <${emailStr}>`,
+      replyTo: emailStr,
       to: process.env.CONTACT_EMAIL || 'sanjeethbabumani@gmail.com',
       subject: `New Quote Request from ${name} - Royal Klense`,
       html: `
         <h2>New Quote Request</h2>
         <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Email:</strong> ${emailStr}</p>
         <p><strong>Phone:</strong> ${data.phone}</p>
         <p><strong>Company:</strong> ${data.company}</p>
-        <p><strong>Product:</strong> ${data.product}</p>
-        <p><strong>Quantity:</strong> ${data.quantity}</p>
+        <p><strong>Category:</strong> ${data.category}</p>
+        <p><strong>Products:</strong> ${productStr}</p>
+        <p><strong>Location:</strong> ${data.location}</p>
+        <p><strong>Pincode:</strong> ${data.pincode}</p>
         <p><strong>Message:</strong> ${data.message}</p>
       `
     };
