@@ -1,1 +1,3 @@
-© 2021 Royal Klense. All rights reserved.  in footer the year has to change according to the current year automatically
+C:\Users\SanjeethBabu_owc6ggv\OneDrive - Gantec Corporation\Desktop\self_developement\royal_clense\public\images\back_of product.png
+
+i have added the path of back side of the product make it as back while rotating

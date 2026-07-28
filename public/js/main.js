@@ -71,6 +71,7 @@ const siteData = {
     { code: 'C11', name: 'Handwash', flavor: 'Strawberry Shot', category: 'cleansers', image: '/images/cleansers/handwash_strawberry.png', desc: 'A fruity strawberry-scented handwash that cleanses gently while leaving hands soft and fragrant.' }
   ]
 };
+siteData.catalog.forEach(function(p) { p.backImage = '/images/back_of product.png'; });
 
 const API_BASE = '';
 
@@ -537,7 +538,10 @@ function openCatalogModal(p) {
     <div class="pip">
       <div class="pip-image-col">
         <div class="pip-image-wrap">
-          <img class="pip-image" src="${p.image}" alt="${p.name}">
+          <div class="pip-image-inner">
+            <img class="pip-image pip-image-front" src="${p.image}" alt="${p.name}">
+            <img class="pip-image pip-image-back" src="${p.backImage || p.image}" alt="${p.name}">
+          </div>
           <span class="pip-image-badge">${catLabel}</span>
         </div>
       </div>
@@ -582,9 +586,6 @@ function openCatalogModal(p) {
         <div class="pip-cta">
           <button class="pip-btn pip-btn-primary" onclick="closeModal();openQuoteModal()">
             <i class="fas fa-file-invoice"></i> Request Quote
-          </button>
-          <button class="pip-btn pip-btn-outline" onclick="closeModal();openContactModal()">
-            <i class="fas fa-envelope"></i> Contact
           </button>
           <a href="https://wa.me/916369311595?text=Hey%20Royal%20Klense%20team!%20I%20would%20like%20to%20know%20more%20about%20${encodeURIComponent(p.name)}" target="_blank" rel="noopener" class="pip-btn pip-btn-whatsapp">
             <i class="fab fa-whatsapp"></i> WhatsApp
