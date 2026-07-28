@@ -7708,6 +7708,7 @@ img:hover {
   border: 1px solid rgba(201, 162, 39, 0.08);
   transition: border-radius 0.6s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.6s ease, border-color 0.6s ease;
   contain: layout style;
+  overflow: visible;
 }
 
 .catalog-card-image-section {
@@ -7722,13 +7723,14 @@ img:hover {
   position: relative;
   -webkit-transform: translateZ(0);
   contain: layout style;
+  overflow: visible;
 }
 
 .catalog-card-img {
-  width: 135%;
+  width: 150%;
   max-width: none;
   height: auto;
-  margin-top: -35px;
+  margin-top: -40px;
   object-fit: contain;
   border-radius: 18px;
   image-rendering: auto;
@@ -7741,8 +7743,8 @@ img:hover {
 }
 
 .catalog-card:not(.card-dimmed) .catalog-card-img {
-  width: 155%;
-  margin-top: -45px;
+  width: 175%;
+  margin-top: -55px;
   filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.12));
   z-index: 3;
 }
@@ -8159,8 +8161,13 @@ img:hover {
 
   .catalog-card-img {
     max-width: none;
-    width: 120%;
-    margin-top: -20px;
+    width: 130%;
+    margin-top: -40px;
+  }
+
+  .catalog-card:not(.card-dimmed) .catalog-card-img {
+    width: 145%;
+    margin-top: -55px;
   }
 
   .catalog-card-body {
@@ -8242,13 +8249,13 @@ img:hover {
 
   .catalog-card-img {
     max-width: none;
-    width: 110%;
-    margin-top: -12px;
+    width: 125%;
+    margin-top: -30px;
   }
 
   .catalog-card:not(.card-dimmed) .catalog-card-img {
-    width: 120%;
-    margin-top: -18px;
+    width: 140%;
+    margin-top: -45px;
   }
 
   .catalog-card-body {
