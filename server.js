@@ -194,7 +194,7 @@ app.post('/api/quote', (req, res) => {
     });
     var listItems = [];
     Object.keys(groups).forEach(function(cat) {
-      listItems.push('<li style="list-style:none;margin-top:8px"><strong>' + cat.charAt(0).toUpperCase() + cat.slice(1) + '</strong></li>');
+      listItems.push('<li style="list-style:none;margin-top:12px;margin-bottom:4px"><strong>' + cat.charAt(0).toUpperCase() + cat.slice(1) + '</strong></li>');
       groups[cat].forEach(function(i, idx) {
         listItems.push('<li>' + (idx + 1) + '. ' + i.product + ' — ' + i.quantity + '</li>');
       });
