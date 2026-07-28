@@ -154,19 +154,20 @@ function loadProducts() {
   }
 
   grid.innerHTML = siteData.products.map((p, i) => `
-    <div class="product-card enhanced-product-card" style="animation-delay: ${i * 0.08}s" data-category="cat-${i}" onclick="openProductModal('${p.name}', '${p.desc}')">
-      <div class="product-card-bg" style="background: linear-gradient(135deg, ${gradColors[i][0]}15, ${gradColors[i][1]}08)"></div>
-      <div class="product-card-shine"></div>
+    <div class="product-card" style="animation-delay: ${i * 0.08}s" data-category="cat-${i}" onclick="openProductModal('${p.name}', '${p.desc}')">
       <div class="product-card-inner">
-        <div class="product-icon-wrap" style="background: linear-gradient(135deg, ${gradColors[i][0]}20, ${gradColors[i][1]}10); color: ${gradColors[i][0]}">
-          <i class="${p.icon}"></i>
+        <div class="product-card-image-section">
+          <div class="product-icon-wrap" style="background: linear-gradient(135deg, ${gradColors[i][0]}20, ${gradColors[i][1]}10); color: ${gradColors[i][0]}">
+            <i class="${p.icon}"></i>
+          </div>
         </div>
-        <span class="product-badge" style="background: ${gradColors[i][0]}">${p.name.split(' ')[0]}</span>
-        <h3>${p.name}</h3>
-        <p>${p.desc}</p>
-        <span class="product-link">Explore Range <i class="fas fa-arrow-right"></i></span>
+        <div class="product-card-body">
+          <span class="product-badge" style="background: ${gradColors[i][0]}">${p.name.split(' ')[0]}</span>
+          <h3>${p.name}</h3>
+          <p>${p.desc}</p>
+          <span class="product-link">Explore Range <i class="fas fa-arrow-right"></i></span>
+        </div>
       </div>
-      <div class="product-card-edge" style="background: linear-gradient(90deg, ${gradColors[i][0]}, ${gradColors[i][1]})"></div>
     </div>
   `).join('');
 }
@@ -231,29 +232,23 @@ function positionCarouselCards() {
 
   const isMobile = window.innerWidth < 768;
   const stageW = stage.offsetWidth;
-  const isAll = count > 11;
-  const angleStep = isAll ? 360 / count : 360 / 11;
+  const angleStep = 360 / Math.max(count, 11);
   const cardWidth = visible[0]?.offsetWidth || 260;
-  const minRadius = cardWidth / (2 * Math.sin(Math.PI / count));
+  const minRadius = cardWidth / (2 * Math.sin(Math.PI / Math.max(count, 11)));
   const stageRadius = isMobile ? Math.min(320, Math.max(stageW * 0.38, 240)) : Math.min(500, stageW * 0.45);
   const radius = Math.max(minRadius, stageRadius);
 
   visible.forEach((card, i) => {
     const dist = Math.min(Math.abs(i - curVisibleIdx), count - Math.abs(i - curVisibleIdx));
     const isFrontThree = count <= 3 || dist <= 1;
-    let effAngle;
-    if (isAll) {
-      effAngle = i * angleStep - curVisibleIdx * angleStep;
-    } else {
-      const rawDiff = i - curVisibleIdx;
-      const absDiff = Math.abs(rawDiff);
-      const shortPathDir = absDiff <= count / 2 ? Math.sign(rawDiff) || 1 : -Math.sign(rawDiff);
-      effAngle = shortPathDir * dist * angleStep;
-    }
+    const rawDiff = i - curVisibleIdx;
+    const absDiff = Math.abs(rawDiff);
+    const shortPathDir = absDiff <= count / 2 ? Math.sign(rawDiff) || 1 : -Math.sign(rawDiff);
+    const effAngle = shortPathDir * dist * angleStep;
     const rad = effAngle * Math.PI / 180;
     const cos = Math.cos(rad);
     const scale = 0.4 + 0.6 * Math.max(0, cos);
-    card.style.transform = `translate(-50%, -50%) rotateY(${isAll ? i * angleStep : effAngle}deg) translateZ(${radius}px) scale(${scale})`;
+    card.style.transform = `translate(-50%, -50%) rotateY(${effAngle}deg) translateZ(${radius}px) scale(${scale})`;
     card.style.opacity = isFrontThree ? '1' : '0';
     card.style.pointerEvents = isFrontThree && cos > 0 ? 'auto' : 'none';
     const cardImg = card.querySelector('.catalog-card-img');
@@ -262,7 +257,7 @@ function positionCarouselCards() {
     card.classList.toggle('card-side', dist !== 0 && isFrontThree);
   });
 
-  track.style.transform = `rotateY(${isAll ? -curVisibleIdx * angleStep : 0}deg)`;
+  track.style.transform = 'rotateY(0deg)';
 
   carouselCards.forEach(c => {
     if (c.classList.contains('card-hidden')) {
@@ -467,10 +462,7 @@ function setupProductFilters() {
   const tabs = document.querySelector('.filter-tabs');
   if (!tabs) return;
 
-  tabs.addEventListener('click', e => {
-    const tab = e.target.closest('.filter-tab');
-    if (!tab) return;
-
+  function applyFilter(tab) {
     tabs.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
     tab.classList.add('active');
 
@@ -481,12 +473,8 @@ function setupProductFilters() {
 
     const filter = tab.dataset.filter;
     const allCards = document.querySelectorAll('.catalog-card');
-    if (filter === 'all') {
-      carouselIndex = 0;
-    } else {
-      const firstMatch = [...allCards].findIndex(c => c.dataset.category === filter);
-      carouselIndex = firstMatch >= 0 ? firstMatch : 0;
-    }
+    const firstMatch = [...allCards].findIndex(c => c.dataset.category === filter);
+    carouselIndex = firstMatch >= 0 ? firstMatch : 0;
     stopAutoRotate();
 
     const tr = document.getElementById('carouselTrack');
@@ -496,7 +484,7 @@ function setupProductFilters() {
     }
 
     document.querySelectorAll('.catalog-card').forEach(card => {
-      const match = filter === 'all' || card.dataset.category === filter;
+      const match = card.dataset.category === filter;
       card.classList.toggle('card-hidden', !match);
     });
 
@@ -505,7 +493,16 @@ function setupProductFilters() {
       positionCarouselCards();
       startAutoRotate();
     });
+  }
+
+  tabs.addEventListener('click', e => {
+    const tab = e.target.closest('.filter-tab');
+    if (!tab) return;
+    applyFilter(tab);
   });
+
+  const activeTab = tabs.querySelector('.filter-tab.active');
+  if (activeTab) applyFilter(activeTab);
 }
 
 function openCatalogModal(p) {
