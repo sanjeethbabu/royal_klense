@@ -103,6 +103,8 @@ function closeModal() {
   const overlay = document.getElementById('modalOverlay');
   overlay.classList.remove('active');
   document.body.style.overflow = '';
+  const modal = document.getElementById('modal');
+  modal.classList.remove('pip-modal');
 }
 
 function loadProducts() {
@@ -351,7 +353,7 @@ function setupCarousel() {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
         const p = siteData.catalog[+card.dataset.index];
-        if (p) openCatalogModal(p.code, p.name, p.category, p.desc);
+        if (p) openCatalogModal(p);
       });
     }
   });
@@ -505,42 +507,93 @@ function setupProductFilters() {
   });
 }
 
-function openCatalogModal(code, name, category, desc) {
-  const catLabel = category === 'freshners' ? 'Freshner' : 'Cleaner';
-  const applications = category === 'freshners'
+function openCatalogModal(p) {
+  const catLabel = p.category === 'freshners' ? 'Freshner' : 'Cleaner';
+  const applications = p.category === 'freshners'
     ? 'Ideal for use in hotels, offices, restrooms, lobbies, hospitals, and commercial spaces to maintain a pleasant and inviting atmosphere.'
     : 'Suitable for daily use in kitchens, bathrooms, floors, glass surfaces, industrial areas, and institutional facilities.';
 
+  const packSizes = p.category === 'freshners'
+    ? ['500 ml', '1 L', '5 L']
+    : ['1 L', '5 L', '10 L', '20 L'];
+
+  const highlights = p.desc
+    .replace(/\./g, '|')
+    .split('|')
+    .filter(s => s.trim().length > 8)
+    .map(s => s.trim());
+
+  const specs = [
+    { icon: 'fas fa-barcode', label: 'Product Code', value: p.code },
+    { icon: 'fas fa-layer-group', label: 'Category', value: catLabel },
+    { icon: 'fas fa-flask', label: 'Variant', value: p.flavor },
+    { icon: 'fas fa-boxes', label: 'Pack Sizes', value: packSizes.join(', ') }
+  ];
+
+  const modal = document.getElementById('modal');
+  modal.classList.add('pip-modal');
+
   openModal(`
-    <div class="catalog-modal-content">
-      <span class="catalog-modal-badge">${catLabel}</span>
-      <h2 style="font-size:1.3rem;margin:4px 0 8px">${name}</h2>
-      <p style="font-size:0.92rem;color:var(--text-dark);line-height:1.6;margin-bottom:14px">${desc}</p>
-      <div style="background:var(--off-white);border-radius:10px;padding:12px 16px;margin-bottom:14px;text-align:left">
-        <p style="font-size:0.85rem;color:var(--text-light);margin:0;line-height:1.5;font-style:italic">${applications}</p>
+    <div class="pip">
+      <div class="pip-image-col">
+        <div class="pip-image-wrap">
+          <img class="pip-image" src="${p.image}" alt="${p.name}">
+          <span class="pip-image-badge">${catLabel}</span>
+        </div>
       </div>
-      <form id="quickQuoteForm" onsubmit="handleQuickQuote(event)">
-        <input type="hidden" id="qq_product" value="${name}">
-        <div class="form-row" style="gap:6px">
-          <div class="form-group" style="margin-bottom:0">
-            <input type="text" id="qq_name" required placeholder="Your name" style="padding:10px 12px;font-size:0.85rem">
-          </div>
-          <div class="form-group" style="margin-bottom:0">
-            <input type="email" id="qq_email" required placeholder="Your email" style="padding:10px 12px;font-size:0.85rem">
-          </div>
+      <div class="pip-content-col">
+        <div class="pip-header">
+          <h2 class="pip-name">${p.name}</h2>
+          <p class="pip-desc">${p.desc}</p>
         </div>
-        <div class="form-row" style="gap:6px;margin-top:6px">
-          <div class="form-group" style="margin-bottom:0">
-            <input type="tel" id="qq_phone" required placeholder="Phone number" style="padding:10px 12px;font-size:0.85rem">
-          </div>
-          <div class="form-group" style="margin-bottom:0">
-            <input type="text" id="qq_qty" placeholder="Qty / Litres" style="padding:10px 12px;font-size:0.85rem">
-          </div>
+
+        <div class="pip-specs">
+          ${specs.map(s => `
+            <div class="pip-spec">
+              <div class="pip-spec-icon"><i class="${s.icon}"></i></div>
+              <div class="pip-spec-text">
+                <span class="pip-spec-label">${s.label}</span>
+                <span class="pip-spec-value">${s.value}</span>
+              </div>
+            </div>
+          `).join('')}
         </div>
-        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:12px;padding:12px 20px">
-          <i class="fas fa-paper-plane"></i> Submit Inquiry
-        </button>
-      </form>
+
+        <div class="pip-section">
+          <h4 class="pip-section-title"><i class="fas fa-tag"></i> Available Variants</h4>
+          <div class="pip-variants">
+            <span class="pip-variant active">${p.flavor}</span>
+          </div>
+          <p class="pip-pack-info">Also available in: ${packSizes.join(', ')}</p>
+        </div>
+
+        <div class="pip-section">
+          <h4 class="pip-section-title"><i class="fas fa-building"></i> Recommended Applications</h4>
+          <p class="pip-app-text">${applications}</p>
+        </div>
+
+        <div class="pip-section">
+          <h4 class="pip-section-title"><i class="fas fa-star"></i> Highlights</h4>
+          <ul class="pip-highlights">
+            ${highlights.map(h => `<li>${h}.</li>`).join('')}
+          </ul>
+        </div>
+
+        <div class="pip-cta">
+          <button class="pip-btn pip-btn-primary" onclick="closeModal();openQuoteModal()">
+            <i class="fas fa-file-invoice"></i> Request Quote
+          </button>
+          <button class="pip-btn pip-btn-outline" onclick="closeModal();openContactModal()">
+            <i class="fas fa-envelope"></i> Contact
+          </button>
+          <a href="https://wa.me/916369311595?text=Hey%20Royal%20Klense%20team!%20I%20would%20like%20to%20know%20more%20about%20${encodeURIComponent(p.name)}" target="_blank" rel="noopener" class="pip-btn pip-btn-whatsapp">
+            <i class="fab fa-whatsapp"></i> WhatsApp
+          </a>
+          <a href="tel:+916369311595" class="pip-btn pip-btn-call">
+            <i class="fas fa-phone-alt"></i> Call
+          </a>
+        </div>
+      </div>
     </div>
   `);
 }
