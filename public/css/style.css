@@ -7587,8 +7587,8 @@ img:hover {
   cursor: pointer;
   border-radius: 20px;
   border: 1px solid rgba(201, 162, 39, 0.12);
-  filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.06));
-  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
   transform-style: preserve-3d;
   backface-visibility: hidden;
   will-change: transform;
@@ -7631,9 +7631,7 @@ img:hover {
 
 .catalog-card.card-side .catalog-card-inner {
   background: transparent;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-color: rgba(201, 162, 39, 0.08);
+  border-color: transparent;
   box-shadow: none;
 }
 
@@ -7677,9 +7675,9 @@ img:hover {
   border-radius: 20px 20px 0 0;
   transition: border-radius 0.6s cubic-bezier(0.22, 1, 0.36, 1);
   position: relative;
-  -webkit-transform: translateZ(0);
   contain: layout style;
   overflow: visible;
+  box-shadow: inset 0 -1px 0 rgba(201,162,39,0.06);
 }
 
 .catalog-card-img {
@@ -7691,22 +7689,19 @@ img:hover {
   border-radius: 18px;
   image-rendering: auto;
   -ms-interpolation-mode: bicubic;
-  filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.10));
   -webkit-transform: translateZ(0);
   -webkit-font-smoothing: antialiased;
   transform: translateZ(0);
-  transition: filter 0.3s ease, transform 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
 .catalog-card:not(.card-dimmed) .catalog-card-img {
   width: 175%;
   margin-top: -55px;
-  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.12));
   z-index: 3;
 }
 
 .catalog-card:not(.card-dimmed) .catalog-card-img:hover {
-  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.18));
   transform: scale(1.03);
 }
 
@@ -8586,14 +8581,13 @@ img:hover {
 }
 
 .pip-image-col {
-  width: 620px;
-  min-width: 620px;
-  background: linear-gradient(135deg, var(--off-white), var(--light-gray));
+  width: 440px;
+  min-width: 440px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  padding: 40px;
+  padding: 20px;
   flex-shrink: 0;
 }
 
@@ -8605,6 +8599,10 @@ img:hover {
   width: 100%;
   height: 100%;
   perspective: 1000px;
+  background: linear-gradient(135deg, var(--off-white), var(--light-gray));
+  border-radius: 20px;
+  overflow: hidden;
+  padding: 24px;
 }
 
 .pip-image-wrap::before {
@@ -8614,8 +8612,7 @@ img:hover {
   left: 8%;
   right: 8%;
   height: 18%;
-  background: radial-gradient(ellipse at center, rgba(11,29,58,0.15) 0%, transparent 70%);
-  filter: blur(14px);
+  background: radial-gradient(ellipse at center, rgba(11,29,58,0.10) 0%, transparent 70%);
   z-index: 0;
   pointer-events: none;
   animation: pipShadow 6s linear infinite;
@@ -8650,6 +8647,7 @@ img:hover {
   transform-style: preserve-3d;
   z-index: 1;
   pointer-events: none;
+  will-change: transform;
 }
 
 @keyframes pipSpin3D {
@@ -8661,13 +8659,12 @@ img:hover {
   position: absolute;
   inset: 0;
   margin: auto;
-  max-width: 78%;
-  max-height: 560px;
+  max-width: 95%;
+  max-height: 680px;
   width: auto;
   height: auto;
   object-fit: contain;
   backface-visibility: hidden;
-  filter: drop-shadow(0 24px 64px rgba(11,29,58,0.16)) drop-shadow(0 6px 16px rgba(11,29,58,0.08));
   pointer-events: none;
 }
 
@@ -8883,7 +8880,7 @@ img:hover {
 
 .pip-cta {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 10px;
   padding-top: 8px;
   border-top: 1px solid var(--light-gray);
@@ -8944,15 +8941,20 @@ img:hover {
 }
 
 .pip-btn-call {
-  background: var(--off-white);
-  color: var(--text-dark);
-  border: 1.5px solid var(--light-gray);
+  background: linear-gradient(135deg, var(--text-dark), #1a1a2e);
+  color: var(--white);
+  border: none;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+
+.pip-btn-call i {
+  transform: scaleX(-1);
 }
 
 .pip-btn-call:hover {
-  border-color: var(--gold);
-  color: var(--gold-dark);
-  background: rgba(201,162,39,0.06);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+  background: linear-gradient(135deg, var(--gold-dark), var(--gold));
 }
 
 @media (max-width: 900px) {
@@ -8972,10 +8974,18 @@ img:hover {
   .pip-image-col {
     width: 100%;
     min-width: 100%;
-    padding: 32px 24px;
-    max-height: 340px;
+    padding: 16px;
+    max-height: 380px;
     min-height: 300px;
+    height: 380px;
     flex-shrink: 0;
+  }
+
+  .pip-image-wrap {
+    padding: 0;
+    background: none;
+    border-radius: 0;
+    overflow: visible;
   }
 
   .pip-image-inner {
@@ -8983,8 +8993,8 @@ img:hover {
   }
 
   .pip-image {
-    max-width: 62%;
-    max-height: 270px;
+    max-width: 100%;
+    max-height: 100%;
   }
 
   .pip-content-col {
@@ -9068,14 +9078,22 @@ img:hover {
   }
 
   .pip-image-col {
-    padding: 24px 16px;
-    max-height: 280px;
-    min-height: 240px;
+    padding: 12px;
+    max-height: 320px;
+    min-height: 260px;
+    height: 320px;
+  }
+
+  .pip-image-wrap {
+    padding: 0;
+    background: none;
+    border-radius: 0;
+    overflow: visible;
   }
 
   .pip-image {
-    max-width: 58%;
-    max-height: 220px;
+    max-width: 100%;
+    max-height: 100%;
   }
 
   .pip-content-col {
@@ -9147,14 +9165,22 @@ img:hover {
   }
 
   .pip-image-col {
-    padding: 20px 12px;
-    max-height: 240px;
-    min-height: 200px;
+    padding: 10px;
+    max-height: 280px;
+    min-height: 220px;
+    height: 280px;
+  }
+
+  .pip-image-wrap {
+    padding: 0;
+    background: none;
+    border-radius: 0;
+    overflow: visible;
   }
 
   .pip-image {
-    max-width: 55%;
-    max-height: 190px;
+    max-width: 100%;
+    max-height: 100%;
   }
 
   .pip-content-col {

@@ -250,7 +250,7 @@ function positionCarouselCards() {
     const scale = 0.4 + 0.6 * Math.max(0, cos);
     card.style.transform = `translate(-50%, -50%) rotateY(${effAngle}deg) translateZ(${radius}px) scale(${scale})`;
     card.style.opacity = isFrontThree ? '1' : '0';
-    card.style.pointerEvents = isFrontThree && cos > 0 ? 'auto' : 'none';
+    card.style.pointerEvents = dist === 0 ? 'auto' : 'none';
     const cardImg = card.querySelector('.catalog-card-img');
     if (cardImg) cardImg.style.animationPlayState = dist === 0 ? '' : 'paused';
     card.classList.toggle('card-center', dist === 0 && isFrontThree);
@@ -584,11 +584,11 @@ function openCatalogModal(p) {
           <button class="pip-btn pip-btn-primary" onclick="closeModal();openQuoteModal()">
             <i class="fas fa-file-invoice"></i> Request Quote
           </button>
-          <a href="https://wa.me/916369311595?text=Hey%20Royal%20Klense%20team!%20I%20would%20like%20to%20know%20more%20about%20${encodeURIComponent(p.name)}" target="_blank" rel="noopener" class="pip-btn pip-btn-whatsapp">
-            <i class="fab fa-whatsapp"></i> WhatsApp
-          </a>
           <a href="tel:+916369311595" class="pip-btn pip-btn-call">
             <i class="fas fa-phone-alt"></i> Call
+          </a>
+          <a href="https://wa.me/916369311595?text=Hey%20Royal%20Klense%20team!%20I%20would%20like%20to%20know%20more%20about%20${encodeURIComponent(p.name)}" target="_blank" rel="noopener" class="pip-btn pip-btn-whatsapp">
+            <i class="fab fa-whatsapp"></i> WhatsApp
           </a>
         </div>
       </div>
