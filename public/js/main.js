@@ -307,10 +307,6 @@ function updateDots() {
 
 function startAutoRotate() {
   stopAutoRotate();
-  autoRotateTimer = setInterval(() => {
-    const btn = document.getElementById('carouselNext');
-    if (btn) btn.click();
-  }, 5000);
 }
 
 function stopAutoRotate() {
