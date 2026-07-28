@@ -176,19 +176,42 @@ function handleContact(req, res) {
 }
 
 app.post('/api/quote', (req, res) => {
-  const { name, email, phone, company, product, quantity, message } = req.body;
+  const { name, email, phone, company, product, quantity, message, items, category, location, pincode } = req.body;
 
-  if (!name || !email || !product) {
-    return res.status(400).json({ success: false, error: 'Name, email, and product are required.' });
+  if (!name) {
+    return res.status(400).json({ success: false, error: 'Name is required.' });
+  }
+
+  var emailStr = email || 'N/A';
+
+  var productListHtml = 'N/A';
+  if (items && items.length) {
+    var groups = {};
+    items.forEach(function(i) {
+      var cat = i.category || 'all';
+      if (!groups[cat]) groups[cat] = [];
+      groups[cat].push(i);
+    });
+    var listItems = [];
+    Object.keys(groups).forEach(function(cat) {
+      listItems.push('<li style="list-style:none;margin-top:12px;margin-bottom:4px"><strong>' + cat.charAt(0).toUpperCase() + cat.slice(1) + '</strong></li>');
+      groups[cat].forEach(function(i, idx) {
+        listItems.push('<li>' + (idx + 1) + '. ' + i.product + ' — ' + i.quantity + '</li>');
+      });
+    });
+    productListHtml = '<ul style="padding-left:20px;margin:4px 0;list-style:none">' + listItems.join('') + '</ul>';
   }
 
   const data = {
     name,
-    email,
+    email: emailStr,
     phone: phone || 'N/A',
     company: company || 'N/A',
-    product,
+    product: product || 'N/A',
     quantity: quantity || 'N/A',
+    category: category || 'N/A',
+    location: location || 'N/A',
+    pincode: pincode || 'N/A',
     message: message || 'N/A',
     type: 'quote',
     receivedAt: new Date().toISOString()
@@ -214,19 +237,19 @@ app.post('/api/quote', (req, res) => {
 
   if (transporter) {
     const mailOptions = {
-      from: `"${name}" <${email}>`,
-      replyTo: email,
+      from: `"${name}" <${emailStr}>`,
+      replyTo: emailStr,
       to: process.env.CONTACT_EMAIL || 'sanjeethbabumani@gmail.com',
       subject: `New Quote Request from ${name} - Royal Klense`,
       html: `
         <h2>New Quote Request</h2>
         <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Email:</strong> ${emailStr}</p>
         <p><strong>Phone:</strong> ${data.phone}</p>
-        <p><strong>Company:</strong> ${data.company}</p>
-        <p><strong>Product:</strong> ${data.product}</p>
-        <p><strong>Quantity:</strong> ${data.quantity}</p>
-        <p><strong>Message:</strong> ${data.message}</p>
+        <p><strong>Location:</strong> ${data.location}</p>
+        <p><strong>Pincode:</strong> ${data.pincode}</p>
+        <p><strong>Products:</strong></p>
+        ${productListHtml}
       `
     };
 

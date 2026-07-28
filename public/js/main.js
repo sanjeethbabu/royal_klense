@@ -307,10 +307,6 @@ function updateDots() {
 
 function startAutoRotate() {
   stopAutoRotate();
-  autoRotateTimer = setInterval(() => {
-    const btn = document.getElementById('carouselNext');
-    if (btn) btn.click();
-  }, 5000);
 }
 
 function stopAutoRotate() {
@@ -1072,21 +1068,31 @@ function setupQuoteFormFilter() {
       var sel = selectedProducts.indexOf(p.value) !== -1;
       return '<div class="custom-select-option' + (sel ? ' selected' : '') + '" data-value="' + p.value + '"><span class="multi-check">' + (sel ? '&#10003;' : '') + '</span>' + p.name + '</div>';
     }).join('');
-    updateTriggerText();
+    updateTriggerText(cat);
   }
 
-  function updateTriggerText() {
+  function updateTriggerText(cat) {
     if (!prodText) return;
-    if (selectedProducts.length === 0) {
+    var count = cat === 'all' ? selectedProducts.length : selectedProducts.filter(function(v) {
+      var p = allProducts.find(function(p) { return p.value === v; });
+      return p && p.category === cat;
+    }).length;
+    if (count === 0) {
       prodText.textContent = 'Select products';
     } else {
-      prodText.textContent = selectedProducts.length + ' product' + (selectedProducts.length > 1 ? 's' : '') + ' selected';
+      prodText.textContent = count + ' product' + (count > 1 ? 's' : '') + ' selected';
     }
   }
 
   function updateQuantities() {
     var qtyContainer = document.getElementById('qq_quantities');
     if (!qtyContainer) return;
+
+    var saved = {};
+    qtyContainer.querySelectorAll('.qq-qty').forEach(function(inp) {
+      if (inp.dataset.product) saved[inp.dataset.product] = inp.value;
+    });
+
     if (selectedProducts.length === 0) {
       qtyContainer.innerHTML = '<div style="font-size:0.85rem;color:var(--text-light);padding:4px 0">Select products above</div>';
       return;
@@ -1094,7 +1100,8 @@ function setupQuoteFormFilter() {
     qtyContainer.innerHTML = selectedProducts.map(function(val) {
       var name = allProducts.filter(function(p) { return p.value === val; })[0];
       var label = name ? name.name : val;
-      return '<div class="form-group qty-row" style="margin-bottom:8px"><label style="font-size:0.82rem;font-weight:500;color:var(--text-dark)">' + label + '</label><input type="text" class="qq-qty" data-product="' + val.replace(/"/g, '&quot;') + '" required placeholder="e.g. 5 litres, 10 units"></div>';
+      var val2 = saved[val] || '';
+      return '<div class="form-group qty-row" style="margin-bottom:8px"><label style="font-size:0.82rem;font-weight:500;color:var(--text-dark)">' + label + '</label><input type="text" class="qq-qty" data-product="' + val.replace(/"/g, '&quot;') + '" value="' + val2.replace(/"/g, '&quot;') + '" required placeholder="e.g. 5 litres, 10 units"></div>';
     }).join('');
   }
 
@@ -1134,7 +1141,6 @@ function setupQuoteFormFilter() {
         s.querySelector('.custom-select-text').textContent = text;
         hidden.value = val;
         s.classList.remove('open');
-        selectedProducts = [];
         renderProducts(val);
         updateQuantities();
       }
@@ -1211,7 +1217,10 @@ async function handleQuickQuote(e) {
   var items = [];
   qtyInputs.forEach(function(inp) {
     if (inp.dataset.product && inp.value.trim()) {
-      items.push({ product: inp.dataset.product, quantity: inp.value.trim() });
+      var cat = 'all';
+      var found = siteData.catalog.find(function(p) { return (p.name + ' - ' + p.flavor) === inp.dataset.product; });
+      if (found) cat = found.category;
+      items.push({ product: inp.dataset.product, quantity: inp.value.trim(), category: cat });
     }
   });
 
@@ -1219,7 +1228,6 @@ async function handleQuickQuote(e) {
     name: document.getElementById('qq_name').value,
     phone: document.getElementById('qq_phone').value,
     email: document.getElementById('qq_email').value || '',
-    category: document.getElementById('qq_category')?.value || 'all',
     items: items,
     location: document.getElementById('qq_location')?.value || '',
     pincode: document.getElementById('qq_pincode')?.value || ''
@@ -1233,16 +1241,13 @@ async function handleQuickQuote(e) {
     });
     const result = await res.json();
     if (result.success) {
-      const waBtn = result.waLink ? `<a href="${result.waLink}" target="_blank" class="btn btn-whatsapp" style="margin-top:12px;width:100%;justify-content:center">
-        <i class="fab fa-whatsapp"></i> Notify Us on WhatsApp
-      </a>` : '';
       document.getElementById('modalBody').innerHTML = `
         <div class="form-success">
           <i class="fas fa-check-circle"></i>
-          <h3>Inquiry Submitted!</h3>
+          <h3>Thank You for Your Inquiry!</h3>
           <p>${result.message}</p>
-          ${waBtn}
-          <button class="btn btn-primary" onclick="closeModal()" style="margin-top:12px">Close</button>
+          <p style="margin-top:12px;font-style:italic;color:var(--text-light)">Our team will review your requirements and get back to you within 24 hours.</p>
+          <button class="btn btn-primary" onclick="closeModal()" style="margin-top:16px">Close</button>
         </div>
       `;
       showToast('Inquiry submitted!', 'success');
