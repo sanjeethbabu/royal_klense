@@ -71,6 +71,7 @@ const siteData = {
     { code: 'C11', name: 'Handwash', flavor: 'Strawberry Shot', category: 'cleansers', image: '/images/cleansers/handwash_strawberry.png', desc: 'A fruity strawberry-scented handwash that cleanses gently while leaving hands soft and fragrant.' }
   ]
 };
+siteData.catalog.forEach(function(p) { p.backImage = '/images/back_of product.png'; });
 
 const API_BASE = '';
 
@@ -103,6 +104,8 @@ function closeModal() {
   const overlay = document.getElementById('modalOverlay');
   overlay.classList.remove('active');
   document.body.style.overflow = '';
+  const modal = document.getElementById('modal');
+  modal.classList.remove('pip-modal');
 }
 
 function loadProducts() {
@@ -151,19 +154,20 @@ function loadProducts() {
   }
 
   grid.innerHTML = siteData.products.map((p, i) => `
-    <div class="product-card enhanced-product-card" style="animation-delay: ${i * 0.08}s" data-category="cat-${i}" onclick="openProductModal('${p.name}', '${p.desc}')">
-      <div class="product-card-bg" style="background: linear-gradient(135deg, ${gradColors[i][0]}15, ${gradColors[i][1]}08)"></div>
-      <div class="product-card-shine"></div>
+    <div class="product-card" style="animation-delay: ${i * 0.08}s" data-category="cat-${i}" onclick="openProductModal('${p.name}', '${p.desc}')">
       <div class="product-card-inner">
-        <div class="product-icon-wrap" style="background: linear-gradient(135deg, ${gradColors[i][0]}20, ${gradColors[i][1]}10); color: ${gradColors[i][0]}">
-          <i class="${p.icon}"></i>
+        <div class="product-card-image-section">
+          <div class="product-icon-wrap" style="background: linear-gradient(135deg, ${gradColors[i][0]}20, ${gradColors[i][1]}10); color: ${gradColors[i][0]}">
+            <i class="${p.icon}"></i>
+          </div>
         </div>
-        <span class="product-badge" style="background: ${gradColors[i][0]}">${p.name.split(' ')[0]}</span>
-        <h3>${p.name}</h3>
-        <p>${p.desc}</p>
-        <span class="product-link">Explore Range <i class="fas fa-arrow-right"></i></span>
+        <div class="product-card-body">
+          <span class="product-badge" style="background: ${gradColors[i][0]}">${p.name.split(' ')[0]}</span>
+          <h3>${p.name}</h3>
+          <p>${p.desc}</p>
+          <span class="product-link">Explore Range <i class="fas fa-arrow-right"></i></span>
+        </div>
       </div>
-      <div class="product-card-edge" style="background: linear-gradient(90deg, ${gradColors[i][0]}, ${gradColors[i][1]})"></div>
     </div>
   `).join('');
 }
@@ -228,29 +232,23 @@ function positionCarouselCards() {
 
   const isMobile = window.innerWidth < 768;
   const stageW = stage.offsetWidth;
-  const isAll = count > 11;
-  const angleStep = isAll ? 360 / count : 360 / 11;
+  const angleStep = 360 / Math.max(count, 11);
   const cardWidth = visible[0]?.offsetWidth || 260;
-  const minRadius = cardWidth / (2 * Math.sin(Math.PI / count));
+  const minRadius = cardWidth / (2 * Math.sin(Math.PI / Math.max(count, 11)));
   const stageRadius = isMobile ? Math.min(320, Math.max(stageW * 0.38, 240)) : Math.min(500, stageW * 0.45);
   const radius = Math.max(minRadius, stageRadius);
 
   visible.forEach((card, i) => {
     const dist = Math.min(Math.abs(i - curVisibleIdx), count - Math.abs(i - curVisibleIdx));
     const isFrontThree = count <= 3 || dist <= 1;
-    let effAngle;
-    if (isAll) {
-      effAngle = i * angleStep - curVisibleIdx * angleStep;
-    } else {
-      const rawDiff = i - curVisibleIdx;
-      const absDiff = Math.abs(rawDiff);
-      const shortPathDir = absDiff <= count / 2 ? Math.sign(rawDiff) || 1 : -Math.sign(rawDiff);
-      effAngle = shortPathDir * dist * angleStep;
-    }
+    const rawDiff = i - curVisibleIdx;
+    const absDiff = Math.abs(rawDiff);
+    const shortPathDir = absDiff <= count / 2 ? Math.sign(rawDiff) || 1 : -Math.sign(rawDiff);
+    const effAngle = shortPathDir * dist * angleStep;
     const rad = effAngle * Math.PI / 180;
     const cos = Math.cos(rad);
     const scale = 0.4 + 0.6 * Math.max(0, cos);
-    card.style.transform = `translate(-50%, -50%) rotateY(${isAll ? i * angleStep : effAngle}deg) translateZ(${radius}px) scale(${scale})`;
+    card.style.transform = `translate(-50%, -50%) rotateY(${effAngle}deg) translateZ(${radius}px) scale(${scale})`;
     card.style.opacity = isFrontThree ? '1' : '0';
     card.style.pointerEvents = isFrontThree && cos > 0 ? 'auto' : 'none';
     const cardImg = card.querySelector('.catalog-card-img');
@@ -259,7 +257,7 @@ function positionCarouselCards() {
     card.classList.toggle('card-side', dist !== 0 && isFrontThree);
   });
 
-  track.style.transform = `rotateY(${isAll ? -curVisibleIdx * angleStep : 0}deg)`;
+  track.style.transform = 'rotateY(0deg)';
 
   carouselCards.forEach(c => {
     if (c.classList.contains('card-hidden')) {
@@ -351,7 +349,7 @@ function setupCarousel() {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
         const p = siteData.catalog[+card.dataset.index];
-        if (p) openCatalogModal(p.code, p.name, p.category, p.desc);
+        if (p) openCatalogModal(p);
       });
     }
   });
@@ -464,10 +462,7 @@ function setupProductFilters() {
   const tabs = document.querySelector('.filter-tabs');
   if (!tabs) return;
 
-  tabs.addEventListener('click', e => {
-    const tab = e.target.closest('.filter-tab');
-    if (!tab) return;
-
+  function applyFilter(tab) {
     tabs.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
     tab.classList.add('active');
 
@@ -478,12 +473,8 @@ function setupProductFilters() {
 
     const filter = tab.dataset.filter;
     const allCards = document.querySelectorAll('.catalog-card');
-    if (filter === 'all') {
-      carouselIndex = 0;
-    } else {
-      const firstMatch = [...allCards].findIndex(c => c.dataset.category === filter);
-      carouselIndex = firstMatch >= 0 ? firstMatch : 0;
-    }
+    const firstMatch = [...allCards].findIndex(c => c.dataset.category === filter);
+    carouselIndex = firstMatch >= 0 ? firstMatch : 0;
     stopAutoRotate();
 
     const tr = document.getElementById('carouselTrack');
@@ -493,7 +484,7 @@ function setupProductFilters() {
     }
 
     document.querySelectorAll('.catalog-card').forEach(card => {
-      const match = filter === 'all' || card.dataset.category === filter;
+      const match = card.dataset.category === filter;
       card.classList.toggle('card-hidden', !match);
     });
 
@@ -502,45 +493,105 @@ function setupProductFilters() {
       positionCarouselCards();
       startAutoRotate();
     });
+  }
+
+  tabs.addEventListener('click', e => {
+    const tab = e.target.closest('.filter-tab');
+    if (!tab) return;
+    applyFilter(tab);
   });
+
+  const activeTab = tabs.querySelector('.filter-tab.active');
+  if (activeTab) applyFilter(activeTab);
 }
 
-function openCatalogModal(code, name, category, desc) {
-  const catLabel = category === 'freshners' ? 'Freshner' : 'Cleaner';
-  const applications = category === 'freshners'
+function openCatalogModal(p) {
+  const catLabel = p.category === 'freshners' ? 'Freshner' : 'Cleaner';
+  const applications = p.category === 'freshners'
     ? 'Ideal for use in hotels, offices, restrooms, lobbies, hospitals, and commercial spaces to maintain a pleasant and inviting atmosphere.'
     : 'Suitable for daily use in kitchens, bathrooms, floors, glass surfaces, industrial areas, and institutional facilities.';
 
+  const packSizes = p.category === 'freshners'
+    ? ['500 ml', '1 L', '5 L']
+    : ['1 L', '5 L', '10 L', '20 L'];
+
+  const highlights = p.desc
+    .replace(/\./g, '|')
+    .split('|')
+    .filter(s => s.trim().length > 8)
+    .map(s => s.trim());
+
+  const specs = [
+    { icon: 'fas fa-barcode', label: 'Product Code', value: p.code },
+    { icon: 'fas fa-layer-group', label: 'Category', value: catLabel },
+    { icon: 'fas fa-flask', label: 'Variant', value: p.flavor },
+    { icon: 'fas fa-boxes', label: 'Pack Sizes', value: packSizes.join(', ') }
+  ];
+
+  const modal = document.getElementById('modal');
+  modal.classList.add('pip-modal');
+
   openModal(`
-    <div class="catalog-modal-content">
-      <span class="catalog-modal-badge">${catLabel}</span>
-      <h2 style="font-size:1.3rem;margin:4px 0 8px">${name}</h2>
-      <p style="font-size:0.92rem;color:var(--text-dark);line-height:1.6;margin-bottom:14px">${desc}</p>
-      <div style="background:var(--off-white);border-radius:10px;padding:12px 16px;margin-bottom:14px;text-align:left">
-        <p style="font-size:0.85rem;color:var(--text-light);margin:0;line-height:1.5;font-style:italic">${applications}</p>
+    <div class="pip">
+      <div class="pip-image-col">
+        <div class="pip-image-wrap">
+          <div class="pip-image-inner">
+            <img class="pip-image pip-image-front" src="${p.image}" alt="${p.name}">
+            <img class="pip-image pip-image-back" src="${p.backImage || p.image}" alt="${p.name}">
+          </div>
+          <span class="pip-image-badge">${catLabel}</span>
+        </div>
       </div>
-      <form id="quickQuoteForm" onsubmit="handleQuickQuote(event)">
-        <input type="hidden" id="qq_product" value="${name}">
-        <div class="form-row" style="gap:6px">
-          <div class="form-group" style="margin-bottom:0">
-            <input type="text" id="qq_name" required placeholder="Your name" style="padding:10px 12px;font-size:0.85rem">
-          </div>
-          <div class="form-group" style="margin-bottom:0">
-            <input type="email" id="qq_email" required placeholder="Your email" style="padding:10px 12px;font-size:0.85rem">
-          </div>
+      <div class="pip-content-col">
+        <div class="pip-header">
+          <h2 class="pip-name">${p.name}</h2>
+          <p class="pip-desc">${p.desc}</p>
         </div>
-        <div class="form-row" style="gap:6px;margin-top:6px">
-          <div class="form-group" style="margin-bottom:0">
-            <input type="tel" id="qq_phone" required placeholder="Phone number" style="padding:10px 12px;font-size:0.85rem">
-          </div>
-          <div class="form-group" style="margin-bottom:0">
-            <input type="text" id="qq_qty" placeholder="Qty / Litres" style="padding:10px 12px;font-size:0.85rem">
-          </div>
+
+        <div class="pip-specs">
+          ${specs.map(s => `
+            <div class="pip-spec">
+              <div class="pip-spec-icon"><i class="${s.icon}"></i></div>
+              <div class="pip-spec-text">
+                <span class="pip-spec-label">${s.label}</span>
+                <span class="pip-spec-value">${s.value}</span>
+              </div>
+            </div>
+          `).join('')}
         </div>
-        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:12px;padding:12px 20px">
-          <i class="fas fa-paper-plane"></i> Submit Inquiry
-        </button>
-      </form>
+
+        <div class="pip-section">
+          <h4 class="pip-section-title"><i class="fas fa-tag"></i> Available Variants</h4>
+          <div class="pip-variants">
+            <span class="pip-variant active">${p.flavor}</span>
+          </div>
+          <p class="pip-pack-info">Also available in: ${packSizes.join(', ')}</p>
+        </div>
+
+        <div class="pip-section">
+          <h4 class="pip-section-title"><i class="fas fa-building"></i> Recommended Applications</h4>
+          <p class="pip-app-text">${applications}</p>
+        </div>
+
+        <div class="pip-section">
+          <h4 class="pip-section-title"><i class="fas fa-star"></i> Highlights</h4>
+          <ul class="pip-highlights">
+            ${highlights.map(h => `<li>${h}.</li>`).join('')}
+          </ul>
+        </div>
+
+        <div class="pip-cta">
+          <button class="pip-btn pip-btn-primary" onclick="closeModal();openQuoteModal()">
+            <i class="fas fa-file-invoice"></i> Request Quote
+          </button>
+          <a href="https://wa.me/916369311595?text=Hey%20Royal%20Klense%20team!%20I%20would%20like%20to%20know%20more%20about%20${encodeURIComponent(p.name)}" target="_blank" rel="noopener" class="pip-btn pip-btn-whatsapp">
+            <i class="fab fa-whatsapp"></i> WhatsApp
+          </a>
+          <a href="tel:+916369311595" class="pip-btn pip-btn-call">
+            <i class="fas fa-phone-alt"></i> Call
+          </a>
+        </div>
+      </div>
     </div>
   `);
 }

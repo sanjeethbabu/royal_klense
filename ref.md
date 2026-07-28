@@ -1,1 +1,3 @@
-in c04 and it is millennium lavender and c01 the flavor is french rose c03 it is lemon fresh c07 it is mild & gentle c11 it is straberry shot
+C:\Users\SanjeethBabu_owc6ggv\OneDrive - Gantec Corporation\Desktop\self_developement\royal_clense\public\images\back_of product.png
+
+i have added the path of back side of the product make it as back while rotating
