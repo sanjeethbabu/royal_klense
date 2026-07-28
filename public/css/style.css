@@ -1240,15 +1240,11 @@ body:not(.rk-leaving):not(.rk-reveal)>*:not(#loader):not(script) {
 
 .nav-cta:hover {
   transform: perspective(600px) rotateX(4deg) rotateY(3deg) translateZ(8px) translateY(-3px);
-  box-shadow:
-    0 12px 32px rgba(201, 162, 39, 0.4),
-    0 4px 12px rgba(201, 162, 39, 0.15);
   transition: all 0.25s cubic-bezier(0.22,1,0.36,1);
 }
 
 .nav-cta:active {
   transform: perspective(600px) rotateX(-2deg) translateZ(2px) translateY(1px);
-  box-shadow: 0 2px 8px rgba(201, 162, 39, 0.3);
   transition-duration: 0.05s;
 }
 
@@ -1264,16 +1260,12 @@ body:not(.rk-leaving):not(.rk-reveal)>*:not(#loader):not(script) {
   border-color: var(--royal-blue);
   background: var(--white);
   transform: perspective(600px) rotateX(4deg) rotateY(-3deg) translateZ(8px) translateY(-3px);
-  box-shadow:
-    0 12px 32px rgba(11, 29, 58, 0.18),
-    0 4px 12px rgba(11, 29, 58, 0.08);
   color: var(--royal-blue) !important;
   transition: all 0.25s cubic-bezier(0.22,1,0.36,1);
 }
 
 .nav-cta-secondary:active {
   transform: perspective(600px) rotateX(-2deg) translateZ(2px) translateY(1px);
-  box-shadow: 0 2px 8px rgba(11, 29, 58, 0.1);
   transition-duration: 0.05s;
 }
 
