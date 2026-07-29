@@ -2897,6 +2897,7 @@ html.nav-open body {
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
   cursor: pointer;
+  overflow: hidden;
 }
 
 .whatsapp-float::before {
@@ -5094,6 +5095,9 @@ html.nav-open body {
 .page-3d-wrap {
   perspective: var(--perspective-3d);
   transform-style: preserve-3d;
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
 }
 
 /* --- 3D Layer Depth System --- */
