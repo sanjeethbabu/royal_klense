@@ -203,7 +203,7 @@ function loadProductCatalog() {
   setupScrollRevealCards();
 }
 
-let activeFilter = 'freshners';
+let activeFilter = 'cleansers';
 
 function setupProductGrid() {
   document.querySelectorAll('.product-card').forEach(card => {
@@ -276,7 +276,7 @@ function setupProductFilters() {
   });
 
   requestAnimationFrame(function () {
-    applyFilter('freshners');
+    applyFilter('cleansers');
   });
   setupStickyBar();
 }
@@ -2048,7 +2048,7 @@ function runDeferredEffects() {
   }, 80);
 }
 
-const LOADER_MIN_MS = 500;
+const LOADER_MIN_MS = 3100;
 const LOADER_MAX_MS = 1500;
 
 function bindCtaButtons() {
