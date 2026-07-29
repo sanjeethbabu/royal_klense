@@ -1,22 +1,32 @@
 <%- include('partials/header') %>
 
   <main class="products-page">
-    <div class="products-catalog-header">
-      <div class="latest-updates-wrap">
-        <button class="latest-updates-btn" id="latestUpdatesBtn">
-          <span class="latest-updates-btn-dot"></span>
-          Click for Latest Updates
-        </button>
-      </div>
-      <div class="products-catalog-explore">
-        <span class="explore-text">Explore our products</span>
-      </div>
-      <div class="filter-tabs">
-        <button class="filter-tab active" data-filter="freshners"><span>Freshners</span></button>
-        <button class="filter-tab" data-filter="cleansers"><span>Cleansers</span></button>
+    <div class="products-hero">
+      <div class="products-hero-bg"></div>
+      <div class="products-hero-content">
+        <div class="latest-updates-wrap">
+          <button class="latest-updates-btn" id="latestUpdatesBtn">
+            <span class="latest-updates-btn-dot"></span>
+            Click for Latest Updates
+          </button>
+        </div>
+        <h1 class="products-hero-title">Explore Our <span>Products</span></h1>
+        <p class="products-hero-subtitle">Premium cleaning solutions for every space</p>
       </div>
     </div>
-    <div id="productsCatalog" class="products-catalog-grid"></div>
+
+    <div class="products-sticky-bar" id="productsStickyBar">
+      <div class="products-sticky-inner">
+        <div class="filter-tags" id="filterTags">
+          <button class="filter-tag active" data-filter="freshners">Freshners</button>
+          <button class="filter-tag" data-filter="cleansers">Cleansers</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="products-wrapper">
+      <div id="productsCatalog" class="products-grid"></div>
+    </div>
   </main>
 
   <div class="pkg-popup-overlay" id="pkgPopupOverlay">

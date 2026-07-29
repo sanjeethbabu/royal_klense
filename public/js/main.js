@@ -140,7 +140,7 @@ function loadProducts() {
       filterBar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       const filter = btn.dataset.filter;
-      document.querySelectorAll('.product-card').forEach(card => {
+      document.querySelectorAll('.hp-product-card').forEach(card => {
         if (filter === 'all' || card.dataset.category === filter) {
           card.style.display = '';
           card.style.animation = 'none';
@@ -156,14 +156,14 @@ function loadProducts() {
   }
 
   grid.innerHTML = siteData.products.map((p, i) => `
-    <div class="product-card" style="animation-delay: ${i * 0.08}s" data-category="cat-${i}" onclick="openProductModal('${p.name}', '${p.desc}')">
-      <div class="product-card-inner">
-        <div class="product-card-image-section">
+    <div class="hp-product-card" style="animation-delay: ${i * 0.08}s" data-category="cat-${i}" onclick="openProductModal('${p.name}', '${p.desc}')">
+      <div class="hp-product-card-inner">
+        <div class="hp-product-card-image-section">
           <div class="product-icon-wrap" style="background: linear-gradient(135deg, ${gradColors[i][0]}20, ${gradColors[i][1]}10); color: ${gradColors[i][0]}">
             <i class="${p.icon}"></i>
           </div>
         </div>
-        <div class="product-card-body">
+        <div class="hp-product-card-body">
           <span class="product-badge" style="background: ${gradColors[i][0]}">${p.name.split(' ')[0]}</span>
           <h3>${p.name}</h3>
           <p>${p.desc}</p>
@@ -178,171 +178,36 @@ function loadProductCatalog() {
   const grid = document.getElementById('productsCatalog');
   if (!grid) return;
 
-  grid.innerHTML = `
-    <div class="carousel-container">
-      <button class="carousel-arrow carousel-prev" id="carouselPrev"><i class="fas fa-chevron-left"></i></button>
-      <div class="carousel-stage" id="carouselStage">
-        <div class="carousel-track" id="carouselTrack">
-           ${siteData.catalog.map((p, i) => `
-            <div class="catalog-card" data-index="${i}" data-category="${p.category}">
-              <div class="catalog-card-inner">
-                <div class="catalog-card-image-section">
-                  <img class="catalog-card-img" src="${p.image}" alt="${p.name}" loading="eager">
-                </div>
-                <div class="catalog-card-body">
-                  <span class="catalog-card-code">${p.code}</span>
-                  <span class="catalog-card-category">${p.category === 'freshners' ? 'Freshner' : 'Cleaner'}</span>
-                  <h3 class="catalog-card-name">${p.name}</h3>
-                  <span class="catalog-card-flavor">${p.flavor}</span>
-                  <button class="catalog-card-btn" type="button">Get Info <i class="fas fa-arrow-right"></i></button>
-                </div>
-              </div>
-            </div>`).join('')}
-        </div>
+  grid.innerHTML = siteData.catalog.map((p, i) => `
+    <div class="product-card" data-index="${i}" data-category="${p.category}">
+      <div class="product-card-media">
+        <img class="product-card-img" src="${p.image}" alt="${p.name}" loading="lazy">
+        <div class="product-card-img-shine"></div>
       </div>
-      <button class="carousel-arrow carousel-next" id="carouselNext"><i class="fas fa-chevron-right"></i></button>
-      <div class="carousel-dots" id="carouselDots"></div>
+      <div class="product-card-body">
+        <div class="product-card-tags">
+          <span class="product-card-code">${p.code}</span>
+          <span class="product-card-category">${p.category === 'freshners' ? 'Freshner' : 'Cleaner'}</span>
+        </div>
+        <h3 class="product-card-name">${p.name}</h3>
+        <span class="product-card-flavor">${p.flavor}</span>
+        <p class="product-card-desc">${p.desc}</p>
+        <button class="product-card-btn" type="button">Get Info <i class="fas fa-arrow-right"></i></button>
+      </div>
     </div>
-  `;
+  `).join('');
 
-  setupCarousel();
+  setupProductGrid();
   setupProductFilters();
   setupLatestUpdatesBtn();
+  setupScrollRevealCards();
 }
 
-let carouselIndex = 0;
-let carouselTotal = 0;
-let carouselCards = [];
-let carouselInitialized = false;
-let autoRotateTimer = null;
+let activeFilter = 'freshners';
 
-function positionCarouselCards() {
-  const track = document.getElementById('carouselTrack');
-  if (!track) return;
-  const stage = document.getElementById('carouselStage');
-  if (!stage) return;
-
-  const visible = carouselCards.filter(c => !c.classList.contains('card-hidden'));
-  const count = visible.length;
-  if (!count) return;
-
-  let curVisibleIdx = visible.indexOf(carouselCards[carouselIndex]);
-  if (curVisibleIdx < 0) {
-    carouselIndex = carouselCards.indexOf(visible[0]) || 0;
-    curVisibleIdx = 0;
-  }
-
-  const isMobile = window.innerWidth < 768;
-  const stageW = stage.offsetWidth;
-  const angleStep = 360 / Math.max(count, 11);
-  const cardWidth = visible[0]?.offsetWidth || 260;
-  const minRadius = cardWidth / (2 * Math.sin(Math.PI / Math.max(count, 11)));
-  const stageRadius = isMobile ? Math.min(320, Math.max(stageW * 0.38, 240)) : Math.min(500, stageW * 0.45);
-  const radius = Math.max(minRadius, stageRadius);
-
-  visible.forEach((card, i) => {
-    const dist = Math.min(Math.abs(i - curVisibleIdx), count - Math.abs(i - curVisibleIdx));
-    const isFrontThree = count <= 3 || dist <= 1;
-    const rawDiff = i - curVisibleIdx;
-    const absDiff = Math.abs(rawDiff);
-    const shortPathDir = absDiff <= count / 2 ? Math.sign(rawDiff) || 1 : -Math.sign(rawDiff);
-    const effAngle = shortPathDir * dist * angleStep;
-    const rad = effAngle * Math.PI / 180;
-    const cos = Math.cos(rad);
-    const scale = 0.4 + 0.6 * Math.max(0, cos);
-    card.style.transform = `translate(-50%, -50%) rotateY(${effAngle}deg) translateZ(${radius}px) scale(${scale})`;
-    card.style.opacity = isFrontThree ? '1' : '0';
-    card.style.pointerEvents = dist === 0 ? 'auto' : 'none';
-    const cardImg = card.querySelector('.catalog-card-img');
-    if (cardImg) cardImg.style.animationPlayState = dist === 0 ? '' : 'paused';
-    card.classList.toggle('card-center', dist === 0 && isFrontThree);
-    card.classList.toggle('card-side', dist !== 0 && isFrontThree);
-  });
-
-  track.style.transform = 'rotateY(0deg)';
-
-  carouselCards.forEach(c => {
-    if (c.classList.contains('card-hidden')) {
-      c.style.position = '';
-      c.style.left = '';
-      c.style.top = '';
-      c.style.transform = '';
-      c.classList.remove('card-dimmed', 'card-center', 'card-side');
-    }
-  });
-
-  updateDots();
-}
-
-function updateDots() {
-  const container = document.getElementById('carouselDots');
-  if (!container) return;
-  const visible = carouselCards.filter(c => !c.classList.contains('card-hidden'));
-  const count = visible.length;
-  if (count <= 1) { container.innerHTML = ''; return; }
-
-  const curVisibleIdx = Math.max(0, visible.indexOf(carouselCards[carouselIndex]));
-
-  if (container.dataset.dotsCount !== String(count)) {
-    container.innerHTML = visible.map((_, i) =>
-      `<button class="carousel-dot${i === curVisibleIdx ? ' active' : ''}" data-idx="${i}"></button>`
-    ).join('');
-    container.dataset.dotsCount = String(count);
-
-    container.querySelectorAll('.carousel-dot').forEach(dot => {
-      dot.addEventListener('click', () => {
-        const idx = parseInt(dot.dataset.idx);
-        const v = carouselCards.filter(c => !c.classList.contains('card-hidden'));
-        if (idx >= 0 && idx < v.length) {
-          stopAutoRotate();
-          carouselIndex = carouselCards.indexOf(v[idx]);
-          positionCarouselCards();
-        }
-      });
-    });
-  } else {
-    container.querySelectorAll('.carousel-dot').forEach((dot, i) => {
-      dot.classList.toggle('active', i === curVisibleIdx);
-    });
-  }
-}
-
-function startAutoRotate() {
-  stopAutoRotate();
-}
-
-function stopAutoRotate() {
-  if (autoRotateTimer) {
-    clearInterval(autoRotateTimer);
-    autoRotateTimer = null;
-  }
-}
-
-function setupCarousel() {
-  const track = document.getElementById('carouselTrack');
-  if (!track) return;
-
-  carouselCards = [...track.querySelectorAll('.catalog-card')];
-  carouselTotal = carouselCards.length;
-
-  const visibleCards = carouselCards.filter(c => !c.classList.contains('card-hidden'));
-  if (visibleCards.length && !visibleCards.includes(carouselCards[carouselIndex])) {
-    carouselIndex = carouselCards.indexOf(visibleCards[0]);
-  }
-
-  carouselCards.forEach((card) => {
-    card.addEventListener('click', (e) => {
-      if (e.target.closest('.catalog-card-btn')) return;
-      const visible = carouselCards.filter(c => !c.classList.contains('card-hidden'));
-      const idx = visible.indexOf(card);
-      if (idx === -1) return;
-      const curVisibleIdx = visible.indexOf(carouselCards[carouselIndex]);
-      if (idx === curVisibleIdx) return;
-      stopAutoRotate();
-      carouselIndex = carouselCards.indexOf(visible[idx]);
-      positionCarouselCards();
-    });
-    const btn = card.querySelector('.catalog-card-btn');
+function setupProductGrid() {
+  document.querySelectorAll('.product-card').forEach(card => {
+    const btn = card.querySelector('.product-card-btn');
     if (btn) {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -350,93 +215,72 @@ function setupCarousel() {
         if (p) openCatalogModal(p);
       });
     }
-    const cardImg = card.querySelector('.catalog-card-img');
-    if (cardImg) {
-      cardImg.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const p = siteData.catalog[+card.dataset.index];
-        if (p) openImageModal(p.image, p.name);
-      });
-    }
   });
+}
 
-  document.getElementById('carouselPrev')?.addEventListener('click', (e) => {
-    e.stopPropagation();
-    stopAutoRotate();
-    const visible = carouselCards.filter(c => !c.classList.contains('card-hidden'));
-    const curIdx = visible.indexOf(carouselCards[carouselIndex]);
-    const prevIdx = (curIdx - 1 + visible.length) % visible.length;
-    carouselIndex = carouselCards.indexOf(visible[prevIdx]);
-    positionCarouselCards();
-  });
-
-  document.getElementById('carouselNext')?.addEventListener('click', (e) => {
-    e.stopPropagation();
-    stopAutoRotate();
-    const visible = carouselCards.filter(c => !c.classList.contains('card-hidden'));
-    const curIdx = visible.indexOf(carouselCards[carouselIndex]);
-    const nextIdx = (curIdx + 1) % visible.length;
-    carouselIndex = carouselCards.indexOf(visible[nextIdx]);
-    positionCarouselCards();
-  });
-
-  const images = Array.from(track.querySelectorAll('img'));
-  const unloadedImages = images.filter(img => !img.complete);
-  if (unloadedImages.length) {
-    let loaded = 0;
-    unloadedImages.forEach(img => {
-      img.addEventListener('load', () => {
-        loaded += 1;
-        if (loaded === unloadedImages.length) {
-          requestAnimationFrame(positionCarouselCards);
-        }
-      }, { once: true });
+function setupScrollRevealCards() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const cards = Array.from(entry.target.parentNode.querySelectorAll('.product-card'));
+        const idx = cards.indexOf(entry.target);
+        setTimeout(() => entry.target.classList.add('visible'), idx * 50);
+        observer.unobserve(entry.target);
+      }
     });
-  }
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-  track.style.transition = 'none';
-  carouselCards.forEach(c => c.style.transition = 'none');
-      requestAnimationFrame(() => {
-        positionCarouselCards();
-        track.style.transition = 'transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)';
-        carouselCards.forEach(c => c.style.transition = 'opacity 0.8s ease, transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)');
-      });
-      startAutoRotate();
-  window.addEventListener('resize', positionCarouselCards);
+  document.querySelectorAll('.product-card').forEach(card => observer.observe(card));
+}
 
-  const container = document.querySelector('.carousel-container');
+function setupProductFilters() {
+  const container = document.getElementById('filterTags');
   if (!container) return;
 
-  let touchStartX = 0;
-  let touchEndX = 0;
-  let isSwiping = false;
+  const applyFilter = (filter) => {
+    activeFilter = filter;
+    container.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
+    container.querySelector(`[data-filter="${filter}"]`)?.classList.add('active');
 
-  container.addEventListener('touchstart', (e) => {
-    touchStartX = e.changedTouches[0].screenX;
-    touchEndX = touchStartX;
-    isSwiping = true;
-  }, { passive: true });
-
-  container.addEventListener('touchmove', (e) => {
-    if (!isSwiping) return;
-    touchEndX = e.changedTouches[0].screenX;
-  }, { passive: true });
-
-  container.addEventListener('touchend', (e) => {
-    if (!isSwiping) return;
-    isSwiping = false;
-    if (e.target.closest('.catalog-card-btn') || e.target.closest('.carousel-arrow') || e.target.closest('.carousel-dot')) return;
-    const diff = touchStartX - touchEndX;
-    if (Math.abs(diff) > 60) {
-      if (diff > 0) {
-        document.getElementById('carouselNext')?.click();
+    const cards = document.querySelectorAll('.product-card');
+    let delay = 0;
+    cards.forEach((card) => {
+      const match = card.dataset.category === filter;
+      if (match) {
+        card.classList.remove('hidden');
+        card.style.transitionDelay = `${delay}ms`;
+        delay += 40;
+        requestAnimationFrame(() => card.classList.add('visible'));
       } else {
-        document.getElementById('carouselPrev')?.click();
+        card.classList.remove('visible');
+        card.classList.add('hidden');
       }
-    }
+    });
+  };
+
+  container.addEventListener('click', (e) => {
+    const tag = e.target.closest('.filter-tag');
+    if (!tag) return;
+    const filter = tag.dataset.filter;
+    if (filter === activeFilter) return;
+    applyFilter(filter);
   });
 
-  carouselInitialized = true;
+  applyFilter('freshners');
+  setupStickyBar();
+}
+
+function setupStickyBar() {
+  const bar = document.getElementById('productsStickyBar');
+  if (!bar) return;
+  const hero = document.querySelector('.products-hero');
+  if (!hero) return;
+
+  const observer = new IntersectionObserver(([entry]) => {
+    bar.classList.toggle('is-stuck', !entry.isIntersecting);
+  }, { threshold: 0, rootMargin: '-80px 0px 0px 0px' });
+
+  observer.observe(hero);
 }
 
 function setupLatestUpdatesBtn() {
@@ -462,53 +306,6 @@ function setupLatestUpdatesBtn() {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && overlay.classList.contains('is-visible')) closePopup();
   });
-}
-
-function setupProductFilters() {
-  const tabs = document.querySelector('.filter-tabs');
-  if (!tabs) return;
-
-  function applyFilter(tab) {
-    tabs.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-    tab.classList.add('active');
-
-    const productsPage = document.querySelector('.products-page');
-    if (productsPage) {
-      productsPage.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    const filter = tab.dataset.filter;
-    const allCards = document.querySelectorAll('.catalog-card');
-    const firstMatch = [...allCards].findIndex(c => c.dataset.category === filter);
-    carouselIndex = firstMatch >= 0 ? firstMatch : 0;
-    stopAutoRotate();
-
-    const tr = document.getElementById('carouselTrack');
-    if (tr) {
-      tr.style.transition = 'none';
-      void tr.offsetHeight;
-    }
-
-    document.querySelectorAll('.catalog-card').forEach(card => {
-      const match = card.dataset.category === filter;
-      card.classList.toggle('card-hidden', !match);
-    });
-
-    requestAnimationFrame(() => {
-      if (tr) tr.style.transition = '';
-      positionCarouselCards();
-      startAutoRotate();
-    });
-  }
-
-  tabs.addEventListener('click', e => {
-    const tab = e.target.closest('.filter-tab');
-    if (!tab) return;
-    applyFilter(tab);
-  });
-
-  const activeTab = tabs.querySelector('.filter-tab.active');
-  if (activeTab) applyFilter(activeTab);
 }
 
 function openCatalogModal(p) {
@@ -1873,8 +1670,8 @@ async function handleFooterContact(e) {
 }
 
 function setupTilt3D() {
-  const cards = document.querySelectorAll('.tilt-3d:not(.product-card):not(.industry-card):not(.feature-card):not(.manufacturing-card):not(.cert-card):not(.top-product-card)');
-  const autoCards = document.querySelectorAll('.product-card, .industry-card, .feature-card, .manufacturing-card, .cert-card, .top-product-card, .stat-tilt, .hero-stat');
+  const cards = document.querySelectorAll('.tilt-3d:not(.hp-product-card):not(.industry-card):not(.feature-card):not(.manufacturing-card):not(.cert-card):not(.top-product-card)');
+  const autoCards = document.querySelectorAll('.hp-product-card, .industry-card, .feature-card, .manufacturing-card, .cert-card, .top-product-card, .stat-tilt, .hero-stat');
 
   autoCards.forEach(card => {
     card.classList.add('tilt-3d');
