@@ -18,8 +18,9 @@
     <div class="products-sticky-bar" id="productsStickyBar">
       <div class="products-sticky-inner">
         <div class="filter-tags" id="filterTags">
-          <button class="filter-tag active" data-filter="freshners">Freshners</button>
-          <button class="filter-tag" data-filter="cleansers">Cleansers</button>
+          <div class="filter-slider" id="filterSlider"></div>
+          <button class="filter-tag active" data-filter="cleansers">Cleansers</button>
+          <button class="filter-tag" data-filter="freshners">Freshners</button>
         </div>
       </div>
     </div>
@@ -31,7 +32,9 @@
 
   <div class="pkg-popup-overlay" id="pkgPopupOverlay">
     <div class="pkg-popup" id="pkgPopup">
-      <button class="pkg-popup-close" id="pkgPopupClose" aria-label="Close">&times;</button>
+      <button class="pkg-popup-close" id="pkgPopupClose" type="button" aria-label="Close">
+        <span class="close-icon"><i class="fas fa-times"></i></span>
+      </button>
       <div class="pkg-popup-icon"><i class="fas fa-box-open"></i></div>
       <span class="pkg-popup-title">See What's New </span>
 

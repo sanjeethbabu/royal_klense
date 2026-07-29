@@ -203,7 +203,7 @@ function loadProductCatalog() {
   setupScrollRevealCards();
 }
 
-let activeFilter = 'freshners';
+let activeFilter = 'cleansers';
 
 function setupProductGrid() {
   document.querySelectorAll('.product-card').forEach(card => {
@@ -235,12 +235,21 @@ function setupScrollRevealCards() {
 
 function setupProductFilters() {
   const container = document.getElementById('filterTags');
+  const slider = document.getElementById('filterSlider');
   if (!container) return;
+
+  function moveSlider(target) {
+    if (!slider || !target) return;
+    slider.style.width = target.offsetWidth + 'px';
+    slider.style.transform = 'translateX(' + target.offsetLeft + 'px)';
+  }
 
   const applyFilter = (filter) => {
     activeFilter = filter;
     container.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
-    container.querySelector(`[data-filter="${filter}"]`)?.classList.add('active');
+    const activeTag = container.querySelector('[data-filter="' + filter + '"]');
+    if (activeTag) activeTag.classList.add('active');
+    moveSlider(activeTag);
 
     const cards = document.querySelectorAll('.product-card');
     let delay = 0;
@@ -248,9 +257,9 @@ function setupProductFilters() {
       const match = card.dataset.category === filter;
       if (match) {
         card.classList.remove('hidden');
-        card.style.transitionDelay = `${delay}ms`;
+        card.style.transitionDelay = delay + 'ms';
         delay += 40;
-        requestAnimationFrame(() => card.classList.add('visible'));
+        requestAnimationFrame(function () { card.classList.add('visible'); });
       } else {
         card.classList.remove('visible');
         card.classList.add('hidden');
@@ -258,7 +267,7 @@ function setupProductFilters() {
     });
   };
 
-  container.addEventListener('click', (e) => {
+  container.addEventListener('click', function (e) {
     const tag = e.target.closest('.filter-tag');
     if (!tag) return;
     const filter = tag.dataset.filter;
@@ -266,7 +275,9 @@ function setupProductFilters() {
     applyFilter(filter);
   });
 
-  applyFilter('freshners');
+  requestAnimationFrame(function () {
+    applyFilter('cleansers');
+  });
   setupStickyBar();
 }
 
@@ -1489,60 +1500,64 @@ function scrollToHash() {
 }
 
 function setupHeroVideo() {
-  const video = document.getElementById('heroVideo');
+  var video = document.getElementById('heroVideo');
   if (!video) return;
-  const START_SEC = 1;
-
-  function tryPlay() {
-    video.play().catch(function() {
-      document.addEventListener('touchstart', function playOnTouch() {
-        video.play();
-        document.removeEventListener('touchstart', playOnTouch);
-      }, { once: true });
-    });
-  }
+  var START_SEC = 1;
+  var played = false;
 
   function showVideo() {
     video.classList.add('ready');
   }
 
-  function seekAndPlay() {
-    if (Math.abs((video.currentTime || 0) - START_SEC) > 0.05) {
-      video.currentTime = START_SEC;
-      video.addEventListener('seeked', function onSeeked() {
-        video.removeEventListener('seeked', onSeeked);
-        tryPlay();
-      });
-    } else {
-      tryPlay();
-    }
+  function tryPlay() {
+    var p = video.play();
+    if (p) p.catch(function () {
+      var fn = function () {
+        video.play()['catch'](function () {});
+        document.removeEventListener('touchstart', fn);
+      };
+      document.addEventListener('touchstart', fn, { once: true });
+    });
   }
 
-  video.addEventListener('playing', showVideo);
-  video.addEventListener('loadeddata', showVideo);
-
-  video.addEventListener('loadedmetadata', seekAndPlay);
-
-  video.addEventListener('ended', function() {
+  function seekAfterPlay() {
+    if (played) return;
+    played = true;
     video.currentTime = START_SEC;
-    video.addEventListener('seeked', function onEndSeek() {
-      video.removeEventListener('seeked', onEndSeek);
-      tryPlay();
-    });
-  });
+    showVideo();
+  }
 
-  window.addEventListener('pageshow', function(e) {
+  function onEnded() {
+    video.currentTime = START_SEC;
+    var fn = function () {
+      video.removeEventListener('seeked', fn);
+      tryPlay();
+    };
+    video.addEventListener('seeked', fn);
+  }
+
+  video.addEventListener('loadeddata', showVideo);
+  video.addEventListener('playing', seekAfterPlay);
+  video.addEventListener('ended', onEnded);
+
+  window.addEventListener('pageshow', function (e) {
     if (e.persisted) {
       video.currentTime = START_SEC;
-      video.addEventListener('seeked', function onPageSeek() {
-        video.removeEventListener('seeked', onPageSeek);
+      var fn = function () {
+        video.removeEventListener('seeked', fn);
         tryPlay();
-      });
+      };
+      video.addEventListener('seeked', fn);
     }
   });
 
   if (video.readyState >= 2) {
-    seekAndPlay();
+    tryPlay();
+  } else {
+    video.addEventListener('canplay', function () {
+      tryPlay();
+      video.removeEventListener('canplay', arguments.callee);
+    });
   }
 
   const heroScroll = document.getElementById('heroScroll');
@@ -2037,7 +2052,7 @@ function runDeferredEffects() {
   }, 80);
 }
 
-const LOADER_MIN_MS = 500;
+const LOADER_MIN_MS = 3100;
 const LOADER_MAX_MS = 1500;
 
 function bindCtaButtons() {
