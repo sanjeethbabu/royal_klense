@@ -235,12 +235,21 @@ function setupScrollRevealCards() {
 
 function setupProductFilters() {
   const container = document.getElementById('filterTags');
+  const slider = document.getElementById('filterSlider');
   if (!container) return;
+
+  function moveSlider(target) {
+    if (!slider || !target) return;
+    slider.style.width = target.offsetWidth + 'px';
+    slider.style.transform = 'translateX(' + target.offsetLeft + 'px)';
+  }
 
   const applyFilter = (filter) => {
     activeFilter = filter;
     container.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
-    container.querySelector(`[data-filter="${filter}"]`)?.classList.add('active');
+    const activeTag = container.querySelector('[data-filter="' + filter + '"]');
+    if (activeTag) activeTag.classList.add('active');
+    moveSlider(activeTag);
 
     const cards = document.querySelectorAll('.product-card');
     let delay = 0;
@@ -248,9 +257,9 @@ function setupProductFilters() {
       const match = card.dataset.category === filter;
       if (match) {
         card.classList.remove('hidden');
-        card.style.transitionDelay = `${delay}ms`;
+        card.style.transitionDelay = delay + 'ms';
         delay += 40;
-        requestAnimationFrame(() => card.classList.add('visible'));
+        requestAnimationFrame(function () { card.classList.add('visible'); });
       } else {
         card.classList.remove('visible');
         card.classList.add('hidden');
@@ -258,7 +267,7 @@ function setupProductFilters() {
     });
   };
 
-  container.addEventListener('click', (e) => {
+  container.addEventListener('click', function (e) {
     const tag = e.target.closest('.filter-tag');
     if (!tag) return;
     const filter = tag.dataset.filter;
@@ -266,7 +275,9 @@ function setupProductFilters() {
     applyFilter(filter);
   });
 
-  applyFilter('freshners');
+  requestAnimationFrame(function () {
+    applyFilter('freshners');
+  });
   setupStickyBar();
 }
 
