@@ -1514,6 +1514,14 @@ function setupHeroVideo() {
     if (p) p['catch'](function () {});
   }
 
+  function isOldiOS() {
+    var ua = navigator.userAgent;
+    var match = ua.match(/OS (\d+)_(\d+)/);
+    if (!match) return false;
+    var major = parseInt(match[1], 10);
+    return major < 14;
+  }
+
   function showFallbackPlayBtn() {
     if (!video.paused) return;
     var btn = document.createElement('div');
@@ -1557,7 +1565,9 @@ function setupHeroVideo() {
     }
   });
 
-  setTimeout(showFallbackPlayBtn, 1500);
+  if (isOldiOS()) {
+    setTimeout(showFallbackPlayBtn, 1500);
+  }
 
   const heroScroll = document.getElementById('heroScroll');
   const about = document.querySelector('#about');
