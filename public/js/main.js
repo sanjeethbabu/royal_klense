@@ -1504,6 +1504,7 @@ function setupHeroVideo() {
   if (!video) return;
   var START_SEC = 1;
   var played = false;
+  var fallbackShown = false;
 
   function showVideo() {
     video.classList.add('ready');
@@ -1523,7 +1524,9 @@ function setupHeroVideo() {
   }
 
   function showFallbackPlayBtn() {
+    if (fallbackShown) return;
     if (!video.paused) return;
+    fallbackShown = true;
     var btn = document.createElement('div');
     btn.className = 'hero-video-play-btn';
     btn.innerHTML = '<i class="fas fa-play"></i>';
@@ -1540,6 +1543,12 @@ function setupHeroVideo() {
     played = true;
     video.currentTime = START_SEC;
     showVideo();
+  }
+
+  function tryPlayWhenReady() {
+    if (!video.paused) return;
+    doPlay();
+    setTimeout(showFallbackPlayBtn, 2000);
   }
 
   video.addEventListener('loadeddata', showVideo);
