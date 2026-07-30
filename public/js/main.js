@@ -1515,6 +1515,14 @@ function setupHeroVideo() {
     if (p) p['catch'](function () {});
   }
 
+  function isOldiOS() {
+    var ua = navigator.userAgent;
+    var match = ua.match(/OS (\d+)_(\d+)/);
+    if (!match) return false;
+    var major = parseInt(match[1], 10);
+    return major < 14;
+  }
+
   function showFallbackPlayBtn() {
     if (fallbackShown) return;
     if (!video.paused) return;
@@ -1566,13 +1574,9 @@ function setupHeroVideo() {
     }
   });
 
-  if (video.readyState >= 3) {
-    tryPlayWhenReady();
-  } else {
-    video.addEventListener('canplay', tryPlayWhenReady, { once: true });
+  if (isOldiOS()) {
+    setTimeout(showFallbackPlayBtn, 1500);
   }
-
-  setTimeout(showFallbackPlayBtn, 5000);
 
   const heroScroll = document.getElementById('heroScroll');
   const about = document.querySelector('#about');
