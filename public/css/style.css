@@ -78,7 +78,11 @@ iframe {
 }
 
 /* Extra safety: ensure root doesn't allow horizontal scroll */
-html,
+html {
+  overflow-x: hidden;
+  overflow-y: visible;
+}
+
 body {
   overflow-x: hidden;
 }
@@ -1219,9 +1223,7 @@ body:not(.rk-leaving):not(.rk-reveal)>*:not(#loader):not(script) {
   color: var(--white) !important;
   padding: 14px 28px !important;
   border: none;
-  box-shadow: 0 4px 18px rgba(201, 162, 39, 0.35);
   position: relative;
-  overflow: hidden;
 }
 
 .nav-cta::after {
@@ -1387,7 +1389,6 @@ html.nav-open body {
   left: 0;
   right: 0;
   bottom: 0;
-  overflow: hidden;
   z-index: 0;
 }
 
@@ -1409,13 +1410,38 @@ html.nav-open body {
   height: 100%;
   object-fit: cover;
   object-position: center bottom;
-  opacity: 0;
   will-change: transform;
-  transition: opacity 0.6s ease;
 }
 
-.hero-video.ready {
-  opacity: 1;
+.hero-video-play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(8px);
+  border: 2px solid rgba(255,255,255,0.5);
+  color: #fff;
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.3s ease, background 0.3s ease;
+  touch-action: manipulation;
+}
+
+.hero-video-play-btn:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+  background: rgba(255,255,255,0.3);
+}
+
+.hero-video-play-btn i {
+  margin-left: 4px;
 }
 
 .hero-title-gold {
@@ -3957,32 +3983,12 @@ html.nav-open body {
     background: linear-gradient(135deg, var(--gold), var(--gold-dark));
     color: var(--white) !important;
     border: none;
-    box-shadow: 0 4px 15px rgba(201, 162, 39, 0.3);
     position: relative;
-    overflow: hidden;
-  }
-
-  .nav-menu .nav-cta::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, var(--gold-light), var(--gold));
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    border-radius: 50px;
   }
 
   .nav-menu .nav-cta:hover {
-    transform: perspective(600px) rotateX(4deg) rotateY(3deg) translateZ(8px) translateY(-3px);
-    box-shadow:
-      0 12px 32px rgba(201, 162, 39, 0.4),
-      0 4px 12px rgba(201, 162, 39, 0.15);
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
     color: var(--white) !important;
-  }
-
-  .nav-menu .nav-cta:active {
-    transform: perspective(600px) rotateX(-2deg) translateZ(2px) translateY(1px);
-    box-shadow: 0 2px 8px rgba(201, 162, 39, 0.3);
   }
 
   .nav-menu .nav-cta-secondary {
@@ -5095,9 +5101,12 @@ html.nav-open body {
 .page-3d-wrap {
   perspective: var(--perspective-3d);
   transform-style: preserve-3d;
-  overflow: hidden;
+  overflow-x: hidden;
   width: 100%;
   max-width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 /* --- 3D Layer Depth System --- */

@@ -1509,14 +1509,21 @@ function setupHeroVideo() {
     video.classList.add('ready');
   }
 
-  function tryPlay() {
+  function doPlay() {
     var p = video.play();
-    if (p) p.catch(function () {
-      var fn = function () {
-        video.play()['catch'](function () {});
-        document.removeEventListener('touchstart', fn);
-      };
-      document.addEventListener('touchstart', fn, { once: true });
+    if (p) p['catch'](function () {});
+  }
+
+  function showFallbackPlayBtn() {
+    if (!video.paused) return;
+    var btn = document.createElement('div');
+    btn.className = 'hero-video-play-btn';
+    btn.innerHTML = '<i class="fas fa-play"></i>';
+    btn.setAttribute('aria-label', 'Play video');
+    video.parentElement.appendChild(btn);
+    btn.addEventListener('click', function () {
+      doPlay();
+      btn.remove();
     });
   }
 
@@ -1527,38 +1534,30 @@ function setupHeroVideo() {
     showVideo();
   }
 
-  function onEnded() {
+  video.addEventListener('loadeddata', showVideo);
+  video.addEventListener('playing', seekAfterPlay);
+
+  video.addEventListener('ended', function () {
     video.currentTime = START_SEC;
     var fn = function () {
       video.removeEventListener('seeked', fn);
-      tryPlay();
+      doPlay();
     };
     video.addEventListener('seeked', fn);
-  }
-
-  video.addEventListener('loadeddata', showVideo);
-  video.addEventListener('playing', seekAfterPlay);
-  video.addEventListener('ended', onEnded);
+  });
 
   window.addEventListener('pageshow', function (e) {
     if (e.persisted) {
       video.currentTime = START_SEC;
       var fn = function () {
         video.removeEventListener('seeked', fn);
-        tryPlay();
+        doPlay();
       };
       video.addEventListener('seeked', fn);
     }
   });
 
-  if (video.readyState >= 2) {
-    tryPlay();
-  } else {
-    video.addEventListener('canplay', function () {
-      tryPlay();
-      video.removeEventListener('canplay', arguments.callee);
-    });
-  }
+  setTimeout(showFallbackPlayBtn, 1500);
 
   const heroScroll = document.getElementById('heroScroll');
   const about = document.querySelector('#about');
