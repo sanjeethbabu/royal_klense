@@ -568,6 +568,7 @@
   function openDetailView() {
     if (S.isDetailView || !S.products[S.currentIndex]) return;
     S.isDetailView = true;
+    document.documentElement.style.overflow = 'hidden';
     document.body.style.overflow = 'hidden';
 
     gsap.to(D.stage, { opacity: 0, duration: 0.4, ease: 'power2.out' });
@@ -579,6 +580,7 @@
   function closeDetailView() {
     if (!S.isDetailView) return;
     S.isDetailView = false;
+    document.documentElement.style.overflow = '';
     document.body.style.overflow = '';
     D.detailView.classList.remove('active');
     D.detailContainer.scrollTop = 0;
