@@ -47,10 +47,10 @@ const siteData = {
     { icon: 'fas fa-headset', name: 'Technical Support', desc: 'Expert technical team providing application guidance and troubleshooting support.' }
   ],
   testimonials: [
-    { text: 'Royal Klense has been our trusted partner for over 5 years. Their products consistently meet our high standards for quality and reliability.', author: 'Rajesh', role: 'General Manager, Grand Palace Hotels' },
-    { text: 'The quality of their disinfectants and hygiene products is exceptional. Our infection control ratings have improved significantly since switching to Royal Klense.', author: 'Dr. Priya', role: 'Chief of Operations, City Healthcare Group' },
-    { text: 'Their customized cleaning solutions have transformed our facility management operations. Highly professional team with excellent product knowledge.', author: 'Amit', role: 'Director, Elite Facility Management' },
-    { text: 'We have been sourcing laundry and kitchen chemicals from Royal Klense for our restaurant chain. Consistent quality and reliable supply chain.', author: 'Vikram', role: 'Owner, Royal Hospitality Group' }
+    { text: 'Royal Klense has been our trusted partner for over 5 years. Their products consistently meet our high standards for quality and reliability.', author: 'Mr.R.Venkat Kumar', role: 'General Manager, SRK Palace Hotels' },
+    { text: 'The quality of their disinfectants and hygiene products is exceptional. Our infection control ratings have improved significantly since switching to Royal Klense.', author: 'Dr. Priya Ragupathi', role: 'Chief of Operations, City Healthcare Group' },
+    { text: 'Their customized cleaning solutions have transformed our facility management operations. Highly professional team with excellent product knowledge.', author: 'Mr.N.S.Pugazh vel', role: 'Director, Elite Management' },
+    { text: 'We have been sourcing laundry and kitchen chemicals from Royal Klense for our restaurant chain. Consistent quality and reliable supply chain.', author: 'Mr.K.Sakthivel', role: 'Managing Director, S.B Hospitality Group' }
   ],
   catalog: [
     { code: 'K5', name: 'Liquid Room Freshner', flavor: 'Strawberry Shot', category: 'freshners', image: '/images/freshners/sberry_LF.png', desc: 'A sweet and fruity strawberry fragrance that fills the air with a fresh, delightful aroma perfect for any space.', dilution: 'Spray: 1:1 dilution (1 part freshener + 1 part water). Mop on Surface: 70ml to 100ml in 1 liter of water.' },
@@ -97,6 +97,7 @@ function openModal(content) {
   const body = document.getElementById('modalBody');
   body.innerHTML = content;
   overlay.classList.add('active');
+  document.documentElement.style.overflow = 'hidden';
   document.body.style.overflow = 'hidden';
 }
 
@@ -104,6 +105,7 @@ function closeModal() {
   const overlay = document.getElementById('modalOverlay');
   overlay.classList.remove('active');
   overlay.style.background = '';
+  document.documentElement.style.overflow = '';
   document.body.style.overflow = '';
   const modal = document.getElementById('modal');
   modal.style.background = '';
@@ -339,11 +341,13 @@ function setupLatestUpdatesBtn() {
 
   btn.addEventListener('click', () => {
     overlay.classList.add('is-visible');
+    document.documentElement.style.overflow = 'hidden';
     document.body.style.overflow = 'hidden';
   });
 
   function closePopup() {
     overlay.classList.remove('is-visible');
+    document.documentElement.style.overflow = '';
     document.body.style.overflow = '';
   }
 
@@ -892,11 +896,24 @@ function renderAttachFiles() {
 }
 
 function getQuoteForm() {
-  return '<h2>Request a Quote</h2><p>Share your requirements and our sales team will get back to you.</p><form id="quickQuoteForm" onsubmit="handleQuickQuote(event)"><div class="form-row"><div class="form-group"><label for="qq_name">Full Name *</label><input type="text" id="qq_name" required placeholder="Your full name"></div><div class="form-group"><label for="qq_phone">Mobile Number *</label><input type="tel" id="qq_phone" required placeholder="Your Mobile Number"></div></div><div class="form-group"><label for="qq_email">Email Address <span style="font-weight:400;color:var(--text-light)">(optional)</span></label><input type="email" id="qq_email" placeholder="your@email.com"></div><div class="form-row"><div class="form-group"><label>Product Category</label><div class="custom-select" id="cs_category" tabindex="0"><input type="hidden" id="qq_category" name="category" value="all"><div class="custom-select-trigger"><span class="custom-select-text">All</span><i class="fas fa-chevron-down"></i></div><div class="custom-select-options"><div class="custom-select-option" data-value="all">All</div><div class="custom-select-option" data-value="freshners">Freshners</div><div class="custom-select-option" data-value="cleansers">Cleansers</div></div></div></div><div class="form-group"><label>Products</label><div class="custom-select multi-select" id="cs_product" tabindex="0"><input type="hidden" id="qq_product" name="product" value=""><div class="custom-select-trigger"><span class="custom-select-text">Select products</span><i class="fas fa-chevron-down"></i></div><div class="custom-select-options" id="qq_product_options"></div></div></div></div><div class="form-group"><label>Quantities</label><div id="qq_quantities"></div></div><div class="form-group"><label for="qq_location">Delivery Location *</label><input type="text" id="qq_location" required placeholder="City / Area"></div><div class="form-group"><label for="qq_pincode">Pincode *</label><input type="number" id="qq_pincode" required placeholder="Enter pincode" min="0" onkeypress="if(this.value.length>=6) return false" oninput="if(this.value.length>6) this.value=this.value.slice(0,6)"></div><button type="submit" class="btn btn-primary" style="width:100%;justify-content:center"><i class="fas fa-paper-plane"></i> Submit Inquiry</button></form>';
+  var codes = [];
+  siteData.catalog.forEach(function(p) {
+    if (p.code && codes.indexOf(p.code) === -1) codes.push(p.code);
+  });
+  codes.sort(function(a, b) { return parseInt(a.replace(/\D/g, ''), 10) - parseInt(b.replace(/\D/g, ''), 10); });
+  var catOptions = '<div class="custom-select-option" data-value="all">All Categories</div>' +
+    codes.map(function(c) {
+      var name = '';
+      var found = siteData.catalog.find(function(p) { return p.code === c; });
+      if (found) name = found.name;
+      return '<div class="custom-select-option" data-value="' + c + '" data-name="' + name + '"><span class="cat-code">' + c + '</span> <span class="cat-name">' + name + '</span></div>';
+    }).join('');
+
+  return '<h2>Request a Quote</h2><p>Share your requirements and our sales team will get back to you.</p><form id="quickQuoteForm" onsubmit="handleQuickQuote(event)"><div class="form-row"><div class="form-group"><label for="qq_name">Full Name *</label><input type="text" id="qq_name" required placeholder="Your full name"></div><div class="form-group"><label for="qq_phone">Mobile Number *</label><input type="tel" id="qq_phone" required placeholder="Your Mobile Number"></div></div><div class="form-group"><label for="qq_email">Email Address <span style="font-weight:400;color:var(--text-light)">(optional)</span></label><input type="email" id="qq_email" placeholder="your@email.com"></div><div class="form-row"><div class="form-group"><label>Product Category</label><div class="custom-select" id="cs_category" tabindex="0"><input type="hidden" id="qq_category" name="category" value="all"><div class="custom-select-trigger"><span class="custom-select-text">All Categories</span><i class="fas fa-chevron-down"></i></div><div class="custom-select-options">' + catOptions + '</div></div></div><div class="form-group"><label>Products</label><div class="custom-select multi-select" id="cs_product" tabindex="0"><input type="hidden" id="qq_product" name="product" value=""><div class="custom-select-trigger"><span class="custom-select-text">Select products</span><i class="fas fa-chevron-down"></i></div><div class="custom-select-options" id="qq_product_options"></div></div></div></div><div class="form-group"><label>Quantities</label><div id="qq_quantities"></div></div><div class="form-group"><label for="qq_location">Delivery Location *</label><input type="text" id="qq_location" required placeholder="City / Area"></div><div class="form-group"><label for="qq_pincode">Pincode *</label><input type="number" id="qq_pincode" required placeholder="Enter pincode" min="0" onkeypress="if(this.value.length>=6) return false" oninput="if(this.value.length>6) this.value=this.value.slice(0,6)"></div><button type="submit" class="btn btn-primary" style="width:100%;justify-content:center"><i class="fas fa-paper-plane"></i> Submit Inquiry</button></form>';
 }
 
 function setupQuoteFormFilter() {
-  var allProducts = siteData.catalog.map(function(p) { return { name: p.name + ' (' + p.flavor + ')', value: p.name + ' - ' + p.flavor, category: p.category }; });
+  var allProducts = siteData.catalog.map(function(p) { return { name: p.name + ' (' + p.flavor + ')', value: p.name + ' - ' + p.flavor, category: p.code || p.category }; });
   var selectedProducts = [];
 
   var prodSel = document.getElementById('cs_product');
@@ -981,7 +998,7 @@ function setupQuoteFormFilter() {
       var val = opt.dataset.value;
       var hiddenId = hidden.id;
       if (hiddenId === 'qq_category') {
-        var text = opt.textContent;
+        var text = val === 'all' ? 'All Categories' : '[' + val + '] ' + (opt.dataset.name || '');
         s.querySelector('.custom-select-text').textContent = text;
         hidden.value = val;
         s.classList.remove('open');
@@ -1068,7 +1085,7 @@ async function handleQuickQuote(e) {
     if (inp.dataset.product && inp.value.trim()) {
       var cat = 'all';
       var found = siteData.catalog.find(function(p) { return (p.name + ' - ' + p.flavor) === inp.dataset.product; });
-      if (found) cat = found.category;
+      if (found) cat = found.code || found.category;
       items.push({ product: inp.dataset.product, quantity: inp.value.trim(), category: cat });
     }
   });
