@@ -433,8 +433,8 @@ const pageMeta = {
     canonical: '/industries'
   },
   'why-us': {
-    title: 'Why Choose Us',
-    description: 'Discover why businesses trust Royal Klense — ISO-certified quality, reliable supply chain, competitive pricing, and expert technical support.',
+    title: 'FAQ & Feedback',
+    description: 'Find answers to frequently asked questions about Royal Klense products, ordering, and support. Share your feedback to help us serve you better.',
     canonical: '/why-us'
   },
   contact: {

@@ -2149,6 +2149,66 @@ function animateTextReveal() {
 
 function setupScrollTextReveal() {}
 
+function setupFaqAccordion() {
+  document.querySelectorAll('.faq-question').forEach(function(q) {
+    q.addEventListener('click', function() {
+      const item = q.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(function(o) {
+        o.classList.remove('open');
+        o.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        q.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+}
+
+async function handleFeedback(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('button[type="submit"]');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+
+  const data = {
+    name: document.getElementById('fb_name').value,
+    email: document.getElementById('fb_email').value,
+    message: 'Rating: ' + document.getElementById('fb_rating').value + '\n\n' + document.getElementById('fb_message').value,
+    company: 'Website Feedback'
+  };
+
+  try {
+    const res = await fetch(`${API_BASE}/api/contact`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    const result = await res.json();
+    if (result.success) {
+      document.getElementById('modalBody').innerHTML = `
+        <div class="form-success">
+          <i class="fas fa-check-circle"></i>
+          <h3>Thank You!</h3>
+          <p>Your feedback has been received. We appreciate your input and will use it to improve.</p>
+          <button class="btn btn-primary" onclick="closeModal()" style="margin-top:12px">Close</button>
+        </div>
+      `;
+      showToast('Feedback submitted successfully!', 'success');
+      e.target.reset();
+    } else {
+      showToast(result.error || 'Something went wrong.', 'error');
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Feedback';
+    }
+  } catch (err) {
+    showToast('Network error. Please try again.', 'error');
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Feedback';
+  }
+}
+
 function init() {
   var isFast = document.documentElement.classList.contains('rk-fast');
 
@@ -2158,6 +2218,7 @@ function init() {
     setupModal();
     setupHeroVideo();
     bindCtaButtons();
+    setupFaqAccordion();
     animateTextReveal();
     setupScrollTextReveal();
     requestAnimationFrame(function() {
@@ -2181,6 +2242,7 @@ function init() {
   setupModal();
   setupHeroVideo();
   bindCtaButtons();
+  setupFaqAccordion();
 
   if (document.readyState === 'complete') {
     finishLoading();
