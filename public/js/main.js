@@ -53,22 +53,22 @@ const siteData = {
     { text: 'We have been sourcing laundry and kitchen chemicals from Royal Klense for our restaurant chain. Consistent quality and reliable supply chain.', author: 'Vikram', role: 'Owner, Royal Hospitality Group' }
   ],
   catalog: [
-    { code: 'F01', name: 'Liquid Room Freshner', flavor: 'Strawberry Shot', category: 'freshners', image: '/images/freshners/sberry_LF.png', desc: 'A sweet and fruity strawberry fragrance that fills the air with a fresh, delightful aroma perfect for any space.' },
-    { code: 'F02', name: 'Liquid Room Freshner', flavor: 'Fresh Flora', category: 'freshners', image: '/images/freshners/fresh_flora_LF.png', desc: 'A captivating floral fragrance that brings the essence of a blooming garden indoors with a long-lasting freshness.' },
-    { code: 'F03', name: 'Liquid Room Freshner', flavor: 'Millennium Lavender', category: 'freshners', image: '/images/freshners/lavender_LF.png', desc: 'A soothing lavender fragrance that promotes relaxation while keeping your space fresh and inviting.' },
-    { code: 'F04', name: 'Liquid Room Freshner', flavor: 'Citrus Zest', category: 'freshners', image: '/images/freshners/orange_lf.png', desc: 'A zesty citrus burst that energizes any room with its bright, uplifting orange fragrance.' },
-    { code: 'F05', name: 'Liquid Room Freshner', flavor: 'Earth Essence', category: 'freshners', image: '/images/freshners/earth_essence_lf.png', desc: 'An earthy, grounding fragrance that brings a natural, woody aroma to any space.' },
-    { code: 'C01', name: 'Multi-Purpose Cleaner', flavor: 'French Rose', category: 'cleansers', image: '/images/cleansers/multi_purpose_cleaner.png', desc: 'A versatile cleaning solution effective on all surfaces for daily professional cleaning needs.' },
-    { code: 'C02', name: 'Glass Cleaner', flavor: 'Original', category: 'cleansers', image: '/images/cleansers/glass_cleaner.png', desc: 'Streak-free formula that delivers brilliant shine on glass, mirrors, and reflective surfaces.' },
-    { code: 'C03', name: 'Disinfectant Surface Cleaner', flavor: 'Lemon Fresh', category: 'cleansers', image: '/images/cleansers/lemon_floor_cleaner.png', desc: 'Fresh lemon-scented disinfectant surface cleaning solution for all types of surfaces.' },
-    { code: 'C04', name: 'Disinfectant Surface Cleaner', flavor: 'Millennium Lavender', category: 'cleansers', image: '/images/cleansers/lavender_floor_cleaner.png', desc: 'Calming lavender-infused disinfectant surface cleaner that leaves surfaces sparkling clean with a soothing fragrance.' },
-    { code: 'C05', name: 'Disinfectant Surface Cleaner', flavor: 'Garden Bloom', category: 'cleansers', image: '/images/cleansers/garden_bloom_floor_cleaner.png', desc: 'A refreshing floral-scented disinfectant surface cleaner inspired by the freshness of a blooming garden.' },
-    { code: 'C06', name: 'Dishwash Liquid', flavor: 'Lemon Fresh', category: 'cleansers', image: '/images/cleansers/lemon_dishwash.png', desc: 'Powerful lemon-scented dishwashing liquid that cuts through grease and leaves dishes spotless.' },
-    { code: 'C07', name: 'Bathroom & Ceramic Cleaner', flavor: 'Mild & Gentle', category: 'cleansers', image: '/images/cleansers/bathroom_ceramic_cleaner.png', desc: 'Anti-bacterial formula designed for complete hygiene on bathroom surfaces, tiles, and ceramic fixtures.' },
-    { code: 'C08', name: 'Toilet Bowl Cleaner', flavor: 'Original', category: 'cleansers', image: '/images/cleansers/toiler_bowl_cleaner.png', desc: 'Powerful thick formula that removes tough stains and limescale while disinfecting toilet bowls.' },
-    { code: 'C09', name: 'Ultra Scale Remover', flavor: 'Original', category: 'cleansers', image: '/images/cleansers/ultra_remover.png', desc: 'Heavy-duty stain remover for stubborn marks, grime, and hard-to-clean surfaces.' },
-    { code: 'C10', name: 'Handwash', flavor: 'Royal Cream', category: 'cleansers', image: '/images/cleansers/handwash_royalcream.png', desc: 'Premium creamy handwash with moisturizers for a gentle yet effective cleansing experience.' },
-    { code: 'C11', name: 'Handwash', flavor: 'Strawberry Shot', category: 'cleansers', image: '/images/cleansers/handwash_strawberry.png', desc: 'A fruity strawberry-scented handwash that cleanses gently while leaving hands soft and fragrant.' }
+    { code: 'K5', name: 'Liquid Room Freshner', flavor: 'Strawberry Shot', category: 'freshners', image: '/images/freshners/sberry_LF.png', desc: 'A sweet and fruity strawberry fragrance that fills the air with a fresh, delightful aroma perfect for any space.', dilution: 'Spray: 1:1 dilution (1 part freshener + 1 part water). Mop on Surface: 70ml to 100ml in 1 liter of water.' },
+    { code: 'K5', name: 'Liquid Room Freshner', flavor: 'Fresh Flora', category: 'freshners', image: '/images/freshners/fresh_flora_LF.png', desc: 'A captivating floral fragrance that brings the essence of a blooming garden indoors with a long-lasting freshness.', dilution: 'Spray: 1:1 dilution (1 part freshener + 1 part water). Mop on Surface: 70ml to 100ml in 1 liter of water.' },
+    { code: 'K5', name: 'Liquid Room Freshner', flavor: 'Millennium Lavender', category: 'freshners', image: '/images/freshners/lavender_LF.png', desc: 'A soothing lavender fragrance that promotes relaxation while keeping your space fresh and inviting.', dilution: 'Spray: 1:1 dilution (1 part freshener + 1 part water). Mop on Surface: 70ml to 100ml in 1 liter of water.' },
+    { code: 'K5', name: 'Liquid Room Freshner', flavor: 'Citrus Zest', category: 'freshners', image: '/images/freshners/orange_lf.png', desc: 'A zesty citrus burst that energizes any room with its bright, uplifting orange fragrance.', dilution: 'Spray: 1:1 dilution (1 part freshener + 1 part water). Mop on Surface: 70ml to 100ml in 1 liter of water.' },
+    { code: 'K5', name: 'Liquid Room Freshner', flavor: 'Earth Essence', category: 'freshners', image: '/images/freshners/earth_essence_lf.png', desc: 'An earthy, grounding fragrance that brings a natural, woody aroma to any space.', dilution: 'Spray: 1:1 dilution (1 part freshener + 1 part water). Mop on Surface: 70ml to 100ml in 1 liter of water.' },
+    { code: 'K2', name: 'Multi-Purpose Cleaner', flavor: 'French Rose', category: 'cleansers', image: '/images/cleansers/multi_purpose_cleaner.png', desc: 'A versatile cleaning solution effective on all surfaces for daily professional cleaning needs.', dilution: 'Glass Surface: 5ml in 1 liter of water. Hard Surface: 20ml to 40ml in 1 liter of water.' },
+    { code: 'K3', name: 'Glass Cleaner', flavor: 'Original', category: 'cleansers', image: '/images/cleansers/glass_cleaner.png', desc: 'Streak-free formula that delivers brilliant shine on glass, mirrors, and reflective surfaces.', dilution: 'Ready to use. Spray on required area, little quantity sufficient.' },
+    { code: 'K1', name: 'Disinfectant Surface Cleaner', flavor: 'Lemon Fresh', category: 'cleansers', image: '/images/cleansers/lemon_floor_cleaner.png', desc: 'Fresh lemon-scented disinfectant surface cleaning solution for all types of surfaces.', dilution: 'Normal Soiling: 8ml in 1 liter of water. Heavy Soiling: 10ml to 12ml in 1 liter of water. Glass Surface: 5ml in 1 liter of water.' },
+    { code: 'K1', name: 'Disinfectant Surface Cleaner', flavor: 'Millennium Lavender', category: 'cleansers', image: '/images/cleansers/lavender_floor_cleaner.png', desc: 'Calming lavender-infused disinfectant surface cleaner that leaves surfaces sparkling clean with a soothing fragrance.', dilution: 'Normal Soiling: 8ml in 1 liter of water. Heavy Soiling: 10ml to 12ml in 1 liter of water. Glass Surface: 5ml in 1 liter of water.' },
+    { code: 'K1', name: 'Disinfectant Surface Cleaner', flavor: 'Garden Bloom', category: 'cleansers', image: '/images/cleansers/garden_bloom_floor_cleaner.png', desc: 'A refreshing floral-scented disinfectant surface cleaner inspired by the freshness of a blooming garden.', dilution: 'Normal Soiling: 8ml in 1 liter of water. Heavy Soiling: 10ml to 12ml in 1 liter of water. Glass Surface: 5ml in 1 liter of water.' },
+    { code: 'K8', name: 'Dishwash Liquid', flavor: 'Lemon Fresh', category: 'cleansers', image: '/images/cleansers/lemon_dishwash.png', desc: 'Powerful lemon-scented dishwashing liquid that cuts through grease and leaves dishes spotless.', dilution: 'Use up to 50ml in 1 liter of water.' },
+    { code: 'K9', name: 'Bathroom & Ceramic Cleaner', flavor: 'Mild & Gentle', category: 'cleansers', image: '/images/cleansers/bathroom_ceramic_cleaner.png', desc: 'Anti-bacterial formula designed for complete hygiene on bathroom surfaces, tiles, and ceramic fixtures.', dilution: 'Normal Soiling: 200ml in 1 liter of water (once a week). Heavy Soiling: 400ml in 1 liter of water (thrice a week). Wet surface before use.' },
+    { code: 'K6', name: 'Toilet Bowl Cleaner', flavor: 'Original', category: 'cleansers', image: '/images/cleansers/toiler_bowl_cleaner.png', desc: 'Powerful thick formula that removes tough stains and limescale while disinfecting toilet bowls.', dilution: 'Ready to use. Little quantity sufficient. Wet surface before use.' },
+    { code: 'K12', name: 'Ultra Scale Remover', flavor: 'Original', category: 'cleansers', image: '/images/cleansers/ultra_remover.png', desc: 'Heavy-duty stain remover for stubborn marks, grime, and hard-to-clean surfaces.', dilution: 'Ready to use. Apply only on dry surfaces for best results.' },
+    { code: 'K10', name: 'Handwash', flavor: 'Royal Cream', category: 'cleansers', image: '/images/cleansers/handwash_royalcream.png', desc: 'Premium creamy handwash with moisturizers for a gentle yet effective cleansing experience.', dilution: 'Ready to use.' },
+    { code: 'K10', name: 'Handwash', flavor: 'Strawberry Shot', category: 'cleansers', image: '/images/cleansers/handwash_strawberry.png', desc: 'A fruity strawberry-scented handwash that cleanses gently while leaving hands soft and fragrant.', dilution: 'Ready to use.' }
   ]
 };
 siteData.catalog.forEach(function(p) { p.backImage = '/images/back_of product.png'; });
@@ -178,24 +178,53 @@ function loadProductCatalog() {
   const grid = document.getElementById('productsCatalog');
   if (!grid) return;
 
-  grid.innerHTML = siteData.catalog.map((p, i) => `
-    <div class="product-card" data-index="${i}" data-category="${p.category}">
-      <div class="product-card-media">
-        <img class="product-card-img" src="${p.image}" alt="${p.name}" loading="lazy">
-        <div class="product-card-img-shine"></div>
-      </div>
-      <div class="product-card-body">
-        <div class="product-card-tags">
-          <span class="product-card-code">${p.code}</span>
-          <span class="product-card-category">${p.category === 'freshners' ? 'Freshner' : 'Cleaner'}</span>
+  const groups = {};
+  siteData.catalog.forEach((p, i) => {
+    const key = p.code || 'K0';
+    if (!groups[key]) groups[key] = [];
+    groups[key].push({ p, i });
+  });
+
+  const order = Object.keys(groups).sort((a, b) =>
+    parseInt(a.replace(/\D/g, ''), 10) - parseInt(b.replace(/\D/g, ''), 10)
+  );
+
+  grid.innerHTML = order.map(code => {
+    const items = groups[code];
+    const first = items[0].p;
+    const cards = items.map(({ p, i }) => `
+      <div class="product-card" data-index="${i}" data-category="${p.category}">
+        <div class="product-card-media">
+          <img class="product-card-img" src="${p.image}" alt="${p.name}" loading="lazy">
+          <div class="product-card-img-shine"></div>
         </div>
-        <h3 class="product-card-name">${p.name}</h3>
-        <span class="product-card-flavor">${p.flavor}</span>
-        <p class="product-card-desc">${p.desc}</p>
-        <button class="product-card-btn" type="button">Get Info <i class="fas fa-arrow-right"></i></button>
+        <div class="product-card-body">
+          <div class="product-card-tags">
+            <span class="product-card-code">${p.code}</span>
+            <span class="product-card-category">${p.category === 'freshners' ? 'Freshner' : 'Cleaner'}</span>
+          </div>
+          <h3 class="product-card-name">${p.name}</h3>
+          <span class="product-card-flavor">${p.flavor}</span>
+          <p class="product-card-desc">${p.desc}</p>
+          <button class="product-card-btn" type="button">Get Info <i class="fas fa-arrow-right"></i></button>
+        </div>
       </div>
-    </div>
-  `).join('');
+    `).join('');
+
+    return `
+      <section class="product-group" data-code="${code}" data-category="${first.category}">
+        <div class="product-group-header">
+          <span class="product-group-badge">${code}</span>
+          <div class="product-group-meta">
+            <h2 class="product-group-title">${first.name}</h2>
+          </div>
+        </div>
+        <div class="product-group-grid">
+          ${cards}
+        </div>
+      </section>
+    `;
+  }).join('');
 
   setupProductGrid();
   setupProductFilters();
@@ -222,15 +251,18 @@ function setupScrollRevealCards() {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        const cards = Array.from(entry.target.parentNode.querySelectorAll('.product-card'));
+        const scope = entry.target.parentNode;
+        const cards = Array.from(scope.querySelectorAll('.product-card'));
+        const headers = Array.from(scope.querySelectorAll('.product-group-header'));
+        headers.forEach(h => h.classList.add('visible'));
         const idx = cards.indexOf(entry.target);
-        setTimeout(() => entry.target.classList.add('visible'), idx * 50);
+        setTimeout(() => entry.target.classList.add('visible'), Math.max(idx, 0) * 50);
         observer.unobserve(entry.target);
       }
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-  document.querySelectorAll('.product-card').forEach(card => observer.observe(card));
+  document.querySelectorAll('.product-card, .product-group-header').forEach(el => observer.observe(el));
 }
 
 function setupProductFilters() {
@@ -251,18 +283,23 @@ function setupProductFilters() {
     if (activeTag) activeTag.classList.add('active');
     moveSlider(activeTag);
 
-    const cards = document.querySelectorAll('.product-card');
+    const groups = document.querySelectorAll('.product-group');
     let delay = 0;
-    cards.forEach((card) => {
-      const match = card.dataset.category === filter;
+    groups.forEach((group) => {
+      const match = group.dataset.category === filter;
       if (match) {
-        card.classList.remove('hidden');
-        card.style.transitionDelay = delay + 'ms';
-        delay += 40;
-        requestAnimationFrame(function () { card.classList.add('visible'); });
+        group.classList.remove('hidden');
+        const header = group.querySelector('.product-group-header');
+        if (header) header.classList.add('visible');
+        group.querySelectorAll('.product-card').forEach(card => {
+          card.classList.remove('hidden');
+          card.style.transitionDelay = delay + 'ms';
+          delay += 40;
+          requestAnimationFrame(function () { card.classList.add('visible'); });
+        });
       } else {
-        card.classList.remove('visible');
-        card.classList.add('hidden');
+        group.classList.remove('visible');
+        group.classList.add('hidden');
       }
     });
   };
@@ -325,21 +362,11 @@ function openCatalogModal(p) {
     ? 'Ideal for use in hotels, offices, restrooms, lobbies, hospitals, and commercial spaces to maintain a pleasant and inviting atmosphere.'
     : 'Suitable for daily use in kitchens, bathrooms, floors, glass surfaces, industrial areas, and institutional facilities.';
 
-  const packSizes = p.category === 'freshners'
-    ? ['5 Litres']
-    : ['5 Litres', '10 Litres', '20 Litres'];
-
-  const highlights = p.desc
-    .replace(/\./g, '|')
-    .split('|')
-    .filter(s => s.trim().length > 8)
-    .map(s => s.trim());
+  const dilution = p.dilution || 'Please refer to the product label for dilution instructions.';
 
   const specs = [
     { icon: 'fas fa-barcode', label: 'Product Code', value: p.code },
-    { icon: 'fas fa-layer-group', label: 'Category', value: catLabel },
-    { icon: 'fas fa-flask', label: 'Variant', value: p.flavor },
-    { icon: 'fas fa-boxes', label: 'Pack Sizes', value: packSizes.join(', ') }
+    { icon: 'fas fa-flask', label: 'Variant', value: p.flavor }
   ];
 
   const modal = document.getElementById('modal');
@@ -383,15 +410,13 @@ function openCatalogModal(p) {
         </div>
 
         <div class="pip-section">
-          <h4 class="pip-section-title"><i class="fas fa-building"></i> Recommended Applications</h4>
-          <p class="pip-app-text">${applications}</p>
+          <h4 class="pip-section-title"><i class="fas fa-flask"></i> Dilution Ratio</h4>
+          <p class="pip-app-text">${dilution}</p>
         </div>
 
         <div class="pip-section">
-          <h4 class="pip-section-title"><i class="fas fa-star"></i> Highlights</h4>
-          <ul class="pip-highlights">
-            ${highlights.map(h => `<li>${h}.</li>`).join('')}
-          </ul>
+          <h4 class="pip-section-title"><i class="fas fa-building"></i> Recommended Applications</h4>
+          <p class="pip-app-text">${applications}</p>
         </div>
 
         <div class="pip-cta">

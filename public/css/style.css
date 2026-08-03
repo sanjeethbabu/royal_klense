@@ -6783,20 +6783,83 @@ img:hover {
 }
 
 /* ── Apple-style Product Grid ── */
-.products-grid {
+.products-catalog {
+  width: 100%;
+  display: block;
+}
+
+.product-group {
+  margin-bottom: 40px;
+}
+
+.product-group.hidden {
+  display: none;
+}
+
+.product-group-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--light-gray);
+  transform: translateY(20px);
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.product-group-header.visible {
+  transform: translateY(0);
+  opacity: 1;
+  transition: transform 0.5s var(--ease-out-expo), opacity 0.5s ease;
+}
+
+.product-group-badge {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  padding: 0 10px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--royal-blue), #0b1d3a);
+  color: var(--white);
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  box-shadow: 0 4px 14px rgba(0, 59, 142, 0.25);
+}
+
+.product-group-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.product-group-title {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  letter-spacing: -0.01em;
+}
+
+.product-group-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
 }
 
 @media (max-width: 1024px) {
-  .products-grid {
+  .product-group-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 640px) {
-  .products-grid {
+  .product-group-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -7548,6 +7611,27 @@ img:hover {
   .product-card-media {
     min-height: 200px;
     padding: 24px 16px 12px;
+  }
+
+  .product-group {
+    margin-bottom: 32px;
+  }
+
+  .product-group-header {
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .product-group-badge {
+    min-width: 34px;
+    height: 34px;
+    font-size: 0.9rem;
+    border-radius: 10px;
+    padding: 0 8px;
+  }
+
+  .product-group-title {
+    font-size: 0.95rem;
   }
 }
 
