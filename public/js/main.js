@@ -2103,7 +2103,6 @@ function runDeferredEffects() {
     setupTilt3D();
     if (isHome) {
       setupParallax();
-      setupHeroParticles();
       setup3DCubes();
       setupHero3DDepth();
       setupScroll3DParallax();

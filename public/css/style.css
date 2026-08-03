@@ -1398,11 +1398,7 @@ html.nav-open body {
   inset: 0;
   z-index: 2;
   pointer-events: none;
-  background:
-    linear-gradient(to right,
-      rgba(80, 80, 90, 0.7) 0%,
-      rgba(80, 80, 90, 0.4) 40%,
-      rgba(80, 80, 90, 0) 100%);
+  background: rgba(80, 80, 90, 0.45);
 }
 
 .hero-video {
@@ -4530,14 +4526,6 @@ html.nav-open body {
   .hero-video {
     object-fit: cover;
     object-position: calc(50% + 7%) center;
-  }
-
-  .hero-video-wrap::before {
-    background:
-      linear-gradient(to bottom,
-        rgba(80, 80, 90, 0.7) 0%,
-        rgba(80, 80, 90, 0.4) 40%,
-        rgba(80, 80, 90, 0) 100%);
   }
 
   .hero-video-section .hero-container {
