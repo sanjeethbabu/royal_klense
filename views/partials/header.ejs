@@ -83,6 +83,19 @@
         if (!href || href === '#' || href.startsWith('#') || href.startsWith('javascript:') || link.getAttribute('onclick')) return;
         if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey) return;
         if ((link.hostname === window.location.hostname || href.startsWith('/')) && !link.hasAttribute('download')) {
+          var pages = {
+            '/': 'home',
+            '/home': 'home',
+            '/about': 'home',
+            '/industries': 'home',
+            '/products': 'products',
+            '/why-us': 'why-us',
+            '/contact': 'contact'
+          };
+          if (pages[link.pathname] && pages[link.pathname] === document.body.getAttribute('data-page')) {
+            e.preventDefault();
+            return;
+          }
           e.preventDefault();
           document.body.classList.remove('is-loading');
           void document.body.offsetHeight;
