@@ -1,25 +1,24 @@
-Trusted by leading businesses across India.
 
-★★★★★
-Royal Klense has been our trusted partner for over 5 years. Their products consistently meet our high standards for quality and reliability.
+Hotels & Resorts
+Complete hygiene solutions for housekeeping, laundry, kitchen, and public areas.
 
-Mr.R.Venkat Kumar
-General Manager, SRK Palace Hotels
-★★★★★
-The quality of their disinfectants and hygiene products is exceptional. Our infection control ratings have improved significantly since switching to Royal Klense.
+Hospitals & Healthcare
+Medical-grade disinfectants and infection control products for healthcare facilities.
 
-Dr. Priya Ragupathi
-Chief of Operations, City Healthcare Group
-★★★★★
-Their customized cleaning solutions have transformed our facility management operations. Highly professional team with excellent product knowledge.
+Restaurants & Catering
+Professional kitchen cleaning and sanitation solutions for food service.
 
-Mr.N.S.Pugazh vel
-Director, Elite Management
-★★★★★
-We have been sourcing laundry and kitchen chemicals from Royal Klense for our restaurant chain. Consistent quality and reliable supply chain.
+Educational Institutions
+Safe and effective cleaning solutions for schools, colleges, and universities.
 
-Mr.K.Sakthivel
-Managing Director, S.B Hospitality Group
+Corporate Offices
+Professional cleaning and hygiene products for workplace environments.
 
+Manufacturing Industries
+Heavy-duty industrial cleansers and specialized maintenance chemicals.
 
+Commercial Buildings
+Complete facility management cleaning solutions for commercial properties.
 
+Facility Management
+Comprehensive cleaning programs tailored for facility management companies.

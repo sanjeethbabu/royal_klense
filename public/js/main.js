@@ -180,29 +180,21 @@ function loadProductCatalog() {
   const grid = document.getElementById('productsCatalog');
   if (!grid) return;
 
-  const groups = {};
-  siteData.catalog.forEach((p, i) => {
-    const key = p.code || 'K0';
-    if (!groups[key]) groups[key] = [];
-    groups[key].push({ p, i });
-  });
+  const sorted = siteData.catalog
+    .map((p, i) => ({ p, i }))
+    .sort((a, b) =>
+      parseInt(a.p.code.replace(/\D/g, ''), 10) - parseInt(b.p.code.replace(/\D/g, ''), 10)
+    );
 
-  const order = Object.keys(groups).sort((a, b) =>
-    parseInt(a.replace(/\D/g, ''), 10) - parseInt(b.replace(/\D/g, ''), 10)
-  );
-
-  grid.innerHTML = order.map(code => {
-    const items = groups[code];
-    const first = items[0].p;
-    const cards = items.map(({ p, i }) => `
+  grid.innerHTML = sorted.map(({ p, i }) => `
       <div class="product-card" data-index="${i}" data-category="${p.category}">
         <div class="product-card-media">
+          <span class="product-card-k-badge" aria-hidden="true">${p.code}</span>
           <img class="product-card-img" src="${p.image}" alt="${p.name}" loading="lazy">
           <div class="product-card-img-shine"></div>
         </div>
         <div class="product-card-body">
           <div class="product-card-tags">
-            <span class="product-card-code">${p.code}</span>
             <span class="product-card-category">${p.category === 'freshners' ? 'Freshner' : 'Cleaner'}</span>
           </div>
           <h3 class="product-card-name">${p.name}</h3>
@@ -211,22 +203,7 @@ function loadProductCatalog() {
           <button class="product-card-btn" type="button">Get Info <i class="fas fa-arrow-right"></i></button>
         </div>
       </div>
-    `).join('');
-
-    return `
-      <section class="product-group" data-code="${code}" data-category="${first.category}">
-        <div class="product-group-header">
-          <span class="product-group-badge">${code}</span>
-          <div class="product-group-meta">
-            <h2 class="product-group-title">${first.name}</h2>
-          </div>
-        </div>
-        <div class="product-group-grid">
-          ${cards}
-        </div>
-      </section>
-    `;
-  }).join('');
+  `).join('');
 
   setupProductGrid();
   setupProductFilters();
@@ -255,8 +232,6 @@ function setupScrollRevealCards() {
       if (entry.isIntersecting) {
         const scope = entry.target.parentNode;
         const cards = Array.from(scope.querySelectorAll('.product-card'));
-        const headers = Array.from(scope.querySelectorAll('.product-group-header'));
-        headers.forEach(h => h.classList.add('visible'));
         const idx = cards.indexOf(entry.target);
         setTimeout(() => entry.target.classList.add('visible'), Math.max(idx, 0) * 50);
         observer.unobserve(entry.target);
@@ -264,7 +239,7 @@ function setupScrollRevealCards() {
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-  document.querySelectorAll('.product-card, .product-group-header').forEach(el => observer.observe(el));
+  document.querySelectorAll('.product-card').forEach(el => observer.observe(el));
 }
 
 function setupProductFilters() {
@@ -285,23 +260,17 @@ function setupProductFilters() {
     if (activeTag) activeTag.classList.add('active');
     moveSlider(activeTag);
 
-    const groups = document.querySelectorAll('.product-group');
     let delay = 0;
-    groups.forEach((group) => {
-      const match = group.dataset.category === filter;
+    document.querySelectorAll('.product-card').forEach(card => {
+      const match = card.dataset.category === filter;
       if (match) {
-        group.classList.remove('hidden');
-        const header = group.querySelector('.product-group-header');
-        if (header) header.classList.add('visible');
-        group.querySelectorAll('.product-card').forEach(card => {
-          card.classList.remove('hidden');
-          card.style.transitionDelay = delay + 'ms';
-          delay += 40;
-          requestAnimationFrame(function () { card.classList.add('visible'); });
-        });
+        card.classList.remove('hidden');
+        card.style.transitionDelay = delay + 'ms';
+        delay += 40;
+        requestAnimationFrame(function () { card.classList.add('visible'); });
       } else {
-        group.classList.remove('visible');
-        group.classList.add('hidden');
+        card.classList.remove('visible');
+        card.classList.add('hidden');
       }
     });
   };
