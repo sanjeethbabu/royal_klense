@@ -2599,13 +2599,14 @@ html.nav-open body {
   overflow: hidden;
   position: relative;
   margin-bottom: 40px;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
 }
 
 .clients-track {
   display: flex;
-  gap: 40px;
-  animation: scrollClients 18s linear infinite;
   width: max-content;
+  animation: scrollClients 22s linear infinite;
   will-change: transform;
 }
 
@@ -2613,6 +2614,7 @@ html.nav-open body {
   flex-shrink: 0;
   width: 180px;
   height: 80px;
+  margin-right: 40px;
   background: var(--white);
   border: 1px solid var(--light-gray);
   border-radius: var(--radius-sm);
@@ -2629,6 +2631,10 @@ html.nav-open body {
 .client-logo:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.clients-wall:hover .clients-track {
+  animation-play-state: paused;
 }
 
 @keyframes scrollClients {
