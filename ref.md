@@ -1,23 +1,7 @@
-Hotels & Resorts
-Complete hygiene solutions for housekeeping, laundry, kitchen, and public areas.
+🪠 Mops & Brooms: Microfiber flat mops, cotton string mops, indoor soft brooms, heavy-duty outdoor brooms, and dustpan sets.
 
-Hospitals & Healthcare
-Medical-grade disinfectants and infection control products for healthcare facilities.
+🗑️ Trash Covers & Bins: Heavy-duty trash bag rolls, bin liners, commercial garbage covers, and color-coded recycling bins.
 
-Restaurants & Catering
-Professional kitchen cleaning and sanitation solutions for food service.
+🧽 Surface & Window Cleaning: Premium microfiber cloths, glass squeegees, extension poles, scrubbing pads, and duster wands.
 
-Educational Institutions
-Safe and effective cleaning solutions for schools, colleges, and universities.
-
-Corporate Offices
-Professional cleaning and hygiene products for workplace environments.
-
-Manufacturing Industries
-Heavy-duty industrial cleansers and specialized maintenance chemicals.
-
-Commercial Buildings
-Complete facility management cleaning solutions for commercial properties.
-
-Facility Management
-Comprehensive cleaning programs tailored for facility management companies.
+🧴 Sanitation & Safety: Multi-surface floor disinfectants, hand sanitizers, liquid soap dispensers, mop buckets, and wet floor signs.

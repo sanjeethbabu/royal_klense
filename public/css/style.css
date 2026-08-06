@@ -3044,8 +3044,10 @@ html.nav-open body {
   max-width: 600px;
   width: 100%;
   max-height: 90vh;
-  overflow-y: auto;
+  overflow: hidden;
   position: relative;
+  display: flex;
+  flex-direction: column;
   animation: modalIn 0.3s ease;
 }
 
@@ -3063,7 +3065,7 @@ html.nav-open body {
 
 .modal-close {
   position: absolute;
-  top: 16px;
+  top: 12px;
   right: 16px;
   width: 40px;
   height: 40px;
@@ -3107,6 +3109,9 @@ html.nav-open body {
 
 .modal-body {
   padding: 40px;
+  overflow-y: auto;
+  flex: 1 1 auto;
+  min-height: 0;
 }
 
 
@@ -7288,7 +7293,13 @@ img:hover {
   padding: 12px 20px;
   background: linear-gradient(135deg, rgba(201, 162, 39, 0.06), transparent);
   border-radius: 10px;
-  text-align: center;
+  text-align: left;
+}
+
+.pkg-popup-list li .pkg-popup-item-icon {
+  color: var(--gold);
+  margin-right: 10px;
+  font-size: 1.05rem;
 }
 
 .pkg-popup-list li strong {
@@ -7652,7 +7663,7 @@ img:hover {
   padding: 10px 24px;
   border: none;
   border-radius: 50px;
-  background: linear-gradient(135deg, #b8942e, #9a7a25, #b8942e);
+  background: var(--gold);
   color: var(--white);
   font-family: var(--font-heading);
   font-size: 0.82rem;
@@ -7663,14 +7674,22 @@ img:hover {
   text-transform: uppercase;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 4px 16px rgba(201, 162, 39, 0.3);
-  animation: btnInOut 2.5s ease-in-out infinite, btnBlink 1.8s ease-in-out infinite;
+  box-shadow: 0 4px 16px rgba(224, 172, 40, 0.4);
+  animation: btnInOut 2s ease-in-out infinite;
+}
+
+.latest-updates-btn::after {
+  display: none;
 }
 
 .latest-updates-btn:hover {
   animation: none;
-  box-shadow: 0 6px 24px rgba(201, 162, 39, 0.45);
+  box-shadow: 0 6px 24px rgba(224, 172, 40, 0.55);
   transform: translateY(-2px);
+}
+
+.latest-updates-btn:hover::after {
+  animation: none;
 }
 
 .latest-updates-btn-dot {
@@ -7681,12 +7700,12 @@ img:hover {
   box-shadow: 0 0 6px rgba(32, 168, 53, 0.5);
   position: relative;
   z-index: 1;
-  animation: dotPulse 2s ease-in-out infinite;
+  animation: dotBlink 1.2s ease-in-out infinite;
 }
 
-@keyframes dotPulse {
-  0%, 100% { box-shadow: 0 0 4px rgba(32, 168, 53, 0.3); }
-  50% { box-shadow: 0 0 12px rgba(32, 168, 53, 0.6); }
+@keyframes dotBlink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.25; transform: scale(0.75); }
 }
 
 /* ── Products Page Responsive ── */

@@ -656,7 +656,6 @@
     D.nextBtn.addEventListener('click', function (e) { e.stopPropagation(); navigateProduct('next'); });
     D.explore.addEventListener('click', openDetailView);
     D.detailClose.addEventListener('click', closeDetailView);
-    D.detailBackdrop.addEventListener('click', function (e) { if (e.target === D.detailBackdrop) closeDetailView(); });
 
     D.detailPrevBtn.addEventListener('click', function () { closeDetailView(); setTimeout(function () { navigateProduct('prev'); }, 500); });
     D.detailNextBtn.addEventListener('click', function () { closeDetailView(); setTimeout(function () { navigateProduct('next'); }, 500); });

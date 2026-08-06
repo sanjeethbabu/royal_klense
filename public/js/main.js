@@ -317,9 +317,6 @@ function setupLatestUpdatesBtn() {
   }
 
   closeBtn.addEventListener('click', closePopup);
-  overlay.addEventListener('click', (e) => {
-    if (e.target === overlay) closePopup();
-  });
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && overlay.classList.contains('is-visible')) closePopup();
   });
@@ -660,9 +657,6 @@ function setupNavbar() {
 function setupModal() {
   var mc = document.getElementById('modalClose');
   if (mc) mc.addEventListener('click', closeModal);
-  document.getElementById('modalOverlay').addEventListener('click', (e) => {
-    if (e.target === e.currentTarget) closeModal();
-  });
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeModal();
   });
