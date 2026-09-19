@@ -5,16 +5,14 @@ window.scrollTo(0, 0);
 
 const siteData = {
   products: [
-    { icon: 'fas fa-soap', name: 'Soap Oils & Cleansers', desc: 'Premium hand washes, body soaps, and multipurpose liquid cleansers for professional use.' },
-    { icon: 'fas fa-tshirt', name: 'Laundry Essentials', desc: 'Industrial laundry detergents, fabric softeners, and stain removal solutions.' },
-    { icon: 'fas fa-utensils', name: 'Kitchen Care', desc: 'Degreasers, dishwashing liquids, and kitchen surface sanitizers for commercial kitchens.' },
-    { icon: 'fas fa-broom', name: 'Floor Care', desc: 'Floor cleansers, polishes, and maintenance solutions for all surface types.' },
-    { icon: 'fas fa-shower', name: 'Bathroom Solutions', desc: 'Toilet cleansers, bathroom sprays, and descaling solutions for hygiene.' },
-    { icon: 'fas fa-hand-sparkles', name: 'Hygiene Essentials', desc: 'Hand sanitizers, surface disinfectants, and infection control products.' },
-    { icon: 'fas fa-wind', name: 'Glass & Surface Care', desc: 'Streak-free glass cleansers and multi-surface polishing solutions.' },
-    { icon: 'fas fa-vial', name: 'Specialty Products', desc: 'Specialized cleaning agents for industrial and institutional applications.' },
-    { icon: 'fas fa-trash-alt', name: 'Waste Management', desc: 'Odor control solutions, bin cleansers, and waste treatment chemicals.' },
-    { icon: 'fas fa-tools', name: 'Cleaning Accessories', desc: 'Dispensers, mops, buckets, and professional cleaning equipment.' }
+    { icon: 'fas fa-shield-alt', name: 'Disinfectant Surface Care', desc: 'Surface disinfectants and sanitizing solutions for institutional and hospitality cleaning routines.' },
+    { icon: 'fas fa-broom', name: 'Multi-Purpose & Glass Cleaners', desc: 'All-round cleaning products for daily hygiene, glass care, and hard surface maintenance.' },
+    { icon: 'fas fa-shower', name: 'Bathroom & Toilet Care', desc: 'Targeted bathroom cleaners, ceramic care, and toilet bowl maintenance solutions.' },
+    { icon: 'fas fa-utensils', name: 'Dishwash & Kitchen Care', desc: 'Grease-cutting kitchen cleaners and dishwashing solutions for commercial kitchens.' },
+    { icon: 'fas fa-soap', name: 'Hand Wash & Sanitizers', desc: 'Premium handwashing and sanitizer products built for hygiene-sensitive environments.' },
+    { icon: 'fas fa-tint', name: 'Scale & Fabric Care', desc: 'Descaling and fabric care formulations for efficient maintenance and softening.' },
+    { icon: 'fas fa-water', name: 'Hard Surface & Floor Care', desc: 'Heavy-duty solutions designed for rigorous floor and hard-surface cleaning applications.' },
+    { icon: 'fas fa-wind', name: 'Room Fresheners', desc: 'Long-lasting room fragrances that elevate freshness in hotels, offices, and public spaces.' }
   ],
   topProducts: [
     { icon: 'fas fa-soap', name: 'PROFESSIONAL HAND WASH', desc: 'Premium quality hand wash with moisturizers, ideal for hotels and healthcare facilities.', frontIcon: 'fas fa-hand-holding-water' },
@@ -53,21 +51,63 @@ const siteData = {
     { text: 'We have been sourcing laundry and kitchen chemicals from Royal Klense for our restaurant chain. Consistent quality and reliable supply chain.', author: 'Mr.K.Sakthivel', role: 'Managing Director, S.B Hospitality Group' }
   ],
   catalog: [
-    { code: 'K5', name: 'Liquid Room Freshner', flavor: 'Strawberry Shot', category: 'freshners', image: '/images/freshners/sberry_LF.png', desc: 'A sweet and fruity strawberry fragrance that fills the air with a fresh, delightful aroma perfect for any space.', dilution: 'Spray: 1:1 dilution (1 part freshener + 1 part water). Mop on Surface: 70ml to 100ml in 1 liter of water.' },
-    { code: 'K5', name: 'Liquid Room Freshner', flavor: 'Fresh Flora', category: 'freshners', image: '/images/freshners/fresh_flora_LF.png', desc: 'A captivating floral fragrance that brings the essence of a blooming garden indoors with a long-lasting freshness.', dilution: 'Spray: 1:1 dilution (1 part freshener + 1 part water). Mop on Surface: 70ml to 100ml in 1 liter of water.' },
-    { code: 'K5', name: 'Liquid Room Freshner', flavor: 'Millennium Lavender', category: 'freshners', image: '/images/freshners/lavender_LF.png', desc: 'A soothing lavender fragrance that promotes relaxation while keeping your space fresh and inviting.', dilution: 'Spray: 1:1 dilution (1 part freshener + 1 part water). Mop on Surface: 70ml to 100ml in 1 liter of water.' },
-    { code: 'K5', name: 'Liquid Room Freshner', flavor: 'Citrus Zest', category: 'freshners', image: '/images/freshners/orange_lf.png', desc: 'A zesty citrus burst that energizes any room with its bright, uplifting orange fragrance.', dilution: 'Spray: 1:1 dilution (1 part freshener + 1 part water). Mop on Surface: 70ml to 100ml in 1 liter of water.' },
-    { code: 'K5', name: 'Liquid Room Freshner', flavor: 'Earth Essence', category: 'freshners', image: '/images/freshners/earth_essence_lf.png', desc: 'An earthy, grounding fragrance that brings a natural, woody aroma to any space.', dilution: 'Spray: 1:1 dilution (1 part freshener + 1 part water). Mop on Surface: 70ml to 100ml in 1 liter of water.' },
-    { code: 'K2', name: 'Multi-Purpose Cleaner', flavor: 'French Rose', category: 'cleansers', image: '/images/final_pics/K2_Multipurpose___French_Rose.png', desc: 'A versatile cleaning solution effective on all surfaces for daily professional cleaning needs.', dilution: 'Glass Surface: 5ml in 1 liter of water. Hard Surface: 20ml to 40ml in 1 liter of water.' },
-    { code: 'K3', name: 'Glass Cleaner', flavor: 'Original', category: 'cleansers', image: '/images/final_pics/K3_Glass_Cleaner.png', desc: 'Streak-free formula that delivers brilliant shine on glass, mirrors, and reflective surfaces.', dilution: 'Ready to use. Spray on required area, little quantity sufficient.' },
-    { code: 'K1', name: 'Disinfectant Surface Cleaner', flavor: 'Lemon Fresh', category: 'cleansers', image: '/images/final_pics/K1_Disinfectant_Surface_Cleaner_Lemon.png', desc: 'Fresh lemon-scented disinfectant surface cleaning solution for all types of surfaces.', dilution: 'Normal Soiling: 8ml in 1 liter of water. Heavy Soiling: 10ml to 12ml in 1 liter of water. Glass Surface: 5ml in 1 liter of water.' },
-    { code: 'K1', name: 'Disinfectant Surface Cleaner', flavor: 'Millennium Lavender', category: 'cleansers', image: '/images/final_pics/K1_Disinfectant_Surface_Cleaner_Lavender.png', desc: 'Calming lavender-infused disinfectant surface cleaner that leaves surfaces sparkling clean with a soothing fragrance.', dilution: 'Normal Soiling: 8ml in 1 liter of water. Heavy Soiling: 10ml to 12ml in 1 liter of water. Glass Surface: 5ml in 1 liter of water.' },
-    { code: 'K8', name: 'Dishwash Liquid', flavor: 'Lemon Fresh', category: 'cleansers', image: '/images/final_pics/K9_Dishwash_Liquid.png', desc: 'Powerful lemon-scented dishwashing liquid that cuts through grease and leaves dishes spotless.', dilution: 'Use up to 50ml in 1 liter of water.' },
-    { code: 'K9', name: 'Bathroom & Ceramic Cleaner', flavor: 'Mild & Gentle', category: 'cleansers', image: '/images/final_pics/K8_Bathroom_Ceramic_Cleaner.png', desc: 'Anti-bacterial formula designed for complete hygiene on bathroom surfaces, tiles, and ceramic fixtures.', dilution: 'Normal Soiling: 200ml in 1 liter of water (once a week). Heavy Soiling: 400ml in 1 liter of water (thrice a week). Wet surface before use.' },
-    { code: 'K6', name: 'Toilet Bowl Cleaner', flavor: 'Original', category: 'cleansers', image: '/images/final_pics/K6_Toilet_Bowl_Cleaner.png', desc: 'Powerful thick formula that removes tough stains and limescale while disinfecting toilet bowls.', dilution: 'Ready to use. Little quantity sufficient. Wet surface before use.' }
+    { code: 'K5', name: 'Liquid Room Freshner', flavor: 'Divine Aura', category: 'freshners', image: '/images/freshners/Divine%20Aura%20LF.png', desc: 'A rich, balanced fragrance that creates a premium, welcoming atmosphere in any room.', dilution: 'Spray: 1:1 dilution (1 part freshener + 1 part water). Mop on Surface: 70ml to 100ml in 1 liter of water.' },
+    { code: 'K5', name: 'Liquid Room Freshner', flavor: 'French Rose', category: 'freshners', image: '/images/freshners/frenchrose%20LF.png', desc: 'A soft floral scent with a classic rose profile that keeps spaces fresh and elegant.', dilution: 'Spray: 1:1 dilution (1 part freshener + 1 part water). Mop on Surface: 70ml to 100ml in 1 liter of water.' },
+    { code: 'K5', name: 'Liquid Room Freshner', flavor: 'Fresh Flora', category: 'freshners', image: '/images/freshners/Fresh%20Flora%20LF.png', desc: 'A fresh floral note that brings the spirit of a blooming garden into every room.', dilution: 'Spray: 1:1 dilution (1 part freshener + 1 part water). Mop on Surface: 70ml to 100ml in 1 liter of water.' },
+    { code: 'K5', name: 'Liquid Room Freshner', flavor: 'Garden Bloom', category: 'freshners', image: '/images/freshners/garden%20bloom%20LF.png', desc: 'A vibrant floral freshness with a breezy green note that feels clean and uplifting.', dilution: 'Spray: 1:1 dilution (1 part freshener + 1 part water). Mop on Surface: 70ml to 100ml in 1 liter of water.' },
+    { code: 'K5', name: 'Liquid Room Freshner', flavor: 'Green Apple', category: 'freshners', image: '/images/freshners/Green%20Apple%20LF.png', desc: 'A crisp, juicy fragrance that energizes interiors with a bright, refreshing mood.', dilution: 'Spray: 1:1 dilution (1 part freshener + 1 part water). Mop on Surface: 70ml to 100ml in 1 liter of water.' },
+    { code: 'K5', name: 'Liquid Room Freshner', flavor: 'Harmony', category: 'freshners', image: '/images/freshners/Harmony%20LF.png', desc: 'A smooth, balanced scent that creates a calm and pleasant atmosphere throughout spaces.', dilution: 'Spray: 1:1 dilution (1 part freshener + 1 part water). Mop on Surface: 70ml to 100ml in 1 liter of water.' },
+    { code: 'K5', name: 'Liquid Room Freshner', flavor: 'Jazz Magic', category: 'freshners', image: '/images/freshners/jazz%20magic%20LF.png', desc: 'A lively fragrance blend that adds personality and freshness to any environment.', dilution: 'Spray: 1:1 dilution (1 part freshener + 1 part water). Mop on Surface: 70ml to 100ml in 1 liter of water.' },
+    { code: 'K5', name: 'Liquid Room Freshner', flavor: 'Lavender', category: 'freshners', image: '/images/freshners/Lavender%20LF.png', desc: 'A soothing lavender fragrance that promotes a calm, clean, and comforting ambiance.', dilution: 'Spray: 1:1 dilution (1 part freshener + 1 part water). Mop on Surface: 70ml to 100ml in 1 liter of water.' },
+    { code: 'K5', name: 'Liquid Room Freshner', flavor: 'Magical Brutus', category: 'freshners', image: '/images/freshners/Magical%20Brutus%20LF.png', desc: 'A bold and memorable fragrance profile designed to leave a lasting fresh impression.', dilution: 'Spray: 1:1 dilution (1 part freshener + 1 part water). Mop on Surface: 70ml to 100ml in 1 liter of water.' },
+    { code: 'K5', name: 'Liquid Room Freshner', flavor: 'Mystic Dream', category: 'freshners', image: '/images/freshners/Mystic%20Dream%20LF.png', desc: 'A dreamy, modern fragrance that creates a soft, soothing atmosphere in enclosed spaces.', dilution: 'Spray: 1:1 dilution (1 part freshener + 1 part water). Mop on Surface: 70ml to 100ml in 1 liter of water.' },
+    { code: 'K5', name: 'Liquid Room Freshner', flavor: 'Sandel', category: 'freshners', image: '/images/freshners/sandel%20LF.png', desc: 'A warm, woody aromatic fragrance that gives room spaces a premium and earthy finish.', dilution: 'Spray: 1:1 dilution (1 part freshener + 1 part water). Mop on Surface: 70ml to 100ml in 1 liter of water.' },
+    { code: 'K5', name: 'Liquid Room Freshner', flavor: 'Strawberry', category: 'freshners', image: '/images/freshners/strawberry%20LF.png', desc: 'A sweet, fruity strawberry fragrance that keeps interiors airy, cheerful, and fresh.', dilution: 'Spray: 1:1 dilution (1 part freshener + 1 part water). Mop on Surface: 70ml to 100ml in 1 liter of water.' },
+    { code: 'K1', name: 'Disinfectant Surface Cleaner', flavor: 'Lemon Fresh', category: 'cleansers', image: '/images/cleansers/K1_Disinfectant_Surface_Cleaner_Lemon.png', desc: 'Fresh lemon-scented disinfectant surface cleaning solution for all types of surfaces.', dilution: 'Normal Soiling: 8ml in 1 liter of water. Heavy Soiling: 10ml to 12ml in 1 liter of water. Glass Surface: 5ml in 1 liter of water.' },
+    { code: 'K1', name: 'Disinfectant Surface Cleaner', flavor: 'Lavender', category: 'cleansers', image: '/images/cleansers/K1_Disinfectant_Surface_Cleaner_Lavender.png', desc: 'Calming lavender-infused disinfectant surface cleaner that leaves surfaces sparkling clean with a soothing fragrance.', dilution: 'Normal Soiling: 8ml in 1 liter of water. Heavy Soiling: 10ml to 12ml in 1 liter of water. Glass Surface: 5ml in 1 liter of water.' },
+    { code: 'K2', name: 'Multi-Purpose Cleaner', flavor: 'French Rose', category: 'cleansers', image: '/images/cleansers/K2_Multipurpose___French_Rose.png', desc: 'A versatile cleaning solution effective on all surfaces for daily professional cleaning needs.', dilution: 'Glass Surface: 5ml in 1 liter of water. Hard Surface: 20ml to 40ml in 1 liter of water.' },
+    { code: 'K2', name: 'Multi-Purpose Cleaner', flavor: 'Orange', category: 'cleansers', image: '/images/cleansers/K2_Multiprupose%20Liquid%20Orange.png', desc: 'A lively orange-scented cleanser that cuts through grease and grime while refreshing the space.', dilution: 'Glass Surface: 5ml in 1 liter of water. Hard Surface: 20ml to 40ml in 1 liter of water.' },
+    { code: 'K3', name: 'Glass Cleaner', flavor: 'Original', category: 'cleansers', image: '/images/cleansers/K3_Glass%20Cleaner.png', desc: 'Streak-free formula that delivers brilliant shine on glass, mirrors, and reflective surfaces.', dilution: 'Ready to use. Spray on required area, little quantity sufficient.' },
+    { code: 'K6', name: 'Toilet Bowl Cleaner', flavor: 'Original', category: 'cleansers', image: '/images/cleansers/K6_Toilet_Bowl_Cleaner.png', desc: 'Powerful thick formula that removes tough stains and limescale while disinfecting toilet bowls.', dilution: 'Ready to use. Little quantity sufficient. Wet surface before use.' },
+    { code: 'K7', name: 'Hard Surface Cleaner', flavor: 'Original', category: 'cleansers', image: '/images/cleansers/K7_Hard%20Surface%20Cleaner.png', desc: 'A robust hard-surface cleaner designed for daily use on tiles, counters, and regular floor areas.', dilution: 'Heavy soiling: 20ml to 30ml in 1 liter of water. Light cleaning: 10ml to 15ml in 1 liter of water.' },
+    { code: 'K8', name: 'Dishwash Liquid', flavor: 'Original', category: 'cleansers', image: '/images/cleansers/K8_Dishwash%20Liquid.png', desc: 'Effective dishwashing liquid that cuts through grease and leaves utensils sparkling clean.', dilution: 'Use up to 50ml in 1 liter of water.' },
+    { code: 'K9', name: 'Bathroom & Ceramic Cleaner', flavor: 'Original', category: 'cleansers', image: '/images/cleansers/K9_Bathroom%20Ceramic%20Cleaner.png', desc: 'Anti-bacterial formula designed for complete hygiene on bathroom surfaces, tiles, and ceramic fixtures.', dilution: 'Normal Soiling: 200ml in 1 liter of water (once a week). Heavy Soiling: 400ml in 1 liter of water (thrice a week). Wet surface before use.' },
+    { code: 'K10', name: 'Hand Wash', flavor: 'Royal Touch', category: 'cleansers', image: '/images/cleansers/K10_Handwash_Royal%20Touch.png', desc: 'Luxury handwash formulation that cleanses gently while leaving skin soft and refreshed.', dilution: 'Ready to use. Dispense as required through a handwash dispenser.' },
+    { code: 'K10', name: 'Hand Wash', flavor: 'Strawberry', category: 'cleansers', image: '/images/cleansers/K10_Handwash_Strawberry.png', desc: 'A bright strawberry-scented hand wash that keeps hands fresh, clean, and pleasant to use.', dilution: 'Ready to use. Dispense as required through a handwash dispenser.' },
+    { code: 'K11', name: 'Hand Sanitizer', flavor: 'Original', category: 'cleansers', image: '/images/cleansers/K11_Hand%20Sanitizer.png', desc: 'Quick-drying sanitizing solution for efficient hygiene control in high-touch areas.', dilution: 'Ready to use. Apply to palms and rub until dry.' },
+    { code: 'K12', name: 'Ultra Scale Remover', flavor: 'Original', category: 'cleansers', image: '/images/cleansers/K12_Ultra%20Scale%20Remover.png', desc: 'Powerful descaling product used to remove mineral buildup and restore shine to surfaces.', dilution: 'Use 100ml to 200ml in 1 liter of water depending on scale buildup.' },
+    { code: 'K15', name: 'Matic Liquid', flavor: 'Original', category: 'cleansers', image: '/images/cleansers/k15_Matic%20Liquid.png', desc: 'Herbal and effective cleaning liquid ideal for routine housekeeping and surface maintenance.', dilution: 'Use 20ml to 40ml per liter of water depending on surface requirement.' },
+    { code: 'K16', name: 'Fabric Conditioner', flavor: 'Original', category: 'cleansers', image: '/images/cleansers/K16_Fabric%20Conditioner.png', desc: 'Softening formulation that improves fabric feel while keeping textiles fresh and pleasant.', dilution: 'Use as recommended on the product label or dosing instructions.' },
+    { code: 'K16', name: 'Fabric Conditioner', flavor: 'Bluestar', category: 'cleansers', image: '/images/cleansers/K16_Fabric%20Conditioner_Bluestar.png', desc: 'Blue star variant of fabric conditioner delivering a fresh finish with softening benefits.', dilution: 'Use as recommended on the product label or dosing instructions.' }
   ]
 };
 siteData.catalog.forEach(function(p) { p.backImage = '/images/back_of product.png'; });
+
+function getProductApplicationArea(p) {
+  const code = (p && p.code ? p.code.toUpperCase() : '').trim();
+
+  const applicationMap = {
+    K1: 'Used to clean all floors and disinfect hard surfaces in residential, commercial, and institutional spaces. Suitable for routine floor care and hygienic cleaning applications.',
+    K2: 'Used to clean floors, walls, and shine household items. Ideal for daily hard-surface maintenance and general-purpose cleaning.',
+    K3: 'Used to clean household items like glass, mirrors, windows, and other reflective surfaces for a streak-free finish.',
+    K5: 'Used for fresh fragrances in AC and non-AC rooms, making it ideal for hotels, offices, lobbies, hospitals, and hospitality spaces.',
+    K6: 'Used to clean toilet bowls and urinals, helping remove stains and keep restroom surfaces hygienic.',
+    K7: 'Used to clean heavy soilings in floor areas, especially tiled, stone, and hard floor surfaces that need deep cleaning.',
+    K8: 'Used to clean kitchen items and remove grease efficiently, making it suitable for dishwashing and kitchen surface care.',
+    K9: 'Used to clean lime scale deposits in bathroom and ceramic basins, restoring shine to sanitary fixtures and tiled surfaces.',
+    K10: 'Used to clean hands and maintain hygiene in restrooms, wash areas, and public-use facilities with a soft, antiseptic hand wash.',
+    K11: 'Used to clean and sanitize hands and skin for high-touch hygiene control. Avoid use on the face as specified.',
+    K12: 'Used to remove scale deposits in bathrooms, kitchens, and various floor surfaces including granite, tiles, and rock.',
+    K15: 'Used to wash fabrics and support multiple laundry applications across residential and institutional laundry operations.',
+    K16: 'Used to condition and soften fabrics while adding a pleasant fragrance, ideal for laundry finishing and fabric care.'
+  };
+
+  if (applicationMap[code]) return applicationMap[code];
+  if (p && p.category === 'freshners') {
+    return 'Used for fresh fragrances in AC and non-AC rooms, suitable for hotels, offices, lobbies, hospitals, and commercial spaces.';
+  }
+  return 'Suitable for daily use in kitchens, bathrooms, floors, glass surfaces, industrial areas, and institutional facilities.';
+}
 
 const API_BASE = '';
 
@@ -324,9 +364,7 @@ function setupLatestUpdatesBtn() {
 
 function openCatalogModal(p) {
   const catLabel = p.category === 'freshners' ? 'Freshner' : 'Cleaner';
-  const applications = p.category === 'freshners'
-    ? 'Ideal for use in hotels, offices, restrooms, lobbies, hospitals, and commercial spaces to maintain a pleasant and inviting atmosphere.'
-    : 'Suitable for daily use in kitchens, bathrooms, floors, glass surfaces, industrial areas, and institutional facilities.';
+  const applications = getProductApplicationArea(p);
 
   const dilution = p.dilution || 'Please refer to the product label for dilution instructions.';
 

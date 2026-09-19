@@ -608,9 +608,29 @@
       D.detailHeroImage.appendChild(img);
     }
 
-    D.detailApplications.textContent = p.category === 'freshners'
-      ? 'Ideal for use in hotels, offices, restrooms, lobbies, hospitals, and commercial spaces to maintain a pleasant and inviting atmosphere.'
-      : 'Suitable for daily use in kitchens, bathrooms, floors, glass surfaces, industrial areas, and institutional facilities.';
+    D.detailApplications.textContent = (function () {
+      var code = (p && p.code ? p.code.toUpperCase() : '').trim();
+      var appMap = {
+        K1: 'Used to clean all floors and disinfect hard surfaces in residential, commercial, and institutional spaces. Suitable for routine floor care and hygienic cleaning applications.',
+        K2: 'Used to clean floors, walls, and shine household items. Ideal for daily hard-surface maintenance and general-purpose cleaning.',
+        K3: 'Used to clean household items like glass, mirrors, windows, and other reflective surfaces for a streak-free finish.',
+        K5: 'Used for fresh fragrances in AC and non-AC rooms, making it ideal for hotels, offices, lobbies, hospitals, and hospitality spaces.',
+        K6: 'Used to clean toilet bowls and urinals, helping remove stains and keep restroom surfaces hygienic.',
+        K7: 'Used to clean heavy soilings in floor areas, especially tiled, stone, and hard floor surfaces that need deep cleaning.',
+        K8: 'Used to clean kitchen items and remove grease efficiently, making it suitable for dishwashing and kitchen surface care.',
+        K9: 'Used to clean lime scale deposits in bathroom and ceramic basins, restoring shine to sanitary fixtures and tiled surfaces.',
+        K10: 'Used to clean hands and maintain hygiene in restrooms, wash areas, and public-use facilities with a soft, antiseptic hand wash.',
+        K11: 'Used to clean and sanitize hands and skin for high-touch hygiene control. Avoid use on the face as specified.',
+        K12: 'Used to remove scale deposits in bathrooms, kitchens, and various floor surfaces including granite, tiles, and rock.',
+        K15: 'Used to wash fabrics and support multiple laundry applications across residential and institutional laundry operations.',
+        K16: 'Used to condition and soften fabrics while adding a pleasant fragrance, ideal for laundry finishing and fabric care.'
+      };
+      if (appMap[code]) return appMap[code];
+      if (p && p.category === 'freshners') {
+        return 'Used for fresh fragrances in AC and non-AC rooms, suitable for hotels, offices, lobbies, hospitals, and commercial spaces.';
+      }
+      return 'Suitable for daily use in kitchens, bathrooms, floors, glass surfaces, industrial areas, and institutional facilities.';
+    })();
 
     var items = p.desc.replace(/\./g, '|').split('|').filter(function (s) { return s.trim().length > 8; }).map(function (s) { return s.trim(); });
     if (items.length < 3) {
