@@ -2658,7 +2658,7 @@ html.nav-open body {
   }
 
   .clients-track {
-    animation-duration: 22s;
+    animation-duration: 34s;
     animation-timing-function: linear;
     will-change: transform;
     transform: translate3d(0, 0, 0);
@@ -2693,7 +2693,38 @@ html.nav-open body {
     flex: 0 0 auto;
     width: 100%;
     min-height: 150px;
+    height: auto;
+    overflow: visible;
     scroll-snap-align: unset;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  .industry-card::after {
+    display: none;
+  }
+
+  .industry-card > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .industry-icon {
+    width: 46px;
+    height: 46px;
+    font-size: 1.1rem;
+    margin-bottom: 14px;
+  }
+
+  .industry-card h3 {
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+
+  .industry-card p {
+    font-size: 0.82rem;
+    line-height: 1.55;
+    margin: 0;
   }
 }
 
