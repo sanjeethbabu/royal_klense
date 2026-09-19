@@ -226,7 +226,7 @@ function loadProductCatalog() {
       <div class="product-card" data-index="${i}" data-category="${p.category}">
         <div class="product-card-media">
           <span class="product-card-k-badge" aria-hidden="true">${p.code}</span>
-          <img class="product-card-img" src="${p.image}" alt="${p.name}" loading="lazy">
+          <img class="product-card-img" src="${p.image}" alt="${p.name}" loading="${i < 6 ? 'eager' : 'lazy'}" decoding="async" fetchpriority="${i < 6 ? 'high' : 'auto'}">
           <div class="product-card-img-shine"></div>
         </div>
         <div class="product-card-body">

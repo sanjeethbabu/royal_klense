@@ -2649,6 +2649,54 @@ html.nav-open body {
   animation-play-state: paused;
 }
 
+@media (max-width: 767px) {
+  .clients-wall {
+    margin-bottom: 18px;
+    -webkit-mask-image: none;
+    mask-image: none;
+    pointer-events: none;
+  }
+
+  .clients-track {
+    animation-duration: 22s;
+    animation-timing-function: linear;
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .client-logo {
+    width: 150px;
+    height: 94px;
+    margin-right: 10px;
+  }
+
+  .client-logo img {
+    max-height: 72px;
+    filter: none;
+    opacity: 1;
+  }
+
+  .clients-wall:hover .clients-track {
+    animation-play-state: running;
+  }
+
+  .industries-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    overflow: visible;
+    gap: 14px;
+    padding-bottom: 0;
+    scroll-snap-type: none;
+  }
+
+  .industry-card {
+    flex: 0 0 auto;
+    width: 100%;
+    min-height: 150px;
+    scroll-snap-align: unset;
+  }
+}
+
 @keyframes scrollClients {
   from {
     transform: translateX(0);
@@ -7866,6 +7914,17 @@ img:hover {
   .product-card-media {
     min-height: 200px;
     padding: 24px 16px 12px;
+    aspect-ratio: 4 / 3;
+    contain: layout paint style;
+  }
+
+  .product-card-img {
+    width: auto;
+    max-width: 78%;
+    height: 100%;
+    max-height: 100%;
+    display: block;
+    will-change: transform;
   }
 }
 
@@ -7877,6 +7936,7 @@ img:hover {
   .product-card-media {
     min-height: 180px;
     padding: 20px 12px 8px;
+    aspect-ratio: 4 / 3;
   }
 
   .product-card-body {
