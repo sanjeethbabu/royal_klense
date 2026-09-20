@@ -418,7 +418,7 @@
   function updateUI() {
     var p = S.products[S.currentIndex];
     if (!p) return;
-    var label = p.category === 'freshners' ? 'Freshner' : 'Cleaner';
+    var label = p.category === 'freshners' ? 'Freshener' : 'Cleaner';
     D.badge.textContent = label;
     D.name.textContent = p.name;
     D.flavor.textContent = p.flavor;
@@ -591,11 +591,11 @@
     var p = S.products[index];
     if (!p) return;
 
-    var label = p.category === 'freshners' ? 'Freshner' : 'Cleaner';
+    var label = p.category === 'freshners' ? 'Freshener' : 'Cleaner';
     D.detailBadge.textContent = label;
     D.detailTitle.textContent = p.name;
     D.detailFlavor.textContent = p.flavor;
-    D.detailTagline.textContent = label === 'Freshner'
+    D.detailTagline.textContent = label === 'Freshener'
       ? 'Professional Freshness. Designed for Premium Spaces.'
       : 'Professional Cleaning. Engineered for Excellence.';
     D.detailDesc.textContent = p.desc;
