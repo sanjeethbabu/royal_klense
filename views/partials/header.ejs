@@ -146,8 +146,18 @@
 
   <nav class="navbar" id="navbar">
     <div class="container nav-container">
-      <a href="/" class="nav-logo">
-        <img src="/images/logo.png" alt="Royal Klense" class="logo-icon-img">
+      <a href="/" class="nav-logo" aria-label="Royal Klense Home">
+        <div class="nav-brand-block">
+          <img src="/images/logo.png" alt="Royal Klense" class="logo-icon-img">
+          <div class="nav-brand-powered">
+            <span class="nav-brand-powered-label">Powered by</span>
+            <div class="nav-brand-powered-logos">
+              <img src="/images/vc_logo.png" alt="VC Logo" class="nav-brand-powered-logo">
+              <span class="nav-brand-powered-separator">&amp;</span>
+              <img src="/images/hng_logo.png" alt="HNG Logo" class="nav-brand-powered-logo nav-brand-powered-logo--secondary">
+            </div>
+          </div>
+        </div>
       </a>
       <a href="/" class="nav-home-icon" aria-label="Home"><i class="fas fa-home"></i></a>
       <div class="nav-toggle" id="navToggle" role="button" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
