@@ -1151,51 +1151,6 @@ body:not(.rk-leaving):not(.rk-reveal)>*:not(#loader):not(script) {
   object-fit: contain;
 }
 
-.nav-brand-powered {
-  position: absolute;
-  left: 50%;
-  top: 58%;
-  transform: translate(-50%, 14px);
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  white-space: nowrap;
-}
-
-.nav-brand-powered-label {
-  font-family: var(--font-body);
-  font-size: 0.48rem;
-  font-weight: 500;
-  color: #7a7a7a;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-}
-
-.nav-brand-powered-logos {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.nav-brand-powered-logo {
-  height: 30px;
-  width: auto;
-  object-fit: contain;
-  opacity: 0.9;
-}
-
-.nav-brand-powered-logo--secondary {
-  height: 24px;
-}
-
-.nav-brand-powered-separator {
-  font-size: 0.9rem;
-  line-height: 1;
-  color: rgba(122, 122, 122, 0.9);
-  font-weight: 400;
-  transform: translateY(-1px);
-}
-
 .logo-icon {
   width: 44px;
   height: 44px;
@@ -3042,17 +2997,45 @@ html.nav-open body {
 
 @media (max-width: 768px) {
   .footer-main {
-    grid-template-columns: 1fr;
+    width: 100%;
     text-align: center;
     padding-top: 28px;
   }
 
-  .footer-brand {
-    align-items: center;
+  .footer-panel {
+    width: 100%;
+  }
+
+  .footer-panel-row {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
   }
 
   .footer-address-box {
-    padding: 20px 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .footer-presence-col,
+  .footer-contact-box {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .footer-contact-box {
+    padding-left: 0;
+    border-left: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    padding-top: 18px;
+  }
+
+  .footer-brand {
+    align-items: center;
   }
 }
 
@@ -3310,6 +3293,8 @@ html.nav-open body {
   align-items: center;
   justify-content: center;
   gap: 18px;
+  white-space: nowrap;
+  flex-wrap: nowrap;
   font-size: 1.2rem;
   color: var(--gold);
   font-weight: 600;
@@ -3333,6 +3318,25 @@ html.nav-open body {
   padding: 3px 12px;
   box-shadow: 0 0 18px rgba(201, 162, 39, 0.18);
   animation: availPulse 2.4s ease-in-out infinite;
+}
+
+@media (max-width: 768px) {
+  .footer-avail {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .avail-note {
+    gap: 10px;
+    white-space: nowrap;
+    font-size: clamp(0.75rem, 2.8vw, 1rem);
+    letter-spacing: 0.02em;
+  }
+
+  .avail-247 {
+    font-size: 0.72rem;
+    padding: 3px 10px;
+  }
 }
 
 .avail-247::before {
