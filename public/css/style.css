@@ -2879,24 +2879,28 @@ html.nav-open body {
   margin: 0 auto;
   padding: 42px 24px 18px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 0;
 }
 
 .footer-main-center {
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
 .footer-panel {
-  width: 100%;
+  width: min(100%, 1100px);
   background: rgba(14, 22, 38, 0.9);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 28px;
-  padding: 26px 28px 18px;
+  padding: 18px 18px 16px;
   box-shadow: 0 16px 38px rgba(0, 0, 0, 0.18);
+  margin: 0 auto;
 }
 
 .footer-panel-row {
@@ -2930,6 +2934,10 @@ html.nav-open body {
 }
 
 .footer-address-box {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 28px;
   justify-self: center;
   width: 100%;
   max-width: 760px;
@@ -2942,14 +2950,19 @@ html.nav-open body {
   flex: 1;
 }
 
+.footer-presence-col {
+  flex: 1;
+  text-align: center;
+}
+
 .footer-contact-box {
+  flex: 1;
   width: 100%;
-  margin-top: 22px;
-  padding-top: 18px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-left: 28px;
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
   text-align: center;
   background: transparent;
-  border-left: none;
+  border-top: none;
   border-right: none;
   border-bottom: none;
   border-radius: 0;
@@ -3011,10 +3024,9 @@ html.nav-open body {
 }
 
 .footer-copy-wrap {
-  margin-top: 18px;
-  padding-top: 12px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: 10px;
   text-align: center;
+  width: 100%;
 }
 
 .footer-copy-wrap p {
