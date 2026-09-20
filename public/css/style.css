@@ -860,6 +860,21 @@ body:not(.rk-leaving):not(.rk-reveal)>*:not(#loader):not(script) {
   padding: 20px 0 16px;
 }
 
+.loader-footer-logos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.loader-footer-separator {
+  font-size: 1.15rem;
+  line-height: 1;
+  color: rgba(136, 136, 136, 0.9);
+  font-weight: 400;
+  transform: translateY(-1px);
+}
+
 .loader-footer-text {
   font-family: var(--font-body);
   font-size: 0.55rem;
@@ -870,9 +885,15 @@ body:not(.rk-leaving):not(.rk-reveal)>*:not(#loader):not(script) {
 }
 
 .loader-footer-logo {
-  height: 50px;
+  height: 58px;
   width: auto;
   opacity: 0.8;
+  object-fit: contain;
+}
+
+.loader-footer-logo--secondary {
+  height: 58px;
+  width: auto;
 }
 
 .star {
