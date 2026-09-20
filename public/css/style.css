@@ -2937,7 +2937,7 @@ html.nav-open body {
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  gap: 28px;
+  gap: 12px;
   justify-self: center;
   width: 100%;
   max-width: 760px;
@@ -2958,7 +2958,7 @@ html.nav-open body {
 .footer-contact-box {
   flex: 1;
   width: 100%;
-  padding-left: 28px;
+  padding-left: 12px;
   border-left: 1px solid rgba(255, 255, 255, 0.12);
   text-align: center;
   background: transparent;
@@ -3309,7 +3309,7 @@ html.nav-open body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 18px;
   font-size: 1.2rem;
   color: var(--gold);
   font-weight: 600;
