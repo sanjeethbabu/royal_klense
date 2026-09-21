@@ -25,7 +25,7 @@ const emailUpload = multer({
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const SITE_URL = process.env.SITE_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://royalklense.com');
+const SITE_URL = process.env.SITE_URL || 'https://royalklense.com';
 
 app.set('trust proxy', true);
 app.set('view engine', 'ejs');
@@ -451,8 +451,8 @@ app.get('/api/health', (req, res) => {
 
 const pageMeta = {
   home: {
-    title: 'Royal Klense | Cleaning Chemicals Manufacturer in India',
-    description: 'Royal Klense is a trusted cleaning chemicals manufacturer and hygiene solutions supplier in India for hotels, hospitals, manufacturing units, institutions, and commercial facilities.',
+    title: 'Royal Klense | Cleaning Chemicals & Hygiene Solutions in India',
+    description: 'Royal Klense supplies hospital cleaning chemicals, hotel housekeeping products, industrial cleaning solutions, and hygiene products across India for commercial and institutional businesses.',
     canonical: '/',
     image: `${SITE_URL}/images/logo.png`
   },
@@ -463,8 +463,8 @@ const pageMeta = {
     image: `${SITE_URL}/images/logo.png`
   },
   products: {
-    title: 'Cleaning Chemicals & Hygiene Products Supplier in India | Royal Klense',
-    description: 'Discover Royal Klense cleaning chemicals, industrial cleaners, housekeeping products, and hygiene solutions for hotels, hospitals, factories, and commercial facilities across India.',
+    title: 'Royal Klense Cleaning Products | Hospital, Hotel & Industrial Cleaning Chemicals',
+    description: 'Explore Royal Klense cleaning products for hospitals, hotels, industrial facilities, and commercial spaces. Discover hospital cleaning chemicals, hotel cleaning chemicals, and industrial cleaning solutions in India.',
     canonical: '/products',
     image: `${SITE_URL}/images/logo.png`
   },
@@ -540,31 +540,31 @@ function renderPage(res, page, view) {
 const servicePageMeta = {
   india: {
     title: 'Royal Klense India | Cleaning Chemicals Manufacturer in India',
-    description: 'Royal Klense is an India-based cleaning chemicals manufacturer and hygiene solutions supplier serving hospitals, hotels, industries, and institutions across the country.',
+    description: 'Royal Klense is a cleaning chemicals manufacturer in India supplying hospital cleaning chemicals, hotel cleaning solutions, industrial cleaning products, and hygiene essentials to businesses across the country.',
     canonical: '/india-cleaning-chemicals-manufacturer',
     heading: 'Royal Klense India',
-    subtitle: 'Cleaning chemicals manufacturer serving hospitals, hotels, institutions, and industrial facilities across India.'
+    subtitle: 'Cleaning chemicals manufacturer in India serving hospitals, hotels, institutions, and industrial facilities.'
   },
   hospital: {
     title: 'Hospital Cleaning Chemicals | Royal Klense',
-    description: 'Royal Klense supplies hospital cleaning chemicals, disinfectants, and hygiene products for healthcare facilities and medical environments across India.',
+    description: 'Royal Klense supplies hospital cleaning chemicals, disinfectants, and hygiene solutions for healthcare facilities, medical centers, and institutional environments across India.',
     canonical: '/hospital-cleaning-chemicals',
     heading: 'Hospital Cleaning Chemicals',
-    subtitle: 'Trusted hospital-grade disinfectants and cleaning solutions for healthcare environments.'
+    subtitle: 'Hospital cleaning chemicals for healthcare facilities, medical centers, and institutional environments.'
   },
   hotel: {
     title: 'Hotel Cleaning Chemicals | Royal Klense',
-    description: 'Royal Klense provides hotel cleaning chemicals and housekeeping products for guest rooms, kitchens, restaurants, and public areas across India.',
+    description: 'Royal Klense provides hotel cleaning chemicals and housekeeping solutions for guest rooms, kitchens, restaurants, and public spaces across India.',
     canonical: '/hotel-cleaning-chemicals',
     heading: 'Hotel Cleaning Chemicals',
-    subtitle: 'High-performance cleaning and housekeeping solutions designed for hospitality operations.'
+    subtitle: 'Hotel cleaning chemicals for housekeeping, guest experience, and hospitality operations.'
   },
   industrial: {
     title: 'Industrial Cleaning Products | Royal Klense',
-    description: 'Royal Klense supplies industrial cleaning products for factories, workshops, warehouses, and commercial facilities that need powerful and reliable cleaning performance.',
+    description: 'Royal Klense supplies industrial cleaning products for factories, warehouses, workshops, and commercial facilities that need reliable, heavy-duty cleaning performance.',
     canonical: '/industrial-cleaning-products',
     heading: 'Industrial Cleaning Products',
-    subtitle: 'Heavy-duty cleaning systems for manufacturing, commercial, and industrial environments.'
+    subtitle: 'Industrial cleaning products for factories, commercial facilities, and heavy-duty maintenance environments.'
   }
 };
 
@@ -586,21 +586,21 @@ function renderServicePage(res, pageKey) {
 const cityPageMeta = {
   chennai: {
     title: 'Royal Klense Chennai | Cleaning Chemicals Supplier in Chennai',
-    description: 'Royal Klense supplies premium cleaning chemicals, hospital hygiene products, and housekeeping solutions in Chennai for hotels, hospitals, and commercial spaces.',
+    description: 'Royal Klense supplies cleaning chemicals, hygiene solutions, and housekeeping products in Chennai for hospitals, hotels, institutions, and commercial facilities.',
     canonical: '/chennai',
     city: 'Chennai',
     cityText: 'Chennai'
   },
   madurai: {
     title: 'Royal Klense Madurai | Cleaning Chemicals Supplier in Madurai',
-    description: 'Royal Klense provides industrial cleaning chemicals, hygiene products, and housekeeping solutions in Madurai for schools, hotels, hospitals, and businesses.',
+    description: 'Royal Klense provides cleaning chemicals and hygiene solutions in Madurai for hotels, hospitals, institutions, and industrial facilities that need reliable products and service.',
     canonical: '/madurai',
     city: 'Madurai',
     cityText: 'Madurai'
   },
   dindigul: {
     title: 'Royal Klense Dindigul | Cleaning Chemicals Supplier in Dindigul',
-    description: 'Royal Klense supplies dependable cleaning chemicals and housekeeping products in Dindigul for hospitals, hotels, institutions, and industrial facilities.',
+    description: 'Royal Klense supplies cleaning chemicals and housekeeping products in Dindigul for healthcare, hospitality, institutional, and industrial use.',
     canonical: '/dindigul',
     city: 'Dindigul',
     cityText: 'Dindigul'
