@@ -2667,6 +2667,13 @@ html.nav-open body {
   box-shadow: none;
 }
 
+.client-logo img.client-logo-rounded {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 18px;
+}
+
 .client-logo:hover {
   transform: translateY(-2px);
   opacity: 1;
