@@ -45,6 +45,41 @@ app.use((req, res, next) => {
   next();
 });
 
+app.get('/robots.txt', (req, res) => {
+  res.type('text/plain; charset=utf-8');
+  res.send(`User-agent: *\nAllow: /\nDisallow: /api/\nSitemap: ${SITE_URL}/sitemap.xml\n`);
+});
+
+app.get('/sitemap.xml', (req, res) => {
+  const urls = [
+    '/',
+    '/products',
+    '/why-us',
+    '/contact',
+    '/india-cleaning-chemicals-manufacturer',
+    '/hospital-cleaning-chemicals',
+    '/hotel-cleaning-chemicals',
+    '/industrial-cleaning-products',
+    '/chennai',
+    '/madurai',
+    '/dindigul'
+  ];
+
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  ${urls.map((path) => `
+    <url>
+      <loc>${SITE_URL}${path}</loc>
+      <lastmod>${new Date().toISOString().slice(0, 10)}</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>${path === '/' ? '1.0' : '0.8'}</priority>
+    </url>`).join('')}
+</urlset>`;
+
+  res.set('Content-Type', 'application/xml; charset=utf-8');
+  res.send(xml);
+});
+
 app.use(express.static(path.join(__dirname, 'public'), { index: false }));
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/image2', express.static(path.join(__dirname, 'image2')));
