@@ -21,7 +21,7 @@
   <meta name="twitter:description" content="<%= typeof description !== 'undefined' ? description : 'Royal Klense - India\'s leading manufacturer of premium cleaning chemicals, hygiene solutions, and housekeeping products.' %>">
   <meta name="twitter:image" content="<%= typeof image !== 'undefined' ? image : 'https://royalklense.com/images/logo.png' %>">
   <% if (typeof schema !== 'undefined' && schema) { %>
-  <script type="application/ld+json"><%= JSON.stringify(schema) %></script>
+  <script type="application/ld+json"><%- JSON.stringify(schema) %></script>
   <% } %>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
