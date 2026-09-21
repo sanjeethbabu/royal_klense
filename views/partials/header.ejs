@@ -5,9 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= typeof title !== 'undefined' ? title + ' | Royal Klense - Premium Hygiene' : 'Royal Klense - Premium Hygiene' %></title>
   <meta name="description" content="<%= typeof description !== 'undefined' ? description : 'Royal Klense - India\'s leading manufacturer of premium cleaning chemicals, hygiene solutions, and housekeeping products.' %>">
-  <link rel="canonical" href="<%= typeof canonical !== 'undefined' ? canonical : '/' %>">
-  <meta name="keywords" content="cleaning chemicals, hygiene solutions, housekeeping products, industrial cleansers, hotel cleaning supplies, hospital hygiene, Royal Klense">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <meta name="author" content="Royal Klense">
+  <meta name="keywords" content="Royal Klense, cleaning chemicals manufacturer in India, cleaning chemicals supplier India, hygiene solutions supplier, housekeeping products, industrial cleaning chemicals, hotel cleaning supplies, hospital hygiene, commercial cleaning products, Royal Klense Chennai, Royal Klense Madurai, Royal Klense Dindigul, royalklense, royalclense, royal klense">
+  <link rel="canonical" href="<%= typeof canonical !== 'undefined' ? canonical : 'https://royalklense.com/' %>">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Royal Klense">
+  <meta property="og:title" content="<%= typeof title !== 'undefined' ? title + ' | Royal Klense - Premium Hygiene' : 'Royal Klense - Premium Hygiene' %>">
+  <meta property="og:description" content="<%= typeof description !== 'undefined' ? description : 'Royal Klense - India\'s leading manufacturer of premium cleaning chemicals, hygiene solutions, and housekeeping products.' %>">
+  <meta property="og:url" content="<%= typeof ogUrl !== 'undefined' ? ogUrl : 'https://royalklense.com/' %>">
+  <meta property="og:image" content="<%= typeof image !== 'undefined' ? image : 'https://royalklense.com/images/logo.png' %>">
+  <meta property="og:image:alt" content="Royal Klense">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="<%= typeof title !== 'undefined' ? title + ' | Royal Klense - Premium Hygiene' : 'Royal Klense - Premium Hygiene' %>">
+  <meta name="twitter:description" content="<%= typeof description !== 'undefined' ? description : 'Royal Klense - India\'s leading manufacturer of premium cleaning chemicals, hygiene solutions, and housekeeping products.' %>">
+  <meta name="twitter:image" content="<%= typeof image !== 'undefined' ? image : 'https://royalklense.com/images/logo.png' %>">
+  <% if (typeof schema !== 'undefined' && schema) { %>
+  <script type="application/ld+json"><%= JSON.stringify(schema) %></script>
+  <% } %>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">

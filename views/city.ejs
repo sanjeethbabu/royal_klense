@@ -1,0 +1,46 @@
+<%- include('partials/header') %>
+
+<main class="city-page" style="padding: 120px 0 40px; background: linear-gradient(180deg, #071524 0%, #0f1f34 100%); color: #fff; min-height: 70vh;">
+  <div class="container" style="max-width: 1100px; margin: 0 auto; padding: 0 20px;">
+    <div style="text-align:center; margin-bottom: 28px;">
+      <span class="section-tag" style="display:inline-block; margin-bottom:12px; color:#f9d76b; border-color: rgba(249,215,107,0.35);">Royal Klense</span>
+      <h1 style="margin:0 0 12px; font-size: clamp(2.2rem, 4vw, 4rem); line-height:1.15; color:#fff;">
+        Royal Klense <%= cityText %>
+      </h1>
+      <p style="margin:0 auto; max-width: 760px; color: rgba(255,255,255,0.8); font-size:1.08rem; line-height:1.8;">
+        Royal Klense is a trusted cleaning chemicals and hygiene solutions supplier in <%= cityText %>, helping hotels, hospitals, institutions, and industries maintain cleaner, safer, and more professional spaces.
+      </p>
+    </div>
+
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin-top: 30px;">
+      <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; padding: 22px; box-shadow: 0 18px 40px rgba(0,0,0,0.15);">
+        <h2 style="font-size:1.15rem; margin:0 0 12px; color:#f9d76b;">Cleaning Chemicals</h2>
+        <p style="margin:0; color: rgba(255,255,255,0.8); line-height:1.8;">
+          Premium industrial and institutional cleaning solutions built for performance, compliance, and hygiene safety.
+        </p>
+      </div>
+
+      <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; padding: 22px; box-shadow: 0 18px 40px rgba(0,0,0,0.15);">
+        <h2 style="font-size:1.15rem; margin:0 0 12px; color:#f9d76b;">Hospital Hygiene</h2>
+        <p style="margin:0; color: rgba(255,255,255,0.8); line-height:1.8;">
+          Reliable disinfectants and hygiene essentials for hospitals, clinics, and healthcare facilities in <%= cityText %>.
+        </p>
+      </div>
+
+      <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; padding: 22px; box-shadow: 0 18px 40px rgba(0,0,0,0.15);">
+        <h2 style="font-size:1.15rem; margin:0 0 12px; color:#f9d76b;">Hotel Housekeeping</h2>
+        <p style="margin:0; color: rgba(255,255,255,0.8); line-height:1.8;">
+          Effective housekeeping products and care solutions for hotels, resorts, and hospitality businesses seeking consistent quality.
+        </p>
+      </div>
+    </div>
+
+    <div style="margin-top: 30px; text-align:center;">
+      <a href="/contact" style="display:inline-block; background: linear-gradient(135deg, #f5d97b, #c89a1f); color:#0d1b2a; text-decoration:none; padding: 14px 28px; border-radius: 999px; font-weight:700; box-shadow: 0 18px 35px rgba(201, 162, 39, 0.25);">
+        Enquire for <%= cityText %>
+      </a>
+    </div>
+  </div>
+</main>
+
+<%- include('partials/footer') %>
