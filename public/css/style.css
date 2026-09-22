@@ -882,6 +882,8 @@ body:not(.rk-leaving):not(.rk-reveal)>*:not(#loader):not(script) {
   color: #888;
   letter-spacing: 1.5px;
   text-transform: uppercase;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .loader-footer-logo {
