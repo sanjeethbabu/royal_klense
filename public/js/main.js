@@ -223,7 +223,7 @@ function loadProductCatalog() {
     );
 
   grid.innerHTML = sorted.map(({ p, i }) => `
-      <div class="product-card" data-index="${i}" data-category="${p.category}">
+      <div class="product-card${p.code === 'K2' && p.flavor === 'French Rose' ? ' product-card--french-rose' : ''}" data-index="${i}" data-category="${p.category}">
         <div class="product-card-media">
           <span class="product-card-k-badge" aria-hidden="true">${p.code}</span>
           <img class="product-card-img" src="${p.image}" alt="${p.name}" loading="${i < 6 ? 'eager' : 'lazy'}" decoding="async" fetchpriority="${i < 6 ? 'high' : 'auto'}">

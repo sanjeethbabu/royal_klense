@@ -7527,7 +7527,7 @@ img:hover {
   padding: 10px 24px;
   border: none;
   border-radius: 50px;
-  background: linear-gradient(135deg, var(--royal-blue-dark), var(--royal-blue), var(--royal-blue-light));
+  background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
   color: var(--white);
   font-family: var(--font-heading);
   font-size: 0.82rem;
@@ -7535,7 +7535,6 @@ img:hover {
   cursor: pointer;
   transition: all 0.3s var(--ease-out-expo);
   box-shadow: 0 4px 14px rgba(11, 29, 58, 0.25);
-  animation: btnPulse 1s ease-in-out infinite;
 }
 
 .product-card-btn i {
@@ -7555,6 +7554,10 @@ img:hover {
 .product-card-btn:active {
   transform: translateY(0);
   box-shadow: 0 2px 8px rgba(201, 162, 39, 0.15);
+}
+
+.product-card--french-rose .product-card-btn {
+  margin-top: 43px;
 }
 
 /* ── Package Size Alert Banner ── */
