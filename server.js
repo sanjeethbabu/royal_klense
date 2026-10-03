@@ -149,7 +149,7 @@ function handleContact(req, res) {
   if (transporter) {
     if (hasResume) {
       const mailOptions = {
-        from: `"${name}" <${email}>`,
+        from: `"Royal Klense" <${process.env.SMTP_USER}>`,
         replyTo: email,
         to: process.env.CONTACT_EMAIL || 'admin@royalklense.com',
         subject: `Job Application from ${name} - ${position || 'N/A'} - Royal Klense`,
@@ -181,7 +181,7 @@ function handleContact(req, res) {
       });
     } else {
       const mailOptions = {
-        from: `"${name}" <${email}>`,
+        from: `"Royal Klense" <${process.env.SMTP_USER}>`,
         replyTo: email,
         to: process.env.CONTACT_EMAIL || 'admin@royalklense.com',
         subject: `New Contact Inquiry from ${name} - Royal Klense`,
@@ -275,7 +275,7 @@ app.post('/api/quote', (req, res) => {
 
   if (transporter) {
     const mailOptions = {
-      from: `"${name}" <${emailStr}>`,
+      from: `"Royal Klense" <${process.env.SMTP_USER}>`,
       replyTo: emailStr,
       to: process.env.CONTACT_EMAIL || 'admin@royalklense.com',
       subject: `New Quote Request from ${name} - Royal Klense`,
@@ -348,7 +348,7 @@ app.post('/api/direct-quote', (req, res) => {
 
   if (transporter) {
     const mailOptions = {
-      from: `"${name}" <${emailStr}>`,
+      from: `"Royal Klense" <${process.env.SMTP_USER}>`,
       replyTo: emailStr,
       to: process.env.CONTACT_EMAIL || 'admin@royalklense.com',
       subject: `Direct Quote Request: ${product} from ${name} - Royal Klense`,
