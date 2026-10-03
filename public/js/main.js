@@ -1299,7 +1299,7 @@ function handleCallClick() {
       '</div>' +
       '<h3 style="margin:0 0 12px;font-size:1.2rem;color:var(--text-dark)">Call Us</h3>' +
       '<p style="margin:0 0 6px;font-size:0.95rem;color:var(--text-light);line-height:1.6">Please take a moment to call us at</p>' +
-      '<p style="margin:0 0 12px;font-size:1.5rem;font-weight:700;color:var(--gold-dark);letter-spacing:1px">634789451</p>' +
+      '<p style="margin:0 0 12px;font-size:1.5rem;font-weight:700;color:var(--gold-dark);letter-spacing:1px"><a href="tel:+919042324286" style="color:inherit;text-decoration:none">+91 90423 24286</a></p>' +
       '<p style="margin:0;font-size:0.88rem;color:var(--text-light);line-height:1.5">Our team is ready to assist you and looks forward to speaking with you.</p>' +
     '</div>');
   }
