@@ -151,7 +151,7 @@ function handleContact(req, res) {
       const mailOptions = {
         from: `"${name}" <${email}>`,
         replyTo: email,
-        to: process.env.CONTACT_EMAIL || 'sanjeethbabumani@gmail.com',
+        to: process.env.CONTACT_EMAIL || 'admin@royalklense.com',
         subject: `Job Application from ${name} - ${position || 'N/A'} - Royal Klense`,
         html: `
           <h2>New Job Application</h2>
@@ -183,7 +183,7 @@ function handleContact(req, res) {
       const mailOptions = {
         from: `"${name}" <${email}>`,
         replyTo: email,
-        to: process.env.CONTACT_EMAIL || 'sanjeethbabumani@gmail.com',
+        to: process.env.CONTACT_EMAIL || 'admin@royalklense.com',
         subject: `New Contact Inquiry from ${name} - Royal Klense`,
         html: `
           <h2>New Contact Inquiry</h2>
@@ -277,7 +277,7 @@ app.post('/api/quote', (req, res) => {
     const mailOptions = {
       from: `"${name}" <${emailStr}>`,
       replyTo: emailStr,
-      to: process.env.CONTACT_EMAIL || 'sanjeethbabumani@gmail.com',
+      to: process.env.CONTACT_EMAIL || 'admin@royalklense.com',
       subject: `New Quote Request from ${name} - Royal Klense`,
       html: `
         <h2>New Quote Request</h2>
@@ -350,7 +350,7 @@ app.post('/api/direct-quote', (req, res) => {
     const mailOptions = {
       from: `"${name}" <${emailStr}>`,
       replyTo: emailStr,
-      to: process.env.CONTACT_EMAIL || 'sanjeethbabumani@gmail.com',
+      to: process.env.CONTACT_EMAIL || 'admin@royalklense.com',
       subject: `Direct Quote Request: ${product} from ${name} - Royal Klense`,
       html: `
         <h2>Direct Quote Request</h2>
@@ -497,8 +497,8 @@ function buildLocalBusinessSchema() {
     logo: `${SITE_URL}/images/logo.png`,
     image: `${SITE_URL}/images/logo.png`,
     description: 'Royal Klense supplies cleaning chemicals, hygiene solutions, and housekeeping products for hotels, hospitals, industries, institutions, and commercial facilities across India.',
-    email: 'sanjeethbabumani@gmail.com',
-    telephone: '+91 63693 11595',
+    email: 'admin@royalklense.com',
+    telephone: '+91 90423 24286',
     areaServed: [
       'Chennai',
       'Madurai',
@@ -519,8 +519,8 @@ function buildLocalBusinessSchema() {
     contactPoint: [{
       '@type': 'ContactPoint',
       contactType: 'sales',
-      telephone: '+91 63693 11595',
-      email: 'sanjeethbabumani@gmail.com',
+      telephone: '+91 90423 24286',
+      email: 'admin@royalklense.com',
       areaServed: 'IN',
       availableLanguage: ['English', 'Tamil']
     }]

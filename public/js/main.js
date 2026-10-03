@@ -435,7 +435,7 @@ function openCatalogModal(p) {
           <a href="#" class="pip-btn pip-btn-call" onclick="handleCallClick();return false">
             <i class="fas fa-phone-alt"></i> Call
           </a>
-          <a href="https://wa.me/916369311595?text=Hey%20Royal%20Klense%20team!%20I%20would%20like%20to%20know%20more%20about%20${encodeURIComponent(p.name)}" target="_blank" rel="noopener" class="pip-btn pip-btn-whatsapp">
+          <a href="https://wa.me/919042324286?text=Hey%20Royal%20Klense%20team!%20I%20would%20like%20to%20know%20more%20about%20${encodeURIComponent(p.name)}" target="_blank" rel="noopener" class="pip-btn pip-btn-whatsapp">
             <i class="fab fa-whatsapp"></i> WhatsApp
           </a>
         </div>
@@ -709,7 +709,7 @@ function getContactForm() {
         <div class="contact-option-icon"><i class="fas fa-envelope"></i></div>
         <span class="contact-option-label">Email</span>
       </div>
-      <a href="https://wa.me/916369311595?text=Hey%20Royal%20Klense%20team%20!%20I%20would%20like%20to%20know%20more%20details%20about%20your%20product.%20Could%20you%20please%20help%20me%20with%20that%20%3F" target="_blank" rel="noopener" class="contact-option">
+      <a href="https://wa.me/919042324286?text=Hey%20Royal%20Klense%20team%20!%20I%20would%20like%20to%20know%20more%20details%20about%20your%20product.%20Could%20you%20please%20help%20me%20with%20that%20%3F" target="_blank" rel="noopener" class="contact-option">
         <div class="contact-option-icon"><i class="fab fa-whatsapp"></i></div>
         <span class="contact-option-label">WhatsApp</span>
       </a>
@@ -732,7 +732,7 @@ function showEmailOptions() {
       </div>
       <div class="form-group">
         <label for="compose_to">To *</label>
-        <input type="email" id="compose_to" value="sanjeethbabumani@gmail.com" required placeholder="Recipient email address">
+        <input type="email" id="compose_to" value="admin@royalklense.com" required placeholder="Recipient email address">
       </div>
       <div class="form-group">
         <label for="compose_cc">CC</label>
@@ -1291,7 +1291,7 @@ function openImageModal(src, alt) {
 function handleCallClick() {
   var isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
   if (isMobile) {
-    window.location.href = 'tel:+916369311595';
+    window.location.href = 'tel:+919042324286';
   } else {
     openModal('<div style="text-align:center;padding:28px 24px;max-width:420px;margin:0 auto">' +
       '<div style="display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--gold-light),var(--gold),var(--gold-dark));margin-bottom:16px;box-shadow:0 8px 24px rgba(201,162,39,0.25)">' +
@@ -1456,7 +1456,7 @@ function handleJoinTeam(e) {
     body: formData
   }).then(function(r) { return r.json(); }).then(function(result) {
     if (result.success) {
-      document.getElementById('modalBody').innerHTML = '<div class="form-success"><i class="fas fa-check-circle"></i><h3>Thank You for Your Application!</h3><p>Your application has been submitted successfully.</p><p style="font-size:0.88rem;color:var(--text-light);margin-top:8px">Our recruitment team will review your information and reach out if your profile is shortlisted. We appreciate the time you\'ve taken to apply and look forward to learning more about you.</p><p style="font-size:0.85rem;color:var(--text-light);margin-top:10px;padding-top:10px;border-top:1px solid rgba(201,162,39,0.15)">If you have any questions, feel free to <a href="mailto:sanjeethbabumani@gmail.com" style="color:var(--gold-dark);font-weight:600;text-decoration:none">email us</a> or call <a href="tel:+916369311595" style="color:var(--gold-dark);font-weight:600;text-decoration:none">+91 6369311595</a>.</p><button class="btn btn-primary" onclick="closeModal()" style="margin-top:16px">Close</button></div>';
+      document.getElementById('modalBody').innerHTML = '<div class="form-success"><i class="fas fa-check-circle"></i><h3>Thank You for Your Application!</h3><p>Your application has been submitted successfully.</p><p style="font-size:0.88rem;color:var(--text-light);margin-top:8px">Our recruitment team will review your information and reach out if your profile is shortlisted. We appreciate the time you\'ve taken to apply and look forward to learning more about you.</p><p style="font-size:0.85rem;color:var(--text-light);margin-top:10px;padding-top:10px;border-top:1px solid rgba(201,162,39,0.15)">If you have any questions, feel free to <a href="mailto:admin@royalklense.com" style="color:var(--gold-dark);font-weight:600;text-decoration:none">email us</a> or call <a href="tel:+919042324286" style="color:var(--gold-dark);font-weight:600;text-decoration:none">+91 90423 24286</a>.</p><button class="btn btn-primary" onclick="closeModal()" style="margin-top:16px">Close</button></div>';
       showToast('Application submitted!', 'success');
     } else {
       showToast(result.error || 'Something went wrong.', 'error');

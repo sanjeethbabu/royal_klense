@@ -359,7 +359,7 @@ body:not(.rk-leaving):not(.rk-reveal)>*:not(#loader):not(script) {
 
 .loader.exiting .loader-footer {
   opacity: 0;
-  transform: translateY(10px);
+  transform: translate(-50%, 10px);
   transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
@@ -1035,6 +1035,29 @@ body:not(.rk-leaving):not(.rk-reveal)>*:not(#loader):not(script) {
 }
 
 @media (max-width: 480px) {
+  .loader-footer {
+    width: calc(100% - 32px);
+    bottom: 0;
+    flex-direction: column;
+    gap: 4px;
+    padding: 12px 0 calc(12px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .loader-footer-logos {
+    gap: 8px;
+  }
+
+  .loader-footer-logo,
+  .loader-footer-logo--secondary {
+    height: clamp(36px, 12vw, 48px);
+    max-width: 38vw;
+  }
+
+  .loader-footer-text {
+    font-size: 0.5rem;
+    letter-spacing: 1px;
+  }
+
   .loader-brand-name {
     font-size: 1.3rem;
   }
