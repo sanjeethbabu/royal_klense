@@ -102,7 +102,7 @@ function sendViaCallMeBot(phone, message) {
 }
 
 function getWaMeLink(data) {
-  const phone = process.env.WHATSAPP_PHONE || '916369311595';
+  const phone = process.env.WHATSAPP_PHONE || '919042324286';
   const lines = [
     `New ${data.type === 'quote' ? 'Quote Request' : 'Enquiry'} - Royal Klense`,
     `Name: ${data.name}`,
