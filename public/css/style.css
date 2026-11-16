@@ -867,14 +867,6 @@ body:not(.rk-leaving):not(.rk-reveal)>*:not(#loader):not(script) {
   gap: 10px;
 }
 
-.loader-footer-separator {
-  font-size: 1.15rem;
-  line-height: 1;
-  color: rgba(136, 136, 136, 0.9);
-  font-weight: 400;
-  transform: translateY(-1px);
-}
-
 .loader-footer-text {
   font-family: var(--font-body);
   font-size: 0.55rem;
@@ -891,11 +883,6 @@ body:not(.rk-leaving):not(.rk-reveal)>*:not(#loader):not(script) {
   width: auto;
   opacity: 0.8;
   object-fit: contain;
-}
-
-.loader-footer-logo--secondary {
-  height: 58px;
-  width: auto;
 }
 
 .star {
@@ -1047,8 +1034,7 @@ body:not(.rk-leaving):not(.rk-reveal)>*:not(#loader):not(script) {
     gap: 8px;
   }
 
-  .loader-footer-logo,
-  .loader-footer-logo--secondary {
+  .loader-footer-logo {
     height: clamp(36px, 12vw, 48px);
     max-width: 38vw;
   }
